@@ -1,0 +1,131 @@
+import React, { Component, Fragment } from 'react';
+import { connect } from "react-redux";
+import { FormattedMessage } from 'react-intl';
+import './AllCodesTableComponent.scss';
+import * as actions from "../../../../store/actions";
+import CustomScrollbars from '../../../../components/CustomScrollbars';
+import EditCodeModel from './EditCodeModel';
+
+class AllCodesTableComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            allCodes: [],
+            selectedItem: {},
+            isModalOpened: false
+        };
+    }
+
+    componentDidMount() {
+        this.props.fetchAllCodes();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.lang !== this.props.lang) {
+
+        }
+        if (prevProps.allCodesArr !== this.props.allCodesArr) {
+            this.setState({
+                allCodes: this.props.allCodesArr
+            })
+        }
+    }
+
+    renderAllCodesTableData() {
+        let { allCodes } = this.state
+        return (
+            <>
+                {allCodes && allCodes.length > 0 &&
+                    allCodes.map((item, index) => {
+                        return (
+                            <Fragment>
+                                <tr key={index}>
+                                    <td>{item.id}</td>
+                                    <td>{item.type}</td>
+                                    <td>{item.keyMap}</td>
+                                    <td>{item.valueVI}</td>
+                                    <td>{item.valueEN}</td>
+                                    <td>
+                                        <button className='btn-edit'
+                                            onClick={() => this.handleEdit(item)} > <i className="fas fa-pencil-alt"></i></button>
+                                        <button className='btn-delete'
+                                            onClick={() => this.handleDelete(item)}><i className="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </Fragment >
+                        )
+                    })
+
+                }
+            </>
+        )
+    }
+
+    handleDelete = (item) => {
+        this.props.deleteCode(item.id);
+    }
+
+    handleEdit = (item) => {
+        this.setState({
+            selectedItem: item,
+            isModalOpened: true
+        })
+    }
+    handleCloseEditModel = () => {
+        this.setState({
+            isModalOpened: false
+        })
+    }
+
+    render() {
+        let { isModalOpened, selectedItem } = this.state
+        return (
+            <Fragment>
+                <CustomScrollbars style={{ height: '768px' }}>
+                    <div className='manage-all-codes-table'>
+                        <table className='all-codes-table'>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>KeyMap</th>
+                                    <th>ValueVI</th>
+                                    <th>ValueEN</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {this.renderAllCodesTableData()}
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </CustomScrollbars>
+
+                <EditCodeModel
+                    isModalOpened={isModalOpened}
+                    selectedItem={selectedItem}
+                    closeEditCodeModel={this.handleCloseEditModel} />
+            </Fragment>
+        );
+    }
+}
+
+
+const mapStateToProps = state => {
+    return {
+        lang: state.app.language,
+        allCodesArr: state.admin.allCodesArr
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchAllCodes: () => dispatch(actions.fetchAllCodes()),
+        deleteCode: (inputId) => dispatch(actions.deleteCode(inputId))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllCodesTableComponent);

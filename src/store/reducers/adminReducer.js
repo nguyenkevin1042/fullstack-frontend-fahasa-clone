@@ -3,7 +3,9 @@ import actionTypes from '../actions/actionTypes';
 const initialState = {
     isLoggedIn: false,
     adminInfo: null,
-    signUpResponse: []
+    signUpResponse: [],
+    allCodesArr: [],
+    updateCodeRes: []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -20,6 +22,7 @@ const appReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 adminInfo: null
             }
+
         case actionTypes.CREATE_NEW_USER_SUCCESS:
             state.signUpResponse = action.response
             return {
@@ -30,6 +33,30 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
+
+        case actionTypes.FETCH_ALL_CODE_SUCCESS:
+            state.allCodesArr = action.allCodeData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_CODE_FAIL:
+            state.allCodesArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.UPDATE_CODE_SUCCESS:
+            state.updateCodeRes = action.response
+            return {
+                ...state,
+            }
+        case actionTypes.UPDATE_CODE_FAIL:
+            state.updateCodeRes = action.response
+            return {
+                ...state,
+            }
+
+
         case actionTypes.PROCESS_LOGOUT:
             return {
                 ...state,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './DefaultClass.scss';
+import * as actions from "../store/actions";
 
 class DefaultClass extends Component {
     constructor(props) {
