@@ -1,0 +1,43 @@
+.sign-up-model-container{
+    width: 50%;
+    // height: 100%;
+    
+    .sign-up-model-content{
+        padding: 20px;
+
+        .sign-up-model-header{
+            // margin-bottom: 40px;
+        }
+
+        .sign-up-model-body{
+            .error-message{
+                color: red;
+            }
+        }
+
+        .sign-up-model-footer{
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+
+            button {
+                margin-right: 20px;
+                border-radius: 5px;
+                padding: 0 10px;
+
+                &:hover{
+                    opacity: 0.8;
+                }
+            }
+
+            .btn-sign-up{
+                background-color: #f6f078;
+            }
+
+            .btn-cancel{
+                background-color: #6c757d;
+                color: white;
+            }
+        }
+    }
+}

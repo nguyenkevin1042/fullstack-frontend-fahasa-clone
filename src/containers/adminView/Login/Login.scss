@@ -1,0 +1,73 @@
+.login-form-background{
+    background-color: #c859ff;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .login-form-container{
+        width: 30%;
+        margin: auto;
+        height: 300px;
+
+        .login-form-title{
+            font-weight: 300;
+            color: white; 
+        }
+
+        .login-form-input-field{
+            input{
+                margin: 10px 0;
+                background-color: transparent;
+                color: white;
+                border: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                font-size: 15px;
+
+                &:focus{
+                    box-shadow: none;
+                }
+            }
+
+            input::placeholder{
+                color: white;
+            }
+
+            .error-message{
+                color: red;
+            }
+
+            button.btn-sign-in{
+                width: 100%;
+                padding: 8px 0;
+                margin: 10px 0;
+                font-size: 16px;
+                border: none;
+                border-radius: 5px;
+                background: #f6f078;
+                cursor: pointer;
+            }
+
+            .forgot-password{
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 10px 0;
+            }
+            .sign-up{
+                color: white;
+                font-size: 16px;
+                margin: 10px 0;
+
+                span{
+                    color: yellow;
+                    cursor: pointer;
+                    &:hover{
+                        color: blue;
+                    }
+                }
+            }
+        }
+    }
+}
+
