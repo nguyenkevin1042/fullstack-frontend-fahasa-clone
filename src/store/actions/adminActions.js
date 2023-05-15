@@ -1,7 +1,7 @@
 import actionTypes from './actionTypes';
 import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI,
-    deleteCodeAPI, editCodeAPI
+    deleteCodeAPI, editCodeAPI, getCodeByTypeAPI
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 
@@ -89,7 +89,7 @@ export const fetchAllCodes = () => {
                 dispatch(fetchAllCodesFail());
             }
         } catch (error) {
-            dispatch(createUserFail());
+            dispatch(fetchAllCodesFail());
             console.log("addNewCode Error: ", error)
         }
     }
@@ -101,6 +101,34 @@ export const fetchAllCodesSuccess = (allCode) => ({
 })
 
 export const fetchAllCodesFail = () => ({
+    type: actionTypes.FETCH_ALL_CODE_FAIL
+})
+
+//FETCH ALL CODES BY TYPE
+export const fetchAllCodesByType = (inputType) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getCodeByTypeAPI(inputType);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllCodesByTypeSuccess(res.data));
+            } else {
+                dispatch(fetchAllCodesByTypeFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllCodesByTypeFail());
+            console.log("fetchAllCodesByType Error: ", error)
+        }
+    }
+}
+
+export const fetchAllCodesByTypeSuccess = (allCode) => ({
+    type: actionTypes.FETCH_ALL_CODE_SUCCESS,
+    allCodeData: allCode
+})
+
+export const fetchAllCodesByTypeFail = () => ({
     type: actionTypes.FETCH_ALL_CODE_FAIL
 })
 

@@ -32,9 +32,16 @@ const deleteCodeAPI = (inputId) => {
 const editCodeAPI = (inputData) => {
     return axios.put("/api/edit-code", inputData);
 }
+const getCodeByTypeAPI = (inputType) => {
+    return axios.get("/api/get-code-by-type", {
+        params: {
+            type: inputType
+        }
+    });
+}
 
 
 export {
     createNewUserAPI, loginAPI,
-    addNewCodeAPI, getAllCodesAPI, deleteCodeAPI, editCodeAPI
+    addNewCodeAPI, getAllCodesAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI
 };
