@@ -1,0 +1,95 @@
+.home-header-container{
+    background-color: white;
+    display: flex;
+    padding: 20px;
+
+    .home-header-logo{
+        background: url('./../../../assets/fahasa_logo.png') no-repeat center center;
+        width: 20%;
+        height: 36px;
+    }
+
+    .home-header-menu{
+        width: 5%;
+
+        .home-header-menu-toggle{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            .home-header-menu-toggle-icon{
+                background: url('./../../../assets/ico_menu.svg') no-repeat center center;
+                width: 36px;
+                height: 36px;
+                margin-right: 5px;
+            }
+           
+        }
+    }
+
+    .home-header-search-bar{
+        display: flex;
+        margin-left: 10px;
+        position: relative;
+        width: 40%;
+
+        input{
+            height: 40px;
+            position: relative;
+            border-radius: 8px;
+            
+            &:focus{
+                box-shadow: none;
+            }
+        }
+
+        button{
+            background-color: #C92127;
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            display: block;
+            color: white;
+            border: none;
+            width: 72px;
+            height: 32px;
+            border-radius: 8px;
+        }
+    }
+
+    .home-header-user-options{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 5px;
+        width: 30%;
+        border: 1px solid red;
+
+        .option{
+            display: grid;
+            // align-items: center;
+            // justify-items: center;
+            position: relative;
+            // padding: 0 10px;
+            cursor: pointer;
+            // width: 25%;
+
+            .fa{
+                text-align: center;
+            }
+
+            p{
+                color: #7A7E7F;
+                font-size: 16px;
+            }
+        }
+
+        .user-options-change-language{
+            width: 30%;
+        }
+
+        
+    }
+    
+}

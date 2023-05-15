@@ -1,32 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/adminView/System/UserManage';
 import ManageAllCodes from '../containers/adminView/System/ManageAllCodes/ManageAllCodes';
 import ManageCategory from '../containers/adminView/System/ManageCategory/ManageCategory';
+import Header from '../containers/adminView/Header/Header';
 
 class System extends Component {
     render() {
         const { systemMenuPath } = this.props;
         return (
-            <div className="system-container">
-                <div className="system-list">
-                    <Switch>
+            <Fragment>
+                {this.props.isLoggedIn && <Header />}
+                <div className="system-container">
+                    <div className="system-list">
+                        <Switch>
+                            <Route path="/system/user-manage" component={UserManage} />
+                            <Route path="/system/manage-all-codes" component={ManageAllCodes} />
+                            <Route path="/system/manage-category" component={ManageCategory} />
 
-                        <Route path="/system/user-manage" component={UserManage} />
-                        <Route path="/system/manage-all-codes" component={ManageAllCodes} />
-                        <Route path="/system/manage-category" component={ManageCategory} />
-
-                        <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
-                    </Switch>
+                            <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
+                        </Switch>
+                    </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
+        isLoggedIn: state.user.isLoggedIn,
         systemMenuPath: state.app.systemMenuPath
     };
 };
