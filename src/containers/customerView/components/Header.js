@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import './Header.scss';
 import * as actions from "../../../store/actions";
 import Select from 'react-select';
-import ReactLanguageSelect from 'react-languages-select';
 
 class Header extends Component {
     constructor(props) {

@@ -1,0 +1,74 @@
+.quick-access-container{
+    // height: 300px;
+    padding: 0 30px;
+
+    .quick-access-content{
+        .quick-access-menu{
+            background-color: white;
+            padding: 20px 0;
+            display: flex;
+
+            .quick-access-item{
+                width: 10%;
+                height: 100%;
+                display: grid;
+                position: relative;
+
+                .item-image{
+                    margin: auto;
+
+                    .share-item{
+                        width: 45px;
+                        height: 45px;
+                        cursor: pointer;
+                    }
+
+                    .flash-sale{
+                        background: url('./../../../assets/quickaccess/flashsale.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .sale-code{
+                        background: url('./../../../assets/quickaccess/magiamgia.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .trending{
+                        background: url('./../../../assets/quickaccess/trending.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .new-product{
+                        background: url('./../../../assets/quickaccess/sanphammoi.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .tuesday-sale{
+                        background: url('./../../../assets/quickaccess/salethu3.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .literature{
+                        background: url('./../../../assets/quickaccess/vanhoc.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .mentality-skills{
+                        background: url('./../../../assets/quickaccess/tamlykinang.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .manga-comic{
+                        background: url('./../../../assets/quickaccess/mangacomic.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .old-book{
+                        background: url('./../../../assets/quickaccess/phiencholsachcu.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                    .economic{
+                        background: url('./../../../assets/quickaccess/kinhte.png') no-repeat center center;     
+                        background-size: contain;
+                    }
+                }
+                .item-text{
+                    text-align: center;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}

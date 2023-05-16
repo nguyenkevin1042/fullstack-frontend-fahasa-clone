@@ -1,6 +1,5 @@
 .banner-container{
     padding: 20px 30px;
-    height: 100%;
 
     .banner-border {
         border-radius: 8px;
@@ -14,7 +13,6 @@
 
         .banner-content-up-left{
             width: 840px;
-            border: 1px solid red;
             margin-right: 20px;
             
             .banner-content-up-left-1{
@@ -68,7 +66,6 @@
 
     .banner-content-down{
         display: flex;
-        height: 100%;
         
         .banner-content-down-1{
             background: url('./../../../assets/banner/Fahasa_salethu3_w2_coupon_Smallbanner_310x210.png') no-repeat center center;
@@ -95,42 +92,38 @@
         }
     }
 
-    //Select slick
+    // Select slick
     .slick-prev{     
         left: -20px !important;
         width: 44px !important;
         height: 48px !important;
         z-index: 1 !important;
-        background: #fff !important;
-        border: 2px solid #d7d7d7 !important;
-        opacity: 0.75;
+        opacity: 1;
 
-        &:hover{
-            background: #d7d7d7 !important;
+        &:hover:before{
+            font-size: 35px !important;
         }
     }
 
     .slick-next{
-        right: -10px !important;
+        right: -20px !important;
         width: 44px !important;
         height: 48px !important;
         z-index: 1 !important;
-        background: #fff !important;
-        border: 2px solid #d7d7d7 !important;
-        opacity: 0.75;
+        opacity: 1;
 
-        &:hover{
-            background: #d7d7d7 !important;
+        &:hover:before{
+            font-size: 35px !important;
         }
     }
 
     .slick-prev:before, .slick-next:before{
-        // background: url('./../../../assets/ico_arrow_gray.svg') no-repeat center center !important;
-        // font-family: 'FontAwesome' !important;
-        // color: red !important;
+        color: rgb(148, 141, 141) !important;
+        font-size: 25px !important;
     }
 
     .slick-disabled{
         display: none !important;
     }
+
 }

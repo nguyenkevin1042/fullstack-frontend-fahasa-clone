@@ -4,7 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import './Homepage.scss';
 import * as actions from "../../../store/actions";
 import Header from '../components/Header';
-import Banner from '../components/Banner';
+import Banner from '../Homepage/Banner';
+import QuickAccess from './QuickAccess';
+import CustomScrollbars from '../../../components/CustomScrollbars';
 
 class Homepage extends Component {
     constructor(props) {
@@ -32,6 +34,7 @@ class Homepage extends Component {
             <React.Fragment>
                 <Header />
                 <Banner />
+                <QuickAccess />
             </React.Fragment >
 
         );
