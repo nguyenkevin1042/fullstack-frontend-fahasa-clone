@@ -7,6 +7,8 @@ import Header from '../components/Header';
 import Banner from '../Homepage/Banner';
 import QuickAccess from './QuickAccess';
 import CustomScrollbars from '../../../components/CustomScrollbars';
+import Footer from '../components/Footer';
+import SignUpNewletter from './SignUpNewletter';
 
 class Homepage extends Component {
     constructor(props) {
@@ -35,6 +37,8 @@ class Homepage extends Component {
                 <Header />
                 <Banner />
                 <QuickAccess />
+                <SignUpNewletter />
+                <Footer />
             </React.Fragment >
 
         );

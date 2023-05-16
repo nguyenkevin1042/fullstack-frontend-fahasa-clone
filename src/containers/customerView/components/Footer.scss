@@ -1,0 +1,206 @@
+.footer-container{
+    height: 670px;
+    margin-bottom: 130px;
+    padding: 0 30px;
+    
+
+    .footer-content{
+        background-color: white;
+
+        .footer-information{
+            padding-top: 40px;
+            height: 100%;
+            display: flex;
+
+            .left{
+                border-right: 1px solid #cecece;
+                height: fit-content;
+                padding-left: 30px;
+
+                .logo{
+                    background: url('./../../../assets/logo.png') no-repeat center center;
+                    width: 301px;
+                    height: 49px;
+                }
+
+                .address{
+                    margin-top: 20px;
+                }
+
+                .more-details{
+
+                }
+
+                .social-list{
+                        display: flex;
+                        margin-top: 50px;
+                        margin-bottom: 20px;
+
+                        .icon{
+                            width: 40px;
+                            height: 40px;
+                            cursor: pointer;
+                        }
+
+                        .facebook{
+                            background: url('../../../assets/Facebook-on.png') center center no-repeat;
+                        }
+                        .instagram{
+                            background: url('../../../assets/Insta-on.png') center center no-repeat;
+                        }
+                        .youtube{
+                            background: url('../../../assets/Youtube-on.png') center center no-repeat;
+                        }
+                        .tumblr{
+                            background: url('../../../assets/tumblr-on.png') center center no-repeat;
+                        }
+                        .twitter{
+                            background: url('../../../assets/twitter-on.png') center center no-repeat;
+                        }
+                        .pinterest{
+                            background: url('../../../assets/pinterest-on.png') center center no-repeat;
+                        }     
+                }
+
+                .download{
+                    display: flex;
+                    .android{
+                        background: url('../../../assets/android1.png') center center no-repeat;
+                        background-size: contain;
+                        height: 36px;
+                        width: 110px;
+                        margin-right: 20px;
+                    }
+                    .ios{
+                        background: url('../../../assets/appstore1.png') center center no-repeat;
+                        background-size: contain;
+                        height: 36px;
+                        width: 110px;
+                    }
+                }
+            }
+
+            .right{
+                height: fit-content;
+
+                .footer-option{                                    
+                    .footer-option-items{
+                       .child-item{
+                            margin-top: 10px;
+                            cursor: pointer;
+
+                            &:hover{
+                                background-position: 0px -40px;
+                                padding-left: 15px;
+                                color: #ea7696;                            }
+                       }
+                    }
+                }
+
+                .contact-infor {
+                    height: fit-content;
+                    
+                    .contact-infor-content{
+                        margin-top: 10px;
+
+                        span{
+                            margin-left: 10px;
+                        }
+                    }
+                }
+
+                .payments-method{
+                    display: grid;
+                    margin-top: 20px;
+
+                    .payments-up{
+                        display: grid;
+                        grid-template-columns: repeat(4,1fr);                 
+                    }
+
+                    .payments-down{
+                        display: grid;
+                        grid-template-columns: repeat(5,1fr);
+                    }
+
+
+                    .payment-icon{
+                        width: 150px;
+                        height: 100px; 
+                        
+                        .payment-1{
+                            background: url('./../../../assets/payments/vnpost.png') no-repeat center center;
+                            background-size: contain;
+                            margin-top: 10px;
+                            height: 70px;
+                        }
+
+                        .payment-2{
+                            background: url('./../../../assets/payments/ahamove_logo3.png') no-repeat center center;
+                            background-size: contain;
+                            height: 100px;
+                        }
+                        .payment-3{
+                            background: url('./../../../assets/payments/icon_giao_hang_nhanh1.png') no-repeat center center;
+                            background-size: contain;
+                            height: 100px; 
+                        }
+                        .payment-4{
+                            background: url('./../../../assets/payments/icon_snappy1.png') no-repeat center center;
+                            background-size: contain;
+                            height: 100px;
+                        }
+                        .payment-5{
+                            background: url('./../../../assets/payments/vnpay_logo.png') no-repeat center center;
+                            background-size: contain;
+                            height: 100px;
+                        }
+                        .payment-6{
+                            background: url('./../../../assets/payments/ZaloPay-logo-130x83.png') no-repeat center center;
+                            background-size: contain; 
+                            height: 100px; 
+                        }
+                        .payment-7{
+                            background: url('./../../../assets/payments/momopay.png') no-repeat center center;
+                            background-size: contain; 
+                            margin-top: 20px;
+                            height: 50px; 
+                        }
+                        .payment-8{
+                            background: url('./../../../assets/payments/shopeepay_logo1.png') no-repeat center center;
+                            background-size: contain; 
+                            margin-top: 20px;
+                            height: 50px; 
+                        }
+                        .payment-9{
+                            background: url('./../../../assets/payments/logo_moca_120.jpg') no-repeat center center;
+                            background-size: contain; 
+                            height: 80px; 
+                        }
+                    }
+                }
+            }
+
+            .footer-titles{
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+        }
+        
+        .footer-copyright{
+            margin: auto;
+            margin-top: 20px;
+            padding-bottom: 20px;
+
+            p{
+                text-align: center;
+                color:#adadad;
+
+                a{
+                text-decoration: none;
+                }
+            }
+            
+        }
+    }
+}

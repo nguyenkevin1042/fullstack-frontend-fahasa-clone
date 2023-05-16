@@ -48,28 +48,28 @@ class Header extends Component {
                 <div className='home-header-menu'>
                     <div className='home-header-menu-toggle'>
                         <div className='home-header-menu-toggle-icon'></div>
-                        <i class="fa fa-angle-down"></i>
+                        <i className="fa fa-angle-down"></i>
                     </div>
                 </div >
 
                 <div className='home-header-search-bar'>
                     <input type='text' className='form-control search-bar' />
-                    <button><i class="fa fa-search"></i></button>
+                    <button><i className="fa fa-search"></i></button>
                 </div >
 
                 <div className='home-header-user-options'>
                     <div className='user-options-notifications option'>
-                        <i class="fa fa-bell"></i>
+                        <i className="fa fa-bell"></i>
                         <p>Notifications</p>
                     </div>
 
                     <div className='user-options-cart option'>
-                        <i class="fa fa-shopping-cart"></i>
+                        <i className="fa fa-shopping-cart"></i>
                         <p>My cart</p>
                     </div>
 
                     <div className='user-options-information option'>
-                        <i class="fa fa-user"></i>
+                        <i className="fa fa-user"></i>
                         <p>Account</p>
                     </div>
 
