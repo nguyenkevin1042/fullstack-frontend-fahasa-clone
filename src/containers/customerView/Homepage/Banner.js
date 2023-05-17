@@ -53,11 +53,24 @@ class Banner extends Component {
 
     render() {
         let settings = {
-            dots: false,
+            dots: true,
+            // autoplay: true,
+            // autoplaySpeed: 5000,
             infinite: true,
-            speed: 500,
+            // speed: 500,
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            appendDots: dots => (
+                <div
+                    style={{
+                        position: "absolute",
+                        bottom: "10px"
+                    }}
+                >
+                    <ul style={{ margin: "0px" }}> {dots} </ul>
+                </div>
+            ),
+
         };
 
         return (

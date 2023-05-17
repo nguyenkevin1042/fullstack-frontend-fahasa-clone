@@ -126,4 +126,30 @@
         display: none !important;
     }
 
+    .slick-dots li {
+        pointer-events: none;
+        margin: 0;
+    }
+
+    .slick-dots{
+
+        button:before{
+            opacity: 1 !important;
+            background-color: white !important;
+            width: 10px;
+            height: 10px;
+            border-radius: 20px;
+            content: '';
+        }
+    }
+
+    .slick-active{
+        
+        button:before{
+            opacity: 1 !important;
+            background-color: #C92127 !important;
+
+        }
+    }
+
 }

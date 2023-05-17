@@ -9,6 +9,7 @@ import QuickAccess from './QuickAccess';
 import CustomScrollbars from '../../../components/CustomScrollbars';
 import Footer from '../components/Footer';
 import SignUpNewletter from './SignUpNewletter';
+import ProductCategory from './ProductCategory';
 
 class Homepage extends Component {
     constructor(props) {
@@ -37,6 +38,8 @@ class Homepage extends Component {
                 <Header />
                 <Banner />
                 <QuickAccess />
+                {/* <FlasshSale/> */}
+                <ProductCategory />
                 <SignUpNewletter />
                 <Footer />
             </React.Fragment >

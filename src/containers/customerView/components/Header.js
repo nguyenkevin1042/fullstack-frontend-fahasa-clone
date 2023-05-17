@@ -4,14 +4,32 @@ import { FormattedMessage } from 'react-intl';
 import './Header.scss';
 import * as actions from "../../../store/actions";
 import Select from 'react-select';
+import viFlag from '../../../assets/vietnamese.svg';
+import enFlag from '../../../assets/english.svg';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
             listLanguage: [
-                { value: 'vi', label: 'VI' },
-                { value: 'en', label: 'EN' }
+                {
+                    value: 'vi', label: (
+                        <>
+                            <img src={viFlag}
+                                className='language-icon'
+                                alt="Vietnamese Logo" /> VI
+                        </>
+                    )
+                },
+                {
+                    value: 'en', label: (
+                        <>
+                            <img src={enFlag}
+                                className='language-icon'
+                                alt="English Logo" /> EN
+                        </>
+                    )
+                }
             ],
             selectedLanguage: 'vi'
         };
@@ -48,6 +66,7 @@ class Header extends Component {
                 <div className='home-header-menu'>
                     <div className='home-header-menu-toggle'>
                         <div className='home-header-menu-toggle-icon'></div>
+
                         <i className="fa fa-angle-down"></i>
                     </div>
                 </div >
@@ -78,7 +97,6 @@ class Header extends Component {
                             value={selectedLanguage}
                             onChange={this.handleChange}
                             options={listLanguage}
-                            defaultValue={{ value: 'vi', label: 'VI' }}
                             name="selectedLanguage" />
                     </div>
                 </div >

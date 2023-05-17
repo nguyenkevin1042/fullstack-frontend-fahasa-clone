@@ -29,11 +29,11 @@ class SignUpNewletter extends Component {
         return (
             <div className='sign-up-newletter-container'>
                 <div className='sign-up-newletter-content row'>
-                    <div className='col-md-5 sign-up-newletter-title'>
+                    <div className='col-md-4 sign-up-newletter-title'>
                         <i className="fa fa-envelope"></i>
                         <span>Sign up for newletter</span>
                     </div>
-                    <div className='col-md-7 sign-up-newletter-input'>
+                    <div className='col-md-8 sign-up-newletter-input'>
                         <input className='form-control' placeholder='Nhập địa chỉ email của bạn' />
                         <button>Subcribe</button>
                     </div>
