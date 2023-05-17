@@ -32,12 +32,12 @@
         display: flex;
         margin-left: 10px;
         position: relative;
-        width: 580px;
 
         input{
             height: 40px;
             position: relative;
             border-radius: 8px;
+            width: 580px;
             
             &:focus{
                 box-shadow: none;
@@ -60,15 +60,13 @@
 
     .home-header-user-options{
         display: flex;
-        margin-left: 10px;
-        width: 30%;
 
         .option{
             height: fit-content;
             display: grid;
             align-items: center;
             cursor: pointer;
-            margin-left: 15px;
+            margin-left: 5px;
 
             .fa{
                 text-align: center;
@@ -77,13 +75,13 @@
 
             p{
                 color: #7A7E7F;
-                font-size: 16px;
+                font-size: 13px;
                 text-align: center;
             }
         }
 
         .user-options-change-language{
-            width: 90px;
+            width: 100px;
 
             .language-icon{
                 width: 37px;

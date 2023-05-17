@@ -1,4 +1,13 @@
 {
+    "customer": {
+        "homepage": {
+            "header": {
+                "notifications": "Thông báo",
+                "cart": "Giỏ hàng",
+                "account": "Tài khoản"
+            }
+        }
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",

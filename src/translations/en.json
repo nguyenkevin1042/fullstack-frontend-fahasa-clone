@@ -1,4 +1,13 @@
 {
+    "customer": {
+        "homepage": {
+            "header": {
+                "notifications": "Notifications",
+                "cart": "My cart",
+                "account": "Account"
+            }
+        }
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",
