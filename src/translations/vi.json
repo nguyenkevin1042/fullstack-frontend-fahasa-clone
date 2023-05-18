@@ -5,6 +5,25 @@
                 "notifications": "Thông báo",
                 "cart": "Giỏ hàng",
                 "account": "Tài khoản"
+            },
+            "quick-access": {
+                "flash-sale": "Flash Sale",
+                "discount-code": "Mã Giảm Giá",
+                "trending": "Xu Hướng",
+                "new-product": "Sản Phẩm Mới",
+                "tuesday-sale": "Sale Thứ 3",
+                "literature": "Văn Học",
+                "mentality": "Tâm Lý",
+                "skills": "Kĩ Năng",
+                "manga": "Manga -",
+                "comic": "Comic",
+                "secondhand-book-fair": "Phiên Chợ Sách Cũ",
+                "economic": "Kinh Tế"
+            },
+            "newletter": {
+                "title": "Đăng ký nhận bản tin",
+                "input-email": "nhập địa chỉ email của bạn",
+                "subcribe": "Đăng ký"
             }
         }
     },

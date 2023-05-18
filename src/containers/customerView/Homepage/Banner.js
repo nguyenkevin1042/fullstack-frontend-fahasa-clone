@@ -54,10 +54,10 @@ class Banner extends Component {
     render() {
         let settings = {
             dots: true,
-            // autoplay: true,
-            // autoplaySpeed: 5000,
+            autoplay: true,
+            autoplaySpeed: 5000,
             infinite: true,
-            // speed: 500,
+            speed: 500,
             slidesToShow: 1,
             slidesToScroll: 1,
             appendDots: dots => (
@@ -74,48 +74,53 @@ class Banner extends Component {
         };
 
         return (
-            <div className='banner-container'>
-                <div className='banner-content-up'>
-                    <div className='banner-content-up-left'>
-                        <Slider {...settings}>
-                            <div className='banner-content-up-left-1 banner-border'></div>
-                            <div className='banner-content-up-left-2 banner-border'></div>
-                            <div className='banner-content-up-left-3 banner-border'></div>
-                            <div className='banner-content-up-left-4 banner-border'></div>
-                            <div className='banner-content-up-left-5 banner-border'></div>
-                            <div className='banner-content-up-left-6 banner-border'></div>
-                        </Slider>
-                    </div>
-                    <div className='banner-content-up-right'>
-                        <div className='up banner-border'>
+            <>
+                <div className='banner-container'>
+                    <div className='row'>
 
-                        </div>
-                        <div className='down banner-border'>
+                        <div className='banner-content-up col-lg-12'>
+                            <div className='banner-content-up-left'>
+                                <Slider {...settings}>
+                                    <div className='banner-content-up-left-1 banner-border'></div>
+                                    <div className='banner-content-up-left-2 banner-border'></div>
+                                    <div className='banner-content-up-left-3 banner-border'></div>
+                                    <div className='banner-content-up-left-4 banner-border'></div>
+                                    <div className='banner-content-up-left-5 banner-border'></div>
+                                    <div className='banner-content-up-left-6 banner-border'></div>
+                                </Slider>
+                            </div>
+                            <div className='banner-content-up-right'>
+                                <div className='up banner-border'>
 
-                        </div>
-                    </div>
-                </div>
+                                </div>
+                                <div className='down banner-border'>
 
-                <div className='banner-content-down'>
-                    <div className='banner-content-down-1 banner-border'>
+                                </div>
+                            </div>
+                        </div>{/*End .banner-content-up*/}
 
-                    </div>
+                        <div className='banner-content-down'>
+                            <div className='banner-content-down-1 banner-border'>
 
-                    <div className='banner-content-down-2 banner-border'>
+                            </div>
 
-                    </div>
+                            <div className='banner-content-down-2 banner-border'>
 
-                    <div className='banner-content-down-3 banner-border'>
+                            </div>
 
-                    </div>
+                            <div className='banner-content-down-3 banner-border'>
 
-                    <div className='banner-content-down-4 banner-border'>
+                            </div>
 
-                    </div>
+                            <div className='banner-content-down-4 banner-border'>
+
+                            </div>
 
 
-                </div>
-            </div>
+                        </div>{/*End .banner-content-down*/}
+                    </div> {/*End .row*/}
+                </div> {/*End .banner-container*/}
+            </>
         );
     }
 }

@@ -1,11 +1,51 @@
+$ex-small: 500px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
 .footer-container{
-    height: 670px;
-    margin-bottom: 130px;
-    padding: 0 30px;
-    
+    height: fit-content;
+    // margin-bottom: 140px;
+    padding: 0 60px;
+
+    // @media(max-width: $ex-small) {
+        // padding: 0; 
+        // margin-bottom: -5px;
+        // border: 1px solid red;
+    // }
+    @media (min-width: $ex-small) and (max-width: $small){
+        padding: 0; 
+        margin-bottom: 0px;
+        border: 1px solid red;
+    }
+    // @media (min-width: $small) and (max-width: $medium){
+    //     padding: 0; 
+    //     margin-bottom: 140px;
+    // }
+    // @media (min-width: $medium) and (max-width: $large){
+    //     padding: 0; 
+    //     margin-bottom: 140px;
+    // }
+    // @media (min-width: $ex-large) {
+    //     margin-bottom: 70px;
+    //     padding: 0 60px;
+    // }
+    // @media (min-width: $small) and (max-width: $medium){
+    //     margin-bottom: 150px;
+    //     border: 1px solid red;
+    // }
+    // @media (min-width: $medium){
+    //     border: 1px solid yellow;
+    // }
+
 
     .footer-content{
         background-color: white;
+
+        @media (max-width: $small) {
+            padding-right: 5px;
+        }
 
         .footer-information{
             padding-top: 40px;
@@ -13,12 +53,16 @@
             display: flex;
 
             .left{
+                @media (max-width: $medium) {
+                    border: none; 
+                }
                 border-right: 1px solid #cecece;
                 height: fit-content;
                 padding-left: 30px;
 
                 .logo{
                     background: url('./../../../assets/logo.png') no-repeat center center;
+                    background-size: contain;
                     width: 301px;
                     height: 49px;
                 }
@@ -81,9 +125,27 @@
             }
 
             .right{
-                height: fit-content;
+                // @media (min-width: $medium) {
+                //     margin-left: 100xp;
+                // }
+                // @media (max-width: $medium) {
+                //     margin-top: 10px;
+                //     border: 1px solid red;
+                // }
+                @media (min-width: $small) and (max-width: $medium){
+                    margin-top: 20px;
+                }
 
-                .footer-option{                                    
+                .footer-option{   
+                     
+                    @media (max-width: $small) {
+                        padding-left: 30px;
+                        padding-top: 20px;
+                    }
+                    @media (min-width: $small) and (max-width: $medium){
+                        padding-left: 30px;
+                    }
+
                     .footer-option-items{
                        .child-item{
                             margin-top: 10px;
@@ -99,13 +161,39 @@
 
                 .contact-infor {
                     height: fit-content;
+                    // padding: 0;
+                    @media (max-width: $small) {
+                        margin-left: 15px;
+                        margin-top: 30px;
+                    }
+                    @media (min-width: $small) and (max-width: $medium){
+                        margin-left: 15px;
+                        margin-top: 10px;
+                    }
+
+                    
+
+                    .contact-infor-title{
+                        text-transform: uppercase;
+                        font-weight: 600;
+                    }
                     
                     .contact-infor-content{
                         margin-top: 10px;
+                        padding: 0;
+                        margin: 0;
+                        
+                        .contact-infor-item{
+                            padding: 0;
 
-                        span{
-                            margin-left: 10px;
+                            i{
+                                padding: 0;
+                            }
+                            span{
+                                margin-left: 10px
+                            }
                         }
+                       
                     }
                 }
 
@@ -184,6 +272,7 @@
             .footer-titles{
                 text-transform: uppercase;
                 font-weight: 600;
+                padding: 0;
             }
         }
         

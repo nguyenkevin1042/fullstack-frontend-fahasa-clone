@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './SignUpNewletter.scss';
+import { languages } from '../../../utils'
 // import * as actions from "../store/actions";
 
 class SignUpNewletter extends Component {
@@ -26,16 +27,21 @@ class SignUpNewletter extends Component {
 
 
     render() {
+        let language = this.props.lang;
         return (
             <div className='sign-up-newletter-container'>
                 <div className='sign-up-newletter-content row'>
-                    <div className='col-md-4 sign-up-newletter-title'>
+                    <div className='sign-up-newletter-title col-md-12 col-lg-6 col-xl-4'>
                         <i className="fa fa-envelope"></i>
-                        <span>Sign up for newletter</span>
+                        <span><FormattedMessage id="customer.homepage.newletter.title" /></span>
                     </div>
-                    <div className='col-md-8 sign-up-newletter-input'>
-                        <input className='form-control' placeholder='Nhập địa chỉ email của bạn' />
-                        <button>Subcribe</button>
+                    <div className='sign-up-newletter-input col-md-6 col-lg-6 col-xl-8'>
+                        <input className='form-control' placeholder={
+                            language === languages.VI ?
+                                "Nhập địa chỉ email của bạn" :
+                                "Type your email"
+                        } />
+                        <button><FormattedMessage id="customer.homepage.newletter.subcribe" /></button>
                     </div>
                 </div>
             </div>

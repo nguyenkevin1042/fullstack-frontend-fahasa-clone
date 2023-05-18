@@ -28,85 +28,89 @@ class QuickAccess extends Component {
         return (
             <div className='quick-access-container'>
                 <div className='quick-access-content'>
-                    <div className='quick-access-menu'>
-                        <div className='quick-access-item'>
-                            <div className='item-image'>
+                    <div className='quick-access-menu row'>
+                        <div className='quick-access-item col-2 col-md-1'>
+                            <div className='item-image img-fluid'>
                                 <div className='flash-sale share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Flash Sale
+                                <FormattedMessage id="customer.homepage.quick-access.flash-sale" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='sale-code share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Mã giảm giá
+                                <FormattedMessage id="customer.homepage.quick-access.discount-code" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='trending share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Xu hướng
+                                <FormattedMessage id="customer.homepage.quick-access.trending" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='new-product share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Sản phẩm mới
+                                <FormattedMessage id="customer.homepage.quick-access.new-product" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='tuesday-sale share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Sale thứ 3
+                                <FormattedMessage id="customer.homepage.quick-access.tuesday-sale" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='literature share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Văn học
+                                <FormattedMessage id="customer.homepage.quick-access.literature" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='mentality-skills share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Tâm lý<br />Kỹ năng
+                                <FormattedMessage id="customer.homepage.quick-access.mentality" />
+                                <br />
+                                <FormattedMessage id="customer.homepage.quick-access.skills" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='manga-comic share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Manga -<br />Comic
+                                <FormattedMessage id="customer.homepage.quick-access.manga" />
+                                <br />
+                                <FormattedMessage id="customer.homepage.quick-access.comic" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='old-book share-item'></div>
                             </div>
                             <div className='item-text'>
-                                Phiên chợ<br />sách cũ
+                                <FormattedMessage id="customer.homepage.quick-access.secondhand-book-fair" />
                             </div>
                         </div>
-                        <div className='quick-access-item'>
+                        <div className='quick-access-item col-2 col-md-1'>
                             <div className='item-image'>
                                 <div className='economic share-item'></div>
                             </div>
                             <div className='item-text'>
-                                kinh Tế
+                                <FormattedMessage id="customer.homepage.quick-access.economic" />
                             </div>
                         </div>
                     </div>

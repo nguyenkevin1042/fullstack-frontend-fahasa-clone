@@ -30,8 +30,8 @@ class Footer extends Component {
             <div className='footer-container'>
                 <div className='footer-content'>
                     <div className='footer-information row'>
-                        <div className='left col-4'>
-                            <div className='logo'>
+                        <div className='left col-12  col-lg-4'>
+                            <div className='logo img-fluid'>
 
                             </div>
 
@@ -70,70 +70,67 @@ class Footer extends Component {
                             </div>
                         </div>
 
-                        <div className='right col-8'>
+                        <div className='right col-12 col-lg-8'>
                             <div className='row'>
-                                <div className='col-4'>
-                                    <div className='footer-option'>
-                                        <div className='footer-titles'>
-                                            Dịch vụ
-                                        </div>
-                                        <div className='footer-option-items'>
-                                            <p className='child-item'>Điều khoản sử dụng</p>
-                                            <p className='child-item'>Chính sách bảo mật thông tin <br />cá nhân</p>
-                                            <p className='child-item'>Chính sách bảo mật thanh toán</p>
-                                            <p className='child-item'>Giới thiệu Fahasa</p>
-                                            <p className='child-item'>Hệ thống trung tâm - nhà sách</p>
-                                        </div>
+                                <div className='footer-option col-12 col-sm-6  col-lg-4'>
+                                    <div className='footer-titles'>
+                                        Dịch vụ
+                                    </div>
+                                    <div className='footer-option-items'>
+                                        <p className='child-item'>Điều khoản sử dụng</p>
+                                        <p className='child-item'>Chính sách bảo mật thông tin cá nhân</p>
+                                        <p className='child-item'>Chính sách bảo mật thanh toán</p>
+                                        <p className='child-item'>Giới thiệu Fahasa</p>
+                                        <p className='child-item'>Hệ thống trung tâm - nhà sách</p>
                                     </div>
                                 </div>
-                                <div className='col-4'>
-                                    <div className='footer-option'>
-                                        <div className='footer-titles'>
-                                            Hỗ trợ
-                                        </div>
-                                        <div className='footer-option-items'>
-                                            <p className='child-item'>Chính sách đổi - trả - hoàn tiền</p>
-                                            <p className='child-item'>Chính sách bảo hành -<br />bồi hoàn</p>
-                                            <p className='child-item'>Chính sách vận chuyển</p>
-                                            <p className='child-item'>Chính sách khách sỉ</p>
-                                            <p className='child-item'>Phương thức thanh toán và<br />xuất HĐ</p>
-                                        </div>
+                                <div className='footer-option col-12 col-sm-6 col-lg-4'>
+                                    <div className='footer-titles'>
+                                        Hỗ trợ
+                                    </div>
+                                    <div className='footer-option-items'>
+                                        <p className='child-item'>Chính sách đổi - trả - hoàn tiền</p>
+                                        <p className='child-item'>Chính sách bảo hành - bồi hoàn</p>
+                                        <p className='child-item'>Chính sách vận chuyển</p>
+                                        <p className='child-item'>Chính sách khách sỉ</p>
+                                        <p className='child-item'>Phương thức thanh toán và xuất HĐ</p>
                                     </div>
                                 </div>
-                                <div className='col-4'>
-                                    <div className='footer-option'>
-                                        <div className='footer-titles'>
-                                            Tài khoản của tôi
-                                        </div>
-                                        <div className='footer-option-items'>
-                                            <p className='child-item'>Đăng nhập/Tạo mới tài khoản</p>
-                                            <p className='child-item'>Thay đổi địa chỉ khách hàng</p>
-                                            <p className='child-item'>Chi tiết tài khoản</p>
-                                            <p className='child-item'>Lịch sử mua hàng</p>
-                                        </div>
+                                <div className='footer-option col-12 col-sm-6 col-lg-4'>
+                                    <div className='footer-titles'>
+                                        Tài khoản của tôi
+                                    </div>
+                                    <div className='footer-option-items'>
+                                        <p className='child-item'>Đăng nhập/Tạo mới tài khoản</p>
+                                        <p className='child-item'>Thay đổi địa chỉ khách hàng</p>
+                                        <p className='child-item'>Chi tiết tài khoản</p>
+                                        <p className='child-item'>Lịch sử mua hàng</p>
                                     </div>
                                 </div>
                             </div>
 
+
+                            {/* <div className='container'> */}
                             <div className='contact-infor'>
-                                <div className='footer-titles'>Liên hệ</div>
-                                <div className='row contact-infor-content'>
-                                    <div className='col-md-4'>
+                                <div className='contact-infor-title'>Liên hệ</div>
+                                <div className='contact-infor-content row'>
+                                    <div className='contact-infor-item col-12 col-lg-4'>
                                         <i className="fa fa-map-marker"></i>
                                         <span>Dĩ An, Bình Dương</span>
                                     </div>
-                                    <div className='col-md-4'>
+                                    <div className='contact-infor-item col-12 col-lg-4'>
                                         <i className="fa fa-envelope"></i>
                                         <span>nguyenkevin@gmail.com</span>
                                     </div>
-                                    <div className='col-md-4'>
+                                    <div className='contact-infor-item col-12 col-lg-4'>
                                         <i className="fa fa-phone"></i>
                                         <span>0981754134</span>
                                     </div>
                                 </div>
                             </div>
+                            {/* </div> */}
 
-                            <div className='payments-method'>
+                            <div className='payments-method d-none d-md-block d-lg-block'>
                                 <div className='payments-up'>
                                     <div className='payment-icon'>
                                         <div className='payment-1'></div>
@@ -171,11 +168,11 @@ class Footer extends Component {
                         </div>
                     </div>
 
-                    <div className='footer-copyright'>
-                        <p>Click <a href='https://github.com/nguyenkevin1042/fullstack-frontend-fahasa-clone'>here</a> to redirect to frontend source code</p>
-                        <p>Click <a href='https://github.com/nguyenkevin1042/fullstack-backend-fahasa-clone'>here</a> to redirect to backend source code</p>
+                    <div className='footer-copyright row'>
+                        <p className='col-12'>Click <a href='https://github.com/nguyenkevin1042/fullstack-frontend-fahasa-clone'>here</a> to redirect to frontend source code</p>
+                        <p className='col-12'>Click <a href='https://github.com/nguyenkevin1042/fullstack-backend-fahasa-clone'>here</a> to redirect to backend source code</p>
                     </div>
-                </div>
+                </div >
             </div >
         );
     }
