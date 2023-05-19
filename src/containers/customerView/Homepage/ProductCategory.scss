@@ -1,7 +1,22 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
 .product-category-container{ 
     height: fit-content;
     margin-top: 20px;
-    padding: 0 30px;
+
+    @media (max-width: $large) {
+        display: none;
+    }
+    @media (min-width: $large) {
+        padding: 0 30px;
+    }
+    @media (min-width: $ex-large) {
+        padding: 0 60px;
+    }
 
     .product-category-content{
         background-color: white;  
@@ -11,6 +26,9 @@
         .content-title{
             display: flex;
             align-items: center;
+            margin: auto;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #cecece;
 
             .content-title-icon{
                 background: url('./../../../assets/ico_menu_red.svg') no-repeat center center;
@@ -27,12 +45,14 @@
         .context-items{
             display: flex;
             justify-content: space-around;
-            border-top: 1px solid #cecece;
             margin-top: 20px;
-            padding: 20px 0;
 
             .child-item{
+                // width: fit-content;
+                height: fit-content;
                 cursor: pointer;
+                display: grid;
+                justify-content: center;
 
                 &:hover{
                     color: #C92127;

@@ -20,6 +20,20 @@
                 "secondhand-book-fair": "Phiên Chợ Sách Cũ",
                 "economic": "Kinh Tế"
             },
+            "product-category": {
+                "title": "Danh mục sản phẩm",
+                "stationery": "Stationery",
+                "toys": "Đồ Chơi",
+                "romantic-fiction": "Ngôn Tình",
+                "danmei": "Đam Mỹ",
+                "foreign-language-book": "Sách Ngoại Ngữ",
+                "manga": "Manga",
+                "mentality": "Mentality",
+                "skills": "Skills",
+                "manga": "Manga -",
+                "novel": "Tiểu Thuyết",
+                "light-novel": "Light Novel"
+            },
             "newletter": {
                 "title": "Đăng ký nhận bản tin",
                 "input-email": "nhập địa chỉ email của bạn",

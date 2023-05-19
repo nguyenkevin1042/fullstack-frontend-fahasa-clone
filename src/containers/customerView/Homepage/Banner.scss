@@ -1,6 +1,33 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
 .banner-container{
-    border: 1px solid red;
-    padding: 20px 40px;
+    margin-top: 20px;
+    // padding: 20px 40px;
+
+    // @media (max-width: $small) {
+        // padding: 0 30px;
+        // border: 1px solid red;
+    // }
+    @media (max-width: $medium) {
+        // padding: 0 30px;
+        padding: 0;
+        // border: 1px solid red;
+    }
+    // @media (max-width: $medium) {
+        // border: 1px solid red;
+        // padding: 0 30px;
+    // }
+    @media (min-width: $large) {
+        padding: 0 40px;
+    }
+    @media (min-width: $ex-large) {
+        padding: 0 70px;
+        // border: 1px solid red;
+    }
 
     .banner-border {
         border-radius: 8px;
@@ -9,53 +36,77 @@
 
     .banner-content-up{
         display: flex;
+        justify-content: center;
         margin-bottom: 20px;
+        padding: 0;
         
 
         .banner-content-up-left{
-            width: 840px;
-            margin-right: 20px;
+            padding: 0;
+            border: 1px solid red;
+            @media (max-width: $medium) {
+                width: 100%;
+                height: 185px;
+                
+            }
+            @media (min-width: $large) {
+                width: 840px;
+                height: 320px;
+            }
+            .b-c-u-l-item{
+                border: 1px solid red;
+                padding: 0;
+                @media (max-width: $medium) {
+                    width: 400px;
+                    height: 185px;
+                    
+                }
+                @media (min-width: $large) {
+                    width: 840px;
+                    height: 320px;
+                }
+            }
             
             .banner-content-up-left-1{
                 background: url('./../../../assets/banner/Fahasa_salethu3_w2_mainbanner_Slide_840x320.jpg') no-repeat center center;
-                width: 840px;
-                height: 320px;
+                background-size: contain;
             }
             .banner-content-up-left-2{
                 background: url('./../../../assets/banner/Slide_V1_840x320.jpg') no-repeat center center;
-                width: 840px;
-                height: 320px;
+                background-size: contain;
             }
             .banner-content-up-left-3{
                 background: url('./../../../assets/banner/ZaloPayT523_840x320_SlideBanner.jpg') no-repeat center center;
-                width: 840px;
-                height: 320px;
+                background-size: contain;
+
             }
             .banner-content-up-left-4{
                 background: url('./../../../assets/banner/TuSachThieuNhi_T423_Banner_Slide_840x320_1.jpg') no-repeat center center;
-                width: 840px;
-                height: 320px;
+                background-size: contain;
             }
             .banner-content-up-left-5{
                 background: url('./../../../assets/banner/Back2School_T523_mainbanner_840x320.png') no-repeat center center;
-                width: 840px;
-                height: 320px;
+                background-size: contain;
             }
             .banner-content-up-left-6{
                 background: url('./../../../assets/banner/HoaCu_840x320_T523.jpg') no-repeat center center;
-                width: 840px;
-                height: 320px;
+                background-size: contain;
             }
         }
+
         .banner-content-up-right{
-            width: 20%;
-            height: 100%;
+            // padding: 0;
+            // margin: auto;
+            @media (max-width: $medium) {
+                // padding: 0 30px;
+                display: none;
+            }
 
             .up{
                 background: url('./../../../assets/banner/PoticoT5_FAHASA\ 392x156\ .png') no-repeat center center;
                 width: 392px;
                 height: 156px;
-                margin-bottom: 10px;
+                margin-bottom: 5px;
             }
             .down{
                 background: url('./../../../assets/banner/Gift_subbanner_392x156.jpg') no-repeat center center;
@@ -67,6 +118,17 @@
 
     .banner-content-down{
         display: flex;
+        @media (max-width: $medium) {
+            // padding: 0 30px;
+            display: none;
+        }
+        
+        .banner-content-down-item{
+            @media (max-width: $large) {
+                padding: 10px;
+                // border: 1px solid red;
+            }
+        }
         
         .banner-content-down-1{
             background: url('./../../../assets/banner/Fahasa_salethu3_w2_coupon_Smallbanner_310x210.png') no-repeat center center;
@@ -77,14 +139,11 @@
             background: url('./../../../assets/banner/TT_T4_Smallbanenr_310x210.png') no-repeat center center;
             width: 310px;
             height: 210px;
-            margin-left: 5px;
-            margin-right: 5px;
         }
         .banner-content-down-3{
             background: url('./../../../assets/banner/Tamlinh_mainbanner_T5_Smallbanner_310x210_1.png') no-repeat center center;
             width: 310px;
             height: 210px;
-            margin-right: 5px;
         }
         .banner-content-down-4{
             background: url('./../../../assets/banner/TrangDoChoiT523_Banner_SmallBanner_310x210.png') no-repeat center center;

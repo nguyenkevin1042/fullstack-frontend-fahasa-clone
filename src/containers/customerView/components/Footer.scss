@@ -6,45 +6,54 @@ $ex-large: 1200px;// Extra large >= 1200
 
 .footer-container{
     height: fit-content;
-    // margin-bottom: 140px;
-    padding: 0 60px;
 
-    // @media(max-width: $ex-small) {
-        // padding: 0; 
-        // margin-bottom: -5px;
-        // border: 1px solid red;
-    // }
-    @media (min-width: $ex-small) and (max-width: $small){
+    
+    @media (max-width: $ex-small){
         padding: 0; 
-        margin-bottom: 0px;
-        border: 1px solid red;
+        margin-bottom:150px;
+        margin-top: 70px;
     }
-    // @media (min-width: $small) and (max-width: $medium){
-    //     padding: 0; 
-    //     margin-bottom: 140px;
+    @media (min-width: $ex-small){
+        margin-bottom:150px;
+        margin-top: 70px;
+        // padding: 0 30px;
+    }
+    // @media (min-width: $small){
+    //     margin-bottom:150px;
+    //     padding: 0;
+    //     // border: 1px solid red;
     // }
-    // @media (min-width: $medium) and (max-width: $large){
-    //     padding: 0; 
-    //     margin-bottom: 140px;
+    // @media (max-width: $medium){
+    //     margin-bottom:250px;
+    //    padding: 0 25px;
     // }
-    // @media (min-width: $ex-large) {
-    //     margin-bottom: 70px;
-    //     padding: 0 60px;
-    // }
-    // @media (min-width: $small) and (max-width: $medium){
-    //     margin-bottom: 150px;
-    //     border: 1px solid red;
-    // }
-    // @media (min-width: $medium){
-    //     border: 1px solid yellow;
-    // }
+    @media (min-width: $medium) {
+        margin-bottom:150px;
+        margin-top: 0;
+        padding: 0 25px;
+    }
+    @media (min-width: $ex-large){
+        padding: 0 60px;
+        margin-bottom:150px;
+    }
+    
 
 
     .footer-content{
         background-color: white;
 
+        @media (max-width: $ex-small){
+            padding: 0 10px;
+        }
+        @media (min-width: $ex-small){
+            padding: 0 10px;
+        }
         @media (max-width: $small) {
             padding-right: 5px;
+        }
+        @media (min-width: $medium){
+            padding: 0 10px;
+            // border: 1px solid red;
         }
 
         .footer-information{
@@ -56,9 +65,16 @@ $ex-large: 1200px;// Extra large >= 1200
                 @media (max-width: $medium) {
                     border: none; 
                 }
-                border-right: 1px solid #cecece;
+                @media (min-width: $large){
+                    border-right: 1px solid #cecece;
+                    padding-left: 30px;
+                    // padding: 0 60px;
+                    // margin-bottom:240px;
+                    // margin-top: 10px;
+                    // border: 1px solid red;
+                }
+                
                 height: fit-content;
-                padding-left: 30px;
 
                 .logo{
                     background: url('./../../../assets/logo.png') no-repeat center center;
@@ -125,28 +141,22 @@ $ex-large: 1200px;// Extra large >= 1200
             }
 
             .right{
-                // @media (min-width: $medium) {
-                //     margin-left: 100xp;
-                // }
-                // @media (max-width: $medium) {
-                //     margin-top: 10px;
-                //     border: 1px solid red;
-                // }
-                @media (min-width: $small) and (max-width: $medium){
+                @media (max-width: $ex-small){
                     margin-top: 20px;
                 }
+                @media (min-width: $ex-small){
+                    margin-top: 20px;
+                }
+                @media (min-width: $medium){
+                    margin-top: 20px;
+                }
+                
+                
 
                 .footer-option{   
-                     
-                    @media (max-width: $small) {
-                        padding-left: 30px;
-                        padding-top: 20px;
-                    }
-                    @media (min-width: $small) and (max-width: $medium){
-                        padding-left: 30px;
-                    }
-
+                    
                     .footer-option-items{
+                        
                        .child-item{
                             margin-top: 10px;
                             cursor: pointer;
@@ -160,18 +170,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 }
 
                 .contact-infor {
-                    height: fit-content;
-                    // padding: 0;
-                    @media (max-width: $small) {
-                        margin-left: 15px;
-                        margin-top: 30px;
-                    }
-                    @media (min-width: $small) and (max-width: $medium){
-                        margin-left: 15px;
-                        margin-top: 10px;
-                    }
-
-                    
+                    height: fit-content;               
 
                     .contact-infor-title{
                         text-transform: uppercase;
