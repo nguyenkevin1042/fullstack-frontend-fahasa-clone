@@ -39,6 +39,15 @@
                 "input-email": "nhập địa chỉ email của bạn",
                 "subcribe": "Đăng ký"
             }
+        },
+        "login": {
+            "sign-in-text": "Đăng nhập",
+            "sign-up-text": "Đăng ký",
+            "email-phone": "Số điện thoại/Email",
+            "password": "Mật khẩu",
+            "retype-password": "Nhập lại mật khẩu",
+            "forgot-password": "Quên mật khẩu?",
+            "recovery-password": "Khôi phục mật khẩu"
         }
     },
     "common": {

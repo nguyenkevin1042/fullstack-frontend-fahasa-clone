@@ -1,0 +1,168 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+.flash-sale-container{
+    margin-top: 20px;
+
+    @media (min-width: $medium) {
+        padding: 0 25px;
+    }
+    @media (min-width: $large) {
+        padding: 0 30px;
+    }
+    @media (min-width: $ex-large) {
+        padding: 0 60px;
+    }
+
+    .flash-sale-title{
+        background-color: #FCDAB0;
+
+        .flash-sale-title-text{
+            display: flex;
+            padding: 10px 20px;
+
+            .flash-sale-icon{
+                background: url('../../../assets/ico_flashsale@3x.png') center center no-repeat;
+                background-size: contain;
+                width: 25px;
+                height: 25px;
+                border-radius: 25px;
+                margin-right: 10px;
+            }
+            .flash-sale-text{
+                text-transform: uppercase;
+                font-size: 1.3em;
+                font-weight: 600;
+                padding-right: 10px;
+                border-right: 2px solid rgb(77, 74, 74);
+            }
+        }
+    }
+
+    .flash-sale-content{
+        // display: flex;
+        // flex-direction: column; 
+        // justify-content: center;
+        // border: 1px solid red;
+        padding-top: 30px;
+        background-color: white;
+
+        @media (max-width: $small) {
+            border: 1px solid red;
+            padding: 10px;
+            // margin: 20px;
+        }
+        @media (min-width: $ex-large) {
+            padding: 10px 20px;
+        }
+
+        .flash-sale-item{
+            margin: auto;
+            padding-top: 25px;
+
+            &:hover{
+                -webkit-box-shadow: 0px 0px 12px 2px rgba(163,143,163,1);
+                -moz-box-shadow: 0px 0px 12px 2px rgba(163,143,163,1);
+                box-shadow: 0px 0px 12px 2px rgba(163,143,163,1);
+            }
+
+            .flash-sale-item-image{
+                background: url('../../../assets/product/8934974186373_1.jpg') center center no-repeat;
+                background-size: contain;
+                // margin: auto;
+                position: relative;
+
+                @media (max-width: $small) {
+                    height: 140px;
+                }
+                @media (min-width: $medium) {
+                    height: 190px;
+                }
+                @media (min-width: $ex-large) {
+                    height: 190px;
+                }
+               
+                .discount{
+                    position: absolute;
+                    top: -10%;
+                    right: 10%;
+                    background-color: #f7941e;
+                    font-weight: 600;
+                    font-size: 1em;
+                    color: white;
+                    padding: 5px;
+                    width: 40px;
+                    height: 40px;
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50px;
+                }
+            }
+
+            .flash-sale-item-text{
+                margin: 10px;
+
+                .item-price-chapter{
+                    position: relative;
+
+                    .item-discount-price{
+                        color: #F7941E;
+                        font-weight: 600;
+                        font-size: 1.3em;
+                    }
+                    .item-price{
+                        font-size: 1.1em;
+                        opacity: 0.8;
+                        text-decoration: line-through;
+                    }
+                    .item-chapter{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        font-size: 11px;
+                        font-weight: 600;
+                        color: white;
+                        background-color: #92959B;
+                        padding: 2px 10px;
+                        border-radius: 5px;
+                    }
+                }
+
+                .item-sold-process{
+                    background-color: #eda6a6;
+                    border-radius: 20px;
+                    color: white;
+                    font-weight: 600;
+                    text-align: center;
+                }
+            }
+
+        }
+
+        .flash-sale-more-button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+
+            .more-sale-product-btn{
+                border: none;
+                border-radius: 50px;
+                color: white;
+                font-weight: 600;
+                padding: 10px 0;
+                width: 220px;
+                background-image: linear-gradient(to right, #ff9800, #F7695D);
+            }
+        }
+    }
+
+    
+
+}

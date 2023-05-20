@@ -25,8 +25,7 @@ $ex-large: 1200px;// Extra large >= 1200
         padding: 0 40px;
     }
     @media (min-width: $ex-large) {
-        padding: 0 70px;
-        // border: 1px solid red;
+        // padding: 0 70px;
     }
 
     .banner-border {
@@ -38,28 +37,49 @@ $ex-large: 1200px;// Extra large >= 1200
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
-        padding: 0;
+        // padding: 0;
+
+        @media (min-width: $ex-large) {
+            
+        }
         
 
         .banner-content-up-left{
-            padding: 0;
-            border: 1px solid red;
-            @media (max-width: $medium) {
-                width: 100%;
-                height: 185px;
-                
-            }
-            @media (min-width: $large) {
-                width: 840px;
-                height: 320px;
-            }
-            .b-c-u-l-item{
-                border: 1px solid red;
+            // padding: 0;
+
+            @media (min-width: $ex-large) {
                 padding: 0;
-                @media (max-width: $medium) {
+                border: 1px solid red;
+            }
+            // @media (max-width: $medium) {
+            //     width: 100%;
+            //     height: 185px;
+                
+            // }
+            // @media (min-width: $large) {
+            //     width: 840px;
+            //     height: 320px;
+            // }
+
+            .b-c-u-l-item{                
+
+                @media (max-width: $small) {
+                    // border: 1px solid red; 
+                    width: $small; 
+                    height:210px;
+                    padding: 0;                 
+                }
+                @media (min-width: $small) {
+                    // border: 1px solid black; 
+                    // width: 400px; 
+                    // height:150px;
+                    // padding: 10px;                 
+                }
+
+                @media (max-width: $large) {
                     width: 400px;
                     height: 185px;
-                    
+                    border: 1px solid black;                  
                 }
                 @media (min-width: $large) {
                     width: 840px;
@@ -101,6 +121,10 @@ $ex-large: 1200px;// Extra large >= 1200
                 // padding: 0 30px;
                 display: none;
             }
+            @media (max-width: $medium) {
+                // padding: 0 30px;
+                display: none;
+            }
 
             .up{
                 background: url('./../../../assets/banner/PoticoT5_FAHASA\ 392x156\ .png') no-repeat center center;
@@ -132,21 +156,25 @@ $ex-large: 1200px;// Extra large >= 1200
         
         .banner-content-down-1{
             background: url('./../../../assets/banner/Fahasa_salethu3_w2_coupon_Smallbanner_310x210.png') no-repeat center center;
+            background-size: contain;
             width: 310px;
             height: 210px;
         }
         .banner-content-down-2{
             background: url('./../../../assets/banner/TT_T4_Smallbanenr_310x210.png') no-repeat center center;
+            background-size: contain;
             width: 310px;
             height: 210px;
         }
         .banner-content-down-3{
             background: url('./../../../assets/banner/Tamlinh_mainbanner_T5_Smallbanner_310x210_1.png') no-repeat center center;
+            background-size: contain;
             width: 310px;
             height: 210px;
         }
         .banner-content-down-4{
             background: url('./../../../assets/banner/TrangDoChoiT523_Banner_SmallBanner_310x210.png') no-repeat center center;
+            background-size: contain;
             width: 310px;
             height: 210px;
         }

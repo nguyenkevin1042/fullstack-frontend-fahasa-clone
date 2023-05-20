@@ -1,0 +1,107 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+.log-in-container{
+    
+
+    @media (min-width: $medium) {
+        margin: 0;
+        padding: 0 25px;
+    }
+    @media (min-width: $medium) {
+        margin-top: 20px;
+    }
+    @media (min-width: $ex-large) {
+        padding: 0 60px;
+        
+    }
+
+    .log-in-content{
+        background-color: white;
+
+        .log-in-form{
+            margin: auto;
+            padding: 50px 0;
+
+            @media (max-width: $ex-small) {
+                width: 90%;
+            }
+            @media (min-width: $small) {
+                width: 60%;
+            }
+            @media (min-width: $medium) {
+                width: 60%;
+            }
+            @media (min-width: $large) {
+                width: 40%;
+            }
+
+            .log-in-header{
+                display: flex;
+                cursor: pointer;
+                margin-bottom: 10px;
+
+                .active{
+                    color: #C92127;
+                    border-bottom: 2px solid #C92127;
+                }
+
+                .log-in-header-text {
+                    width: 100%;
+                    text-align: center;
+                    margin: 0 10px;
+                    padding-bottom: 5px;
+                }
+
+                .log-in-header-sign-in{
+                    &:hover{
+                        color: #C92127;
+                        border-bottom: 2px solid #C92127;
+                    }
+                }
+
+                .log-in-header-sign-up{
+                    &:hover{
+                        color: #C92127;
+                        border-bottom: 2px solid #C92127;
+                    }
+                }
+            }
+
+            .log-in-form-input{
+                padding: 0 20px;
+
+                .form-group{
+                    margin-top: 20px;
+                }
+
+                .forgot-password{
+                    cursor: pointer;
+                    color:#C92127;
+                    text-align: right;
+                }
+                .sign-in-btn{
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                    
+                    button{
+                        font-weight: 600;
+                        color: white;
+                        background-color: #C92127;
+                        border: none;
+                        width: 245px;
+                        border-radius: 8px;
+                        padding: 10px 0;
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+}

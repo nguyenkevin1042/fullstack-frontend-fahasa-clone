@@ -10,6 +10,7 @@ import CustomScrollbars from '../../../components/CustomScrollbars';
 import Footer from '../components/Footer';
 import SignUpNewletter from './SignUpNewletter';
 import ProductCategory from './ProductCategory';
+import FlashSale from './FlashSale';
 
 class Homepage extends Component {
     constructor(props) {
@@ -38,7 +39,7 @@ class Homepage extends Component {
                 <Header />
                 <Banner />
                 <QuickAccess />
-                {/* <FlasshSale/> */}
+                <FlashSale />
                 <ProductCategory />
                 <SignUpNewletter />
                 <Footer />

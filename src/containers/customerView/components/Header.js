@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
+
 import './Header.scss';
 import * as actions from "../../../store/actions";
 import Select from 'react-select';
 import { languages } from '../../../utils'
 import viFlag from '../../../assets/vietnamese.svg';
 import enFlag from '../../../assets/english.svg';
+
+import Navigator from '../../../components/Navigator';
+import { adminMenu } from '../../adminView/Header/menuApp';
 
 class Header extends Component {
     constructor(props) {
@@ -32,7 +37,8 @@ class Header extends Component {
                     )
                 }
             ],
-            selectedLanguage: ''
+            selectedLanguage: '',
+            hoverMenu: false
         };
     }
 
@@ -61,8 +67,34 @@ class Header extends Component {
         this.props.changeLanguageApp(selectedLanguage.value);
     }
 
+    handleMouseOver = () => {
+        this.setState({
+            hoverMenu: true
+        })
+        console.log(this.state.hoverMenu)
+    }
+
+    handleMouseOut = () => {
+        this.setState({
+            hoverMenu: false
+        })
+    }
+    // /customer/account/login
+    handleRedirectToLoginPage = () => {
+        if (this.props.history) {
+            this.props.history.push("/customer/account/login");
+        }
+    }
+
+    handleToHomepage = () => {
+        if (this.props.history) {
+            this.props.history.push("/home");
+        }
+    }
+
+
     render() {
-        let { listLanguage, selectedLanguage } = this.state
+        let { listLanguage, selectedLanguage, hoverMenu } = this.state
         let language = this.props.lang
         let customStyles = {
             control: (baseStyles, state) => ({
@@ -86,20 +118,31 @@ class Header extends Component {
                 cursor: "pointer"
             })
         };
-
+        // console.log('handleMouseOver: ', this.state.hoverMenu)
+        // console.log(this.state.hoverMenu)
         return (
             <div className='home-header-container container-fluid'>
                 <div className='row'>
                     {/* LOGO */}
-                    <div className='home-header-logo col-12 col-lg-2'>
+                    <div className='home-header-logo col-12 col-lg-2'
+                        onClick={() => this.handleToHomepage()}>
 
                     </div >
                     {/* MENU */}
                     <div className='home-header-menu col-1 col-lg-1 px-1'>
-                        <div className='home-header-menu-toggle'>
+                        <div className='home-header-menu-toggle'
+                            onMouseOver={() => this.handleMouseOver()}
+                            onMouseOut={() => this.handleMouseOut()}>
                             <div className='home-header-menu-toggle-icon img-fluid'></div>
-
                             <i className="fa fa-angle-down"></i>
+
+                            {/* <Navigator menus={adminMenu} /> */}
+                            {/* {hoverMenu && (
+                                <div>
+                                    <h2>Only visible when hovering div</h2>
+                                    <h2>bobbyhadz.com</h2>
+                                </div>
+                            )} */}
                         </div>
                     </div >
                     {/* SEARCH BAR */}
@@ -128,7 +171,8 @@ class Header extends Component {
                                     <p><FormattedMessage id="customer.homepage.header.cart" /></p>
                                 </div>
 
-                                <div className='user-options-information option col-6 col-md-3'>
+                                <div className='user-options-information option col-6 col-md-3'
+                                    onClick={() => this.handleRedirectToLoginPage()}>
                                     <i className="fa fa-user"></i>
                                     <p><FormattedMessage id="customer.homepage.header.account" /></p>
                                 </div>
@@ -165,4 +209,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

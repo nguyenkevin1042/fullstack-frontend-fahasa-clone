@@ -39,6 +39,15 @@
                 "input-email": "Type your email",
                 "subcribe": "Subcribe"
             }
+        },
+        "login": {
+            "sign-in-text": "Sign In",
+            "sign-up-text": "Sign Up",
+            "email-phone": "Phone Number/Email",
+            "password": "Password",
+            "retype-password": "Retype password",
+            "forgot-password": "Forgot password?",
+            "recovery-password": "Recovery password"
         }
     },
     "common": {

@@ -20,6 +20,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
         .home-header-logo{
             
+            
             @media (max-width: $large) {
                 background: url('./../../../assets/fahasa_logo_small.png') no-repeat center center;
                 background-size: contain;
@@ -27,6 +28,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 height: 24px;
                 margin: auto;
                 margin-bottom: 15px;
+                cursor: pointer;
             }
 
             @media (min-width: $large) {
@@ -34,17 +36,21 @@ $ex-large: 1200px;// Extra large >= 1200
                 background-size: contain;
                 width: 220px;
                 height: 36px;
+                cursor: pointer;
             }
             
         }
 
     .home-header-menu{
+        
 
         .home-header-menu-toggle{
             display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
+            // width: 200px;
+            // justify-content: end;
+            // align-items: center;
+            // border: 1px solid red;
+            // cursor: pointer;
 
             @media (min-width: $large) {
                 justify-content: right;
@@ -54,6 +60,7 @@ $ex-large: 1200px;// Extra large >= 1200
             .home-header-menu-toggle-icon{
                 width: 36px;
                 height: 36px;
+                cursor: pointer;
                
                 @media (min-width: $large) {
                     background: url('./../../../assets/ico_menu.svg') no-repeat center center;
@@ -67,12 +74,12 @@ $ex-large: 1200px;// Extra large >= 1200
                     width: 30px;
                     height: 30px;
                     justify-content: center;
-                // align-items: center;
                 }
 
             }
 
             i{
+                cursor: pointer;
                 @media (max-width: $medium) {
                     display: none;
                 }

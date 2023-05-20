@@ -18,6 +18,7 @@ import System from '../routes/System';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import Homepage from './customerView/Homepage/Homepage';
+import CustomerLogin from './customerView/Login/Login';
 import CustomScrollbars from '../components/CustomScrollbars';
 
 class App extends Component {
@@ -55,7 +56,9 @@ class App extends Component {
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
 
                                     <Route path={path.HOMEPAGE} exact component={(Homepage)} />
+                                    <Route path={path.CuSTOMER_LOGIN} exact component={(CustomerLogin)} />
                                 </Switch>
+
                             </span>
                         </CustomScrollbars>
 
