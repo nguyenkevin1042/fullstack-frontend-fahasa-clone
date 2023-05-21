@@ -11,12 +11,17 @@ import Footer from '../components/Footer';
 import SignUpNewletter from './SignUpNewletter';
 import ProductCategory from './ProductCategory';
 import FlashSale from './FlashSale';
+import Products from './Products';
+import SimpleSlider from './SimpleSlider';
 
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            stationaryArr: ['Dụng Cụ Học Sinh - VPP Giá Sốc',
+                'Bộ Dụng Cụ Học Tập', 'Combo Tiết Kiệm', 'Cặp - Balo'],
+            itemArr: ['Đồ Điện Gia Dụng', 'Đồ Dùng Cá Nhân',
+                'Nhà Cửa Đời Sống', 'Thiết Bị Số - Phụ Kiện Số']
         };
     }
 
@@ -34,13 +39,19 @@ class Homepage extends Component {
 
 
     render() {
+        let { stationaryArr, itemArr } = this.state;
         return (
             <React.Fragment>
                 <Header />
                 <Banner />
                 <QuickAccess />
                 <FlashSale />
+                {/* <Trending /> */}
                 <ProductCategory />
+
+                <Products headerArr={stationaryArr} />
+                <Products headerArr={itemArr} />
+
                 <SignUpNewletter />
                 <Footer />
             </React.Fragment >

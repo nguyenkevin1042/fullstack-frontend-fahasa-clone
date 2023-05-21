@@ -4,117 +4,179 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
-.home-header-container{
-
-    @media (min-width: $large) {
-        background-color: white;
-        padding: 20px 30px 0px 70px;
-    }
-    @media (max-width: $large) {
+@media (max-width: $large) {
+    .home-header-container{
         background-color: #C92127;
         position: sticky;
         top: 0;
         z-index: 1;
         padding: 10px 20px;
-    }
 
         .home-header-logo{
-            
-            
-            @media (max-width: $large) {
-                background: url('./../../../assets/fahasa_logo_small.png') no-repeat center center;
-                background-size: contain;
-                width: 130px;
-                height: 24px;
-                margin: auto;
-                margin-bottom: 15px;
-                cursor: pointer;
-            }
-
-            @media (min-width: $large) {
-                background: url('./../../../assets/fahasa_logo.png') no-repeat center center;
-                background-size: contain;
-                width: 220px;
-                height: 36px;
-                cursor: pointer;
-            }
-            
+            background: url('./../../../assets/fahasa_logo_small.png') no-repeat center center;
+            background-size: contain;
+            width: 130px;
+            height: 24px;
+            margin: auto;
+            margin-bottom: 15px;
+            cursor: pointer;
         }
 
-    .home-header-menu{
-        
+        .home-header-menu{
+            .home-header-menu-toggle{
+                .home-header-menu-toggle-icon{
+                    background: url('./../../../assets/ico_menu_white.svg') no-repeat center center;
+                    background-size: contain;
+                    width: 30px;
+                    height: 30px;
+                }
 
-        .home-header-menu-toggle{
-            display: flex;
-            // width: 200px;
-            // justify-content: end;
-            // align-items: center;
-            // border: 1px solid red;
-            // cursor: pointer;
+                i{
+                    display: none;
+                }
+            }
+        }
 
-            @media (min-width: $large) {
-                justify-content: right;
-                align-items: center;
+        .home-header-search-bar{
+            padding: 0 10px; 
+
+            input{
+                border: none;
+                font-size: 13px;
             }
 
-            .home-header-menu-toggle-icon{
-                width: 36px;
-                height: 36px;
-                cursor: pointer;
-               
-                @media (min-width: $large) {
+            button{
+                display: none;
+            }
+        }
+
+        .home-header-user-options{
+            align-items: center;
+
+            .option{
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                margin: auto;
+
+    
+                .fa{
+                    color: white;
+                }
+    
+                p{
+                    display: none;
+                }
+            }
+
+            .user-options-notifications{
+                display: none !important;
+            }
+
+            .user-options-change-language{
+                display: none !important;
+            }
+        }
+    }
+}
+
+@media (max-width: $medium) {
+    .home-header-container{
+
+        .home-header-menu{
+        
+            .home-header-menu-toggle{
+
+                i{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: $large) {
+    .home-header-container{
+        background-color: white;
+        padding: 20px 30px 0px 70px;
+
+        .home-header-logo{
+            background: url('./../../../assets/fahasa_logo.png') no-repeat center center;
+            background-size: contain;
+            width: 220px;
+            height: 36px;
+            cursor: pointer;
+        }
+
+        .home-header-menu{
+        
+            .home-header-menu-toggle{
+                display: flex;
+                justify-content: right;
+                align-items: center;
+
+                .home-header-menu-toggle-icon{
                     background: url('./../../../assets/ico_menu.svg') no-repeat center center;
                     background-size: contain;     
                     width: 36px;
                     height: 36px;  
                 }
-                @media (max-width: $large) {
-                    background: url('./../../../assets/ico_menu_white.svg') no-repeat center center;
-                    background-size: contain;
-                    width: 30px;
-                    height: 30px;
-                    justify-content: center;
-                }
 
+            }
+        }
+
+        .home-header-search-bar{
+            padding: 0 10px; 
+
+            input{
+                height: 40px;
+                padding: 0 80px 0 25px;
+                border-radius: 8px;
+                width: 100%;
+            }
+
+            button{
+                position: absolute;
+                top: 4px;
+                right: 5px;
+                width: 70px;
+                height: 32px;
+            }
+        }
+
+        .home-header-user-options{
+            padding: 0;
+        }
+    }
+}
+
+.home-header-container{           
+
+    .home-header-menu{
+        
+        .home-header-menu-toggle{
+
+            .home-header-menu-toggle-icon{
+                width: 36px;
+                height: 36px;
+                cursor: pointer;
             }
 
             i{
                 cursor: pointer;
-                @media (max-width: $medium) {
-                    display: none;
-                }
-                @media (max-width: $large) {
-                    display: none;
-                }
             }
            
         }
     }
 
-
     .home-header-search-bar{
         padding: 0;
         margin: 0;
         display: flex;
- 
-        @media (min-width: $large) {
-            padding: 0 10px; 
-        }
         
         input{
             position: relative;
-
-            @media (max-width: $large) {
-                border: none;
-                font-size: 13px;
-            }
-            @media (min-width: $large) {
-                height: 40px;
-                padding: 0 80px 0 25px;
-                border-radius: 8px;
-                // width: 580px;
-                width: 100%;
-            }
             
             &:focus{
                 box-shadow: none;
@@ -126,72 +188,31 @@ $ex-large: 1200px;// Extra large >= 1200
             color: white;
             border: none;
             border-radius: 8px;
-
-            @media (max-width: $large) {
-                display: none;
-            }
-            @media (min-width: $large) {
-                position: absolute;
-                top: 4px;
-                right: 15px;
-                width: 70px;
-                height: 32px;
-            }
         }
     }
 
     .home-header-user-options{
         display: flex;
-        padding: 0;
-        @media (max-width: $large) {
-            align-items: center;
-        }
-        @media (min-width: $large) {
-            padding: 0;
-        }
 
         .option{
             height: fit-content;
             display: grid;
             cursor: pointer;
             padding: 0;
-
-            @media (max-width: $large) {
-                justify-content: center;
-                align-items: center;
-                padding: 0;
-                margin: auto;
-            }
+            justify-content: center;
 
             .fa{
                 text-align: center;
                 font-size: 20px;
-
-                @media (max-width: $large) {
-                    color: white;
-                }
             }
 
             p{
                 color: #7A7E7F;
                 text-align: center;
-
-                @media (max-width: $large) {
-                    display: none;
-                }
-            }
-        }
-
-        .user-options-notifications{
-            @media (max-width: $large) {
-                display: none;
             }
         }
 
         .user-options-change-language{
-            @media (max-width: $large) {
-                display: none;
-            }
 
             .language-icon{
                 width: 32px;

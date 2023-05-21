@@ -6,6 +6,7 @@ import { languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import CustomScrollbars from '../../../../components/CustomScrollbars';
 import Select from 'react-select';
+import AllCategoryTableComponent from './AllCategoryTableComponent';
 
 class ManageCategory extends Component {
     constructor(props) {
@@ -133,11 +134,11 @@ class ManageCategory extends Component {
                             </div>
                         </div>
 
-                        {/* <div className="row">
+                        <div className="row">
                             <div className="col-12">
-                                <AllCodesTableComponent />
+                                <AllCategoryTableComponent />
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 </CustomScrollbars>
             </React.Fragment >

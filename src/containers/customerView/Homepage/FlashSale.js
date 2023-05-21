@@ -28,6 +28,75 @@ class FlashSale extends Component {
 
     }
 
+    renderFlashSaleList = () => {
+        let settings = {
+            className: "flash-sale-list",
+            dots: false,
+            infinite: false,
+            slidesToShow: 5,
+            slidesToScroll: 2,
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 2,
+                }
+            }, {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 2,
+                }
+            },
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 2,
+                }
+            }]
+        };
+
+        return (
+            <>
+                <Slider {...settings} >
+                    {Array(7).fill(
+                        this.renderAFlashSaleProduct())
+                    }
+                </Slider>
+            </>
+        )
+    }
+
+    renderAFlashSaleProduct = () => {
+        return (
+            <div className='flash-sale-item' title='Shaman King - Tập 30 - Bìa Đôi'>
+                <div className='flash-sale-item-image sold'>
+                    <div className='discount'>50%</div>
+                </div>
+                <div className='flash-sale-item-text'>
+                    <div className='item-name'>
+                        Shaman King - Tập 30 - Bìa Đôi
+                    </div>
+                    <div className='item-price-chapter'>
+                        <div className='item-discount-price'>
+                            17.500
+                        </div>
+                        <div className='item-price'>
+                            35.000
+                        </div>
+                        <div className='item-chapter'>
+                            Tập 30
+                        </div>
+                    </div>
+                    <div className='item-sold-process'>
+                        Đã bán 0
+                    </div>
+                </div>
+            </div >
+        )
+    }
+
     render() {
 
         return (
@@ -42,112 +111,13 @@ class FlashSale extends Component {
                     </div>
                 </div>
 
-                <div className='flash-sale-content'>
-                    {/* <div className='row'> */}
-                    {/* <Slider {...settings}>
-
-                        {Array(10).fill(<p>number</p>)
-                        }
-                    </Slider> */}
-
-                    {/* <Slider {...settings}>
-                            <div className='flash-sale-item col-4 col-xl-2'>
-                                <div className='flash-sale-item-image sold'>
-                                    <div className='discount'>50%</div>
-                                </div>
-                                <div className='flash-sale-item-text'>
-                                    <div className='item-name'>
-                                        Shaman King - Tập 30 - Bìa Đôi
-                                    </div>
-                                    <div className='item-price-chapter'>
-                                        <div className='item-discount-price'>
-                                            17.500
-                                        </div>
-                                        <div className='item-price'>
-                                            35.000
-                                        </div>
-                                        <div className='item-chapter'>
-                                            Tập 30
-                                        </div>
-                                    </div>
-                                    <div className='item-sold-process'>
-                                        Đã bán 0
-                                    </div>
-                                </div>
-                            </div>
-
-                    
-                        </Slider> */}
-
-                    {/* <Slider {...settings}>
-
-                            {Array(10).fill(
-                                <div className='flash-sale-item col-4 col-xl-2'>
-                                    <div className='flash-sale-item-image sold'>
-                                        <div className='discount'>50%</div>
-                                    </div>
-                                    <div className='flash-sale-item-text'>
-                                        <div className='item-name'>
-                                            Shaman King - Tập 30 - Bìa Đôi
-                                        </div>
-                                        <div className='item-price-chapter'>
-                                            <div className='item-discount-price'>
-                                                17.500
-                                            </div>
-                                            <div className='item-price'>
-                                                35.000
-                                            </div>
-                                            <div className='item-chapter'>
-                                                Tập 30
-                                            </div>
-                                        </div>
-                                        <div className='item-sold-process'>
-                                            Đã bán 0
-                                        </div>
-                                    </div>
-                                </div>)
-                            }
-                        </Slider> */}
-                    {/* <div className='container'>
-                        <div className='row'>
-                            <Slider {...settings}>
-                                {this.getButtonsUsingMap()}
-                            </Slider>
-                        </div>
-                    </div> */}
-                    <div className='flash-sale-item col-4 col-xl-2'>
-                        <div className='flash-sale-item-image sold'>
-                            <div className='discount'>50%</div>
-                        </div>
-                        <div className='flash-sale-item-text'>
-                            <div className='item-name'>
-                                Shaman King - Tập 30 - Bìa Đôi
-                            </div>
-                            <div className='item-price-chapter'>
-                                <div className='item-discount-price'>
-                                    17.500
-                                </div>
-                                <div className='item-price'>
-                                    35.000
-                                </div>
-                                <div className='item-chapter'>
-                                    Tập 30
-                                </div>
-                            </div>
-                            <div className='item-sold-process'>
-                                Đã bán 0
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='flash-sale-more-button'>
-                        <button className='more-sale-product-btn'>Xem thêm</button>
-                    </div>
-
-                    {/* </div> */}
+                <div>
+                    {this.renderFlashSaleList()}
                 </div>
 
-
+                <div className='flash-sale-more-button'>
+                    <button className='more-sale-product-btn'>Xem thêm</button>
+                </div>
             </div>
         );
     }
