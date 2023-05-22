@@ -47,7 +47,9 @@
             "password": "Password",
             "retype-password": "Retype password",
             "forgot-password": "Forgot password?",
-            "recovery-password": "Recovery password"
+            "recovery-password": "Recovery password",
+            "confirm-text": "Confirm",
+            "back-text": "Go back"
         }
     },
     "common": {
@@ -79,15 +81,10 @@
     "menu": {
         "system": {
             "header": "System",
-            "system-administrator": {
-                "header": "System Administrator",
-                "user-manage": "User manage",
-                "product-manage": "Package manage",
-                "register-package-group-or-account": "Register service package for group/account"
-            },
-            "system-parameter": {
-                "header": "System-parameter"
-            }
+            "welcome-text": "Xin chào ",
+            "manage-all-codes": "Mã Code",
+            "manage-category": "Danh mục",
+            "manage-product": "Sản phẩm"
         }
     }
 }

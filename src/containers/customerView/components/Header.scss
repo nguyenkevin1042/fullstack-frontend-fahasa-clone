@@ -115,6 +115,8 @@ $ex-large: 1200px;// Extra large >= 1200
                 display: flex;
                 justify-content: right;
                 align-items: center;
+                // height: 55px;
+                // border: 1px solid red;
 
                 .home-header-menu-toggle-icon{
                     background: url('./../../../assets/ico_menu.svg') no-repeat center center;
@@ -154,19 +156,18 @@ $ex-large: 1200px;// Extra large >= 1200
 .home-header-container{           
 
     .home-header-menu{
-        
-        .home-header-menu-toggle{
 
+        .home-header-menu-toggle{
+            
             .home-header-menu-toggle-icon{
                 width: 36px;
                 height: 36px;
                 cursor: pointer;
+                
             }
-
             i{
                 cursor: pointer;
             }
-           
         }
     }
 

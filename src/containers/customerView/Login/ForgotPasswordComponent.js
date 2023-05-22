@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import './ForgotPasswordComponent.scss';
 // import * as actions from "../store/actions";
@@ -22,6 +23,12 @@ class ForgotPasswordComponent extends Component {
         }
 
 
+    }
+
+    hanldeClickBackBtn = () => {
+        if (this.props.history) {
+            this.props.history.push("/home");
+        }
     }
 
 
@@ -47,12 +54,12 @@ class ForgotPasswordComponent extends Component {
 
                         <div className="col-12 sign-in-btn ">
                             <button >
-                                <FormattedMessage id="customer.login.sign-in-text" />
+                                <FormattedMessage id="customer.login.confirm-text" />
                             </button>
                         </div >
-                        <div className="col-12 sign-in-btn ">
-                            <button >
-                                <FormattedMessage id="customer.login.sign-in-text" />
+                        <div className="col-12 back-btn ">
+                            <button onClick={() => this.hanldeClickBackBtn()}>
+                                <FormattedMessage id="customer.login.back-text" />
                             </button>
                         </div >
 
@@ -77,4 +84,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordComponent));

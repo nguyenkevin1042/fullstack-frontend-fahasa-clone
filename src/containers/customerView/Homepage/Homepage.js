@@ -12,7 +12,6 @@ import SignUpNewletter from './SignUpNewletter';
 import ProductCategory from './ProductCategory';
 import FlashSale from './FlashSale';
 import Products from './Products';
-import SimpleSlider from './SimpleSlider';
 
 class Homepage extends Component {
     constructor(props) {

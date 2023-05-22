@@ -4,29 +4,39 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
+@media (max-width: $medium) {
+    .quick-access-container{
+        margin: 0 ;
+        .quick-access-menu{
+            .quick-access-item{
+                padding: 0;
+                margin-right: 5px;
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+@media (min-width: $medium) {
+    .quick-access-container{
+        margin: 0 25px;
+    }
+}
+
+@media (min-width: $large) {
+    .quick-access-container{
+        margin: 0 25px;
+    }
+}
+
+@media (min-width: $ex-large) {
+    .quick-access-container{
+        margin: 0 60px;
+    }
+}
+
 .quick-access-container{
-    // padding: 0 30px;
-
-    @media (max-width: $small) {
-        // padding: 0 30px;
-        // border: 1px solid red;
-    }
-    @media (min-width: $medium) {
-        padding: 0 25px;
-        // border: 1px solid red;
-    }
-    @media (max-width: $medium) {
-        // border: 1px solid red;
-        // padding: 0 30px;
-    }
-    // @media (min-width: $large) {
-    //     padding: 0 40px;
-    // }
-    @media (min-width: $ex-large) {
-        padding: 0 60px;
-        // border: 1px solid red;
-    }
-
+    
     .quick-access-content{
         .quick-access-menu{
             background-color: white;
@@ -35,31 +45,11 @@ $ex-large: 1200px;// Extra large >= 1200
             display: flex;
             justify-content: space-around;
 
-            @media (max-width: $small) {
-                padding-left: 5px;
-            }
-
             .quick-access-item{
                 height: 100%;
                 display: grid;
                 position: relative;
-
-                @media (max-width: $small){ 
-                    padding: 0;
-                    margin-right: 5px;
-                    margin-top: 10px;
-                }
-                @media (min-width: $small){ 
-                    padding: 0;
-                    margin-right: 5px;
-                    margin-top: 10px;
-                }
-                @media (min-width: $medium) {
-                    padding: 0;
-                    margin-right: 5px;
-                    margin-top: 10px;
-                }
-
+                
                 .item-image{
                     margin: auto;
 
@@ -113,18 +103,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 .item-text{
                     text-align: center;
                     margin: auto;
-                    margin-top: 10px;
-
-                    @media (max-width: $small) {
-                        // margin-top: 10px;
-                        // width: 75px;
-                    }
-                    @media (min-width: $medium) {
-                    //    border: 1px solid red;
-                    // font-size: 13px;
-                    //    width: 75px;
-                    }
-    
+                    margin-top: 10px;    
                 }
             }
         }

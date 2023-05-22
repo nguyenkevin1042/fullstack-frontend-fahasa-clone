@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import SignInComponent from './SignInComponent';
 import SignUpComponent from './SignUpComponent';
 import ForgotPasswordComponent from './ForgotPasswordComponent';
-// import * as actions from "../store/actions";
+import * as actions from "../../../store/actions";
 
 class Login extends Component {
     constructor(props) {
@@ -134,7 +134,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        userLogin: (email, password) => dispatch(actions.userLogin(email, password)),
     };
 };
 

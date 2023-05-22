@@ -47,7 +47,9 @@
             "password": "Mật khẩu",
             "retype-password": "Nhập lại mật khẩu",
             "forgot-password": "Quên mật khẩu?",
-            "recovery-password": "Khôi phục mật khẩu"
+            "recovery-password": "Khôi phục mật khẩu",
+            "confirm-text": "Xác nhận",
+            "back-text": "Trở về"
         }
     },
     "common": {
@@ -79,6 +81,7 @@
     "menu": {
         "system": {
             "header": "Hệ thống",
+            "welcome-text": "Xin chào ",
             "manage-all-codes": "Mã Code",
             "manage-category": "Danh mục",
             "manage-product": "Sản phẩm"

@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/adminView/System/UserManage';
 import ManageAllCodes from '../containers/adminView/System/ManageAllCodes/ManageAllCodes';
 import ManageCategory from '../containers/adminView/System/ManageCategory/ManageCategory';
+// import Header from '../containers/customerView/components/Header';
 import Header from '../containers/adminView/Header/Header';
 
 class System extends Component {

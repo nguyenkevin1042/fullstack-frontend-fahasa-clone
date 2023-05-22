@@ -4,20 +4,52 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
-.log-in-container{
-    
-
-    @media (min-width: $medium) {
+@media (max-width: $small){
+    .log-in-container{
         margin: 0;
-        padding: 0 25px;
+       .log-in-content{
+            .log-in-form{
+                width: 80%;
+             }
+        }
     }
-    @media (min-width: $medium) {
-        margin-top: 10px;
+}
+@media (min-width: $small) {
+    .log-in-container{
+        margin: 0;
+       .log-in-content{
+            .log-in-form{
+                width: 80%;
+             }
+        }
     }
-    @media (min-width: $ex-large) {
-        padding: 0 60px;
-        
+}
+@media (min-width: $medium) and (max-width: $ex-large){
+    .log-in-container{
+       
+        margin: 5px 25px 0 25px;
+        .log-in-content{
+            .log-in-form{
+                width: 50%;
+             }
+        }
     }
+}
+
+@media (min-width: $ex-large) {
+    .log-in-container{
+        margin: 5px 60px 0 60px;
+        .log-in-content{
+            .log-in-form{
+                width: 35%;
+             }
+        }
+    }
+    
+}
+
+.log-in-container{
+
 
     .log-in-content{
         background-color: white;
@@ -26,18 +58,18 @@ $ex-large: 1200px;// Extra large >= 1200
             margin: auto;
             padding: 50px 0;
 
-            @media (max-width: $ex-small) {
-                width: 90%;
-            }
-            @media (min-width: $small) {
-                width: 60%;
-            }
-            @media (min-width: $medium) {
-                width: 60%;
-            }
-            @media (min-width: $large) {
-                width: 40%;
-            }
+            // @media (max-width: $ex-small) {
+            //     width: 90%;
+            // }
+            // @media (min-width: $small) {
+            //     width: 60%;
+            // }
+            // @media (min-width: $medium) {
+            //     width: 60%;
+            // }
+            // @media (min-width: $large) {
+            //     width: 40%;
+            // }
 
             .log-in-header{
                 display: flex;
@@ -83,6 +115,7 @@ $ex-large: 1200px;// Extra large >= 1200
                     color:#C92127;
                     text-align: right;
                 }
+
                 .sign-in-btn{
                     margin-top: 10px;
                     display: flex;
@@ -98,6 +131,23 @@ $ex-large: 1200px;// Extra large >= 1200
                         padding: 10px 0;
                     }
                 }
+
+                .back-btn{
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                    
+                    button{
+                        font-weight: 600;
+                        color: #C92127;
+                        border: 2px solid #C92127;
+                        background-color: white;
+                        width: 245px;
+                        border-radius: 8px;
+                        padding: 10px 0;
+                    }
+                }
+
             }
         }
 
