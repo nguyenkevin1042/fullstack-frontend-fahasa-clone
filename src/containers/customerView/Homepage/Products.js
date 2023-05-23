@@ -18,7 +18,6 @@ class Products extends Component {
 
     componentDidMount() {
         let { headerArr } = this.props
-        console.log(headerArr[0])
         this.setState({
             selectedTag: headerArr[0]
         })

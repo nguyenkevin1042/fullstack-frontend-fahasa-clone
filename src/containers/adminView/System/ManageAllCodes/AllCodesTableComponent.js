@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-import './AllCodesTableComponent.scss';
+// import './AllCodesTableComponent.scss';
 import * as actions from "../../../../store/actions";
 import CustomScrollbars from '../../../../components/CustomScrollbars';
 import EditCodeModel from './EditCodeModel';
@@ -82,8 +82,8 @@ class AllCodesTableComponent extends Component {
         return (
             <Fragment>
                 <CustomScrollbars style={{ height: '768px' }}>
-                    <div className='manage-all-codes-table'>
-                        <table className='all-codes-table'>
+                    <div className='manage-sharing-table'>
+                        <table className='sharing-table'>
                             <thead>
                                 <tr>
                                     <th>ID</th>

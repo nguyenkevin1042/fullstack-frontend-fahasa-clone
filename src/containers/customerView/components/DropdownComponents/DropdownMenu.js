@@ -12,13 +12,21 @@ class DropdownMenu extends Component {
         super(props);
         this.state = {
             listCategory: [],
-            selectedCategory: ''
+            selectedCategory: '',
+            listSubCategory: []
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        // await this.props.fetchAllSubCategoryByCategoryId(this.state.selectedCategory.key);
+
         this.setState({
-            selectedCategory: this.props.listCategory[0]
+            listCategory: this.props.listCategory,
+            selectedCategory: this.props.listCategory[0],
+        })
+        await this.props.fetchAllSubCategoryByCategoryId(this.props.listCategory[0].key);
+        this.setState({
+            listSubCategory: this.props.allSubCategoryArr
         })
     }
 
@@ -26,23 +34,23 @@ class DropdownMenu extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
-        // if (prevProps.allCodesArr !== this.props.allCodesArr) {
-        //     let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
-        //     this.setState({
-        //         listCategory: dataSelect
-        //     })
-        // }
 
+        if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
+            this.setState({
+                listSubCategory: this.props.allSubCategoryArr
+            })
+        }
     }
 
-    handleOnMouseOver = (category) => {
+    handleOnMouseOver = async (category) => {
+        this.props.fetchAllSubCategoryByCategoryId(category.key);
         this.setState({
-            selectedCategory: category
+            selectedCategory: category,
         })
     }
 
 
-    renderCategotyList = () => {
+    renderCategoryList = () => {
         let { listCategory } = this.props;
 
         return (
@@ -61,13 +69,41 @@ class DropdownMenu extends Component {
     }
 
     renderSubCategoryList = () => {
-        let { selectedCategory } = this.state
+        let { selectedCategory, listSubCategory } = this.state
         return (
+
             <>
-                {selectedCategory.label}
+                <div className='right-menu-title'>
+                    {selectedCategory.label}
+                </div>
+                <div className='right-menu-sub-category'>
+                    {/* {this.renderChildCategotyList()} */}
+                    {/* <div className='sub-category-item'> */}
+                    <div className='row'>
+                        {listSubCategory && listSubCategory.length > 0 &&
+                            listSubCategory.map((item, index) => (
+                                <div className='sub-category-item col-md-3' key={index}>
+                                    <div className='sub-category-title'>{item.valueVI}</div>
+                                    <ul>
+                                        <li>Child Item 1</li>
+                                        <li>Child Item 2</li>
+                                        <li>Child Item 3</li>
+                                        <li>Child Item 4</li>
+                                        <li>Child Item 5</li>
+                                        <li>Child Item 6</li>
+                                    </ul>
+                                </div>
+                            ))
+
+                        }
+
+                    </div>
+                </div>
+
             </>
         )
     }
+
 
     render() {
         return (
@@ -78,11 +114,11 @@ class DropdownMenu extends Component {
                             Danh mục sản phẩm
                         </div>
                         <div className='left-menu-list-category'>
-                            {this.renderCategotyList()}
+                            {this.renderCategoryList()}
                         </div>
                     </div>
                     <div className='right-menu col-xl-9'>
-                        {this.renderSubCategoryList(0)}
+                        {this.renderSubCategoryList()}
                     </div>
                 </div>
             </div>
@@ -110,12 +146,15 @@ class DropdownMenu extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
+        allSubCategoryArr: state.admin.allSubCategoryArr
+
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        fetchAllCodesById: (categoryId) => dispatch(actions.fetchAllCodesById(categoryId)),
+        fetchAllSubCategoryByCategoryId: (categoryId) => dispatch(actions.fetchAllSubCategoryByCategoryId(categoryId))
     };
 };
 

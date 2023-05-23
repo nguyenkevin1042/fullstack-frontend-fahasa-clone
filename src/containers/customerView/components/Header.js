@@ -46,11 +46,12 @@ class Header extends Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.props.fetchAllCodesByType('category')
         this.setState({
             selectedLanguage: this.state.listLanguage[0]
         })
-        this.props.fetchAllCodesByType('category')
+
 
     }
 

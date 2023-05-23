@@ -16,7 +16,6 @@ $ex-large: 1200px;// Extra large >= 1200
 
     .left-menu{
         border-right: 1px solid #cecece;
-        border: 1px solid red;
         // padding: 0;
         
         .left-menu-title{
@@ -49,9 +48,42 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 
     .right-menu{
-        border: 1px solid red;
-        // margin: 10px;
-        // height: 100px;
+        // border: 1px solid red;
+        // display: flex;
+        
+        .right-menu-title{
+            font-weight: bold;
+            font-size: 1.7em;
+            text-align: left;
+            padding: 0 10px;
+        }
+        .right-menu-sub-category{
+            border: 1px solid red;
+            padding: 0;
+
+            .sub-category-item{
+                border: 1px solid black;
+                // padding: 0;
+
+                .sub-category-title{
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-size: 0.5em;
+                    // white-space: inherit;
+                    // margin: auto;
+                }
+
+                ul{
+                    list-style: none;
+                    padding: 0;
+
+                    li{
+                        color: #666;
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
     }
 
 }

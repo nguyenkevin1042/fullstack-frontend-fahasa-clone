@@ -42,7 +42,7 @@ class Homepage extends Component {
         return (
             <React.Fragment>
                 <Header />
-                <Banner />
+                {/* <Banner /> */}
                 <QuickAccess />
                 <FlashSale />
                 {/* <Trending /> */}

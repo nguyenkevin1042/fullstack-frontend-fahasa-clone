@@ -5,7 +5,8 @@ const initialState = {
     adminInfo: null,
     signUpResponse: [],
     allCodesArr: [],
-    updateCodeRes: []
+    updateCodeRes: [],
+    allSubCategoryArr: []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -45,6 +46,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.FETCH_ALL_CODE_BY_ID_SUCCESS:
+            state.allCodesArr = action.allCodeData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_CODE_BY_ID_FAIL:
+            state.allCodesArr = []
+            return {
+                ...state,
+            }
+
         case actionTypes.UPDATE_CODE_SUCCESS:
             state.updateCodeRes = action.response
             return {
@@ -52,6 +64,28 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.UPDATE_CODE_FAIL:
             state.updateCodeRes = action.response
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_SUCCESS:
+            state.allSubCategoryArr = action.allSubCategoryData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL:
+            state.allSubCategoryArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_ID_SUCCESS:
+            state.allSubCategoryArr = action.allSubCategoryData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_ID_FAIL:
+            state.allSubCategoryArr = []
             return {
                 ...state,
             }

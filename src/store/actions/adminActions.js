@@ -1,7 +1,9 @@
 import actionTypes from './actionTypes';
 import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI,
-    deleteCodeAPI, editCodeAPI, getCodeByTypeAPI
+    deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
+    getAllSubCategoryByCategoryIdAPI, addNewSubCategoryAPI,
+    getAllSubCategoryAPI, getAllCodesByIdAPI
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 
@@ -132,6 +134,34 @@ export const fetchAllCodesByTypeFail = () => ({
     type: actionTypes.FETCH_ALL_CODE_FAIL
 })
 
+//FETCH ALL CODES BY ID
+export const fetchAllCodesById = (inputType) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getCodeByTypeAPI(inputType);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllCodesByIdSuccess(res.data));
+            } else {
+                dispatch(fetchAllCodesByIdFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllCodesByIdFail());
+            console.log("fetchAllCodesByType Error: ", error)
+        }
+    }
+}
+
+export const fetchAllCodesByIdSuccess = (allCode) => ({
+    type: actionTypes.FETCH_ALL_CODE_BY_ID_SUCCESS,
+    allCodeData: allCode
+})
+
+export const fetchAllCodesByIdFail = () => ({
+    type: actionTypes.FETCH_ALL_CODE_BY_ID_FAIL
+})
+
 // DELETE CODE
 export const deleteCode = (inputId) => {
     return async (dispatch, getState) => {
@@ -189,3 +219,86 @@ export const updateCodeFail = (response) => ({
     response: response
 })
 
+//FETCH ALL SUB CATEGORY
+export const fetchAllSubCategory = () => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllSubCategoryAPI();
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllSubCategorySuccess(res.data));
+            } else {
+                dispatch(fetchAllSubCategoryFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllSubCategoryFail());
+            console.log("fetchAllSubCategory Error: ", error)
+        }
+    }
+}
+
+export const fetchAllSubCategorySuccess = (allSubCategory) => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_SUCCESS,
+    allSubCategoryData: allSubCategory
+})
+
+export const fetchAllSubCategoryFail = () => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL
+})
+
+//FETCH ALL SUB CATEGORY BY ID
+export const fetchAllSubCategoryByCategoryId = (categoryId) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllSubCategoryByCategoryIdAPI(categoryId);
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllSubCategoryByCategoryIdSuccess(res.data));
+            } else {
+                dispatch(fetchAllSubCategoryByCategoryIdFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllSubCategoryByCategoryIdFail());
+            console.log("fetchAllSubCategoryByCategoryId Error: ", error)
+        }
+    }
+}
+
+export const fetchAllSubCategoryByCategoryIdSuccess = (allSubCategory) => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_SUCCESS,
+    allSubCategoryData: allSubCategory
+})
+
+export const fetchAllSubCategoryByCategoryIdFail = () => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL
+})
+
+//ADD NEW SUB CATEGORY
+export const addNewSubCategory = (codeData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await addNewSubCategoryAPI(codeData);
+            if (res && res.errCode === 0) {
+                dispatch(addNewSubCategorySuccess(res));
+            } else {
+                dispatch(addNewSubCategoryFail(res));
+            }
+        } catch (error) {
+            dispatch(addNewSubCategoryFail(res));
+            console.log("addNewSubCategory Error: ", error)
+        }
+    }
+}
+
+export const addNewSubCategorySuccess = (response) => ({
+    type: actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS,
+    response: response
+})
+
+export const addNewSubCategoryFail = (response) => ({
+    type: actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS,
+    response: response
+})

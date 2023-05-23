@@ -21,6 +21,14 @@ const getAllCodesAPI = () => {
     return axios.get("/api/get-all-codes");
 }
 
+const getAllCodesByIdAPI = (inputId) => {
+    return axios.get("/api/get-code-by-id", {
+        params: {
+            id: inputId
+        }
+    });
+}
+
 const deleteCodeAPI = (inputId) => {
     return axios.delete("/api/delete-code", {
         data: {
@@ -40,8 +48,23 @@ const getCodeByTypeAPI = (inputType) => {
     });
 }
 
+//SUB CATEGORY
+const getAllSubCategoryAPI = () => {
+    return axios.get("/api/get-all-sub-category");
+}
+const getAllSubCategoryByCategoryIdAPI = (inputCategoryId) => {
+    return axios.get("/api/get-all-sub-category-by-category-id",
+        { params: { categoryId: inputCategoryId } });
+}
+
+const addNewSubCategoryAPI = (data) => {
+    return axios.post("/api/add-new-sub-category", data);
+}
+
 
 export {
     createNewUserAPI, loginAPI,
-    addNewCodeAPI, getAllCodesAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI
+    addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
+    getAllSubCategoryByCategoryIdAPI, addNewSubCategoryAPI,
+    getAllSubCategoryAPI
 };

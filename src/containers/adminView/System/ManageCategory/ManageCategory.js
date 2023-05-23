@@ -13,17 +13,18 @@ class ManageCategory extends Component {
         super(props);
         this.state = {
             categoryId: '',
-            type: '',
             valueVI: '',
             valueEN: '',
 
             listCategory: [],
-            selectedCategory: ''
+            selectedCategory: '',
+
         };
     }
 
     componentDidMount() {
         this.props.fetchAllCodesByType('category')
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -37,6 +38,13 @@ class ManageCategory extends Component {
                 listCategory: dataSelect
             })
         }
+
+        // if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
+        //     let dataSelect = this.buildDataInputSelect(this.props.allSubCategoryArr, "category");
+        //     this.setState({
+        //         listSubCategory: dataSelect
+        //     })
+        // }
 
     }
 
@@ -72,6 +80,13 @@ class ManageCategory extends Component {
         console.log(this.state)
     }
 
+    handleOnChangeInput = (event, key) => {
+        let data = event.target.value;
+        let copyState = { ...this.state };
+        copyState[key] = data;
+        this.setState({ ...copyState });
+    }
+
     handleClearAllInput = () => {
         this.setState({
             categoryId: '',
@@ -85,25 +100,19 @@ class ManageCategory extends Component {
     }
 
     render() {
-        let { type, categoryId, valueVI, valueEN, listCategory, selectedCategory } = this.state;
+        let { categoryId, valueVI, valueEN, listCategory, selectedCategory } = this.state;
 
         return (
             <React.Fragment>
                 <CustomScrollbars style={{ height: '768px' }}>
                     <div className='manage-category-container'>
                         <div className='manage-category-title'>
-                            Quản lý danh mục sản phẩm
+                            Quản lý danh mục phụ
                         </div>
 
                         <div className='manage-category-add-section row'>
-                            <div className='col-6 form-group'>
+                            <div className='col-12 form-group'>
                                 <label>Thể loại</label>
-                                <input className='form-control'
-                                    value={type}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'type')} />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label>Mã code</label>
                                 <Select
                                     value={selectedCategory}
                                     onChange={this.handleChange}
@@ -111,6 +120,7 @@ class ManageCategory extends Component {
                                     // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
                                     name="selectedCategory"
                                 />
+
                             </div>
                             <div className='col-6 form-group'>
                                 <label>Giá trị bằng Tiếng Việt</label>
@@ -151,12 +161,13 @@ class ManageCategory extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        allCodesArr: state.admin.allCodesArr
+        allCodesArr: state.admin.allCodesArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        addNewSubCategory: (inputData) => dispatch(actions.addNewSubCategory(inputData)),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
     };
 };
