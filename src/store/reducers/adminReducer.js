@@ -57,6 +57,18 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.FETCH_ALL_CODE_BY_TYPE_SUCCESS:
+            console.log(action.allCodeData)
+            state.allCodesArr = action.allCodeData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_CODE_BY_TYPE_FAIL:
+            state.allCodesArr = []
+            return {
+                ...state,
+            }
+
         case actionTypes.UPDATE_CODE_SUCCESS:
             state.updateCodeRes = action.response
             return {
@@ -68,12 +80,12 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
-        case actionTypes.FETCH_ALL_SUB_CATEGORY_SUCCESS:
-            state.allSubCategoryArr = action.allSubCategoryData
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_SUCCESS:
+            state.allSubCategoryArr = action.allSubCategoryByTypeData
             return {
                 ...state,
             }
-        case actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL:
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_FAIL:
             state.allSubCategoryArr = []
             return {
                 ...state,

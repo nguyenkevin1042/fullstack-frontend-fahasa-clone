@@ -2,7 +2,7 @@ import actionTypes from './actionTypes';
 import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
-    getAllSubCategoryByCategoryIdAPI, addNewSubCategoryAPI,
+    getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
     getAllSubCategoryAPI, getAllCodesByIdAPI
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -247,31 +247,31 @@ export const fetchAllSubCategoryFail = () => ({
     type: actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL
 })
 
-//FETCH ALL SUB CATEGORY BY ID
-export const fetchAllSubCategoryByCategoryId = (categoryId) => {
+//FETCH ALL SUB CATEGORY BY TYPE
+export const fetchAllSubCategoryByCategoryType = (categoryType) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            res = await getAllSubCategoryByCategoryIdAPI(categoryId);
+            res = await getAllSubCategoryByCategoryTypeAPI(categoryType);
             if (res && res.errCode === 0) {
-                dispatch(fetchAllSubCategoryByCategoryIdSuccess(res.data));
+                dispatch(fetchAllSubCategoryByTypeSuccess(res.data));
             } else {
-                dispatch(fetchAllSubCategoryByCategoryIdFail());
+                dispatch(fetchAllSubCategoryByCategoryTypeFail());
             }
         } catch (error) {
-            dispatch(fetchAllSubCategoryByCategoryIdFail());
-            console.log("fetchAllSubCategoryByCategoryId Error: ", error)
+            dispatch(fetchAllSubCategoryByCategoryTypeFail());
+            console.log("fetchAllSubCategoryByCategoryType Error: ", error)
         }
     }
 }
 
-export const fetchAllSubCategoryByCategoryIdSuccess = (allSubCategory) => ({
-    type: actionTypes.FETCH_ALL_SUB_CATEGORY_SUCCESS,
-    allSubCategoryData: allSubCategory
+export const fetchAllSubCategoryByTypeSuccess = (allSubCategory) => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_SUCCESS,
+    allSubCategoryByTypeData: allSubCategory
 })
 
-export const fetchAllSubCategoryByCategoryIdFail = () => ({
-    type: actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL
+export const fetchAllSubCategoryByCategoryTypeFail = () => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_FAIL
 })
 
 //ADD NEW SUB CATEGORY

@@ -18,13 +18,11 @@ class DropdownMenu extends Component {
     }
 
     async componentDidMount() {
-        // await this.props.fetchAllSubCategoryByCategoryId(this.state.selectedCategory.key);
-
         this.setState({
             listCategory: this.props.listCategory,
             selectedCategory: this.props.listCategory[0],
         })
-        await this.props.fetchAllSubCategoryByCategoryId(this.props.listCategory[0].key);
+        await this.props.fetchAllSubCategoryByCategoryType(this.props.listCategory[0].categoryType);
         this.setState({
             listSubCategory: this.props.allSubCategoryArr
         })
@@ -43,7 +41,7 @@ class DropdownMenu extends Component {
     }
 
     handleOnMouseOver = async (category) => {
-        this.props.fetchAllSubCategoryByCategoryId(category.key);
+        this.props.fetchAllSubCategoryByCategoryType(category.categoryType);
         this.setState({
             selectedCategory: category,
         })
@@ -83,7 +81,7 @@ class DropdownMenu extends Component {
                         {listSubCategory && listSubCategory.length > 0 &&
                             listSubCategory.map((item, index) => (
                                 <div className='sub-category-item col-md-3' key={index}>
-                                    <div className='sub-category-title'>{item.valueVI}</div>
+                                    <div className='sub-category-title'>{item.valueVI} {item.key}</div>
                                     <ul>
                                         <li>Child Item 1</li>
                                         <li>Child Item 2</li>
@@ -106,6 +104,7 @@ class DropdownMenu extends Component {
 
 
     render() {
+        console.log(this.state)
         return (
             <div className='dropdown-menu-container container'>
                 <div className='row'>
@@ -154,7 +153,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesById: (categoryId) => dispatch(actions.fetchAllCodesById(categoryId)),
-        fetchAllSubCategoryByCategoryId: (categoryId) => dispatch(actions.fetchAllSubCategoryByCategoryId(categoryId))
+        fetchAllSubCategoryByCategoryType: (categoryType) => dispatch(actions.fetchAllSubCategoryByCategoryType(categoryType))
     };
 };
 

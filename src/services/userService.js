@@ -52,9 +52,9 @@ const getCodeByTypeAPI = (inputType) => {
 const getAllSubCategoryAPI = () => {
     return axios.get("/api/get-all-sub-category");
 }
-const getAllSubCategoryByCategoryIdAPI = (inputCategoryId) => {
-    return axios.get("/api/get-all-sub-category-by-category-id",
-        { params: { categoryId: inputCategoryId } });
+const getAllSubCategoryByCategoryTypeAPI = (inputCategoryType) => {
+    return axios.get("/api/get-all-sub-category-by-category-type",
+        { params: { categoryType: inputCategoryType } });
 }
 
 const addNewSubCategoryAPI = (data) => {
@@ -65,6 +65,6 @@ const addNewSubCategoryAPI = (data) => {
 export {
     createNewUserAPI, loginAPI,
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
-    getAllSubCategoryByCategoryIdAPI, addNewSubCategoryAPI,
+    getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
     getAllSubCategoryAPI
 };

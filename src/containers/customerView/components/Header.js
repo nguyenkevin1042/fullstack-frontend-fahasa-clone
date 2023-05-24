@@ -77,11 +77,13 @@ class Header extends Component {
         if (inputData && inputData.length > 0) {
             if (type === "category") {
                 inputData.map((item, index) => {
+
                     let obj = {};
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
                     obj.key = item.id;
+                    obj.categoryType = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
