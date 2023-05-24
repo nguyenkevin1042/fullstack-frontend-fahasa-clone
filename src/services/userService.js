@@ -61,10 +61,16 @@ const addNewSubCategoryAPI = (data) => {
     return axios.post("/api/add-new-sub-category", data);
 }
 
+//CHILD CATEGORY
+const getAllChildCategoryAPI = (inputSubCategoryId) => {
+    return axios.get("/api/get-all-child-category-by-id",
+        { params: { subCategoryId: inputSubCategoryId } });
+}
 
 export {
     createNewUserAPI, loginAPI,
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
-    getAllSubCategoryAPI
+    getAllSubCategoryAPI,
+    getAllChildCategoryAPI
 };

@@ -3,7 +3,7 @@ import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
-    getAllSubCategoryAPI, getAllCodesByIdAPI
+    getAllSubCategoryAPI, getAllCodesByIdAPI, getAllChildCategoryAPI
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 
@@ -301,4 +301,32 @@ export const addNewSubCategorySuccess = (response) => ({
 export const addNewSubCategoryFail = (response) => ({
     type: actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS,
     response: response
+})
+
+//FETCH ALL CHILD CATEGORY BY ID
+export const fetchAllChildCategoryById = (inputSubCatId) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllChildCategoryAPI(inputSubCatId);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllChildCategoryByIdSuccess(res.data));
+            } else {
+                dispatch(fetchAllChildCategoryByIdFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllChildCategoryByIdFail());
+            console.log("fetchAllCodesByType Error: ", error)
+        }
+    }
+}
+
+export const fetchAllChildCategoryByIdSuccess = (childCatData) => ({
+    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_SUCCESS,
+    allChildCatData: childCatData
+})
+
+export const fetchAllChildCategoryByIdFail = () => ({
+    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_FAIL
 })

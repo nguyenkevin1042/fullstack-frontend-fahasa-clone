@@ -6,7 +6,8 @@ const initialState = {
     signUpResponse: [],
     allCodesArr: [],
     updateCodeRes: [],
-    allSubCategoryArr: []
+    allSubCategoryArr: [],
+    allChildCategoryArr: []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -102,6 +103,16 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_SUCCESS:
+            state.allChildCategoryArr = action.allChildCatData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_FAIL:
+            state.allChildCategoryArr = []
+            return {
+                ...state,
+            }
 
         case actionTypes.PROCESS_LOGOUT:
             return {

@@ -13,7 +13,8 @@ class DropdownMenu extends Component {
         this.state = {
             listCategory: [],
             selectedCategory: '',
-            listSubCategory: []
+            listSubCategory: [],
+            listChildCategory: []
         };
     }
 
@@ -23,8 +24,10 @@ class DropdownMenu extends Component {
             selectedCategory: this.props.listCategory[0],
         })
         await this.props.fetchAllSubCategoryByCategoryType(this.props.listCategory[0].categoryType);
+        await this.props.fetchAllChildCategoryById(1);
         this.setState({
-            listSubCategory: this.props.allSubCategoryArr
+            listSubCategory: this.props.allSubCategoryArr,
+            listChildCategory: this.props.allChildCategoryArr
         })
     }
 
@@ -38,10 +41,15 @@ class DropdownMenu extends Component {
                 listSubCategory: this.props.allSubCategoryArr
             })
         }
+        if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr) {
+            this.setState({
+                listChildCategory: this.props.allChildCategoryArr
+            })
+        }
     }
 
     handleOnMouseOver = async (category) => {
-        this.props.fetchAllSubCategoryByCategoryType(category.categoryType);
+        await this.props.fetchAllSubCategoryByCategoryType(category.categoryType);
         this.setState({
             selectedCategory: category,
         })
@@ -68,6 +76,7 @@ class DropdownMenu extends Component {
 
     renderSubCategoryList = () => {
         let { selectedCategory, listSubCategory } = this.state
+
         return (
 
             <>
@@ -81,14 +90,9 @@ class DropdownMenu extends Component {
                         {listSubCategory && listSubCategory.length > 0 &&
                             listSubCategory.map((item, index) => (
                                 <div className='sub-category-item col-md-3' key={index}>
-                                    <div className='sub-category-title'>{item.valueVI} {item.key}</div>
+                                    <div className='sub-category-title'>{item.valueVI}</div>
                                     <ul>
-                                        <li>Child Item 1</li>
-                                        <li>Child Item 2</li>
-                                        <li>Child Item 3</li>
-                                        <li>Child Item 4</li>
-                                        <li>Child Item 5</li>
-                                        <li>Child Item 6</li>
+                                        {this.renderChildCategoryList(item.id)}
                                     </ul>
                                 </div>
                             ))
@@ -102,9 +106,36 @@ class DropdownMenu extends Component {
         )
     }
 
+    renderChildCategoryList = (subCatId) => {
+        // await this.props.fetchAllChildCategoryById(subCatId);
+        let { allChildCategoryArr } = this.props;
+        console.log("renderChildCategoryList: ", subCatId)
+        // console.log("allChildCategoryArr: ", allChildCategoryArr)
+        return (
+            <>
+                {subCatId} subCatId
+                {/* <li>Child Item 1</li>
+                <li>Child Item 2</li>
+                <li>Child Item 3</li>
+                <li>Child Item 4</li>
+                <li>Child Item 5</li>
+                <li>Child Item 6</li> */}
+                {/* {allChildCategoryArr && allChildCategoryArr.length > 0 &&
+                    allChildCategoryArr.map((item, index) => (
+                        // <li key={index}>{item.valueVI}</li>
+                        // <li key={index}>Child Item 6</li>
+                        <></>
+                    ))
+                } */}
+            </>
+        )
+    }
+
 
     render() {
+        console.log(this.props.allChildCategoryArr)
         console.log(this.state)
+
         return (
             <div className='dropdown-menu-container container'>
                 <div className='row'>
@@ -145,15 +176,16 @@ class DropdownMenu extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        allSubCategoryArr: state.admin.allSubCategoryArr
-
+        allSubCategoryArr: state.admin.allSubCategoryArr,
+        allChildCategoryArr: state.admin.allChildCategoryArr
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesById: (categoryId) => dispatch(actions.fetchAllCodesById(categoryId)),
-        fetchAllSubCategoryByCategoryType: (categoryType) => dispatch(actions.fetchAllSubCategoryByCategoryType(categoryType))
+        fetchAllSubCategoryByCategoryType: (categoryType) => dispatch(actions.fetchAllSubCategoryByCategoryType(categoryType)),
+        fetchAllChildCategoryById: (subCatId) => dispatch(actions.fetchAllChildCategoryById(subCatId))
     };
 };
 
