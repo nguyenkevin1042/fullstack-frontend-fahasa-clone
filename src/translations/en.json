@@ -2,6 +2,10 @@
     "customer": {
         "homepage": {
             "header": {
+                "menu": {
+                    "title": "Product Category",
+                    "all-child-category": "View all"
+                },
                 "notifications": "Notifications",
                 "cart": "My cart",
                 "account": "Account"

@@ -14,7 +14,6 @@ class DropdownMenu extends Component {
             listCategory: [],
             selectedCategory: '',
             listSubCategory: [],
-            listChildCategory: []
         };
     }
 
@@ -24,10 +23,8 @@ class DropdownMenu extends Component {
             selectedCategory: this.props.listCategory[0],
         })
         await this.props.fetchAllSubCategoryByCategoryType(this.props.listCategory[0].categoryType);
-        await this.props.fetchAllChildCategoryById(1);
         this.setState({
             listSubCategory: this.props.allSubCategoryArr,
-            listChildCategory: this.props.allChildCategoryArr
         })
     }
 
@@ -39,11 +36,6 @@ class DropdownMenu extends Component {
         if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
             this.setState({
                 listSubCategory: this.props.allSubCategoryArr
-            })
-        }
-        if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr) {
-            this.setState({
-                listChildCategory: this.props.allChildCategoryArr
             })
         }
     }
@@ -76,6 +68,7 @@ class DropdownMenu extends Component {
 
     renderSubCategoryList = () => {
         let { selectedCategory, listSubCategory } = this.state
+        let language = this.props.lang;
 
         return (
 
@@ -84,16 +77,19 @@ class DropdownMenu extends Component {
                     {selectedCategory.label}
                 </div>
                 <div className='right-menu-sub-category'>
-                    {/* {this.renderChildCategotyList()} */}
-                    {/* <div className='sub-category-item'> */}
                     <div className='row'>
                         {listSubCategory && listSubCategory.length > 0 &&
                             listSubCategory.map((item, index) => (
                                 <div className='sub-category-item col-md-3' key={index}>
-                                    <div className='sub-category-title'>{item.valueVI}</div>
-                                    <ul>
-                                        {this.renderChildCategoryList(item.id)}
-                                    </ul>
+                                    <div className='sub-category-title'>
+                                        {language === languages.VI ? item.valueVI : item.valueEN}
+                                    </div>
+                                    <div>
+                                        <ul className='child-category-list'>
+                                            {this.renderChildCategoryList(item.childCategoryData)}
+                                        </ul>
+
+                                    </div>
                                 </div>
                             ))
 
@@ -106,42 +102,38 @@ class DropdownMenu extends Component {
         )
     }
 
-    renderChildCategoryList = (subCatId) => {
-        // await this.props.fetchAllChildCategoryById(subCatId);
-        let { allChildCategoryArr } = this.props;
-        console.log("renderChildCategoryList: ", subCatId)
-        // console.log("allChildCategoryArr: ", allChildCategoryArr)
+    renderChildCategoryList = (childCategoryData) => {
+        let language = this.props.lang;
         return (
             <>
-                {subCatId} subCatId
-                {/* <li>Child Item 1</li>
-                <li>Child Item 2</li>
-                <li>Child Item 3</li>
-                <li>Child Item 4</li>
-                <li>Child Item 5</li>
-                <li>Child Item 6</li> */}
-                {/* {allChildCategoryArr && allChildCategoryArr.length > 0 &&
-                    allChildCategoryArr.map((item, index) => (
-                        // <li key={index}>{item.valueVI}</li>
-                        // <li key={index}>Child Item 6</li>
-                        <></>
+                {childCategoryData && childCategoryData.length > 0 &&
+                    childCategoryData.map((item, index) => (
+                        <li key={index} className='child-category-item'>
+                            {language === languages.VI ? item.valueVI : item.valueEN}
+                        </li>
                     ))
-                } */}
+                }
+                {childCategoryData && childCategoryData.length > 0 ?
+                    <li className='view-all-child-category'>
+                        <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
+                    </li> :
+                    <></>
+                }
+                {/* <li className='view-all-child-category'>
+                    <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
+                </li> */}
             </>
         )
     }
 
 
     render() {
-        console.log(this.props.allChildCategoryArr)
-        console.log(this.state)
-
         return (
             <div className='dropdown-menu-container container'>
                 <div className='row'>
                     <div className='left-menu col-xl-3'>
                         <div className='left-menu-title'>
-                            Danh mục sản phẩm
+                            <FormattedMessage id="customer.homepage.header.menu.title" />
                         </div>
                         <div className='left-menu-list-category'>
                             {this.renderCategoryList()}

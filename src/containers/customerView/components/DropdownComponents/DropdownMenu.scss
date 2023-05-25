@@ -62,22 +62,34 @@ $ex-large: 1200px;// Extra large >= 1200
             .sub-category-item{
                 border: 1px solid black;
                 // padding: 0;
+                // padding: 5px;
 
                 .sub-category-title{
                     text-transform: uppercase;
-                    font-weight: 600;
+                    font-weight: 550;
                     // font-size: 1.1em;
                     // white-space: inherit;
                     // margin: auto;
+                    cursor: pointer;
                 }
 
-                ul{
+                .child-category-list{
                     list-style: none;
                     padding: 0;
 
-                    li{
+                    .child-category-item{
                         color: #666;
+                        cursor: pointer;
                         // font-size: 13px;
+
+                        &:hover{
+                            color: #bf9a61;
+                        }
+                    }
+
+                    .view-all-child-category{
+                        cursor: pointer;
+                        color: #2489f4;
                     }
                 }
             }

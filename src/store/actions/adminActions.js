@@ -279,7 +279,6 @@ export const addNewSubCategory = (codeData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-
             res = await addNewSubCategoryAPI(codeData);
             if (res && res.errCode === 0) {
                 dispatch(addNewSubCategorySuccess(res));

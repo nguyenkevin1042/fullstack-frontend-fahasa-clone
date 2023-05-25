@@ -2,6 +2,10 @@
     "customer": {
         "homepage": {
             "header": {
+                "menu": {
+                    "title": "Danh mục sản phẩm",
+                    "all-child-category": "Xem tất cả"
+                },
                 "notifications": "Thông báo",
                 "cart": "Giỏ hàng",
                 "account": "Tài khoản"
