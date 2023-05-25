@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './DropdownMenu.scss';
 import { languages } from '../../../../utils'
-import { Menu, Dropdown, Icon } from 'antd';
 
 import * as actions from "../../../../store/actions";
 
@@ -119,9 +118,6 @@ class DropdownMenu extends Component {
                     </li> :
                     <></>
                 }
-                {/* <li className='view-all-child-category'>
-                    <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
-                </li> */}
             </>
         )
     }
@@ -144,22 +140,6 @@ class DropdownMenu extends Component {
                     </div>
                 </div>
             </div>
-
-
-
-            // <Menu className='dropdown-menu-container'>
-            //     <Menu.Item className='item'>1st menu item</Menu.Item>
-            //     <Menu.Item>2nd menu item</Menu.Item>
-            // <SubMenu title="sub menu">
-            //     <Menu.Item>3rd menu item</Menu.Item>
-            //     <Menu.Item>4th menu item</Menu.Item>
-            // </SubMenu>
-            //     <SubMenu title="disabled sub menu" disabled>
-            //         <Menu.Item>5d menu item</Menu.Item>
-            //         <Menu.Item>6th menu item</Menu.Item>
-            //     </SubMenu>
-            // </Menu>
-
         );
     }
 }

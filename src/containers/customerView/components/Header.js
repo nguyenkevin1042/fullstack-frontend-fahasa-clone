@@ -13,6 +13,7 @@ import enFlag from '../../../assets/english.svg';
 import { adminMenu } from '../../adminView/Header/menuApp';
 import DropdownMenu from './DropdownComponents/DropdownMenu';
 import { Menu, Dropdown, Icon } from 'antd';
+import DropdownAccount from './DropdownComponents/DropdownAccount';
 
 
 class Header extends Component {
@@ -102,18 +103,6 @@ class Header extends Component {
         this.props.changeLanguageApp(selectedLanguage.value);
     }
 
-    handleMouseOver = () => {
-        this.setState({
-            hoverMenu: true
-        })
-    }
-
-    handleMouseLeave = () => {
-        this.setState({
-            hoverMenu: false
-        })
-    }
-
     handleRedirectToLoginPage = () => {
         if (this.props.history) {
             this.props.history.push("/customer/account/login");
@@ -128,19 +117,22 @@ class Header extends Component {
 
     renderCustomerOption = () => {
         let { userInfo } = this.props;
-
+        const accountMenu = (<DropdownAccount />);
         return (
-            <div className='user-options-information option col-6 col-md-3'
-                onClick={() => this.handleRedirectToLoginPage()}>
-                <i className="fa fa-user"></i>
-                {userInfo ?
-                    <p>{userInfo.lastName} {userInfo.firstName}</p>
-                    :
-                    <p><FormattedMessage id="customer.homepage.header.account" /></p>
-                }
+            <Dropdown overlay={accountMenu}>
+                <div className='user-options-information option col-6 col-md-3'
+                    onClick={() => this.handleRedirectToLoginPage()}
+                >
+                    <i className="fa fa-user"></i>
+                    {userInfo ?
+                        <p>{userInfo.lastName} {userInfo.firstName}</p>
+                        :
+                        <p><FormattedMessage id="customer.homepage.header.account" /></p>
+                    }
 
 
-            </div>
+                </div>
+            </Dropdown>
         )
     }
 
@@ -172,6 +164,8 @@ class Header extends Component {
         };
 
         const menu = (<DropdownMenu listCategory={listCategory} />);
+
+
         return (
             <>
                 <div className='home-header-container container-fluid'>
@@ -183,12 +177,9 @@ class Header extends Component {
                         </div >
                         {/* MENU */}
                         <div className='home-header-menu col-1 col-lg-1 px-1'>
-                            <Dropdown overlay={menu}
-                            // overlayClassName={'dropdown-menu-container'}
-                            >
+                            <Dropdown overlay={menu}>
                                 <div className='home-header-menu-toggle'
-                                    onMouseOver={() => this.handleMouseOver()}
-                                    onMouseLeave={() => this.handleMouseLeave()}>
+                                >
                                     <div className='home-header-menu-toggle-icon img-fluid'></div>
                                     <div><i className="fa fa-angle-down"></i></div>
                                 </div>

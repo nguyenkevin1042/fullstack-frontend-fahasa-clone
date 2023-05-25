@@ -1,0 +1,40 @@
+.account-modal-container{
+    .account-modal-content{
+        border: 1px solid red;
+        padding: 20px;
+        .account-modal-form{
+            .account-modal-header{
+                display: flex;
+                cursor: pointer;
+                margin-bottom: 10px;
+
+                .active{
+                    color: #C92127;
+                    border-bottom: 2px solid #C92127;
+                }
+
+                .account-modal-header-text {
+                    width: 100%;
+                    text-align: center;
+                    margin: 0 10px;
+                    padding-bottom: 5px;
+                }
+
+                .account-modal-header-sign-in{
+                    &:hover{
+                        color: #C92127;
+                        border-bottom: 2px solid #C92127;
+                    }
+                }
+
+                .account-modal-header-sign-up{
+                    &:hover{
+                        color: #C92127;
+                        border-bottom: 2px solid #C92127;
+                    }
+                }
+            }
+        }
+
+    }
+}

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-import './Login.scss';
-import Header from '../components/Header';
-import SignUpNewletter from '../Homepage/SignUpNewletter';
-import Footer from '../components/Footer';
-import SignInComponent from './SignInComponent';
-import SignUpComponent from './SignUpComponent';
-import ForgotPasswordComponent from './ForgotPasswordComponent';
-import * as actions from "../../../store/actions";
+import './AccountModal.scss';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, ListGroupItem } from 'reactstrap'
+import SignInComponent from '../../Login/SignInComponent';
+import SignUpComponent from '../../Login/SignUpComponent';
+import ForgotPasswordComponent from '../../Login/ForgotPasswordComponent';
 
-class Login extends Component {
+// import * as actions from "../store/actions";
+
+class AccountModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,6 +27,8 @@ class Login extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
+
+
     }
 
     handleOpenSignInForm = () => {
@@ -61,21 +62,21 @@ class Login extends Component {
             <>
                 {loadForgotPasswordForm === true ?
                     <>
-                        <div className='log-in-header-text log-in-header-forgot-password'>
+                        <div className='account-modal-header-text account-modal-header-forgot-password'>
                             <FormattedMessage id="customer.login.recovery-password" />
                         </div>
                     </>
                     :
                     <>
                         <div className={loadSignInForm === true ?
-                            'log-in-header-text log-in-header-sign-in active' :
-                            'log-in-header-text log-in-header-sign-in'}
+                            'account-modal-header-text account-modal-header-sign-in active' :
+                            'account-modal-header-text account-modal-header-sign-in'}
                             onClick={() => this.handleOpenSignInForm()}>
                             <FormattedMessage id="customer.login.sign-in-text" />
                         </div>
                         <div className={loadSignUpForm === true ?
-                            'log-in-header-text log-in-header-sign-up active' :
-                            'log-in-header-text log-in-header-sign-up'}
+                            'account-modal-header-text account-modal-header-sign-up active' :
+                            'account-modal-header-text account-modal-header-sign-up'}
                             onClick={() => this.handleOpenSignUpForm()} >
                             <FormattedMessage id="customer.login.sign-up-text" />
                         </div></>
@@ -84,37 +85,35 @@ class Login extends Component {
         )
     }
 
+
     render() {
         let { loadSignInForm, loadSignUpForm, loadForgotPasswordForm } = this.state
-
+        let { isModalOpened } = this.props
         return (
-            <>
-                <Header />
-                <div className='log-in-container'>
-                    <div className='log-in-content'>
-                        <div className='log-in-form'>
-                            <div className='log-in-header'>
-                                {this.renderTitle()}
-                            </div>
+            <Modal isOpen={isModalOpened}
+                className={'account-modal-container'}>
 
-                            <div className='log-in-form-input'>
-                                <SignInComponent
-                                    isOpenSignInForm={loadSignInForm}
-                                    handleOpenForgotPasswordForm={this.handleOpenForgotPasswordForm} />
-                                <SignUpComponent
-                                    isOpenSignUpForm={loadSignUpForm} />
-                                <ForgotPasswordComponent
-                                    isOpenForgotPasswordForm={loadForgotPasswordForm} />
 
-                            </div>
+                <div className='account-modal-content'>
+                    <div className='account-modal-form'>
+                        <div className='account-modal-header'>
+                            {this.renderTitle()}
+                        </div>
+
+                        <div className='account-modal-form-input'>
+                            <SignInComponent
+                                isOpenSignInForm={loadSignInForm}
+                                handleOpenForgotPasswordForm={this.handleOpenForgotPasswordForm} />
+                            <SignUpComponent
+                                isOpenSignUpForm={loadSignUpForm} />
+                            <ForgotPasswordComponent
+                                isOpenForgotPasswordForm={loadForgotPasswordForm} />
+
                         </div>
                     </div>
                 </div>
+            </Modal>
 
-
-                <SignUpNewletter />
-                <Footer />
-            </>
         );
     }
 }
@@ -128,8 +127,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        userLogin: (email, password) => dispatch(actions.userLogin(email, password)),
+
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountModal);
