@@ -53,7 +53,8 @@
             "forgot-password": "Forgot password?",
             "recovery-password": "Recovery password",
             "confirm-text": "Confirm",
-            "back-text": "Go back"
+            "back-text": "Go back",
+            "skip-text": "Skip"
         }
     },
     "common": {

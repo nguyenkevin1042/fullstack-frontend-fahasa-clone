@@ -101,6 +101,16 @@ class ManageCategory extends Component {
 
     render() {
         let { categoryId, valueVI, valueEN, listCategory, selectedCategory } = this.state;
+        let { allCodesArr } = this.props
+        // let dataHeader = Object.getOwnPropertyNames(allCodesArr);
+
+        // console.log(allCodesArr)
+        // console.log(dataHeader)
+        // Object.getOwnPropertyNames(allCodesArr.shift()).
+        //     forEach(function (val) {
+        //         console.log(val);
+
+        //     });
 
         return (
             <React.Fragment>

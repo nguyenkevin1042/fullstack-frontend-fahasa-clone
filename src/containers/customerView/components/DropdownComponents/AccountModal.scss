@@ -1,9 +1,12 @@
 .account-modal-container{
-    .account-modal-content{
-        border: 1px solid red;
-        padding: 20px;
-        .account-modal-form{
-            .account-modal-header{
+    
+    .log-in-content{
+        padding: 40px 20px;
+
+        .log-in-form{
+
+
+            .log-in-header{
                 display: flex;
                 cursor: pointer;
                 margin-bottom: 10px;
@@ -13,28 +16,83 @@
                     border-bottom: 2px solid #C92127;
                 }
 
-                .account-modal-header-text {
+                .log-in-header-text {
                     width: 100%;
                     text-align: center;
                     margin: 0 10px;
                     padding-bottom: 5px;
                 }
 
-                .account-modal-header-sign-in{
+                .log-in-header-sign-in{
                     &:hover{
                         color: #C92127;
                         border-bottom: 2px solid #C92127;
                     }
                 }
 
-                .account-modal-header-sign-up{
+                .log-in-header-sign-up{
                     &:hover{
                         color: #C92127;
                         border-bottom: 2px solid #C92127;
                     }
                 }
             }
+
+            .log-in-form-input{
+                padding: 0 20px;
+
+                .form-group{
+                    margin-top: 20px;
+                }
+
+                .forgot-password{
+                    cursor: pointer;
+                    color:#C92127;
+                    text-align: right;
+                }
+
+                .sign-in-btn{
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                    
+                    button{
+                        font-weight: 600;
+                        color: white;
+                        background-color: #C92127;
+                        border: none;
+                        width: 245px;
+                        border-radius: 8px;
+                        padding: 10px 0;
+                    }
+                }
+            }
+
+            .close-modal-btn{
+                margin-top: 10px;
+                display: flex;
+                justify-content: center;
+                
+                button{
+                    font-weight: 600;
+                    color: #C92127;
+                    border: 2px solid #C92127;
+                    background-color: white;
+                    width: 245px;
+                    height: 40px;
+                    border-radius: 8px;
+    
+                }
+            }
         }
 
     }
+}
+
+.modal{
+
+}
+
+.modal-content{
+        border-radius: 10px;
 }

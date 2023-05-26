@@ -24,9 +24,14 @@ class DropdownAccount extends Component {
 
     }
 
-    handleOpenAccountModel = () => {
+    handleOpenAccountModal = () => {
         this.setState({
             isModalOpened: true
+        })
+    }
+    handleCloseAccountModal = () => {
+        this.setState({
+            isModalOpened: false
         })
     }
 
@@ -38,13 +43,14 @@ class DropdownAccount extends Component {
             <>
                 <div className='dropdown-account-container container'>
                     <div className='col-12 sign-in-btn'>
-                        <button onClick={() => this.handleOpenAccountModel()}><FormattedMessage id="customer.login.sign-in-text" /></button>
+                        <button onClick={() => this.handleOpenAccountModal()}><FormattedMessage id="customer.login.sign-in-text" /></button>
                     </div>
                     <div className='col-12 sign-up-btn'>
                         <button><FormattedMessage id="customer.login.sign-up-text" /></button>
                     </div>
                 </div>
-                <AccountModal isModalOpened={isModalOpened} />
+                <AccountModal isModalOpened={isModalOpened}
+                    closeAccountModal={this.handleCloseAccountModal} />
             </>
 
         );

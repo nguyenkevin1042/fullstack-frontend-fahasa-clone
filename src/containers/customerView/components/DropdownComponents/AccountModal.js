@@ -62,21 +62,21 @@ class AccountModal extends Component {
             <>
                 {loadForgotPasswordForm === true ?
                     <>
-                        <div className='account-modal-header-text account-modal-header-forgot-password'>
+                        <div className='log-in-header-text log-in-header-forgot-password'>
                             <FormattedMessage id="customer.login.recovery-password" />
                         </div>
                     </>
                     :
                     <>
                         <div className={loadSignInForm === true ?
-                            'account-modal-header-text account-modal-header-sign-in active' :
-                            'account-modal-header-text account-modal-header-sign-in'}
+                            'log-in-header-text log-in-header-sign-in active' :
+                            'log-in-header-text log-in-header-sign-in'}
                             onClick={() => this.handleOpenSignInForm()}>
                             <FormattedMessage id="customer.login.sign-in-text" />
                         </div>
                         <div className={loadSignUpForm === true ?
-                            'account-modal-header-text account-modal-header-sign-up active' :
-                            'account-modal-header-text account-modal-header-sign-up'}
+                            'log-in-header-text log-in-header-sign-up active' :
+                            'log-in-header-text log-in-header-sign-up'}
                             onClick={() => this.handleOpenSignUpForm()} >
                             <FormattedMessage id="customer.login.sign-up-text" />
                         </div></>
@@ -88,19 +88,19 @@ class AccountModal extends Component {
 
     render() {
         let { loadSignInForm, loadSignUpForm, loadForgotPasswordForm } = this.state
-        let { isModalOpened } = this.props
+        let { isModalOpened, closeAccountModal } = this.props
         return (
             <Modal isOpen={isModalOpened}
                 className={'account-modal-container'}>
 
 
-                <div className='account-modal-content'>
-                    <div className='account-modal-form'>
-                        <div className='account-modal-header'>
+                <div className='log-in-content'>
+                    <div className='log-in-form'>
+                        <div className='log-in-header'>
                             {this.renderTitle()}
                         </div>
 
-                        <div className='account-modal-form-input'>
+                        <div className='log-in-form-input'>
                             <SignInComponent
                                 isOpenSignInForm={loadSignInForm}
                                 handleOpenForgotPasswordForm={this.handleOpenForgotPasswordForm} />
@@ -108,7 +108,10 @@ class AccountModal extends Component {
                                 isOpenSignUpForm={loadSignUpForm} />
                             <ForgotPasswordComponent
                                 isOpenForgotPasswordForm={loadForgotPasswordForm} />
+                        </div>
 
+                        <div className='close-modal-btn'>
+                            <button onClick={closeAccountModal}><FormattedMessage id="customer.login.skip-text" /></button>
                         </div>
                     </div>
                 </div>

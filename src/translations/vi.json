@@ -53,7 +53,8 @@
             "forgot-password": "Quên mật khẩu?",
             "recovery-password": "Khôi phục mật khẩu",
             "confirm-text": "Xác nhận",
-            "back-text": "Trở về"
+            "back-text": "Trở về",
+            "skip-text": "Bỏ qua"
         }
     },
     "common": {
