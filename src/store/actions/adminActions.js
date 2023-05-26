@@ -225,6 +225,8 @@ export const fetchAllSubCategory = () => {
         let res;
         try {
             res = await getAllSubCategoryAPI();
+            console.log(res)
+            return;
 
             if (res && res.errCode === 0) {
                 dispatch(fetchAllSubCategorySuccess(res.data));

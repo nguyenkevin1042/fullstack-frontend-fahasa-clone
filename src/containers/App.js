@@ -21,6 +21,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import Homepage from './customerView/Homepage/Homepage';
 import CustomerLogin from './customerView/Login/Login';
 import CustomScrollbars from '../components/CustomScrollbars';
+import ProductDetail from './customerView/ProductDetail/ProductDetail';
 
 class App extends Component {
 
@@ -49,7 +50,7 @@ class App extends Component {
                 <Router history={history}>
                     <div className="main-container">
                         <ConfirmModal />
-                        <CustomScrollbars style={{ height: '768px' }}>
+                        <CustomScrollbars style={{ height: '100vh' }}>
                             <span className="content-container">
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
@@ -57,7 +58,8 @@ class App extends Component {
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
 
                                     <Route path={path.HOMEPAGE} exact component={(Homepage)} />
-                                    <Route path={path.CuSTOMER_LOGIN} exact component={(CustomerLogin)} />
+                                    <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
+                                    <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
                                 </Switch>
 
                             </span>

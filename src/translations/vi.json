@@ -88,7 +88,12 @@
             "header": "Hệ thống",
             "welcome-text": "Xin chào ",
             "manage-all-codes": "Mã Code",
-            "manage-category": "Danh mục",
+            "manage-category": {
+                "title": "Danh mục",
+                "main-category": "Danh mục chính",
+                "sub-category": "Danh mục phụ",
+                "child-category": "Danh mục con"
+            },
             "manage-product": "Sản phẩm"
         }
     }

@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-// import './AllCodesTableComponent.scss';
 import * as actions from "../../../../store/actions";
-import CustomScrollbars from '../../../../components/CustomScrollbars';
 import EditCodeModel from './EditCodeModel';
 
 class AllCodesTableComponent extends Component {
@@ -81,28 +79,26 @@ class AllCodesTableComponent extends Component {
         let { isModalOpened, selectedItem } = this.state
         return (
             <Fragment>
-                <CustomScrollbars style={{ height: '768px' }}>
-                    <div className='manage-sharing-table'>
-                        <table className='sharing-table'>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Type</th>
-                                    <th>KeyMap</th>
-                                    <th>ValueVI</th>
-                                    <th>ValueEN</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
+                <div className='manage-sharing-table'>
+                    <table className='sharing-table'>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>KeyMap</th>
+                                <th>ValueVI</th>
+                                <th>ValueEN</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
 
-                            <tbody>
-                                {this.renderAllCodesTableData()}
-                            </tbody>
+                        <tbody>
+                            {this.renderAllCodesTableData()}
+                        </tbody>
 
 
-                        </table>
-                    </div>
-                </CustomScrollbars>
+                    </table>
+                </div>
 
                 <EditCodeModel
                     isModalOpened={isModalOpened}

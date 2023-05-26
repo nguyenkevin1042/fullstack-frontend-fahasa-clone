@@ -7,8 +7,22 @@ export const adminMenu = [
                 link: '/system/manage-all-codes'
             },
             {
-                name: 'menu.system.manage-category',
-                link: '/system/manage-category'
+                name: 'menu.system.manage-category.title',
+                subMenus: [
+                    {
+                        name: 'menu.system.manage-category.main-category',
+                        link: '/system/user-manage'
+                    },
+                    {
+                        name: 'menu.system.manage-category.sub-category',
+                        link: '/system/manage-category'
+                    },
+                    {
+                        name: 'menu.system.manage-category.child-category',
+                        link: '/system/register-package-group-or-account'
+                    },
+                ]
+                // link: '/system/manage-category'
             },
             {
                 name: 'menu.system.manage-product',
@@ -20,11 +34,11 @@ export const adminMenu = [
 
             // {
             //     name: 'menu.system.system-administrator.header',
-            //     subMenus: [
-            //         { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-            //         { name: 'menu.system.system-administrator.product-manage', link: '/system/product-manage' },
-            //         { name: 'menu.system.system-administrator.register-package-group-or-account', link: '/system/register-package-group-or-account' },
-            //     ]
+            // subMenus: [
+            //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+            //     { name: 'menu.system.system-administrator.product-manage', link: '/system/product-manage' },
+            //     { name: 'menu.system.system-administrator.register-package-group-or-account', link: '/system/register-package-group-or-account' },
+            // ]
             // },
             // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
         ]
