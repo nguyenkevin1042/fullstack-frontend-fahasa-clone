@@ -1,0 +1,47 @@
+$ex-small: 500px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+
+@media (min-width: $ex-large){
+    .policy-container{
+        margin: 0 60px;
+    }
+}  
+.policy-container{
+    margin-top: 20px;
+
+    .policy-content{
+        background-color: white;
+        padding: 20px 0;
+        margin: auto;
+        border-radius: 10px;
+
+        .policy-item{
+            border: 1px solid red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            
+            i{
+                font-size: 2em;
+                cursor: pointer;
+            }
+            span{
+                margin-left: 10px;
+                color: #646464;
+                font-weight: bold;
+                font-size: 1.2em;
+                transition: all 300ms ease-in 0s;
+                cursor: pointer;
+
+                &:hover{
+                    color: #C92127;
+                }
+            }
+        }
+    }
+}

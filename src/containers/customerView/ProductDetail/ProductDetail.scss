@@ -12,22 +12,47 @@ $ex-large: 1200px;// Extra large >= 1200
 
 .product-detail-container{
     margin-top: 20px;
-    background-color: white;
     
 
     .product-detail-section{
+        background-color: white;
+    border-radius: 10px;
         margin: auto;
+        padding: 20px 10px;
 
         .product-detail-left{
-            border: 1px solid red;
 
             .product-img{
                 background: url('./../../../assets/product//image_217480.jpg') no-repeat center center;
                 height: 380px;
                 width: 100%;
-                // height: auto;
-                // width: auto;
                 background-size: contain;
+            }
+
+            .product-action{
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+
+                button{
+                    padding: 10px;
+                    width: 220px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    border: none;
+                }
+
+                .add-to-cart-btn{
+                    background-color: white;
+                    color: #C92127;
+                    border: 2px solid #C92127;
+                }
+                .buy-now-btn{
+                    background-color: #C92127;
+                    color: white;
+                    // border-color: #C92127;
+                }
+                
             }
         }
 
@@ -38,6 +63,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 font-size: 1.5em;
                 font-weight: 600;
                 color: #333;
+                margin-bottom: 20px;
                 // line-height: 1.5em;
                 // overflow-wrap: break-word;
                 // padding-bottom: 16px;
@@ -45,10 +71,11 @@ $ex-large: 1200px;// Extra large >= 1200
 
             .sharing-content{
                 display: flex;
-                // justify-content: center;
                 align-items: center;
 
+
                 label{
+                    margin: 0;
                     margin-right: 5px;
                 }
                 a{
@@ -57,10 +84,11 @@ $ex-large: 1200px;// Extra large >= 1200
                 }
                 .sharing-text{
                     font-weight: bold;
+                    margin: 0;
                 }
                 .quantity-label{
                     font-weight: bold;
-                    
+                    padding: 0;
                 }
 
                 .none{
@@ -69,16 +97,17 @@ $ex-large: 1200px;// Extra large >= 1200
 
                 .select-quantity{
                     border: 1px solid #adadad;
-                    // display: flex;
-                    border-radius: 8px;
+                    display: flex;
+                    border-radius: 5px;
+                    width: fit-content;
+                    padding: 0 !important;
 
                     input {
                         position: relative;
                         border: none;
                         text-align: center;
-                        width: 30px;
+                        width: 40px;
                         font-weight: bold;
-                        // padding: 0 10px;
 
                         &:focus{
                             outline: none;
@@ -96,16 +125,28 @@ $ex-large: 1200px;// Extra large >= 1200
                         color: #adadad;
                         font-size: 1.5em;
                         font-weight: 500;
-                        border-radius: 8px;
+                        border-radius: 5px;margin: auto;
                         padding: 0 10px;
+                        // display: block;
+                        // width: 20px;
+                        display: inline-block;
+                        border: 1px solid red;
                     }
                 }
             }
 
+            .review{
+                margin-top: 15px;
+            }
+
+            .flash-sale{
+                margin-top: 15px;
+            }
+
             .product-price-text{
                 display: flex;
-                // justify-content: center;
                 align-items: center;
+                margin: 10px 0;
 
                 .product-price{
                     font-size: 32px;

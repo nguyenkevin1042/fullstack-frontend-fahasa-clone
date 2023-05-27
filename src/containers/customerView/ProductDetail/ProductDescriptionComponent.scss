@@ -1,0 +1,90 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (min-width: $ex-large) {
+    .product-description-container{ 
+        margin: 0 60px;
+    }
+}
+
+
+.product-description-container{
+    margin-top: 20px;
+
+    .product-description-content{
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+
+        .description-header{
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        table{
+            width: 60%;
+            padding: 0;
+
+            tr{
+                th,td{
+                    font-size: 17px;
+                    text-align: left;
+                    padding-top: 10px;
+                }
+                th{
+                    color: #777;
+                    font-weight: 500;
+                }
+                td{
+                    margin-left: 200px;
+                    opacity: 0.9;
+                }
+
+                .supplier-name{
+                    color: #2489F4;
+                    cursor: pointer;
+                    transition: all 300ms ease-in 0s;
+
+                    &:hover{
+                        color: #C92127;
+                    }
+                }
+            }
+            
+        }
+
+        .about-product-price{
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #c1c1c1
+        }
+
+        .about-product-text-less{
+            margin-top: 20px;
+            max-height: 60px;
+            overflow: hidden;
+        }
+        .about-product-text-more{
+            margin-top: 20px;
+        }
+
+        .show-hide-btn{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+
+            button{
+                border: 2px solid #C92127;
+                color: #C92127;
+                font-weight: 600;
+                background-color: white;
+                width: 220px;
+                height: 40px;
+                border-radius: 8px;
+            }
+        }
+    }
+}

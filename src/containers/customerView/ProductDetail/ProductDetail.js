@@ -5,6 +5,8 @@ import './ProductDetail.scss';
 import Header from '../components/Header';
 import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
+import PolicyComponent from '../components/PolicyComponent';
+import ProductDescriptionComponent from './ProductDescriptionComponent';
 // import * as actions from "../store/actions";
 
 class ProductDetail extends Component {
@@ -58,9 +60,15 @@ class ProductDetail extends Component {
 
                     <div className='product-detail-section row'>
                         <div className='product-detail-left col-xl-5'>
-                            <div className=''></div>
-                            <div className='product-img'>
+                            <div className='row'>
+                                <div className='col-xl-2'></div>
+                                <div className='product-img col-xl-10'>
 
+                                </div>
+                                <div className='product-action col-xl-12'>
+                                    <button className='add-to-cart-btn'>Thêm vào giỏ hàng</button>
+                                    <button className='buy-now-btn'>Mua ngay</button>
+                                </div>
                             </div>
                         </div>
                         <div className='product-detail-right col-xl-7'>
@@ -83,6 +91,7 @@ class ProductDetail extends Component {
                                     <p className='sharing-text'>Bìa mềm</p>
                                 </div>
 
+                                <div className='review col-xl-12'>Đánh giá</div>
                                 <div className='flash-sale col-xl-12'>Flash Sale</div>
 
                                 <div className='product-price-text col-xl-12'>
@@ -107,13 +116,15 @@ class ProductDetail extends Component {
                                     </div>
                                 </div>
 
-                                <div className='sharing-content row'>
+                                <div className='sharing-content col-xl-12'>
                                     <label className='quantity-label col-xl-3'>Số lượng:</label>
-                                    <div className='select-quantity col-xl-9'>
-                                        <button onClick={() => this.handleDecreaseQuantityValue()}>-</button>
-                                        <input type='number' value={quantityValue}
-                                            onChange={(event) => this.handleOnChangeInput(event, 'quantityValue')} />
-                                        <button onClick={() => this.handleIncreaseQuantityValue()}>+</button>
+                                    <div className='col-xl-9'>
+                                        <div className='select-quantity'>
+                                            <button onClick={() => this.handleDecreaseQuantityValue()}>-</button>
+                                            <input type='number' value={quantityValue}
+                                                onChange={(event) => this.handleOnChangeInput(event, 'quantityValue')} />
+                                            <button onClick={() => this.handleIncreaseQuantityValue()}>+</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -122,6 +133,9 @@ class ProductDetail extends Component {
 
                 </div>
 
+                <ProductDescriptionComponent />
+
+                <PolicyComponent />
                 <SignUpNewletter />
                 <Footer />
 
