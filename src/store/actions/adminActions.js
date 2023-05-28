@@ -1,6 +1,6 @@
 import actionTypes from './actionTypes';
 import {
-    createNewUserAPI, addNewCodeAPI, getAllCodesAPI,
+    createNewUserAPI, addNewCodeAPI, getAllCodesAPI, adminLoginAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
     getAllSubCategoryAPI, getAllCodesByIdAPI, getAllChildCategoryAPI
@@ -8,17 +8,34 @@ import {
 import { toast } from 'react-toastify';
 
 // ADMIN LOGIN
+export const adminLogin = (inputEmail, inputPassword) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await adminLoginAPI(inputEmail, inputPassword);
+            if (res && res.errCode === 0) {
+                dispatch(adminLoginSuccess(res.user));
+            } else {
+                dispatch(adminLoginFail(res));
+            }
+        } catch (error) {
+            dispatch(adminLoginFail(res));
+            console.log("adminLogin Error: ", error)
+        }
+    }
+}
 export const adminLoginSuccess = (adminInfo) => ({
     type: actionTypes.ADMIN_LOGIN_SUCCESS,
     adminInfo: adminInfo
 })
 
-export const adminLoginFail = () => ({
-    type: actionTypes.ADMIN_LOGIN_FAIL
+export const adminLoginFail = (response) => ({
+    type: actionTypes.ADMIN_LOGIN_FAIL,
+    response: response
 })
 
-export const processLogout = () => ({
-    type: actionTypes.PROCESS_LOGOUT
+export const adminProcessLogout = () => ({
+    type: actionTypes.ADMIN_PROCESS_LOGOUT
 })
 
 // CREATE USER

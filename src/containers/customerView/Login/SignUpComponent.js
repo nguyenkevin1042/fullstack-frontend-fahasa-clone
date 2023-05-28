@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './SignUpComponent.scss';
-// import * as actions from "../store/actions";
+import * as actions from "../../../store/actions";
 
 class SignUpComponent extends Component {
     constructor(props) {
@@ -23,7 +23,10 @@ class SignUpComponent extends Component {
 
         }
 
+    }
 
+    handleSignUp = () => {
+        console.log(this.props.errResponse)
     }
 
 
@@ -53,7 +56,7 @@ class SignUpComponent extends Component {
                                 required />
                         </div>
                         <div className="col-12 sign-in-btn ">
-                            <button >
+                            <button onClick={() => this.handleSignUp()}>
                                 <FormattedMessage id="customer.login.sign-up-text" />
                             </button>
                         </div ></>
@@ -66,14 +69,14 @@ class SignUpComponent extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        errResponse: state.admin.signUpResponse
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
-
+        createNewUser: (userData) => dispatch(actions.createNewUser(userData)),
     };
 };
 

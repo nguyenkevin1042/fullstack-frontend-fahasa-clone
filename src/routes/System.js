@@ -4,8 +4,9 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/adminView/System/UserManage';
 import ManageAllCodes from '../containers/adminView/System/ManageAllCodes/ManageAllCodes';
 import ManageCategory from '../containers/adminView/System/ManageCategory/ManageCategory';
-// import Header from '../containers/customerView/components/Header';
+
 import Header from '../containers/adminView/Header/Header';
+import ManageProduct from '../containers/adminView/System/ManageProduct/ManageProduct';
 
 class System extends Component {
     render() {
@@ -19,6 +20,7 @@ class System extends Component {
                             <Route path="/system/user-manage" component={UserManage} />
                             <Route path="/system/manage-all-codes" component={ManageAllCodes} />
                             <Route path="/system/manage-category" component={ManageCategory} />
+                            <Route path="/system/manage-product" component={ManageProduct} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
@@ -31,7 +33,7 @@ class System extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn,
+        isLoggedIn: state.admin.isLoggedIn,
         systemMenuPath: state.app.systemMenuPath
     };
 };

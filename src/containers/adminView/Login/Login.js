@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from "../../../store/actions";
 import './Login.scss';
 import SignUpModel from './SignUpModel/SignUpModel';
-import { loginAPI } from '../../../services/userService';
 
 
 class Login extends Component {
@@ -40,7 +39,7 @@ class Login extends Component {
         this.setState({
             message: ''
         })
-        await this.props.userLogin(this.state.email,
+        await this.props.adminLogin(this.state.email,
             this.state.password
         )
     }
@@ -67,6 +66,7 @@ class Login extends Component {
 
     render() {
         let { isModalOpened, email, password, message } = this.state;
+        console.log(this.props.signInMessage)
         return (
             <>
                 <div className='login-form-background'>
@@ -123,15 +123,15 @@ class Login extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        signInMessage: state.user.signInMessage
+        signInMessage: state.admin.signInMessage
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        userLogin: (email, password) => dispatch(actions.userLogin(email, password)),
-        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
+        adminLogin: (email, password) => dispatch(actions.adminLogin(email, password)),
+        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo))
     };
 };
 

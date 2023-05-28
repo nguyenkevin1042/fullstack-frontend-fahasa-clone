@@ -60,7 +60,7 @@ class SignUpModel extends Component {
             password: this.state.password,
             address: this.state.address,
             phoneNumber: this.state.phoneNumber,
-            isAdmin: false
+            isAdmin: true
         });
 
         if (errResponse.errCode === 0) {

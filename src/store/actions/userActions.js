@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { loginAPI } from '../../services/userService';
+import { customerLoginAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -10,7 +10,7 @@ export const userLogin = (inputEmail, inputPassword) => {
         let res;
         try {
 
-            res = await loginAPI(inputEmail, inputPassword);
+            res = await customerLoginAPI(inputEmail, inputPassword);
             if (res && res.errCode === 0) {
                 dispatch(userLoginSuccess(res));
             } else {

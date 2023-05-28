@@ -6,7 +6,10 @@ import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
 
 
-import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
+import {
+    userIsAuthenticated, userIsNotAuthenticated,
+    adminIsAuthenticated, adminIsNotAuthenticated
+} from '../hoc/authentication';
 
 import { path } from '../utils'
 import './App.scss';
@@ -54,8 +57,8 @@ class App extends Component {
                             <span className="content-container">
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
-                                    <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={path.LOGIN} component={adminIsNotAuthenticated(Login)} />
+                                    <Route path={path.SYSTEM} component={adminIsAuthenticated(System)} />
 
                                     <Route path={path.HOMEPAGE} exact component={(Homepage)} />
                                     <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
@@ -76,7 +79,7 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         started: state.app.started,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.admin.isLoggedIn
     };
 };
 

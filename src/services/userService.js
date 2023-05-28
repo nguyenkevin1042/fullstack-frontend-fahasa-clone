@@ -5,8 +5,15 @@ const createNewUserAPI = (data) => {
     return axios.post("/api/create-new-user", data);
 }
 
-const loginAPI = (inputEmail, inputPassword) => {
-    return axios.post("/api/login", {
+const adminLoginAPI = (inputEmail, inputPassword) => {
+    return axios.post("/api/admin/login", {
+        email: inputEmail,
+        password: inputPassword
+    });
+}
+
+const customerLoginAPI = (inputEmail, inputPassword) => {
+    return axios.post("/api/customer/login", {
         email: inputEmail,
         password: inputPassword
     });
@@ -68,7 +75,7 @@ const getAllChildCategoryAPI = (inputSubCategoryId) => {
 }
 
 export {
-    createNewUserAPI, loginAPI,
+    createNewUserAPI, adminLoginAPI, customerLoginAPI,
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
     getAllSubCategoryAPI,
