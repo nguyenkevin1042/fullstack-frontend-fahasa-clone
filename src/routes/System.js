@@ -4,6 +4,8 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/adminView/System/UserManage';
 import ManageAllCodes from '../containers/adminView/System/ManageAllCodes/ManageAllCodes';
 import ManageCategory from '../containers/adminView/System/ManageCategory/ManageCategory';
+import ManageSubCategory from '../containers/adminView/System/ManageCategory/ManageSubCategory';
+import ManageChildCategory from '../containers/adminView/System/ManageCategory/ManageChildCategory';
 
 import Header from '../containers/adminView/Header/Header';
 import ManageProduct from '../containers/adminView/System/ManageProduct/ManageProduct';
@@ -20,6 +22,8 @@ class System extends Component {
                             <Route path="/system/user-manage" component={UserManage} />
                             <Route path="/system/manage-all-codes" component={ManageAllCodes} />
                             <Route path="/system/manage-category" component={ManageCategory} />
+                            <Route path="/system/manage-sub-category" component={ManageSubCategory} />
+                            <Route path="/system/manage-child-category" component={ManageChildCategory} />
                             <Route path="/system/manage-product" component={ManageProduct} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />

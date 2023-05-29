@@ -11,18 +11,18 @@ export const adminMenu = [
                 subMenus: [
                     {
                         name: 'menu.system.manage-category.main-category',
-                        link: '/system/user-manage'
-                    },
-                    {
-                        name: 'menu.system.manage-category.sub-category',
                         link: '/system/manage-category'
                     },
                     {
+                        name: 'menu.system.manage-category.sub-category',
+                        link: '/system/manage-sub-category'
+                    },
+                    {
                         name: 'menu.system.manage-category.child-category',
-                        link: '/system/register-package-group-or-account'
+                        link: '/system/manage-child-category'
                     },
                 ]
-                // link: '/system/manage-category'
+
             },
             {
                 name: 'menu.system.manage-product',

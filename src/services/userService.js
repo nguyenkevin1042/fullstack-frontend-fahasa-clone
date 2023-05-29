@@ -68,16 +68,37 @@ const addNewSubCategoryAPI = (data) => {
     return axios.post("/api/add-new-sub-category", data);
 }
 
+const deleteSubCategoryAPI = (inputId) => {
+    return axios.delete("/api/delete-sub-category",
+        { params: { id: inputId } }
+    );
+}
+
 //CHILD CATEGORY
-const getAllChildCategoryAPI = (inputSubCategoryId) => {
+const getAllChildCategorybySubCatIdAPI = (inputSubCategoryId) => {
     return axios.get("/api/get-all-child-category-by-id",
         { params: { subCategoryId: inputSubCategoryId } });
 }
 
+const addNewChildCategoryAPI = (data) => {
+    return axios.post("/api/add-new-child-category", data);
+}
+
+const getAllChildCategoryAPI = () => {
+    return axios.get("/api/get-all-child-category");
+}
+
+const deleteChildCategoryAPI = (inputId) => {
+    return axios.delete("/api/delete-child-category",
+        { params: { id: inputId } }
+    );
+}
+
+
 export {
     createNewUserAPI, adminLoginAPI, customerLoginAPI,
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
-    getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
+    getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
-    getAllChildCategoryAPI
+    getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI
 };

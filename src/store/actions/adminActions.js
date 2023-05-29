@@ -2,8 +2,9 @@ import actionTypes from './actionTypes';
 import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI, adminLoginAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
-    getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI,
-    getAllSubCategoryAPI, getAllCodesByIdAPI, getAllChildCategoryAPI
+    getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
+    getAllSubCategoryAPI, getAllCodesByIdAPI, getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI
+
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 
@@ -211,6 +212,7 @@ export const updateCode = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
+
             res = await editCodeAPI(inputData);
 
             if (res && res.errCode === 0) {
@@ -242,8 +244,8 @@ export const fetchAllSubCategory = () => {
         let res;
         try {
             res = await getAllSubCategoryAPI();
-            console.log(res)
-            return;
+            // console.log(res)
+            // return;
 
             if (res && res.errCode === 0) {
                 dispatch(fetchAllSubCategorySuccess(res.data));
@@ -294,15 +296,17 @@ export const fetchAllSubCategoryByCategoryTypeFail = () => ({
 })
 
 //ADD NEW SUB CATEGORY
-export const addNewSubCategory = (codeData) => {
+export const addNewSubCategory = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            res = await addNewSubCategoryAPI(codeData);
+            res = await addNewSubCategoryAPI(inputData);
             if (res && res.errCode === 0) {
                 dispatch(addNewSubCategorySuccess(res));
+                toast.success(res.message)
             } else {
                 dispatch(addNewSubCategoryFail(res));
+                toast.error(res.message)
             }
         } catch (error) {
             dispatch(addNewSubCategoryFail(res));
@@ -321,12 +325,70 @@ export const addNewSubCategoryFail = (response) => ({
     response: response
 })
 
+//DELETE SUB CATEGORY
+export const deleteSubCategory = (inputId) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await deleteSubCategoryAPI(inputId);
+
+            if (res && res.errCode === 0) {
+                toast.success(res.message)
+                dispatch(deleteSubCategorySuccess());
+                dispatch(fetchAllSubCategory());
+            } else {
+                toast.error(res.message)
+                dispatch(deleteSubCategoryFail());
+
+            }
+        } catch (error) {
+            dispatch(deleteSubCategoryFail());
+            console.log("deleteSubCategory Error: ", error);
+        }
+    }
+}
+
+export const deleteSubCategorySuccess = () => ({
+    type: actionTypes.DELETE_SUB_CATEGORY_SUCCESS,
+})
+
+export const deleteSubCategoryFail = () => ({
+    type: actionTypes.DELETE_SUB_CATEGORY_FAIL
+})
+
+//FETCH ALL CHILD CATEGORY
+export const fetchAllChildCategory = () => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllChildCategoryAPI();
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllChildCategorySuccess(res.data));
+            } else {
+                dispatch(fetchAllChildCategoryFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllChildCategoryFail());
+            console.log("fetchAllChildCategory Error: ", error)
+        }
+    }
+}
+
+export const fetchAllChildCategorySuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_SUCCESS,
+    data: data
+})
+
+export const fetchAllChildCategoryFail = () => ({
+    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_FAIL
+})
+
 //FETCH ALL CHILD CATEGORY BY ID
 export const fetchAllChildCategoryById = (inputSubCatId) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            res = await getAllChildCategoryAPI(inputSubCatId);
+            res = await getAllChildCategorybySubCatIdAPI(inputSubCatId);
 
             if (res && res.errCode === 0) {
                 dispatch(fetchAllChildCategoryByIdSuccess(res.data));
@@ -347,4 +409,65 @@ export const fetchAllChildCategoryByIdSuccess = (childCatData) => ({
 
 export const fetchAllChildCategoryByIdFail = () => ({
     type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_FAIL
+})
+
+
+//ADD NEW CHILD CATEGORY
+export const addNewChildCategory = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await addNewChildCategoryAPI(inputData);
+            if (res && res.errCode === 0) {
+                dispatch(addNewChildCategorySuccess(res));
+                toast.success(res.message)
+            } else {
+                dispatch(addNewChildCategorySuccess(res));
+                toast.error(res.message)
+            }
+        } catch (error) {
+            dispatch(addNewChildCategorySuccess(res));
+            console.log("addNewChildCategory Error: ", error)
+        }
+    }
+}
+
+export const addNewChildCategorySuccess = (response) => ({
+    type: actionTypes.ADD_NEW_CHILD_CATEGORY_SUCCESS,
+    response: response
+})
+
+export const addNewChildCategoryFail = (response) => ({
+    type: actionTypes.ADD_NEW_CODE_SUCCESS,
+    response: response
+})
+
+//DELETE SUB CATEGORY
+export const deleteChildCategory = (inputId) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await deleteChildCategoryAPI(inputId);
+
+            if (res && res.errCode === 0) {
+                toast.success(res.message)
+                dispatch(deleteChildCategorySuccess());
+                dispatch(fetchAllChildCategory());
+            } else {
+                toast.error(res.message)
+                dispatch(deleteSubCategoryFail());
+
+            }
+        } catch (error) {
+            dispatch(deleteChildCategorySuccess());
+            console.log("deleteChildCategory Error: ", error);
+        }
+    }
+}
+
+export const deleteChildCategorySuccess = () => ({
+    type: actionTypes.DELETE_CHILD_CATEGORY_SUCCESS,
+})
+
+export const deleteChildCategoryFail = () => ({
+    type: actionTypes.DELETE_CHILD_CATEGORY_FAIL
 })

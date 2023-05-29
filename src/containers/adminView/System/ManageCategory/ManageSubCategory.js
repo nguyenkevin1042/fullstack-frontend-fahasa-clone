@@ -5,25 +5,29 @@ import './ManageCategory.scss';
 import { languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import CustomScrollbars from '../../../../components/CustomScrollbars';
-import EditCategoryModal from './EditCategoryModal';
+import Select from 'react-select';
+import EditSubCategoryModal from './EditSubCategoryModal';
 
-class ManageCategory extends Component {
+class ManageSubCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            type: 'CATEGORY',
-            keyMap: '',
+            categoryType: '',
             valueVI: '',
             valueEN: '',
             listCategory: [],
-            selectedItem: {},
+            listSubCategory: [],
+            selectedCategory: '',
+
+            selectedItem: '',
             isModalOpened: false
+
         };
     }
 
     componentDidMount() {
+        this.props.fetchAllSubCategory();
         this.props.fetchAllCodesByType('category')
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -34,10 +38,16 @@ class ManageCategory extends Component {
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
             let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
             this.setState({
-                listCategory: this.props.allCodesArr
+                listCategory: dataSelect
             })
         }
 
+        if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
+            let dataSelect = this.buildDataInputSelect(this.props.allSubCategoryArr, "category");
+            this.setState({
+                listSubCategory: this.props.allSubCategoryArr
+            })
+        }
 
     }
 
@@ -46,43 +56,58 @@ class ManageCategory extends Component {
         let language = this.props.lang;
 
         if (inputData && inputData.length > 0) {
-            inputData.map((item, index) => {
-                let obj = {};
-                let labelVI = item.valueVI;
-                let labelEN = item.valueEN;
+            if (type === "category") {
+                inputData.map((item, index) => {
+                    let obj = {};
+                    let labelVI = item.valueVI;
+                    let labelEN = item.valueEN;
 
-                obj.key = item.id;
-                obj.label = language === languages.VI ? labelVI : labelEN;
-                result.push(obj);
-            });
+                    obj.keyMap = item.keyMap;
+                    obj.label = language === languages.VI ? labelVI : labelEN;
+                    result.push(obj);
+                });
+            }
         }
 
         return result;
     }
 
+    handleChange = (selectedCategory) => {
+        this.setState({
+            categoryType: selectedCategory.keyMap,
+            selectedCategory: selectedCategory
+        })
+    }
 
-
-    handleSaveNewCategory = async () => {
-        await this.props.addNewCode(this.state)
+    handleSaveNewSubCategory = async () => {
+        await this.props.addNewSubCategory({
+            categoryType: this.state.categoryType,
+            valueVI: this.state.valueVI,
+            valueEN: this.state.valueEN,
+        })
         this.handleClearAllInput();
+        this.props.fetchAllSubCategory();
         this.props.fetchAllCodesByType('category')
     }
 
-    handleDelete = (item) => {
-        this.props.deleteCode(item.id);
-    }
-
     handleEdit = (item) => {
+        // console.log(item)
         this.setState({
             selectedItem: item,
             isModalOpened: true
         })
     }
+
+    handleDelete = (item) => {
+        this.props.deleteSubCategory(item.id);
+    }
+
     handleCloseEditModel = () => {
         this.setState({
             isModalOpened: false
         })
-        this.props.fetchAllCodesByType('category')
+        this.props.fetchAllSubCategory();
+        // this.props.fetchAllCodesByType('category')
     }
 
     handleOnChangeInput = (event, key) => {
@@ -100,22 +125,22 @@ class ManageCategory extends Component {
             valueEN: '',
 
             listCategory: [],
-            selectedCategory: ''
+            selectedCategory: '',
+            selectedItem: '',
         })
     }
 
-    renderCategoriesTableData() {
-        let { listCategory } = this.state
+    renderSubCategoriesTableData() {
+        let { listSubCategory } = this.state
         return (
             <>
-                {listCategory && listCategory.length > 0 &&
-                    listCategory.map((item, index) => {
+                {listSubCategory && listSubCategory.length > 0 &&
+                    listSubCategory.map((item, index) => {
                         return (
                             <>
                                 <tr key={index}>
                                     <td>{item.id}</td>
-                                    <td>{item.type}</td>
-                                    <td>{item.keyMap}</td>
+                                    <td>{item.categoryType}</td>
                                     <td>{item.valueVI}</td>
                                     <td>{item.valueEN}</td>
                                     <td>
@@ -137,31 +162,28 @@ class ManageCategory extends Component {
     }
 
     render() {
-        let { type, keyMap, valueVI, valueEN, isModalOpened, selectedItem } = this.state;
-        let { allCodesArr } = this.props
-
-
+        let { valueVI, valueEN, listCategory, selectedCategory,
+            isModalOpened, selectedItem } = this.state;
 
         return (
             <React.Fragment>
                 <CustomScrollbars style={{ height: '768px' }}>
                     <div className='manage-category-container'>
                         <div className='manage-category-title'>
-                            Quản lý danh mục chính
+                            Quản lý danh mục phụ
                         </div>
 
                         <div className='manage-category-add-section row'>
-                            <div className='col-6 form-group'>
-                                <label>Loại</label>
-                                <input className='form-control'
-                                    value={type}
-                                    readOnly />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label>Mã danh mục chính</label>
-                                <input className='form-control'
-                                    value={keyMap}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'keyMap')} />
+                            <div className='col-12 form-group'>
+                                <label>Danh mục chính</label>
+                                <Select
+                                    value={selectedCategory}
+                                    onChange={this.handleChange}
+                                    options={listCategory}
+                                    // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                    name="selectedCategory"
+                                />
+
                             </div>
                             <div className='col-6 form-group'>
                                 <label>Tiếng Việt</label>
@@ -177,7 +199,7 @@ class ManageCategory extends Component {
                             </div>
                             <div className='col-6'>
                                 <button className='btn btn-primary'
-                                    onClick={() => this.handleSaveNewCategory()}>Save</button>
+                                    onClick={() => this.handleSaveNewSubCategory()}>Save</button>
                             </div>
                             <div className='col-6 form-group'>
                                 <button className='btn btn-primary'
@@ -192,8 +214,7 @@ class ManageCategory extends Component {
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Loại</th>
-                                                <th>Mã danh mục</th>
+                                                <th>Mã danh mục chính</th>
                                                 <th>Tiếng Việt</th>
                                                 <th>Tiếng Anh</th>
                                                 <th>Actions</th>
@@ -201,7 +222,7 @@ class ManageCategory extends Component {
                                         </thead>
 
                                         <tbody>
-                                            {this.renderCategoriesTableData()}
+                                            {this.renderSubCategoriesTableData()}
                                         </tbody>
 
 
@@ -212,9 +233,10 @@ class ManageCategory extends Component {
                     </div>
                 </CustomScrollbars>
 
-                <EditCategoryModal isModalOpened={isModalOpened}
+                <EditSubCategoryModal isModalOpened={isModalOpened}
                     selectedItem={selectedItem}
-                    closeEditCodeModel={this.handleCloseEditModel} />
+                    closeEditCodeModel={this.handleCloseEditModel}
+                    listCategory={listCategory} />
             </React.Fragment >
 
         );
@@ -225,17 +247,18 @@ class ManageCategory extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
+        allSubCategoryArr: state.admin.allSubCategoryArr,
         allCodesArr: state.admin.allCodesArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        addNewCode: (codeData) => dispatch(actions.addNewCode(codeData)),
-
-        deleteCode: (inputId) => dispatch(actions.deleteCode(inputId)),
+        addNewSubCategory: (inputData) => dispatch(actions.addNewSubCategory(inputData)),
+        fetchAllSubCategory: () => dispatch(actions.fetchAllSubCategory()),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
+        deleteSubCategory: (inputId) => dispatch(actions.deleteSubCategory(inputId)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCategory);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageSubCategory);

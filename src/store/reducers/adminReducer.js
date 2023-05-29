@@ -83,6 +83,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_SUCCESS:
+            state.allSubCategoryArr = action.allSubCategoryData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL:
+            state.allSubCategoryArr = []
+            return {
+                ...state,
+            }
+
         case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_SUCCESS:
             state.allSubCategoryArr = action.allSubCategoryByTypeData
             return {
@@ -101,6 +112,17 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_ID_FAIL:
             state.allSubCategoryArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_ALL_CHILD_CATEGORY_SUCCESS:
+            state.allChildCategoryArr = action.data
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_CHILD_CATEGORY_FAIL:
+            state.allChildCategoryArr = []
             return {
                 ...state,
             }
