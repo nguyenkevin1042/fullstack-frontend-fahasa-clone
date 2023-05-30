@@ -35,19 +35,41 @@ class DropdownAccount extends Component {
         })
     }
 
+    renderIfNotSignIn = () => {
+        return (
+            <>
+                <div className='col-12 sign-in-btn'>
+                    <button onClick={() => this.handleOpenAccountModal()}>
+                        <FormattedMessage id="customer.login.sign-in-text" /></button>
+                </div>
+                <div className='col-12 sign-up-btn'>
+                    <button><FormattedMessage id="customer.login.sign-up-text" /></button>
+                </div>
+            </>
+        )
+    }
+
+    renderIfSignedIn = () => {
+        let { userInfo, userProcessLogout } = this.props
+        return (
+            <>
+                <div className='col-12 signed-in-action' onClick={userProcessLogout}>
+                    <i className="fas fa-sign-out-alt"></i>
+                    <span><FormattedMessage id="customer.homepage.header.account.signout" /></span>
+                </div>
+            </>
+        )
+    }
+
 
     render() {
         let { isModalOpened } = this.state
-        console.log(isModalOpened)
+        let { userInfo } = this.props
+
         return (
             <>
                 <div className='dropdown-account-container container'>
-                    <div className='col-12 sign-in-btn'>
-                        <button onClick={() => this.handleOpenAccountModal()}><FormattedMessage id="customer.login.sign-in-text" /></button>
-                    </div>
-                    <div className='col-12 sign-up-btn'>
-                        <button><FormattedMessage id="customer.login.sign-up-text" /></button>
-                    </div>
+                    {userInfo ? this.renderIfSignedIn() : this.renderIfNotSignIn()}
                 </div>
                 <AccountModal isModalOpened={isModalOpened}
                     closeAccountModal={this.handleCloseAccountModal} />
@@ -60,13 +82,14 @@ class DropdownAccount extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        userInfo: state.user.userInfo
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        userProcessLogout: () => dispatch(actions.userProcessLogout()),
     };
 };
 

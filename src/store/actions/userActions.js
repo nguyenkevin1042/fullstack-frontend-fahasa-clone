@@ -9,8 +9,8 @@ export const userLogin = (inputEmail, inputPassword) => {
     return async (dispatch, getState) => {
         let res;
         try {
-
             res = await customerLoginAPI(inputEmail, inputPassword);
+
             if (res && res.errCode === 0) {
                 dispatch(userLoginSuccess(res));
             } else {
@@ -33,6 +33,6 @@ export const userLoginFail = (response) => ({
     response: response
 })
 
-export const processLogout = () => ({
-    type: actionTypes.PROCESS_LOGOUT
+export const userProcessLogout = () => ({
+    type: actionTypes.USER_PROCESS_LOGOUT
 })

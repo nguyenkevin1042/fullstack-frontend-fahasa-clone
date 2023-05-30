@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import './ManageCategory.scss';
 import { languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
-import CustomScrollbars from '../../../../components/CustomScrollbars';
 import EditCategoryModal from './EditCategoryModal';
 
 class ManageCategory extends Component {
@@ -144,73 +143,71 @@ class ManageCategory extends Component {
 
         return (
             <React.Fragment>
-                <CustomScrollbars style={{ height: '768px' }}>
-                    <div className='manage-category-container'>
-                        <div className='manage-category-title'>
-                            Quản lý danh mục chính
+                <div className='manage-category-container'>
+                    <div className='manage-category-title'>
+                        Quản lý danh mục chính
+                    </div>
+
+                    <div className='manage-category-add-section row'>
+                        <div className='col-6 form-group'>
+                            <label>Loại</label>
+                            <input className='form-control'
+                                value={type}
+                                readOnly />
                         </div>
-
-                        <div className='manage-category-add-section row'>
-                            <div className='col-6 form-group'>
-                                <label>Loại</label>
-                                <input className='form-control'
-                                    value={type}
-                                    readOnly />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label>Mã danh mục chính</label>
-                                <input className='form-control'
-                                    value={keyMap}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'keyMap')} />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label>Tiếng Việt</label>
-                                <input className='form-control'
-                                    value={valueVI}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
-                            </div>
-                            <div className='col-6'>
-                                <label>Tiếng Anh</label>
-                                <input className='form-control'
-                                    value={valueEN}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'valueEN')} />
-                            </div>
-                            <div className='col-6'>
-                                <button className='btn btn-primary'
-                                    onClick={() => this.handleSaveNewCategory()}>Save</button>
-                            </div>
-                            <div className='col-6 form-group'>
-                                <button className='btn btn-primary'
-                                    onClick={() => this.handleClearAllInput()} > Reset</button>
-                            </div>
+                        <div className='col-6 form-group'>
+                            <label>Mã danh mục chính</label>
+                            <input className='form-control'
+                                value={keyMap}
+                                onChange={(event) => this.handleOnChangeInput(event, 'keyMap')} />
                         </div>
+                        <div className='col-6 form-group'>
+                            <label>Tiếng Việt</label>
+                            <input className='form-control'
+                                value={valueVI}
+                                onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
+                        </div>
+                        <div className='col-6'>
+                            <label>Tiếng Anh</label>
+                            <input className='form-control'
+                                value={valueEN}
+                                onChange={(event) => this.handleOnChangeInput(event, 'valueEN')} />
+                        </div>
+                        <div className='col-6'>
+                            <button className='btn btn-primary'
+                                onClick={() => this.handleSaveNewCategory()}>Save</button>
+                        </div>
+                        <div className='col-6 form-group'>
+                            <button className='btn btn-primary'
+                                onClick={() => this.handleClearAllInput()} > Reset</button>
+                        </div>
+                    </div>
 
-                        <div className="row">
-                            <div className="col-12">
-                                <div className='manage-sharing-table'>
-                                    <table className='sharing-table'>
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Loại</th>
-                                                <th>Mã danh mục</th>
-                                                <th>Tiếng Việt</th>
-                                                <th>Tiếng Anh</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
+                    <div className="row">
+                        <div className="col-12">
+                            <div className='manage-sharing-table'>
+                                <table className='sharing-table'>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Loại</th>
+                                            <th>Mã danh mục</th>
+                                            <th>Tiếng Việt</th>
+                                            <th>Tiếng Anh</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
 
-                                        <tbody>
-                                            {this.renderCategoriesTableData()}
-                                        </tbody>
+                                    <tbody>
+                                        {this.renderCategoriesTableData()}
+                                    </tbody>
 
 
-                                    </table>
-                                </div>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </CustomScrollbars>
+                </div>
 
                 <EditCategoryModal isModalOpened={isModalOpened}
                     selectedItem={selectedItem}

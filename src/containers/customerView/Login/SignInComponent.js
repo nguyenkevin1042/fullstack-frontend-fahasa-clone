@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import './SignInComponent.scss';
 import * as actions from "../../../store/actions";
@@ -37,24 +38,25 @@ class SignInComponent extends Component {
     }
 
     handleLogin = async () => {
+        let { signInErrCode } = this.props
+
         this.setState({
             message: ''
         })
-        await this.props.userLogin(this.state.email,
-            this.state.password
-        )
+        await this.props.userLogin(this.state.email, this.state.password)
 
-        // if (this.props.history) {
-        //     this.props.history.push("/home");
-        // }
+        if (signInErrCode === 0 && this.props.history) {
+            this.props.history.push("/home");
+        }
     }
 
 
     render() {
         let { email, password, message } = this.state;
 
-        let { isOpenSignInForm, handleOpenForgotPasswordForm } = this.props;
+        let { isOpenSignInForm, handleOpenForgotPasswordForm, signInErrCode } = this.props;
 
+        console.log(signInErrCode)
         return (
             <>
                 {isOpenSignInForm === true &&
@@ -99,7 +101,9 @@ class SignInComponent extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        signInMessage: state.user.signInMessage
+        userInfo: state.user.userInfo,
+        signInMessage: state.user.signInMessage,
+        signInErrCode: state.user.signInErrCode
     };
 };
 
@@ -109,4 +113,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignInComponent));

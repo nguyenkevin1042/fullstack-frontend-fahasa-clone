@@ -8,7 +8,10 @@
                 },
                 "notifications": "Notifications",
                 "cart": "My cart",
-                "account": "Account"
+                "account": {
+                    "title": "Account",
+                    "signout": "Sign out"
+                }
             },
             "quick-access": {
                 "flash-sale": "Flash Sale",

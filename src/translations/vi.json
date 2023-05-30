@@ -8,7 +8,10 @@
                 },
                 "notifications": "Thông báo",
                 "cart": "Giỏ hàng",
-                "account": "Tài khoản"
+                "account": {
+                    "title": "Tài khoản",
+                    "signout": "Thoát tài khoản"
+                }
             },
             "quick-access": {
                 "flash-sale": "Flash Sale",

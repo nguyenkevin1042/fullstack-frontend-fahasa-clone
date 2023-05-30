@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import './ManageCategory.scss';
 import { languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
-import CustomScrollbars from '../../../../components/CustomScrollbars';
 import Select from 'react-select';
 import EditSubCategoryModal from './EditSubCategoryModal';
 
@@ -167,71 +166,69 @@ class ManageSubCategory extends Component {
 
         return (
             <React.Fragment>
-                <CustomScrollbars style={{ height: '768px' }}>
-                    <div className='manage-category-container'>
-                        <div className='manage-category-title'>
-                            Quản lý danh mục phụ
+                <div className='manage-category-container'>
+                    <div className='manage-category-title'>
+                        Quản lý danh mục phụ
+                    </div>
+
+                    <div className='manage-category-add-section row'>
+                        <div className='col-12 form-group'>
+                            <label>Danh mục chính</label>
+                            <Select
+                                value={selectedCategory}
+                                onChange={this.handleChange}
+                                options={listCategory}
+                                // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                name="selectedCategory"
+                            />
+
                         </div>
-
-                        <div className='manage-category-add-section row'>
-                            <div className='col-12 form-group'>
-                                <label>Danh mục chính</label>
-                                <Select
-                                    value={selectedCategory}
-                                    onChange={this.handleChange}
-                                    options={listCategory}
-                                    // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
-                                    name="selectedCategory"
-                                />
-
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label>Tiếng Việt</label>
-                                <input className='form-control'
-                                    value={valueVI}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
-                            </div>
-                            <div className='col-6'>
-                                <label>Tiếng Anh</label>
-                                <input className='form-control'
-                                    value={valueEN}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'valueEN')} />
-                            </div>
-                            <div className='col-6'>
-                                <button className='btn btn-primary'
-                                    onClick={() => this.handleSaveNewSubCategory()}>Save</button>
-                            </div>
-                            <div className='col-6 form-group'>
-                                <button className='btn btn-primary'
-                                    onClick={() => this.handleClearAllInput()} > Reset</button>
-                            </div>
+                        <div className='col-6 form-group'>
+                            <label>Tiếng Việt</label>
+                            <input className='form-control'
+                                value={valueVI}
+                                onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
                         </div>
+                        <div className='col-6'>
+                            <label>Tiếng Anh</label>
+                            <input className='form-control'
+                                value={valueEN}
+                                onChange={(event) => this.handleOnChangeInput(event, 'valueEN')} />
+                        </div>
+                        <div className='col-6'>
+                            <button className='btn btn-primary'
+                                onClick={() => this.handleSaveNewSubCategory()}>Save</button>
+                        </div>
+                        <div className='col-6 form-group'>
+                            <button className='btn btn-primary'
+                                onClick={() => this.handleClearAllInput()} > Reset</button>
+                        </div>
+                    </div>
 
-                        <div className="row">
-                            <div className="col-12">
-                                <div className='manage-sharing-table'>
-                                    <table className='sharing-table'>
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Mã danh mục chính</th>
-                                                <th>Tiếng Việt</th>
-                                                <th>Tiếng Anh</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
+                    <div className="row">
+                        <div className="col-12">
+                            <div className='manage-sharing-table'>
+                                <table className='sharing-table'>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Mã danh mục chính</th>
+                                            <th>Tiếng Việt</th>
+                                            <th>Tiếng Anh</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
 
-                                        <tbody>
-                                            {this.renderSubCategoriesTableData()}
-                                        </tbody>
+                                    <tbody>
+                                        {this.renderSubCategoriesTableData()}
+                                    </tbody>
 
 
-                                    </table>
-                                </div>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </CustomScrollbars>
+                </div>
 
                 <EditSubCategoryModal isModalOpened={isModalOpened}
                     selectedItem={selectedItem}

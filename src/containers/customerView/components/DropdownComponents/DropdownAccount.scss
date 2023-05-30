@@ -18,7 +18,7 @@
             border-radius: 8px;
 
             &:hover{
-                font-size: 17px;
+                font-size: 18px;
             }
         }
     }
@@ -38,8 +38,24 @@
             border-radius: 8px;
 
             &:hover{
-                font-size: 17px;
+                font-size: 18px;
             }
+        }
+    }
+
+    .signed-in-action{
+        border-top: 1px solid #F2F4F5;
+        cursor: pointer;
+        color: #7A7E7F;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        span{
+            margin-left: 5px;
+        }
+
+        &:hover {
+            background-color: #F2F4F5;
         }
     }
 }

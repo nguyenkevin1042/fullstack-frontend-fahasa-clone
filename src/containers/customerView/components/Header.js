@@ -109,6 +109,12 @@ class Header extends Component {
         }
     }
 
+    handleRedirectToAccountPage = () => {
+        if (this.props.history) {
+            this.props.history.push("/customer/account");
+        }
+    }
+
     handleToHomepage = () => {
         if (this.props.history) {
             this.props.history.push("/home");
@@ -121,13 +127,13 @@ class Header extends Component {
         return (
             <Dropdown overlay={accountMenu}>
                 <div className='user-options-information option col-6 col-md-3'
-                    onClick={() => this.handleRedirectToLoginPage()}
+                    onClick={userInfo ? this.handleRedirectToAccountPage : this.handleRedirectToLoginPage}
                 >
                     <i className="fa fa-user"></i>
                     {userInfo ?
                         <p>{userInfo.lastName} {userInfo.firstName}</p>
                         :
-                        <p><FormattedMessage id="customer.homepage.header.account" /></p>
+                        <p><FormattedMessage id="customer.homepage.header.account.title" /></p>
                     }
 
 

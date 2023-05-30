@@ -15,7 +15,6 @@ $ex-large: 1200px;// Extra large >= 1200
 
     .left-menu{
         border-right: 1px solid #cecece;
-        // padding: 0;
         
         .left-menu-title{
             font-weight: bold;
@@ -23,7 +22,6 @@ $ex-large: 1200px;// Extra large >= 1200
             color: #7A7E7F;
             text-align: left;
             padding: 0 10px;
-            // margin-bottom: 16px;
         }
 
         .left-menu-list-category{
@@ -47,8 +45,6 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 
     .right-menu{
-        // border: 1px solid red;
-        // display: flex;
         
         .right-menu-title{
             font-weight: bold;
@@ -60,16 +56,11 @@ $ex-large: 1200px;// Extra large >= 1200
             padding: 0;
 
             .sub-category-item{
-                border: 1px solid black;
-                // padding: 0;
-                // padding: 5px;
 
                 .sub-category-title{
                     text-transform: uppercase;
                     font-weight: 550;
-                    font-size: 0.8em !important;
-                    // white-space: inherit;
-                    // margin: auto;
+                    white-space: nowrap;
                     cursor: pointer;
                 }
 
@@ -80,7 +71,6 @@ $ex-large: 1200px;// Extra large >= 1200
                     .child-category-item{
                         color: #666;
                         cursor: pointer;
-                        // font-size: 13px;
 
                         &:hover{
                             color: #bf9a61;

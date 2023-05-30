@@ -5,6 +5,7 @@ export const path = {
     SYSTEM: '/system',
     HOMEPAGE: '/home',
     CUSTOMER_LOGIN: '/customer/account/login',
+    CUSTOMER_ACCOUNT: '/customer/account',
     PRODUCT_DETAIL: '/product'
 };
 

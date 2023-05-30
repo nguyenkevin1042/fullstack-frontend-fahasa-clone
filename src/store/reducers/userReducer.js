@@ -3,7 +3,8 @@ import actionTypes from '../actions/actionTypes';
 const initialState = {
     isLoggedIn: false,
     userInfo: null,
-    signInMessage: ''
+    signInMessage: '',
+    signInErrCode: ''
 }
 
 const appReducer = (state = initialState, action) => {
@@ -12,15 +13,17 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
-                userInfo: action.response.user
+                userInfo: action.response.user,
+                signInErrCode: action.response.errCode
             }
         case actionTypes.USER_LOGIN_FAIL:
             state.signInMessage = action.response.message
             return {
                 ...state,
-                userInfo: null
+                userInfo: null,
+                signInErrCode: action.response.errCode
             }
-        case actionTypes.PROCESS_LOGOUT:
+        case actionTypes.USER_PROCESS_LOGOUT:
             return {
                 ...state,
                 isLoggedIn: false,

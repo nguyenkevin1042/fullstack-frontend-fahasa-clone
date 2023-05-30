@@ -6,7 +6,6 @@ import * as actions from "../../../store/actions";
 import Header from '../components/Header';
 import Banner from '../Homepage/Banner';
 import QuickAccess from './QuickAccess';
-import CustomScrollbars from '../../../components/CustomScrollbars';
 import Footer from '../components/Footer';
 import SignUpNewletter from './SignUpNewletter';
 import ProductCategory from './ProductCategory';

@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import './ManageAllCodes.scss';
 import * as actions from "../../../../store/actions";
 import AllCodesTableComponent from './AllCodesTableComponent';
-import CustomScrollbars from '../../../../components/CustomScrollbars';
 
 class ManageAllCodes extends Component {
     constructor(props) {
