@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './CustomerAccount.scss';
+import { languages } from '../../../utils'
 // import * as actions from "../store/actions";
 import Header from '../components/Header';
+import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 
 class CustomerAccount extends Component {
@@ -30,10 +32,59 @@ class CustomerAccount extends Component {
         console.log(event.target.id)
     }
 
-    renderRightContent = () => {
+    renderDashboardContent = () => {
+        let { userInfo, lang } = this.props
+        let labelVI = userInfo.firstName + " " + userInfo.lastName;
+        let labelEN = userInfo.lastName + " " + userInfo.firstName;
+        let customerName = lang === languages.VI ? labelVI : labelEN
         return (
             <>
                 <div className='right-content-header'>Bảng điều khiển tài khoản</div>
+                <div className='dashboard-customer'>
+                    <div className='col-12'>
+                        <label>Full Name:</label>
+                        <b className='mx-3'>{customerName}</b>
+                    </div>
+                    <div className='col-12'>
+                        <label>Email:</label>
+                        <b className='mx-3'>{userInfo.email}</b>
+                    </div>
+                    <div className='col-12'>
+                        <label>Member Level:</label>
+                        <b className='mx-3'>Member</b>
+                    </div>
+                </div>
+
+                <div className='recent-order'>
+                    <div className='recent-order-title'>
+                        <p className='title-text'>Recent Orders</p>
+                        <p className='view-all-text'>View All</p>
+                    </div>
+                    <div className='recent-order-table'>
+                        <table>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Date</th>
+                                <th>Ship To</th>
+                                <th>Total Order</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr>
+                                <td>401050096</td>
+                                <td>6/16/2022	</td>
+                                <td>Tiến Nguyễn Văn</td>
+                                <td>đ573,000.00</td>
+                                <td>Completed</td>
+                                <td className='actions'>
+                                    <p>View Order</p>
+                                    <span>|</span>
+                                    <p>Reorder</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </>
         )
     }
@@ -95,12 +146,13 @@ class CustomerAccount extends Component {
                         </div>
                         <div className='account-right-container col-xl-9'>
                             <div className='right-content'>
-                                {this.renderRightContent()}
+                                {this.renderDashboardContent()}
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <SignUpNewletter />
                 <Footer />
             </React.Fragment >
 
@@ -111,7 +163,8 @@ class CustomerAccount extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 

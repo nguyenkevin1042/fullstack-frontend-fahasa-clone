@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import './DropdownAccount.scss';
 import * as actions from "../../../../store/actions";
@@ -34,6 +35,12 @@ class DropdownAccount extends Component {
             isModalOpened: false
         })
     }
+    handleSignOut = () => {
+        this.props.userProcessLogout();
+        if (this.props.history) {
+            this.props.history.push("/home");
+        }
+    }
 
     renderIfNotSignIn = () => {
         return (
@@ -53,7 +60,7 @@ class DropdownAccount extends Component {
         let { userInfo, userProcessLogout } = this.props
         return (
             <>
-                <div className='col-12 signed-in-action' onClick={userProcessLogout}>
+                <div className='col-12 signed-in-action' onClick={() => this.handleSignOut()}>
                     <i className="fas fa-sign-out-alt"></i>
                     <span><FormattedMessage id="customer.homepage.header.account.signout" /></span>
                 </div>
@@ -93,4 +100,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropdownAccount);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DropdownAccount));

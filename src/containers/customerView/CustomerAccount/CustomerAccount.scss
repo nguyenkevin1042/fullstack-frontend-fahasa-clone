@@ -59,6 +59,60 @@
                 text-transform: uppercase;
                 font-size: 20px;
             }
+
+            .dashboard-customer{
+                background-color:  #FFF6E3;
+                padding: 15px 10px;
+                .bold-style{
+                    font-weight: bold;
+                    margin-left: 10px;
+                }
+            }
+            
+            .recent-order{
+                margin-top: 40px;
+
+                .recent-order-title{
+                    display: flex;
+                    justify-content: space-between;
+                    border-bottom: 1px solid #f2f2f2;
+
+                    .title-text{
+                        text-transform: uppercase;
+
+                    }
+                    .view-all-text{
+                        color: #C92127;
+                        cursor: pointer;
+                    }
+                }
+
+                .recent-order-table{
+                    table{
+                        width: 100%;
+                        th{
+                            padding-top: 12px;
+                            padding-bottom: 12px;
+                        }
+                        td{
+                            font-size: 12px;
+                        }
+                        .actions{
+                            display: flex;
+                            padding-top: 12px;
+
+                            p{
+                                color: #C92127;
+                                cursor: pointer;
+                                padding: 0;
+                            }
+                            span{
+                                margin: 0 10px;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }
