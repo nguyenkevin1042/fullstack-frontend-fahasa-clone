@@ -94,11 +94,16 @@ const deleteChildCategoryAPI = (inputId) => {
     );
 }
 
+const addNewProductAPI = (data) => {
+    return axios.post("/api/add-new-product", data);
+}
+
 
 export {
     createNewUserAPI, adminLoginAPI, customerLoginAPI,
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
-    getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI
+    getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
+    addNewProductAPI
 };

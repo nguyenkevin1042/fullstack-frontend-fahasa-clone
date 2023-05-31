@@ -17,6 +17,9 @@ class AddProductModal extends Component {
             price: '',
             discount: '',
             weight: '',
+            height: '',
+            width: '',
+            length: '',
             childCategoryId: '',
             image: '',
             previewImgURL: '',
@@ -43,6 +46,9 @@ class AddProductModal extends Component {
                 price: '',
                 discount: '',
                 weight: '',
+                height: '',
+                width: '',
+                length: '',
                 childCategoryId: '',
                 image: '',
                 previewImgURL: '',
@@ -156,13 +162,13 @@ class AddProductModal extends Component {
         let data = event.target.files;
 
         let file = data[0];
-        console.log(data, file)
+
 
         if (file) {
             let objectURL = URL.createObjectURL(file);
 
             let base64 = await CommonUtils.getBase64(file);
-
+            console.log(base64)
             this.setState({
                 previewImgURL: objectURL,
                 image: base64.result
@@ -179,7 +185,17 @@ class AddProductModal extends Component {
     }
 
     handleSaveNewProduct = () => {
-        console.log(this.state)
+        this.props.addNewProduct({
+            name: this.state.name,
+            price: this.state.price,
+            discount: this.state.discount,
+            weight: this.state.weight,
+            height: this.state.height,
+            width: this.state.width,
+            length: this.state.length,
+            childCategoryId: this.state.childCategoryId,
+            image: this.state.image,
+        })
     }
 
 
@@ -187,6 +203,7 @@ class AddProductModal extends Component {
 
     render() {
         let { name, price, discount, weight, image, previewImgURL,
+            height, width, length,
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
             listChildCategory, selectedChildCategory,
@@ -248,16 +265,44 @@ class AddProductModal extends Component {
                                     onChange={(event) => this.handleOnChangeInput(event, 'price')} />
                             </div>
                             <div className='col-6 form-group'>
-                                <label>Trọng lượng</label>
-                                <input className='form-control'
+                                <label>Trọng lượng (g)</label>
+                                <input type='number'
+                                    step='0.01'
+                                    className='form-control'
                                     value={weight}
                                     onChange={(event) => this.handleOnChangeInput(event, 'weight')} />
                             </div>
                             <div className='col-6 form-group'>
-                                <label>Giảm giá</label>
-                                <input className='form-control'
+                                <label>Giảm giá (%)</label>
+                                <input type='number'
+                                    min="0" max="100"
+                                    className='form-control'
                                     value={discount}
                                     onChange={(event) => this.handleOnChangeInput(event, 'discount')} />
+                            </div>
+                            <div className='col-4 form-group'>
+                                <label>Chiều dài (cm)</label>
+                                <input type='number' min="0"
+                                    step='0.01'
+                                    className='form-control'
+                                    value={length}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'length')} />
+                            </div>
+                            <div className='col-4 form-group'>
+                                <label>Chiều rộng (cm)</label>
+                                <input type='number' min="0"
+                                    step='0.01'
+                                    className='form-control'
+                                    value={width}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'width')} />
+                            </div>
+                            <div className='col-4 form-group'>
+                                <label>Chiều cao (cm)</label>
+                                <input type='number' min="0"
+                                    step='0.01'
+                                    className='form-control'
+                                    value={height}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'height')} />
                             </div>
 
                             <div className='col-6 form-group'>
@@ -318,7 +363,8 @@ const mapDispatchToProps = dispatch => {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         fetchAllSubCategoryByCategoryType: (categoryType) => dispatch(actions.fetchAllSubCategoryByCategoryType(categoryType)),
         fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
-        fetchAllChildCategoryById: (subCatId) => dispatch(actions.fetchAllChildCategoryById(subCatId))
+        fetchAllChildCategoryById: (subCatId) => dispatch(actions.fetchAllChildCategoryById(subCatId)),
+        addNewProduct: (inputData) => dispatch(actions.addNewProduct(inputData))
     };
 };
 

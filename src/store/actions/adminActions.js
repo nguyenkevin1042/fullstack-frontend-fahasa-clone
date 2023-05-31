@@ -3,7 +3,7 @@ import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI, adminLoginAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
-    getAllSubCategoryAPI, getAllCodesByIdAPI, getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI
+    getAllSubCategoryAPI, getAllCodesByIdAPI, getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI, addNewProductAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -454,11 +454,11 @@ export const deleteChildCategory = (inputId) => {
                 dispatch(fetchAllChildCategory());
             } else {
                 toast.error(res.message)
-                dispatch(deleteSubCategoryFail());
+                dispatch(deleteChildCategoryFail());
 
             }
         } catch (error) {
-            dispatch(deleteChildCategorySuccess());
+            dispatch(deleteChildCategoryFail());
             console.log("deleteChildCategory Error: ", error);
         }
     }
@@ -470,4 +470,36 @@ export const deleteChildCategorySuccess = () => ({
 
 export const deleteChildCategoryFail = () => ({
     type: actionTypes.DELETE_CHILD_CATEGORY_FAIL
+})
+
+//ADD NEW PRODUCT
+export const addNewProduct = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            // console.log(inputData)
+            // return;
+            res = await addNewProductAPI(inputData);
+            if (res && res.errCode === 0) {
+                dispatch(addNewProductSuccess(res));
+
+            } else {
+                dispatch(addNewProductFail(res));
+
+            }
+        } catch (error) {
+            dispatch(addNewProductFail(res));
+            console.log("addNewProduct Error: ", error)
+        }
+    }
+}
+
+export const addNewProductSuccess = (response) => ({
+    type: actionTypes.ADD_NEW_PRODUCT_SUCCESS,
+    response: response
+})
+
+export const addNewProductFail = (response) => ({
+    type: actionTypes.ADD_NEW_PRODUCT_FAIL,
+    response: response
 })
