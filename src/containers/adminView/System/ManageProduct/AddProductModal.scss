@@ -13,6 +13,7 @@
         }
 
         .modal-input-section{
+            margin-top: 20px;
 
             label{
                 font-weight: bold;
@@ -41,6 +42,19 @@
                 background-size: contain;
                 cursor: pointer;
             }
+
+            .radio{
+                text-align: center;
+                label{
+                    cursor: pointer;
+
+                    input{
+                        margin-right: 10px;
+                    }
+                }
+                
+            }
+
         }
 
         .sharing-modal-buttons{

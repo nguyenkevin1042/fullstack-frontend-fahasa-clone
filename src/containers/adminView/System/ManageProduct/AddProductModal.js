@@ -9,6 +9,10 @@ import * as actions from "../../../../store/actions";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
+import BookDescriptionComponent from './components/BookDescriptionComponent';
+import StationaryDescriptionComponent from './components/StationaryDescriptionComponent';
+import ToyDescriptionComponent from './components/ToyDescriptionComponent';
+
 class AddProductModal extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +31,9 @@ class AddProductModal extends Component {
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
             listChildCategory: [], selectedChildCategory: '',
+
+            selectedProductType: '',
+            stateFromComponent: []
         };
     }
 
@@ -184,21 +191,49 @@ class AddProductModal extends Component {
         })
     }
 
-    handleSaveNewProduct = () => {
-        this.props.addNewProduct({
-            name: this.state.name,
-            price: this.state.price,
-            discount: this.state.discount,
-            weight: this.state.weight,
-            height: this.state.height,
-            width: this.state.width,
-            length: this.state.length,
-            childCategoryId: this.state.childCategoryId,
-            image: this.state.image,
+    onChangeRadioValue = (event) => {
+        this.setState({
+            selectedProductType: event.target.value
         })
     }
 
+    handleSaveNewProduct = () => {
+        console.log(this.state)
+        // this.props.addNewProduct({
+        //     name: this.state.name,
+        //     price: this.state.price,
+        //     discount: this.state.discount,
+        //     weight: this.state.weight,
+        //     height: this.state.height,
+        //     width: this.state.width,
+        //     length: this.state.length,
+        //     childCategoryId: this.state.childCategoryId,
+        //     image: this.state.image,
+        // })
+    }
 
+    eventhandler = (data) => {
+        this.setState({
+            stateFromComponent: data
+        })
+    }
+
+    renderDescriptionSectionByProductType = (productType) => {
+        return (
+            <>
+                {productType === 'book' &&
+                    <BookDescriptionComponent onChange={this.eventhandler} />
+                }
+                {productType === 'toy' &&
+                    <ToyDescriptionComponent onChange={this.eventhandler} />
+                }
+                {productType === 'stationary' &&
+                    <StationaryDescriptionComponent onChange={this.eventhandler} />
+                }
+
+            </>
+        )
+    }
 
 
     render() {
@@ -207,7 +242,7 @@ class AddProductModal extends Component {
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
             listChildCategory, selectedChildCategory,
-            isOpenedPreviewImage } = this.state;
+            isOpenedPreviewImage, selectedProductType } = this.state;
         let { isOpenedModal, closeModal } = this.props
 
         return (
@@ -215,7 +250,7 @@ class AddProductModal extends Component {
 
                 <Modal isOpen={true}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
-                    size='lg'
+                    size='xl'
                     centered>
 
                     <div className='sharing-modal-container'>
@@ -258,21 +293,13 @@ class AddProductModal extends Component {
                                     value={name}
                                     onChange={(event) => this.handleOnChangeInput(event, 'name')} />
                             </div>
-                            <div className='col-6 form-group'>
+                            <div className='col-3 form-group'>
                                 <label>Giá sản phẩm</label>
                                 <input className='form-control'
                                     value={price}
                                     onChange={(event) => this.handleOnChangeInput(event, 'price')} />
                             </div>
-                            <div className='col-6 form-group'>
-                                <label>Trọng lượng (g)</label>
-                                <input type='number'
-                                    step='0.01'
-                                    className='form-control'
-                                    value={weight}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'weight')} />
-                            </div>
-                            <div className='col-6 form-group'>
+                            <div className='col-3 form-group'>
                                 <label>Giảm giá (%)</label>
                                 <input type='number'
                                     min="0" max="100"
@@ -280,7 +307,16 @@ class AddProductModal extends Component {
                                     value={discount}
                                     onChange={(event) => this.handleOnChangeInput(event, 'discount')} />
                             </div>
-                            <div className='col-4 form-group'>
+                            <div className='col-3 form-group'>
+                                <label>Trọng lượng (g)</label>
+                                <input type='number'
+                                    step='0.01'
+                                    className='form-control'
+                                    value={weight}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'weight')} />
+                            </div>
+
+                            <div className='col-3 form-group'>
                                 <label>Chiều dài (cm)</label>
                                 <input type='number' min="0"
                                     step='0.01'
@@ -288,7 +324,7 @@ class AddProductModal extends Component {
                                     value={length}
                                     onChange={(event) => this.handleOnChangeInput(event, 'length')} />
                             </div>
-                            <div className='col-4 form-group'>
+                            <div className='col-3 form-group'>
                                 <label>Chiều rộng (cm)</label>
                                 <input type='number' min="0"
                                     step='0.01'
@@ -296,7 +332,7 @@ class AddProductModal extends Component {
                                     value={width}
                                     onChange={(event) => this.handleOnChangeInput(event, 'width')} />
                             </div>
-                            <div className='col-4 form-group'>
+                            <div className='col-3 form-group'>
                                 <label>Chiều cao (cm)</label>
                                 <input type='number' min="0"
                                     step='0.01'
@@ -323,7 +359,51 @@ class AddProductModal extends Component {
                                     onClick={() => this.handleOpenPreviewImage()}>
                                 </div>
                             </div>
+
+
+                            <div className="radio col-4 form-group">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="book"
+                                        name="productType"
+                                        // checked={this.state.selectedOption === "Female"}
+                                        onChange={(event) => this.onChangeRadioValue(event)}
+                                    />
+                                    Sách
+                                </label>
+                            </div>
+                            <div className="radio col-4 form-group">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="toy"
+                                        name="productType"
+                                        // checked={this.state.selectedOption === "Female"}
+                                        onChange={(event) => this.onChangeRadioValue(event)} />
+                                    Đồ chơi
+                                </label>
+                            </div>
+                            <div className="radio col-4 form-group">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="stationary"
+                                        name="productType"
+                                        // checked={this.state.selectedOption === "Female"}
+                                        onChange={(event) => this.onChangeRadioValue(event)} />
+                                    Văn phòng phẩm/Sản phẩm khác
+                                </label>
+                            </div>
+
+
                         </div>
+
+
+
+                        {this.renderDescriptionSectionByProductType(selectedProductType)}
+
+
 
                         <div className='sharing-modal-buttons'>
                             <button className='add-btn'
