@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './ManageCategory.scss';
-import { languages } from '../../../../utils'
+import { CommonUtils, KeyCodeUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import Select from 'react-select';
 import EditSubCategoryModal from './EditSubCategoryModal';
@@ -50,6 +50,37 @@ class ManageSubCategory extends Component {
 
     }
 
+    handleConvertToKeyName = (inputName) => {
+        inputName = this.handleConvertToNonAccentVietnamese(inputName)
+        inputName = inputName.split(' - ').join('-');
+        inputName = inputName.split(' ').join('-');
+        inputName = inputName.toLowerCase();
+        this.setState({
+            keyMap: inputName
+        })
+        return inputName;
+    }
+
+    handleConvertToNonAccentVietnamese = (string) => {
+        string = string.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        string = string.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        string = string.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        string = string.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        string = string.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        string = string.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        string = string.replace(/đ/g, "d");
+
+        string = string.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "a");
+        string = string.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "e");
+        string = string.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "i");
+        string = string.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "o");
+        string = string.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "u");
+        string = string.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "y");
+        string = string.replace(/Đ/g, "d");
+
+        return string;
+    }
+
     buildDataInputSelect = (inputData, type) => {
         let result = [];
         let language = this.props.lang;
@@ -61,7 +92,7 @@ class ManageSubCategory extends Component {
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
-                    obj.keyMap = item.keyMap;
+                    obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
@@ -73,24 +104,24 @@ class ManageSubCategory extends Component {
 
     handleChange = (selectedCategory) => {
         this.setState({
-            categoryType: selectedCategory.keyMap,
+            categoryType: selectedCategory.keyName,
             selectedCategory: selectedCategory
         })
     }
 
     handleSaveNewSubCategory = async () => {
-        await this.props.addNewSubCategory({
-            categoryType: this.state.categoryType,
-            valueVI: this.state.valueVI,
-            valueEN: this.state.valueEN,
-        })
-        this.handleClearAllInput();
-        this.props.fetchAllSubCategory();
-        this.props.fetchAllCodesByType('category')
+        console.log(this.state)
+        // await this.props.addNewSubCategory({
+        //     categoryType: this.state.categoryType,
+        //     valueVI: this.state.valueVI,
+        //     valueEN: this.state.valueEN,
+        // })
+        // this.handleClearAllInput();
+        // this.props.fetchAllSubCategory();
+        // this.props.fetchAllCodesByType('category')
     }
 
     handleEdit = (item) => {
-        // console.log(item)
         this.setState({
             selectedItem: item,
             isModalOpened: true
@@ -129,6 +160,15 @@ class ManageSubCategory extends Component {
         })
     }
 
+    handleOnChangeInputValueVI = (event) => {
+        let data = event.target.value
+        let keyName = this.handleConvertToKeyName(data)
+        this.setState({
+            valueVI: data,
+            keyName: keyName
+        })
+    }
+
     renderSubCategoriesTableData() {
         let { listSubCategory } = this.state
         return (
@@ -161,7 +201,7 @@ class ManageSubCategory extends Component {
     }
 
     render() {
-        let { valueVI, valueEN, listCategory, selectedCategory,
+        let { valueVI, valueEN, keyName, listCategory, selectedCategory,
             isModalOpened, selectedItem } = this.state;
 
         return (
@@ -172,7 +212,7 @@ class ManageSubCategory extends Component {
                     </div>
 
                     <div className='manage-category-add-section row'>
-                        <div className='col-12 form-group'>
+                        <div className='col-6 form-group'>
                             <label>Danh mục chính</label>
                             <Select
                                 value={selectedCategory}
@@ -184,10 +224,16 @@ class ManageSubCategory extends Component {
 
                         </div>
                         <div className='col-6 form-group'>
+                            <label>Mã danh mục phụ</label>
+                            <input className='form-control'
+                                value={keyName}
+                                readOnly />
+                        </div>
+                        <div className='col-6 form-group'>
                             <label>Tiếng Việt</label>
                             <input className='form-control'
                                 value={valueVI}
-                                onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
+                                onChange={(event) => this.handleOnChangeInputValueVI(event)} />
                         </div>
                         <div className='col-6'>
                             <label>Tiếng Anh</label>

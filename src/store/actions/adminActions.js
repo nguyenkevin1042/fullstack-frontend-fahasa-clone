@@ -1,4 +1,5 @@
 import actionTypes from './actionTypes';
+
 import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI, adminLoginAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
@@ -9,6 +10,7 @@ import {
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
+import { Toast } from 'reactstrap';
 
 // ADMIN LOGIN
 export const adminLogin = (inputEmail, inputPassword) => {
@@ -75,11 +77,13 @@ export const addNewCode = (codeData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-
             res = await addNewCodeAPI(codeData);
+
             if (res && res.errCode === 0) {
+                // toast.success(res.message)
                 dispatch(addNewCodeSuccess(res));
             } else {
+                toast.error(res.message)
                 dispatch(addNewCodeFail(res));
             }
         } catch (error) {
@@ -190,7 +194,6 @@ export const deleteCode = (inputId) => {
 
             if (res && res.errCode === 0) {
                 dispatch(deleteCodeSuccess());
-                dispatch(fetchAllCodes());
             } else {
                 dispatch(fetchAllCodesFail());
             }
@@ -214,13 +217,13 @@ export const updateCode = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-
             res = await editCodeAPI(inputData);
 
             if (res && res.errCode === 0) {
+                toast.success(res.message)
                 dispatch(updateCodeSuccess(res));
-                dispatch(fetchAllCodes());
             } else {
+                toast.error(res.message)
                 dispatch(updateCodeFail(res));
             }
         } catch (error) {

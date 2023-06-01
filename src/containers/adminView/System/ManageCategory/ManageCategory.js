@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './ManageCategory.scss';
-import { languages } from '../../../../utils'
+import { CommonUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import EditCategoryModal from './EditCategoryModal';
 
@@ -62,18 +62,25 @@ class ManageCategory extends Component {
 
 
     handleSaveNewCategory = async () => {
-        let keyName = this.handleConvertToKeyName(this.state.valueVI)
-        // let keyName = this.handleConvertToNonAccentVietnamese(this.state.valueVI)
-        console.log(keyName)
-        // await this.props.addNewCode(this.state)
-        // this.handleClearAllInput();
-        // this.props.fetchAllCodesByType('category')
+
+        await this.props.addNewCode({
+            type: this.state.type,
+            keyMap: this.state.keyMap,
+            valueVI: this.state.valueVI,
+            valueEN: this.state.valueEN,
+        })
+        this.handleClearAllInput();
+        this.props.fetchAllCodesByType('category')
     }
 
     handleConvertToKeyName = (inputName) => {
         inputName = this.handleConvertToNonAccentVietnamese(inputName)
+        inputName = inputName.split(' - ').join('-');
         inputName = inputName.split(' ').join('-');
         inputName = inputName.toLowerCase();
+        this.setState({
+            keyMap: inputName
+        })
         return inputName;
     }
 
@@ -123,13 +130,22 @@ class ManageCategory extends Component {
 
     handleClearAllInput = () => {
         this.setState({
-            categoryId: '',
-            type: '',
+            type: 'CATEGORY',
+            keyMap: '',
             valueVI: '',
             valueEN: '',
 
             listCategory: [],
             selectedCategory: ''
+        })
+    }
+
+    handleOnChangeInputValueVI = (event) => {
+        let data = event.target.value
+        let keyName = this.handleConvertToKeyName(data)
+        this.setState({
+            valueVI: data,
+            keyMap: keyName
         })
     }
 
@@ -169,7 +185,7 @@ class ManageCategory extends Component {
         let { type, keyMap, valueVI, valueEN, isModalOpened, selectedItem } = this.state;
         let { allCodesArr } = this.props
 
-
+        console.log(this.state.valueVI)
 
         return (
             <React.Fragment>
@@ -189,15 +205,16 @@ class ManageCategory extends Component {
                             <label>Mã danh mục chính</label>
                             <input className='form-control'
                                 value={keyMap}
-                                onChange={(event) => this.handleOnChangeInput(event, 'keyMap')} />
+                                // onChange={(event) => this.handleOnChangeInput(event, 'keyMap')} 
+                                readOnly />
                         </div>
                         <div className='col-6 form-group'>
                             <label>Tiếng Việt</label>
                             <input className='form-control'
                                 value={valueVI}
-                                onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
+                                onChange={(event) => this.handleOnChangeInputValueVI(event)} />
                         </div>
-                        <div className='col-6'>
+                        <div className='col-6 form-group'>
                             <label>Tiếng Anh</label>
                             <input className='form-control'
                                 value={valueEN}
