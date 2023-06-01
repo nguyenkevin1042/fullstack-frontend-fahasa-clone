@@ -48,24 +48,25 @@ class AddProductModal extends Component {
 
         }
         if (prevProps.isOpenedModal !== this.props.isOpenedModal) {
-            this.setState({
-                name: '',
-                price: '',
-                discount: '',
-                weight: '',
-                height: '',
-                width: '',
-                length: '',
-                childCategoryId: '',
-                image: '',
-                previewImgURL: '',
+            // this.setState({
+            //     name: '',
+            //     price: '',
+            //     discount: '',
+            //     weight: '',
+            //     height: '',
+            //     width: '',
+            //     length: '',
+            //     childCategoryId: '',
+            //     image: '',
+            //     previewImgURL: '',
+            //     selectedProductType: '',
 
-                listCategory: [], selectedCategory: '',
-                listSubCategory: [], selectedSubCategory: '',
-                listChildCategory: [], selectedChildCategory: '',
+            //     listCategory: [], selectedCategory: '',
+            //     listSubCategory: [], selectedSubCategory: '',
+            //     listChildCategory: [], selectedChildCategory: '',
 
-                isOpenedPreviewImage: false
-            })
+            //     isOpenedPreviewImage: false
+            // })
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -198,18 +199,20 @@ class AddProductModal extends Component {
     }
 
     handleSaveNewProduct = () => {
-        console.log(this.state)
-        // this.props.addNewProduct({
-        //     name: this.state.name,
-        //     price: this.state.price,
-        //     discount: this.state.discount,
-        //     weight: this.state.weight,
-        //     height: this.state.height,
-        //     width: this.state.width,
-        //     length: this.state.length,
-        //     childCategoryId: this.state.childCategoryId,
-        //     image: this.state.image,
-        // })
+        this.props.addNewProduct({
+            name: this.state.name,
+            price: this.state.price,
+            discount: this.state.discount,
+            weight: this.state.weight,
+            height: this.state.height,
+            width: this.state.width,
+            length: this.state.length,
+            childCategoryId: this.state.childCategoryId,
+            image: this.state.image,
+            productType: this.state.selectedProductType,
+            descriptionData: this.state.stateFromComponent
+        })
+        this.props.closeModal();
     }
 
     eventhandler = (data) => {
@@ -244,11 +247,12 @@ class AddProductModal extends Component {
             listChildCategory, selectedChildCategory,
             isOpenedPreviewImage, selectedProductType } = this.state;
         let { isOpenedModal, closeModal } = this.props
-
+        // console.log(listCategory)
         return (
+
             <>
 
-                <Modal isOpen={true}
+                <Modal isOpen={isOpenedModal}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
                     size='xl'
                     centered>
@@ -367,7 +371,6 @@ class AddProductModal extends Component {
                                         type="radio"
                                         value="book"
                                         name="productType"
-                                        // checked={this.state.selectedOption === "Female"}
                                         onChange={(event) => this.onChangeRadioValue(event)}
                                     />
                                     Sách
@@ -379,7 +382,6 @@ class AddProductModal extends Component {
                                         type="radio"
                                         value="toy"
                                         name="productType"
-                                        // checked={this.state.selectedOption === "Female"}
                                         onChange={(event) => this.onChangeRadioValue(event)} />
                                     Đồ chơi
                                 </label>
@@ -390,7 +392,6 @@ class AddProductModal extends Component {
                                         type="radio"
                                         value="stationary"
                                         name="productType"
-                                        // checked={this.state.selectedOption === "Female"}
                                         onChange={(event) => this.onChangeRadioValue(event)} />
                                     Văn phòng phẩm/Sản phẩm khác
                                 </label>

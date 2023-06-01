@@ -3,7 +3,9 @@ import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI, adminLoginAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
-    getAllSubCategoryAPI, getAllCodesByIdAPI, getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI, addNewProductAPI
+    getAllSubCategoryAPI, getAllCodesByIdAPI,
+    getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
+    addNewProductAPI, getAllProductAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -502,4 +504,32 @@ export const addNewProductSuccess = (response) => ({
 export const addNewProductFail = (response) => ({
     type: actionTypes.ADD_NEW_PRODUCT_FAIL,
     response: response
+})
+
+//FETCH ALL PRODUCTS
+export const fetchAllProduct = () => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllProductAPI();
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllProductSuccess(res.allProducts));
+            } else {
+                dispatch(fetchAllCodesFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllProductFail());
+            console.log("fetchAllProduct Error: ", error)
+        }
+    }
+}
+
+export const fetchAllProductSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_PRODUCT_SUCCESS,
+    allProductData: data
+})
+
+export const fetchAllProductFail = () => ({
+    type: actionTypes.FETCH_ALL_PRODUCT_FAIL
 })

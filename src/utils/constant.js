@@ -6,6 +6,7 @@ export const path = {
     HOMEPAGE: '/home',
     CUSTOMER_LOGIN: '/customer/account/login',
     CUSTOMER_ACCOUNT: '/customer/account',
+    PRODUCT_LIST: '/category/:keyName',
     PRODUCT_DETAIL: '/product'
 };
 

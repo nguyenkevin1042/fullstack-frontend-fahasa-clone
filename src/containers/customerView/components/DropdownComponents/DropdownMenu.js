@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 import './DropdownMenu.scss';
 import { languages } from '../../../../utils'
 
@@ -101,13 +102,20 @@ class DropdownMenu extends Component {
         )
     }
 
+    handleToProductList = (data) => {
+        if (this.props.history) {
+            this.props.history.push("/category/" + data);
+        }
+    }
+
     renderChildCategoryList = (childCategoryData) => {
         let language = this.props.lang;
         return (
             <>
                 {childCategoryData && childCategoryData.length > 0 &&
                     childCategoryData.map((item, index) => (
-                        <li key={index} className='child-category-item'>
+                        <li key={index} className='child-category-item'
+                            onClick={() => this.handleToProductList(item.id)}>
                             {language === languages.VI ? item.valueVI : item.valueEN}
                         </li>
                     ))
@@ -161,4 +169,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropdownMenu);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DropdownMenu));

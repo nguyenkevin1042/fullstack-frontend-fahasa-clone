@@ -8,7 +8,8 @@ const initialState = {
     allCodesArr: [],
     updateCodeRes: [],
     allSubCategoryArr: [],
-    allChildCategoryArr: []
+    allChildCategoryArr: [],
+    allProductArr: [],
 }
 
 const appReducer = (state = initialState, action) => {
@@ -61,7 +62,6 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_SUCCESS:
-            console.log(action.allCodeData)
             state.allCodesArr = action.allCodeData
             return {
                 ...state,
@@ -144,6 +144,18 @@ const appReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 adminInfo: null
             }
+
+        case actionTypes.FETCH_ALL_PRODUCT_SUCCESS:
+            state.allProductArr = action.allProductData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_PRODUCT_FAIL:
+            state.allProductArr = []
+            return {
+                ...state,
+            }
+
         default:
             return state;
     }

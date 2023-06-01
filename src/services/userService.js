@@ -98,6 +98,10 @@ const addNewProductAPI = (data) => {
     return axios.post("/api/add-new-product", data);
 }
 
+const getAllProductAPI = () => {
+    return axios.get("/api/get-all-product");
+}
+
 
 export {
     createNewUserAPI, adminLoginAPI, customerLoginAPI,
@@ -105,5 +109,5 @@ export {
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
     getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI
+    addNewProductAPI, getAllProductAPI
 };

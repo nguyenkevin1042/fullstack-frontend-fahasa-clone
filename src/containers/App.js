@@ -26,6 +26,7 @@ import CustomerLogin from './customerView/Login/Login';
 import CustomScrollbars from '../components/CustomScrollbars';
 import ProductDetail from './customerView/ProductDetail/ProductDetail';
 import CustomerAccount from './customerView/CustomerAccount/CustomerAccount';
+import ProductList from './customerView/ProductList/ProductList';
 
 class App extends Component {
 
@@ -65,6 +66,7 @@ class App extends Component {
                                     <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
                                     <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
                                     <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
+                                    <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
                                 </Switch>
 
                             </span>
