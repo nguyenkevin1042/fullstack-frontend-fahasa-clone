@@ -3,9 +3,9 @@ import actionTypes from './actionTypes';
 import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI, adminLoginAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
-    getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
-    getAllSubCategoryAPI, getAllCodesByIdAPI,
-    getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
+    getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
+    getAllSubCategoryAPI,
+    getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
     addNewProductAPI, getAllProductAPI, editSubCategoryAPI
 
 } from '../../services/userService';
@@ -134,6 +134,7 @@ export const fetchAllCodesByType = (inputType) => {
     return async (dispatch, getState) => {
         let res;
         try {
+
             res = await getCodeByTypeAPI(inputType);
 
             if (res && res.errCode === 0) {
@@ -277,31 +278,32 @@ export const fetchAllSubCategoryFail = () => ({
     type: actionTypes.FETCH_ALL_SUB_CATEGORY_FAIL
 })
 
-//FETCH ALL SUB CATEGORY BY TYPE
-export const fetchAllSubCategoryByCategoryType = (category) => {
+//FETCH ALL SUB CATEGORY BY CATEGORY
+export const fetchAllSubCategoryByCategory = (category) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            res = await getAllSubCategoryByCategoryTypeAPI(category);
+            res = await getAllSubCategoryByCategoryAPI(category);
+
             if (res && res.errCode === 0) {
-                dispatch(fetchAllSubCategoryByTypeSuccess(res.data));
+                dispatch(fetchAllSubCategoryByCategorySuccess(res.subCategories));
             } else {
-                dispatch(fetchAllSubCategoryByCategoryTypeFail());
+                dispatch(fetchAllSubCategoryByCategoryFail());
             }
         } catch (error) {
-            dispatch(fetchAllSubCategoryByCategoryTypeFail());
-            console.log("fetchAllSubCategoryByCategoryType Error: ", error)
+            dispatch(fetchAllSubCategoryByCategoryFail());
+            console.log("fetchAllSubCategoryByCategory Error: ", error)
         }
     }
 }
 
-export const fetchAllSubCategoryByTypeSuccess = (allSubCategory) => ({
-    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_SUCCESS,
-    allSubCategoryByTypeData: allSubCategory
+export const fetchAllSubCategoryByCategorySuccess = (response) => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_CATEGORY_SUCCESS,
+    allSubCategoryData: response
 })
 
-export const fetchAllSubCategoryByCategoryTypeFail = () => ({
-    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_FAIL
+export const fetchAllSubCategoryByCategoryFail = () => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_CATEGORY_FAIL
 })
 
 //ADD NEW SUB CATEGORY
@@ -424,32 +426,32 @@ export const fetchAllChildCategoryFail = () => ({
     type: actionTypes.FETCH_ALL_CHILD_CATEGORY_FAIL
 })
 
-//FETCH ALL CHILD CATEGORY BY ID
-export const fetchAllChildCategoryById = (inputSubCatId) => {
+//FETCH ALL CHILD CATEGORY BY SUB CATEGORY
+export const fetchAllChildCategoryBySubCategory = (inputSubCat) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            res = await getAllChildCategorybySubCatIdAPI(inputSubCatId);
+            res = await getAllChildCategoryBySubCategoryAPI(inputSubCat);
 
             if (res && res.errCode === 0) {
-                dispatch(fetchAllChildCategoryByIdSuccess(res.data));
+                dispatch(fetchAllChildCategoryBySubCategorySuccess(res.data));
             } else {
-                dispatch(fetchAllChildCategoryByIdFail());
+                dispatch(fetchAllChildCategoryBySubCategoryFail());
             }
         } catch (error) {
-            dispatch(fetchAllChildCategoryByIdFail());
+            dispatch(fetchAllChildCategoryBySubCategoryFail());
             console.log("fetchAllCodesByType Error: ", error)
         }
     }
 }
 
-export const fetchAllChildCategoryByIdSuccess = (childCatData) => ({
-    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_SUCCESS,
+export const fetchAllChildCategoryBySubCategorySuccess = (childCatData) => ({
+    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_SUB_CATEGORY_SUCCESS,
     allChildCatData: childCatData
 })
 
-export const fetchAllChildCategoryByIdFail = () => ({
-    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_FAIL
+export const fetchAllChildCategoryBySubCategoryFail = () => ({
+    type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_SUB_CATEGORY_FAIL
 })
 
 
@@ -458,16 +460,18 @@ export const addNewChildCategory = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
+
             res = await addNewChildCategoryAPI(inputData);
+
             if (res && res.errCode === 0) {
                 dispatch(addNewChildCategorySuccess(res));
                 toast.success(res.message)
             } else {
-                dispatch(addNewChildCategorySuccess(res));
+                dispatch(addNewChildCategoryFail(res));
                 toast.error(res.message)
             }
         } catch (error) {
-            dispatch(addNewChildCategorySuccess(res));
+            dispatch(addNewChildCategoryFail(res));
             console.log("addNewChildCategory Error: ", error)
         }
     }
@@ -475,12 +479,12 @@ export const addNewChildCategory = (inputData) => {
 
 export const addNewChildCategorySuccess = (response) => ({
     type: actionTypes.ADD_NEW_CHILD_CATEGORY_SUCCESS,
-    response: response
+    errResponse: response
 })
 
 export const addNewChildCategoryFail = (response) => ({
     type: actionTypes.ADD_NEW_CODE_SUCCESS,
-    response: response
+    errResponse: response
 })
 
 //DELETE SUB CATEGORY
@@ -518,15 +522,13 @@ export const addNewProduct = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            // console.log(inputData)
-            // return;
             res = await addNewProductAPI(inputData);
             if (res && res.errCode === 0) {
                 dispatch(addNewProductSuccess(res));
-
+                toast.success(res.message)
             } else {
                 dispatch(addNewProductFail(res));
-
+                toast.error(res.message)
             }
         } catch (error) {
             dispatch(addNewProductFail(res));

@@ -10,7 +10,6 @@ class ToyDescriptionComponent extends Component {
         this.state = {
             age: '',
             supplier: '',
-            publishYear: '',
             brand: '',
             origin: '',
             madeBy: '',
@@ -46,7 +45,7 @@ class ToyDescriptionComponent extends Component {
 
 
     render() {
-        let { age, brand, color, madeBy, origin, publishYear, specification, supplier, usage, warning } = this.state
+        let { age, brand, color, madeBy, origin, specification, supplier, usage, warning } = this.state
         return (
             <div className='row'>
                 <div className='col-4 form-group'>
@@ -72,13 +71,6 @@ class ToyDescriptionComponent extends Component {
                     <input className='form-control'
                         value={madeBy}
                         onChange={(event) => this.handleOnChangeInput(event, 'madeBy')} />
-                </div>
-                <div className='col-4 form-group'>
-                    <label>Năm sản xuất</label>
-                    <input className='form-control'
-                        type='number' min={1975}
-                        value={publishYear}
-                        onChange={(event) => this.handleOnChangeInput(event, 'publishYear')} />
                 </div>
                 <div className='col-4 form-group'>
                     <label>Màu sắc</label>

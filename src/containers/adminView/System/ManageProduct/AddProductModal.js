@@ -18,13 +18,15 @@ class AddProductModal extends Component {
         super(props);
         this.state = {
             name: '',
+            keyName: '',
             price: '',
             discount: '',
             weight: '',
             height: '',
             width: '',
             length: '',
-            childCategoryId: '',
+            publishYear: '',
+            categoryKeyName: '',
             image: '',
             previewImgURL: '',
 
@@ -37,10 +39,10 @@ class AddProductModal extends Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
-        this.props.fetchAllCodesByType('category')
-        this.props.fetchAllChildCategory()
+        await this.props.fetchAllCodesByType('category')
+        // this.props.fetchAllChildCategory()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -56,7 +58,7 @@ class AddProductModal extends Component {
             //     height: '',
             //     width: '',
             //     length: '',
-            //     childCategoryId: '',
+            //     categoryKeyName: '',
             //     image: '',
             //     previewImgURL: '',
             //     selectedProductType: '',
@@ -113,7 +115,7 @@ class AddProductModal extends Component {
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
-                    obj.id = item.id;
+                    obj.keyName = item.keyName;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
@@ -124,7 +126,7 @@ class AddProductModal extends Component {
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
-                    obj.id = item.id;
+                    obj.keyName = item.keyName;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
@@ -148,7 +150,7 @@ class AddProductModal extends Component {
             selectedSubCategory: '',
             selectedChildCategory: ''
         })
-        await this.props.fetchAllSubCategoryByCategoryType(selectedCategory.keyMap);
+        await this.props.fetchAllSubCategoryByCategory(selectedCategory.keyMap);
     }
 
     handleChangeSubCategory = async (selectedSubCategory) => {
@@ -156,12 +158,12 @@ class AddProductModal extends Component {
             selectedSubCategory: selectedSubCategory,
             selectedChildCategory: ''
         })
-        await this.props.fetchAllChildCategoryById(selectedSubCategory.id)
+        await this.props.fetchAllChildCategoryBySubCategory(selectedSubCategory.keyName)
     }
 
     handleChangeChildCategory = (selectedChildCategory) => {
         this.setState({
-            childCategoryId: selectedChildCategory.id,
+            categoryKeyName: selectedChildCategory.keyName,
             selectedChildCategory: selectedChildCategory
         })
     }
@@ -170,7 +172,6 @@ class AddProductModal extends Component {
         let data = event.target.files;
 
         let file = data[0];
-
 
         if (file) {
             let objectURL = URL.createObjectURL(file);
@@ -192,6 +193,48 @@ class AddProductModal extends Component {
         })
     }
 
+    handleOnChangeInputName = (event) => {
+        let data = event.target.value
+        let keyName = this.handleConvertToKeyName(data)
+        this.setState({
+            name: data,
+            keyName: keyName
+        })
+    }
+
+    handleConvertToKeyName = (inputName) => {
+        inputName = this.handleConvertToNonAccentVietnamese(inputName)
+        inputName = inputName.split('(').join('');
+        inputName = inputName.split(')').join('');
+        inputName = inputName.split(' - ').join('-');
+        inputName = inputName.split(' ').join('-');
+        inputName = inputName.toLowerCase();
+        this.setState({
+            keyName: inputName
+        })
+        return inputName;
+    }
+
+    handleConvertToNonAccentVietnamese = (string) => {
+        string = string.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        string = string.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        string = string.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        string = string.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        string = string.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        string = string.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        string = string.replace(/đ/g, "d");
+
+        string = string.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "a");
+        string = string.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "e");
+        string = string.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "i");
+        string = string.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "o");
+        string = string.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "u");
+        string = string.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "y");
+        string = string.replace(/Đ/g, "d");
+
+        return string;
+    }
+
     onChangeRadioValue = (event) => {
         this.setState({
             selectedProductType: event.target.value
@@ -201,18 +244,20 @@ class AddProductModal extends Component {
     handleSaveNewProduct = () => {
         this.props.addNewProduct({
             name: this.state.name,
+            keyName: this.state.keyName,
             price: this.state.price,
             discount: this.state.discount,
             weight: this.state.weight,
             height: this.state.height,
             width: this.state.width,
             length: this.state.length,
-            childCategoryId: this.state.childCategoryId,
+            categoryKeyName: this.state.categoryKeyName,
+            publishYear: this.state.publishYear,
             image: this.state.image,
             productType: this.state.selectedProductType,
             descriptionData: this.state.stateFromComponent
         })
-        this.props.closeModal();
+        // this.props.closeModal();
     }
 
     eventhandler = (data) => {
@@ -240,7 +285,7 @@ class AddProductModal extends Component {
 
 
     render() {
-        let { name, price, discount, weight, image, previewImgURL,
+        let { name, keyName, price, discount, weight, publishYear, previewImgURL,
             height, width, length,
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
@@ -248,6 +293,8 @@ class AddProductModal extends Component {
             isOpenedPreviewImage, selectedProductType } = this.state;
         let { isOpenedModal, closeModal } = this.props
         // console.log(listCategory)
+        // console.log(listSubCategory)
+        // console.log(listChildCategory)
         return (
 
             <>
@@ -295,7 +342,13 @@ class AddProductModal extends Component {
                                 <label>Tên sản phảm</label>
                                 <input className='form-control'
                                     value={name}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'name')} />
+                                    onChange={(event) => this.handleOnChangeInputName(event)} />
+                            </div>
+                            <div className='col-6 form-group'>
+                                <label>Mã theo tên sản phẩm</label>
+                                <input className='form-control'
+                                    value={keyName}
+                                    readOnly />
                             </div>
                             <div className='col-3 form-group'>
                                 <label>Giá sản phẩm</label>
@@ -312,6 +365,13 @@ class AddProductModal extends Component {
                                     onChange={(event) => this.handleOnChangeInput(event, 'discount')} />
                             </div>
                             <div className='col-3 form-group'>
+                                <label>Năm sản xuất</label>
+                                <input className='form-control'
+                                    type='number' min={1975}
+                                    value={publishYear}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'publishYear')} />
+                            </div>
+                            <div className='col-3 form-group'>
                                 <label>Trọng lượng (g)</label>
                                 <input type='number'
                                     step='0.01'
@@ -319,8 +379,7 @@ class AddProductModal extends Component {
                                     value={weight}
                                     onChange={(event) => this.handleOnChangeInput(event, 'weight')} />
                             </div>
-
-                            <div className='col-3 form-group'>
+                            <div className='col-2 form-group'>
                                 <label>Chiều dài (cm)</label>
                                 <input type='number' min="0"
                                     step='0.01'
@@ -328,7 +387,7 @@ class AddProductModal extends Component {
                                     value={length}
                                     onChange={(event) => this.handleOnChangeInput(event, 'length')} />
                             </div>
-                            <div className='col-3 form-group'>
+                            <div className='col-2 form-group'>
                                 <label>Chiều rộng (cm)</label>
                                 <input type='number' min="0"
                                     step='0.01'
@@ -336,7 +395,7 @@ class AddProductModal extends Component {
                                     value={width}
                                     onChange={(event) => this.handleOnChangeInput(event, 'width')} />
                             </div>
-                            <div className='col-3 form-group'>
+                            <div className='col-2 form-group'>
                                 <label>Chiều cao (cm)</label>
                                 <input type='number' min="0"
                                     step='0.01'
@@ -442,9 +501,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
-        fetchAllSubCategoryByCategoryType: (category) => dispatch(actions.fetchAllSubCategoryByCategoryType(category)),
+        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
         fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
-        fetchAllChildCategoryById: (subCatId) => dispatch(actions.fetchAllChildCategoryById(subCatId)),
+        fetchAllChildCategoryBySubCategory: (subCat) => dispatch(actions.fetchAllChildCategoryBySubCategory(subCat)),
         addNewProduct: (inputData) => dispatch(actions.addNewProduct(inputData))
     };
 };

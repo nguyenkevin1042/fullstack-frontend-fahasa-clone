@@ -48,7 +48,7 @@ class Header extends Component {
     }
 
     async componentDidMount() {
-        await this.props.fetchAllCodesByType('category')
+        // await this.props.fetchAllCodesByType('category')
         this.setState({
             selectedLanguage: this.state.listLanguage[0]
         })
@@ -169,7 +169,9 @@ class Header extends Component {
             })
         };
 
-        const menu = (<DropdownMenu listCategory={listCategory} />);
+        const menu = (<DropdownMenu
+        // listCategory={listCategory} 
+        />);
 
 
         return (

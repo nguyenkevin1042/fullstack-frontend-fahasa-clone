@@ -10,7 +10,8 @@ class ManageChildCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            subCategoryId: '',
+            subCategory: '',
+            keyName: '',
             valueVI: '',
             valueEN: '',
 
@@ -68,7 +69,7 @@ class ManageChildCategory extends Component {
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
-                    obj.keyMap = item.keyMap;
+                    obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
@@ -79,7 +80,7 @@ class ManageChildCategory extends Component {
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
-                    obj.id = item.id;
+                    obj.keyName = item.keyName;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
@@ -101,25 +102,29 @@ class ManageChildCategory extends Component {
         this.setState({
             selectedCategory: selectedCategory
         })
-        await this.props.fetchAllSubCategoryByCategoryType(selectedCategory.keyMap);
+        await this.props.fetchAllSubCategoryByCategory(selectedCategory.keyName);
     }
 
     handleChangeSubCategory = (selectedSubCategory) => {
         this.setState({
-            subCategoryId: selectedSubCategory.id,
+            subCategory: selectedSubCategory.keyName,
             selectedSubCategory: selectedSubCategory
         })
     }
 
     handleSaveNewChildCategory = async () => {
         await this.props.addNewChildCategory({
-            subCategoryId: this.state.subCategoryId,
+            subCategory: this.state.subCategory,
+            keyName: this.state.keyName,
             valueVI: this.state.valueVI,
             valueEN: this.state.valueEN,
         })
-        this.handleClearAllInput();
-        this.props.fetchAllCodesByType('category')
-        this.props.fetchAllChildCategory()
+        if (this.props.errResponse.errCode === 0) {
+            this.handleClearAllInput();
+            this.props.fetchAllCodesByType('category')
+            this.props.fetchAllChildCategory()
+        }
+
     }
 
     handleOnChangeInput = (event, key) => {
@@ -135,18 +140,55 @@ class ManageChildCategory extends Component {
 
     handleClearAllInput = () => {
         this.setState({
-            categoryId: '',
-            type: '',
+            keyName: '',
             valueVI: '',
             valueEN: '',
-
-            listCategory: [],
-            selectedCategory: ''
         })
+    }
+
+    handleOnChangeInputValueVI = (event) => {
+        let data = event.target.value
+        let keyName = this.handleConvertToKeyName(data)
+        this.setState({
+            valueVI: data,
+            keyName: keyName
+        })
+    }
+
+    handleConvertToKeyName = (inputName) => {
+        inputName = this.handleConvertToNonAccentVietnamese(inputName)
+        inputName = inputName.split(' - ').join('-');
+        inputName = inputName.split(' ').join('-');
+        inputName = inputName.toLowerCase();
+        this.setState({
+            keyName: inputName
+        })
+        return inputName;
+    }
+
+    handleConvertToNonAccentVietnamese = (string) => {
+        string = string.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        string = string.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        string = string.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        string = string.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        string = string.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        string = string.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        string = string.replace(/đ/g, "d");
+
+        string = string.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "a");
+        string = string.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "e");
+        string = string.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "i");
+        string = string.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "o");
+        string = string.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "u");
+        string = string.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "y");
+        string = string.replace(/Đ/g, "d");
+
+        return string;
     }
 
     renderChildCategoriesTableData() {
         let { listChildCategory } = this.state
+
         return (
             <>
                 {listChildCategory && listChildCategory.length > 0 &&
@@ -155,7 +197,8 @@ class ManageChildCategory extends Component {
                             <>
                                 <tr key={index}>
                                     <td>{item.id}</td>
-                                    <td>{item.subCategoryId}</td>
+                                    <td>{item.subCategory}</td>
+                                    <td>{item.keyName}</td>
                                     <td>{item.valueVI}</td>
                                     <td>{item.valueEN}</td>
                                     <td>
@@ -177,11 +220,10 @@ class ManageChildCategory extends Component {
     }
 
     render() {
-        let { subCategoryId, valueVI, valueEN,
+        let { subCategory, keyName, valueVI, valueEN,
             listCategory, selectedCategory, listSubCategory, selectedSubCategory } = this.state;
-        let { allCodesArr, allSubCategoryArr, allChildCategoryArr } = this.props
-        console.log(allChildCategoryArr)
 
+        console.log(this.props.errResponse)
         return (
             <React.Fragment>
                 <div className='manage-category-container'>
@@ -216,7 +258,13 @@ class ManageChildCategory extends Component {
                             <label>Tiếng Việt</label>
                             <input className='form-control'
                                 value={valueVI}
-                                onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
+                                onChange={(event) => this.handleOnChangeInputValueVI(event)} />
+                        </div>
+                        <div className='col-6 form-group'>
+                            <label>Mã danh mục con</label>
+                            <input className='form-control'
+                                value={keyName}
+                                readOnly />
                         </div>
                         <div className='col-6'>
                             <label>Tiếng Anh</label>
@@ -242,6 +290,7 @@ class ManageChildCategory extends Component {
                                         <tr>
                                             <th>ID</th>
                                             <th>Mã danh mục phụ</th>
+                                            <th>Mã danh mục con</th>
                                             <th>Tiếng Việt</th>
                                             <th>Tiếng Anh</th>
                                             <th>Actions</th>
@@ -270,7 +319,8 @@ const mapStateToProps = state => {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
-        allChildCategoryArr: state.admin.allChildCategoryArr
+        allChildCategoryArr: state.admin.allChildCategoryArr,
+        errResponse: state.admin.errResponse
     };
 };
 
@@ -278,7 +328,7 @@ const mapDispatchToProps = dispatch => {
     return {
         addNewChildCategory: (inputData) => dispatch(actions.addNewChildCategory(inputData)),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
-        fetchAllSubCategoryByCategoryType: (category) => dispatch(actions.fetchAllSubCategoryByCategoryType(category)),
+        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
         fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
         deleteChildCategory: (inputId) => dispatch(actions.deleteChildCategory(inputId)),
 

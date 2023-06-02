@@ -154,12 +154,12 @@ class ManageSubCategory extends Component {
     handleClearAllInput = () => {
         this.setState({
             keyName: '',
-            type: '',
+            // type: '',
             valueVI: '',
             valueEN: '',
         })
 
-        console.log(this.state)
+
     }
 
     handleOnChangeInputValueVI = (event) => {

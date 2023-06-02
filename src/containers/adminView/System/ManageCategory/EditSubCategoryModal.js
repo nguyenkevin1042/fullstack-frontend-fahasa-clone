@@ -222,7 +222,7 @@ class EditSubCategoryModal extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        errResponse: state.admin.updaterrResponseeCodeRes
+        errResponse: state.admin.errResponse
     };
 };
 

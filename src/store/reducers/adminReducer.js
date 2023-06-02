@@ -121,6 +121,7 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
+
         case actionTypes.UPDATE_SUB_CATEGORY_FAIL:
             state.errResponse = action.errResponse
             return {
@@ -138,12 +139,12 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
-        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_SUCCESS:
-            state.allSubCategoryArr = action.allSubCategoryByTypeData
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_CATEGORY_SUCCESS:
+            state.allSubCategoryArr = action.allSubCategoryData
             return {
                 ...state,
             }
-        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_TYPE_FAIL:
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_CATEGORY_FAIL:
             state.allSubCategoryArr = []
             return {
                 ...state,
@@ -160,6 +161,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.ADD_NEW_CHILD_CATEGORY_SUCCESS:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+        case actionTypes.ADD_NEW_CHILD_CATEGORY_FAIL:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+
         case actionTypes.FETCH_ALL_CHILD_CATEGORY_SUCCESS:
             state.allChildCategoryArr = action.data
             return {
@@ -171,12 +183,12 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
-        case actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_SUCCESS:
+        case actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_SUB_CATEGORY_SUCCESS:
             state.allChildCategoryArr = action.allChildCatData
             return {
                 ...state,
             }
-        case actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_ID_FAIL:
+        case actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_SUB_CATEGORY_FAIL:
             state.allChildCategoryArr = []
             return {
                 ...state,
