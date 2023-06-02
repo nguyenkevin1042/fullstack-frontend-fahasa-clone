@@ -36,6 +36,9 @@ class ManageCategory extends Component {
                 listCategory: this.props.allCodesArr
             })
         }
+        if (prevProps.errResponse !== this.props.errResponse) {
+            this.props.fetchAllCodesByType('category')
+        }
 
 
     }
@@ -69,8 +72,11 @@ class ManageCategory extends Component {
             valueVI: this.state.valueVI,
             valueEN: this.state.valueEN,
         })
-        this.handleClearAllInput();
-        this.props.fetchAllCodesByType('category')
+        if (this.props.errResponse.errCode === 0) {
+            this.handleClearAllInput();
+            this.props.fetchAllCodesByType('category')
+        }
+
     }
 
     handleConvertToKeyName = (inputName) => {
@@ -106,6 +112,10 @@ class ManageCategory extends Component {
 
     handleDelete = (item) => {
         this.props.deleteCode(item.id);
+        if (this.props.errResponse.errCode === 0) {
+            this.props.fetchAllCodesByType('category')
+        }
+
     }
 
     handleEdit = (item) => {
@@ -183,9 +193,6 @@ class ManageCategory extends Component {
 
     render() {
         let { type, keyMap, valueVI, valueEN, isModalOpened, selectedItem } = this.state;
-        let { allCodesArr } = this.props
-
-        console.log(this.state.valueVI)
 
         return (
             <React.Fragment>
@@ -270,6 +277,7 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
+        errResponse: state.admin.errResponse
     };
 };
 

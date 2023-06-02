@@ -10,6 +10,7 @@ const initialState = {
     allSubCategoryArr: [],
     allChildCategoryArr: [],
     allProductArr: [],
+    errResponse: ''
 }
 
 const appReducer = (state = initialState, action) => {
@@ -35,6 +36,28 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.CREATE_NEW_USER_FAIL:
             state.signUpResponse = action.response
+            return {
+                ...state,
+            }
+
+        case actionTypes.ADD_NEW_CODE_SUCCESS:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+        case actionTypes.ADD_NEW_CODE_FAIL:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+
+        case actionTypes.DELETE_CODE_SUCCESS:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+        case actionTypes.DELETE_CODE_FAIL:
+            state.errResponse = action.errResponse
             return {
                 ...state,
             }
@@ -138,13 +161,6 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
-        case actionTypes.ADMIN_PROCESS_LOGOUT:
-            return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
-
         case actionTypes.FETCH_ALL_PRODUCT_SUCCESS:
             state.allProductArr = action.allProductData
             return {
@@ -154,6 +170,13 @@ const appReducer = (state = initialState, action) => {
             state.allProductArr = []
             return {
                 ...state,
+            }
+
+        case actionTypes.ADMIN_PROCESS_LOGOUT:
+            return {
+                ...state,
+                isLoggedIn: false,
+                adminInfo: null
             }
 
         default:

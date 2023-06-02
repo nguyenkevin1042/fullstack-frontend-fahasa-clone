@@ -12,6 +12,7 @@ class ManageSubCategory extends Component {
         super(props);
         this.state = {
             categoryType: '',
+            keyName: '',
             valueVI: '',
             valueEN: '',
             listCategory: [],
@@ -56,7 +57,7 @@ class ManageSubCategory extends Component {
         inputName = inputName.split(' ').join('-');
         inputName = inputName.toLowerCase();
         this.setState({
-            keyMap: inputName
+            keyName: inputName
         })
         return inputName;
     }
@@ -110,15 +111,16 @@ class ManageSubCategory extends Component {
     }
 
     handleSaveNewSubCategory = async () => {
+        await this.props.addNewSubCategory({
+            categoryType: this.state.categoryType,
+            keyName: this.state.keyName,
+            valueVI: this.state.valueVI,
+            valueEN: this.state.valueEN,
+        })
+        this.handleClearAllInput();
+        this.props.fetchAllSubCategory();
+        this.props.fetchAllCodesByType('category')
         console.log(this.state)
-        // await this.props.addNewSubCategory({
-        //     categoryType: this.state.categoryType,
-        //     valueVI: this.state.valueVI,
-        //     valueEN: this.state.valueEN,
-        // })
-        // this.handleClearAllInput();
-        // this.props.fetchAllSubCategory();
-        // this.props.fetchAllCodesByType('category')
     }
 
     handleEdit = (item) => {
@@ -150,6 +152,7 @@ class ManageSubCategory extends Component {
     handleClearAllInput = () => {
         this.setState({
             categoryId: '',
+            keyName: '',
             type: '',
             valueVI: '',
             valueEN: '',
@@ -180,6 +183,7 @@ class ManageSubCategory extends Component {
                                 <tr key={index}>
                                     <td>{item.id}</td>
                                     <td>{item.categoryType}</td>
+                                    <td>{item.keyName}</td>
                                     <td>{item.valueVI}</td>
                                     <td>{item.valueEN}</td>
                                     <td>
@@ -259,6 +263,7 @@ class ManageSubCategory extends Component {
                                         <tr>
                                             <th>ID</th>
                                             <th>Mã danh mục chính</th>
+                                            <th>Mã danh mục phụ</th>
                                             <th>Tiếng Việt</th>
                                             <th>Tiếng Anh</th>
                                             <th>Actions</th>

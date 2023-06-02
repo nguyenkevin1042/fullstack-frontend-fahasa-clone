@@ -10,7 +10,6 @@ import {
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
-import { Toast } from 'reactstrap';
 
 // ADMIN LOGIN
 export const adminLogin = (inputEmail, inputPassword) => {
@@ -80,7 +79,7 @@ export const addNewCode = (codeData) => {
             res = await addNewCodeAPI(codeData);
 
             if (res && res.errCode === 0) {
-                // toast.success(res.message)
+                toast.success(res.message)
                 dispatch(addNewCodeSuccess(res));
             } else {
                 toast.error(res.message)
@@ -95,12 +94,12 @@ export const addNewCode = (codeData) => {
 
 export const addNewCodeSuccess = (response) => ({
     type: actionTypes.ADD_NEW_CODE_SUCCESS,
-    response: response
+    errResponse: response
 })
 
 export const addNewCodeFail = (response) => ({
     type: actionTypes.ADD_NEW_CODE_FAIL,
-    response: response
+    errResponse: response
 })
 
 //FETCH ALL CODES
@@ -190,12 +189,15 @@ export const fetchAllCodesByIdFail = () => ({
 export const deleteCode = (inputId) => {
     return async (dispatch, getState) => {
         try {
+
             let res = await deleteCodeAPI(inputId);
 
             if (res && res.errCode === 0) {
-                dispatch(deleteCodeSuccess());
+                toast.success(res.message)
+                dispatch(deleteCodeSuccess(res));
             } else {
-                dispatch(fetchAllCodesFail());
+                toast.error(res.message)
+                dispatch(fetchAllCodesFail(res));
             }
         } catch (error) {
             dispatch(deleteCodeFail());
@@ -204,12 +206,14 @@ export const deleteCode = (inputId) => {
     }
 }
 
-export const deleteCodeSuccess = () => ({
+export const deleteCodeSuccess = (response) => ({
     type: actionTypes.DELETE_CODE_SUCCESS,
+    errResponse: response
 })
 
-export const deleteCodeFail = () => ({
-    type: actionTypes.DELETE_CODE_FAIL
+export const deleteCodeFail = (response) => ({
+    type: actionTypes.DELETE_CODE_FAIL,
+    errResponse: response
 })
 
 //UPDATE CODE

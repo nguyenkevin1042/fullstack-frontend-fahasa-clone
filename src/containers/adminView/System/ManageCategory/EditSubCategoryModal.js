@@ -16,6 +16,7 @@ class EditSubCategoryModal extends Component {
         this.state = {
             id: '',
             categoryType: '',
+            keyName: '',
             valueVI: '',
             valueVN: '',
             errResponse: [],
@@ -113,7 +114,7 @@ class EditSubCategoryModal extends Component {
     }
 
     render() {
-        let { categoryType, valueVI, valueEN, selectedItem } = this.state;
+        let { categoryType, keyName, valueVI, valueEN, selectedItem } = this.state;
         let { isModalOpened, closeEditCodeModel,
             listCategory } = this.props;
         console.log("check listCategory: ", listCategory)

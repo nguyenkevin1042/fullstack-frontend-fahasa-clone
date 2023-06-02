@@ -38,7 +38,7 @@ const getAllCodesByIdAPI = (inputId) => {
 
 const deleteCodeAPI = (inputId) => {
     return axios.delete("/api/delete-code", {
-        data: {
+        params: {
             id: inputId
         }
     });
