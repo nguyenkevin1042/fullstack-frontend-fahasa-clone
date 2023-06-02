@@ -47,6 +47,7 @@ const deleteCodeAPI = (inputId) => {
 const editCodeAPI = (inputData) => {
     return axios.put("/api/edit-code", inputData);
 }
+
 const getCodeByTypeAPI = (inputType) => {
     return axios.get("/api/get-code-by-type", {
         params: {
@@ -59,9 +60,10 @@ const getCodeByTypeAPI = (inputType) => {
 const getAllSubCategoryAPI = () => {
     return axios.get("/api/get-all-sub-category");
 }
+
 const getAllSubCategoryByCategoryTypeAPI = (inputCategoryType) => {
     return axios.get("/api/get-all-sub-category-by-category-type",
-        { params: { categoryType: inputCategoryType } });
+        { params: { category: inputCategoryType } });
 }
 
 const addNewSubCategoryAPI = (data) => {
@@ -72,6 +74,10 @@ const deleteSubCategoryAPI = (inputId) => {
     return axios.delete("/api/delete-sub-category",
         { params: { id: inputId } }
     );
+}
+
+const editSubCategoryAPI = (inputData) => {
+    return axios.put("/api/edit-sub-category", inputData);
 }
 
 //CHILD CATEGORY
@@ -105,9 +111,10 @@ const getAllProductAPI = () => {
 
 export {
     createNewUserAPI, adminLoginAPI, customerLoginAPI,
-    addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
+    addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI,
+    deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
-    getAllSubCategoryAPI,
-    getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI, getAllProductAPI
+    getAllSubCategoryAPI, editSubCategoryAPI,
+    getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI,
+    deleteChildCategoryAPI, addNewProductAPI, getAllProductAPI
 };

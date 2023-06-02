@@ -442,7 +442,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
-        fetchAllSubCategoryByCategoryType: (categoryType) => dispatch(actions.fetchAllSubCategoryByCategoryType(categoryType)),
+        fetchAllSubCategoryByCategoryType: (category) => dispatch(actions.fetchAllSubCategoryByCategoryType(category)),
         fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
         fetchAllChildCategoryById: (subCatId) => dispatch(actions.fetchAllChildCategoryById(subCatId)),
         addNewProduct: (inputData) => dispatch(actions.addNewProduct(inputData))

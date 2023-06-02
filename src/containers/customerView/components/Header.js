@@ -84,7 +84,7 @@ class Header extends Component {
                     let labelEN = item.valueEN;
 
                     obj.key = item.id;
-                    obj.categoryType = item.keyMap;
+                    obj.category = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });

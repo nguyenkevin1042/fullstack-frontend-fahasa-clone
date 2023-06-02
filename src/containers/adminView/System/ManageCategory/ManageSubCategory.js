@@ -11,7 +11,7 @@ class ManageSubCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categoryType: '',
+            category: '',
             keyName: '',
             valueVI: '',
             valueEN: '',
@@ -105,22 +105,24 @@ class ManageSubCategory extends Component {
 
     handleChange = (selectedCategory) => {
         this.setState({
-            categoryType: selectedCategory.keyName,
+            category: selectedCategory.keyName,
             selectedCategory: selectedCategory
         })
     }
 
     handleSaveNewSubCategory = async () => {
         await this.props.addNewSubCategory({
-            categoryType: this.state.categoryType,
+            category: this.state.category,
             keyName: this.state.keyName,
             valueVI: this.state.valueVI,
             valueEN: this.state.valueEN,
         })
-        this.handleClearAllInput();
-        this.props.fetchAllSubCategory();
-        this.props.fetchAllCodesByType('category')
-        console.log(this.state)
+        if (this.props.errResponse.errCode === 0) {
+            this.handleClearAllInput();
+            this.props.fetchAllSubCategory();
+            this.props.fetchAllCodesByType('category')
+        }
+
     }
 
     handleEdit = (item) => {
@@ -151,16 +153,13 @@ class ManageSubCategory extends Component {
 
     handleClearAllInput = () => {
         this.setState({
-            categoryId: '',
             keyName: '',
             type: '',
             valueVI: '',
             valueEN: '',
-
-            listCategory: [],
-            selectedCategory: '',
-            selectedItem: '',
         })
+
+        console.log(this.state)
     }
 
     handleOnChangeInputValueVI = (event) => {
@@ -182,7 +181,7 @@ class ManageSubCategory extends Component {
                             <>
                                 <tr key={index}>
                                     <td>{item.id}</td>
-                                    <td>{item.categoryType}</td>
+                                    <td>{item.category}</td>
                                     <td>{item.keyName}</td>
                                     <td>{item.valueVI}</td>
                                     <td>{item.valueEN}</td>
@@ -297,6 +296,7 @@ const mapStateToProps = state => {
         lang: state.app.language,
         allSubCategoryArr: state.admin.allSubCategoryArr,
         allCodesArr: state.admin.allCodesArr,
+        errResponse: state.admin.errResponse
     };
 };
 

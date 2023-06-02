@@ -278,7 +278,7 @@ const mapDispatchToProps = dispatch => {
     return {
         addNewChildCategory: (inputData) => dispatch(actions.addNewChildCategory(inputData)),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
-        fetchAllSubCategoryByCategoryType: (categoryType) => dispatch(actions.fetchAllSubCategoryByCategoryType(categoryType)),
+        fetchAllSubCategoryByCategoryType: (category) => dispatch(actions.fetchAllSubCategoryByCategoryType(category)),
         fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
         deleteChildCategory: (inputId) => dispatch(actions.deleteChildCategory(inputId)),
 

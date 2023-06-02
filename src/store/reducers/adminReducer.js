@@ -106,6 +106,27 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+        case actionTypes.ADD_NEW_SUB_CATEGORY_FAIL:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+        case actionTypes.UPDATE_SUB_CATEGORY_SUCCESS:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+        case actionTypes.UPDATE_SUB_CATEGORY_FAIL:
+            state.errResponse = action.errResponse
+            return {
+                ...state,
+            }
+
         case actionTypes.FETCH_ALL_SUB_CATEGORY_SUCCESS:
             state.allSubCategoryArr = action.allSubCategoryData
             return {

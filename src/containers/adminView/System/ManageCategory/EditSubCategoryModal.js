@@ -15,22 +15,20 @@ class EditSubCategoryModal extends Component {
         super(props);
         this.state = {
             id: '',
-            categoryType: '',
+            category: '',
             keyName: '',
             valueVI: '',
-            valueVN: '',
-            errResponse: [],
+            valueEN: '',
 
+            errResponse: [],
             selectedItem: ''
         };
     }
 
     componentDidMount() {
-        // console.log("check props: ", this.props)
         let dataSelect = this.buildDataInputSelect(this.props.selectedItem);
-        console.log(dataSelect)
         this.setState({
-            selectedItem: this.props.selectedItem
+            selectedItem: dataSelect
         })
     }
 
@@ -43,7 +41,8 @@ class EditSubCategoryModal extends Component {
         if (prevProps.selectedItem !== this.props.selectedItem) {
             this.setState({
                 id: selectedItem.id,
-                categoryType: selectedItem.categoryType,
+                category: selectedItem.category,
+                keyName: selectedItem.keyName,
                 valueVI: selectedItem.valueVI,
                 valueEN: selectedItem.valueEN,
             })
@@ -71,11 +70,11 @@ class EditSubCategoryModal extends Component {
 
 
         let obj = {};
-        // let labelVI = inputData.valueVI;
-        // let labelEN = inputData.valueEN;
+        let labelVI = inputData.valueVI;
+        let labelEN = inputData.valueEN;
 
-        obj.keyMap = inputData.categoryType;
-        // obj.label = language === languages.VI ? labelVI : labelEN;
+        obj.keyName = inputData.category;
+        obj.label = language === languages.VI ? labelVI : labelEN;
         result.push(obj);
 
 
@@ -84,8 +83,8 @@ class EditSubCategoryModal extends Component {
 
     handleChange = (selectedItem) => {
         this.setState({
-            categoryType: selectedItem.keyMap,
-            // selectedCategory: selectedCategory
+            category: selectedItem.keyName,
+            selectedItem: selectedItem
         })
     }
 
@@ -97,28 +96,70 @@ class EditSubCategoryModal extends Component {
     }
 
     handleUpdate = async () => {
+        console.log(this.state)
         // this.props.closeEditCodeModel();
-        await this.props.updateCode({
-            id: this.state.id,
-            type: this.state.type,
-            keyMap: this.state.keyMap,
-            valueVI: this.state.valueVI,
-            valueEN: this.state.valueEN,
+        // await this.props.updateCode({
+        //     id: this.state.id,
+        //     type: this.state.type,
+        //     keyMap: this.state.keyMap,
+        //     valueVI: this.state.valueVI,
+        //     valueEN: this.state.valueEN,
+        // })
+        // let { errResponse } = this.state;
+
+
+        // if (errResponse.errCode === 0) {
+        //     this.props.closeEditCodeModel();
+        // }
+    }
+
+    handleOnChangeInputValueVI = (event) => {
+        let data = event.target.value
+        let keyName = this.handleConvertToKeyName(data)
+        this.setState({
+            valueVI: data,
+            keyName: keyName
         })
-        let { errResponse } = this.state;
+    }
 
+    handleConvertToKeyName = (inputName) => {
+        inputName = this.handleConvertToNonAccentVietnamese(inputName)
+        inputName = inputName.split(' - ').join('-');
+        inputName = inputName.split(' ').join('-');
+        inputName = inputName.toLowerCase();
+        this.setState({
+            keyMap: inputName
+        })
+        return inputName;
+    }
 
-        if (errResponse.errCode === 0) {
-            this.props.closeEditCodeModel();
-        }
+    handleConvertToNonAccentVietnamese = (string) => {
+        string = string.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        string = string.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        string = string.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        string = string.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        string = string.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        string = string.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        string = string.replace(/đ/g, "d");
+
+        string = string.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "a");
+        string = string.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "e");
+        string = string.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "i");
+        string = string.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "o");
+        string = string.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "u");
+        string = string.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "y");
+        string = string.replace(/Đ/g, "d");
+
+        return string;
     }
 
     render() {
-        let { categoryType, keyName, valueVI, valueEN, selectedItem } = this.state;
+        let { category, keyName, valueVI, valueEN, selectedItem } = this.state;
         let { isModalOpened, closeEditCodeModel,
             listCategory } = this.props;
-        console.log("check listCategory: ", listCategory)
-        console.log("check selectedItem: ", selectedItem)
+        // console.log("check listCategory: ", listCategory)
+        console.log('this.props.selectedItem: ', this.props.selectedItem)
+
         return (
             <React.Fragment>
 
@@ -132,7 +173,7 @@ class EditSubCategoryModal extends Component {
                     </div>
 
                     <div className='sharing-edit-section row'>
-                        <div className='col-12 form-group'>
+                        <div className='col-6 form-group'>
                             <label>Danh mục chính</label>
                             <Select
                                 value={selectedItem}
@@ -144,10 +185,16 @@ class EditSubCategoryModal extends Component {
 
                         </div>
                         <div className='col-6 form-group'>
+                            <label>Mã danh mục phụ</label>
+                            <input className='form-control'
+                                value={keyName}
+                                readOnly />
+                        </div>
+                        <div className='col-6 form-group'>
                             <label>Tiếng Việt</label>
                             <input className='form-control'
                                 value={valueVI}
-                                onChange={(event) => this.handleOnChangeInput(event, 'valueVI')} />
+                                onChange={(event) => this.handleOnChangeInputValueVI(event)} />
                         </div>
                         <div className='col-6'>
                             <label>Tiếng Anh</label>
@@ -175,13 +222,13 @@ class EditSubCategoryModal extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        // updateCodeRes: state.admin.updateCodeRes
+        errResponse: state.admin.updaterrResponseeCodeRes
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // updateCode: (codeData) => dispatch(actions.updateCode(codeData)),
+        updateSubCategory: (inputData) => dispatch(actions.updateSubCategory(inputData)),
     };
 };
 

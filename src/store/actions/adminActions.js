@@ -6,7 +6,7 @@ import {
     getAllSubCategoryByCategoryTypeAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI, getAllCodesByIdAPI,
     getAllChildCategorybySubCatIdAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI, getAllProductAPI
+    addNewProductAPI, getAllProductAPI, editSubCategoryAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -278,11 +278,11 @@ export const fetchAllSubCategoryFail = () => ({
 })
 
 //FETCH ALL SUB CATEGORY BY TYPE
-export const fetchAllSubCategoryByCategoryType = (categoryType) => {
+export const fetchAllSubCategoryByCategoryType = (category) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            res = await getAllSubCategoryByCategoryTypeAPI(categoryType);
+            res = await getAllSubCategoryByCategoryTypeAPI(category);
             if (res && res.errCode === 0) {
                 dispatch(fetchAllSubCategoryByTypeSuccess(res.data));
             } else {
@@ -326,12 +326,12 @@ export const addNewSubCategory = (inputData) => {
 
 export const addNewSubCategorySuccess = (response) => ({
     type: actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS,
-    response: response
+    errResponse: response
 })
 
 export const addNewSubCategoryFail = (response) => ({
     type: actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS,
-    response: response
+    errResponse: response
 })
 
 //DELETE SUB CATEGORY
@@ -362,6 +362,38 @@ export const deleteSubCategorySuccess = () => ({
 
 export const deleteSubCategoryFail = () => ({
     type: actionTypes.DELETE_SUB_CATEGORY_FAIL
+})
+
+//UPDATE SUB CATEGORY
+export const updateSubCategory = (inputData) => {
+    return async (dispatch, getState) => {
+        let res
+        try {
+            res = await editSubCategoryAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                toast.success(res.message)
+                dispatch(updateSubCategorySuccess(res));
+            } else {
+                toast.error(res.message)
+                dispatch(updateSubCategoryFail(res));
+
+            }
+        } catch (error) {
+            dispatch(updateSubCategoryFail(res));
+            console.log("updateSubCategory Error: ", error);
+        }
+    }
+}
+
+export const updateSubCategorySuccess = (response) => ({
+    type: actionTypes.UPDATE_SUB_CATEGORY_SUCCESS,
+    errResponse: response
+})
+
+export const updateSubCategoryFail = (response) => ({
+    type: actionTypes.UPDATE_SUB_CATEGORY_FAIL,
+    errResponse: response
 })
 
 //FETCH ALL CHILD CATEGORY

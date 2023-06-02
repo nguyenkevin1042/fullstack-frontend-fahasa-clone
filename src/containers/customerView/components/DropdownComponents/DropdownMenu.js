@@ -22,7 +22,7 @@ class DropdownMenu extends Component {
             listCategory: this.props.listCategory,
             selectedCategory: this.props.listCategory[0],
         })
-        await this.props.fetchAllSubCategoryByCategoryType(this.props.listCategory[0].categoryType);
+        await this.props.fetchAllSubCategoryByCategoryType(this.props.listCategory[0].category);
         this.setState({
             listSubCategory: this.props.allSubCategoryArr,
         })
@@ -41,7 +41,7 @@ class DropdownMenu extends Component {
     }
 
     handleOnMouseOver = async (category) => {
-        await this.props.fetchAllSubCategoryByCategoryType(category.categoryType);
+        await this.props.fetchAllSubCategoryByCategoryType(category.category);
         this.setState({
             selectedCategory: category,
         })
@@ -164,7 +164,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesById: (categoryId) => dispatch(actions.fetchAllCodesById(categoryId)),
-        fetchAllSubCategoryByCategoryType: (categoryType) => dispatch(actions.fetchAllSubCategoryByCategoryType(categoryType)),
+        fetchAllSubCategoryByCategoryType: (category) => dispatch(actions.fetchAllSubCategoryByCategoryType(category)),
         fetchAllChildCategoryById: (subCatId) => dispatch(actions.fetchAllChildCategoryById(subCatId))
     };
 };
