@@ -67,6 +67,19 @@ body{
              border-radius: 20px;
            }
          }
+
+         .product-img{
+            background-color: white;
+            height: 150px;
+
+            .img{
+              height: 150px;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+          
+         }
      }
  
      

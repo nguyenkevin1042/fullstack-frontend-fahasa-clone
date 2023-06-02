@@ -6,7 +6,7 @@ import {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI, getAllProductAPI, editSubCategoryAPI
+    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -138,7 +138,7 @@ export const fetchAllCodesByType = (inputType) => {
             res = await getCodeByTypeAPI(inputType);
 
             if (res && res.errCode === 0) {
-                dispatch(fetchAllCodesByTypeSuccess(res.data));
+                dispatch(fetchAllCodesByTypeSuccess(res.data, inputType));
             } else {
                 dispatch(fetchAllCodesByTypeFail());
             }
@@ -149,9 +149,10 @@ export const fetchAllCodesByType = (inputType) => {
     }
 }
 
-export const fetchAllCodesByTypeSuccess = (allCode) => ({
+export const fetchAllCodesByTypeSuccess = (allCode, inputType) => ({
     type: actionTypes.FETCH_ALL_CODE_SUCCESS,
-    allCodeData: allCode
+    allCodeData: allCode,
+    inputType: inputType
 })
 
 export const fetchAllCodesByTypeFail = () => ({
@@ -573,4 +574,34 @@ export const fetchAllProductSuccess = (data) => ({
 
 export const fetchAllProductFail = () => ({
     type: actionTypes.FETCH_ALL_PRODUCT_FAIL
+})
+
+//DELETE PPRODUCT
+export const deleteProduct = (inputId) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await deleteProductAPI(inputId);
+
+            if (res && res.errCode === 0) {
+                dispatch(deleteProductSuccess());
+                toast.success(res.message)
+                dispatch(fetchAllProduct());
+            } else {
+                dispatch(deleteProductFail());
+            }
+        } catch (error) {
+            dispatch(deleteProductFail());
+            console.log("fetchAllProduct Error: ", error)
+        }
+    }
+}
+
+export const deleteProductSuccess = () => ({
+    type: actionTypes.DELETE_PRODUCT_SUCCESS,
+
+})
+
+export const deleteProductFail = () => ({
+    type: actionTypes.DELETE_PRODUCT_FAIL
 })

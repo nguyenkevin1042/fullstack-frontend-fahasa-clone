@@ -6,6 +6,7 @@ const initialState = {
     signInMessage: '',
     signUpResponse: [],
     allCodesArr: [],
+    bookLayoutArr: [],
     updateCodeRes: [],
     allSubCategoryArr: [],
     allChildCategoryArr: [],
@@ -85,12 +86,25 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_SUCCESS:
-            state.allCodesArr = action.allCodeData
+            switch (action.inputType) {
+                case 'category':
+                    state.allCodesArr = action.allCodeData
+                case 'booklayout':
+                    state.bookLayoutArr = action.allCodeData
+
+                default:
+                    return {
+                        ...state,
+                    }
+            }
+
+
             return {
                 ...state,
             }
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_FAIL:
             state.allCodesArr = []
+            state.bookLayoutArr = []
             return {
                 ...state,
             }

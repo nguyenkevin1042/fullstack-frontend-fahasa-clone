@@ -310,152 +310,161 @@ class AddProductModal extends Component {
                             Thêm sản phẩm
                         </div>
 
-                        <div className='modal-input-section row'>
-                            <div className='col-4 form-group'>
-                                <label>Danh mục chính</label>
-                                <Select
-                                    value={selectedCategory}
-                                    onChange={this.handleChangeCategory}
-                                    options={listCategory}
-                                    // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
-                                    name="selectedCategory" />
-                            </div>
-                            <div className='col-4 form-group'>
-                                <label>Danh mục phụ</label>
-                                <Select
-                                    value={selectedSubCategory}
-                                    onChange={this.handleChangeSubCategory}
-                                    options={listSubCategory}
-                                    // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
-                                    name="selectedSubCategory" />
-                            </div>
-                            <div className='col-4 form-group'>
-                                <label>Danh mục con</label>
-                                <Select
-                                    value={selectedChildCategory}
-                                    onChange={this.handleChangeChildCategory}
-                                    options={listChildCategory}
-                                    // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
-                                    name="selectedChildCategory" />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label>Tên sản phảm</label>
-                                <input className='form-control'
-                                    value={name}
-                                    onChange={(event) => this.handleOnChangeInputName(event)} />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label>Mã theo tên sản phẩm</label>
-                                <input className='form-control'
-                                    value={keyName}
-                                    readOnly />
-                            </div>
-                            <div className='col-3 form-group'>
-                                <label>Giá sản phẩm</label>
-                                <input className='form-control'
-                                    value={price}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'price')} />
-                            </div>
-                            <div className='col-3 form-group'>
-                                <label>Giảm giá (%)</label>
-                                <input type='number'
-                                    min="0" max="100"
-                                    className='form-control'
-                                    value={discount}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'discount')} />
-                            </div>
-                            <div className='col-3 form-group'>
-                                <label>Năm sản xuất</label>
-                                <input className='form-control'
-                                    type='number' min={1975}
-                                    value={publishYear}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'publishYear')} />
-                            </div>
-                            <div className='col-3 form-group'>
-                                <label>Trọng lượng (g)</label>
-                                <input type='number'
-                                    step='0.01'
-                                    className='form-control'
-                                    value={weight}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'weight')} />
-                            </div>
-                            <div className='col-2 form-group'>
-                                <label>Chiều dài (cm)</label>
-                                <input type='number' min="0"
-                                    step='0.01'
-                                    className='form-control'
-                                    value={length}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'length')} />
-                            </div>
-                            <div className='col-2 form-group'>
-                                <label>Chiều rộng (cm)</label>
-                                <input type='number' min="0"
-                                    step='0.01'
-                                    className='form-control'
-                                    value={width}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'width')} />
-                            </div>
-                            <div className='col-2 form-group'>
-                                <label>Chiều cao (cm)</label>
-                                <input type='number' min="0"
-                                    step='0.01'
-                                    className='form-control'
-                                    value={height}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'height')} />
-                            </div>
-
-                            <div className='col-6 form-group'>
-                                <label>Hình ảnh sản phẩm</label>
-                                <input type='file' id='previewImg'
-                                    className='form-control-file'
-                                    onChange={(event) => this.handleOnChangeImage(event)}
-                                />
-                                {/* <label htmlFor='previewImg' className='label-upload'>Tải ảnh <i className='fas fa-upload'></i></label> */}
-                            </div>
-
-                            <div className='col-6 form-group'>
-
-                                <div className='preview-img'
-                                    style={{
-                                        backgroundImage: "url(" + previewImgURL + ")"
-                                    }}
-                                    onClick={() => this.handleOpenPreviewImage()}>
+                        <div className='modal-input-section'>
+                            <div className='row'>
+                                <div className='col-4 form-group'>
+                                    <label>Danh mục chính</label>
+                                    <Select
+                                        value={selectedCategory}
+                                        onChange={this.handleChangeCategory}
+                                        options={listCategory}
+                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                        name="selectedCategory" />
+                                </div>
+                                <div className='col-4 form-group'>
+                                    <label>Danh mục phụ</label>
+                                    <Select
+                                        value={selectedSubCategory}
+                                        onChange={this.handleChangeSubCategory}
+                                        options={listSubCategory}
+                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                        name="selectedSubCategory" />
+                                </div>
+                                <div className='col-4 form-group'>
+                                    <label>Danh mục con</label>
+                                    <Select
+                                        value={selectedChildCategory}
+                                        onChange={this.handleChangeChildCategory}
+                                        options={listChildCategory}
+                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                        name="selectedChildCategory" />
                                 </div>
                             </div>
 
+                            <div className='row'>
+                                <div className='col-4 form-group'>
+                                    <label>Tên sản phảm</label>
+                                    <input className='form-control'
+                                        value={name}
+                                        onChange={(event) => this.handleOnChangeInputName(event)} />
+                                </div>
+                                <div className='col-4 form-group'>
+                                    <label>Mã theo tên sản phẩm</label>
+                                    <input className='form-control'
+                                        value={keyName}
+                                        readOnly />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Giá sản phẩm</label>
+                                    <input className='form-control'
+                                        value={price}
+                                        onChange={(event) => this.handleOnChangeInput(event, 'price')} />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Giảm giá (%)</label>
+                                    <input type='number'
+                                        min="0" max="100"
+                                        className='form-control'
+                                        value={discount}
+                                        onChange={(event) => this.handleOnChangeInput(event, 'discount')} />
+                                </div>
+                            </div>
 
-                            <div className="radio col-4 form-group">
-                                <label>
-                                    <input
-                                        type="radio"
-                                        value="book"
-                                        name="productType"
-                                        onChange={(event) => this.onChangeRadioValue(event)}
+                            <div className='row'>
+                                <div className='col-2 form-group'>
+                                    <label>Năm sản xuất</label>
+                                    <input className='form-control'
+                                        type='number' min={1975}
+                                        value={publishYear}
+                                        onChange={(event) => this.handleOnChangeInput(event, 'publishYear')} />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Trọng lượng (g)</label>
+                                    <input type='number'
+                                        step='0.01'
+                                        className='form-control'
+                                        value={weight}
+                                        onChange={(event) => this.handleOnChangeInput(event, 'weight')} />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Chiều dài (cm)</label>
+                                    <input type='number' min="0"
+                                        step='0.01'
+                                        className='form-control'
+                                        value={length}
+                                        onChange={(event) => this.handleOnChangeInput(event, 'length')} />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Chiều rộng (cm)</label>
+                                    <input type='number' min="0"
+                                        step='0.01'
+                                        className='form-control'
+                                        value={width}
+                                        onChange={(event) => this.handleOnChangeInput(event, 'width')} />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Chiều cao (cm)</label>
+                                    <input type='number' min="0"
+                                        step='0.01'
+                                        className='form-control'
+                                        value={height}
+                                        onChange={(event) => this.handleOnChangeInput(event, 'height')} />
+                                </div>
+                            </div>
+
+                            <div className='row'>
+                                <div className='col-6 form-group'>
+                                    <label>Hình ảnh sản phẩm</label>
+                                    <input type='file' id='previewImg'
+                                        className='form-control-file'
+                                        onChange={(event) => this.handleOnChangeImage(event)}
                                     />
-                                    Sách
-                                </label>
-                            </div>
-                            <div className="radio col-4 form-group">
-                                <label>
-                                    <input
-                                        type="radio"
-                                        value="toy"
-                                        name="productType"
-                                        onChange={(event) => this.onChangeRadioValue(event)} />
-                                    Đồ chơi
-                                </label>
-                            </div>
-                            <div className="radio col-4 form-group">
-                                <label>
-                                    <input
-                                        type="radio"
-                                        value="stationary"
-                                        name="productType"
-                                        onChange={(event) => this.onChangeRadioValue(event)} />
-                                    Văn phòng phẩm/Sản phẩm khác
-                                </label>
+                                    {/* <label htmlFor='previewImg' className='label-upload'>Tải ảnh <i className='fas fa-upload'></i></label> */}
+                                </div>
+                                <div className='col-6 form-group'>
+
+                                    <div className='preview-img'
+                                        style={{
+                                            backgroundImage: "url(" + previewImgURL + ")"
+                                        }}
+                                        onClick={() => this.handleOpenPreviewImage()}>
+                                    </div>
+                                </div>
                             </div>
 
+                            <div className='row'>
+                                <div className="radio col-4 form-group">
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="book"
+                                            name="productType"
+                                            onChange={(event) => this.onChangeRadioValue(event)}
+                                        />
+                                        Sách
+                                    </label>
+                                </div>
+                                <div className="radio col-4 form-group">
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="toy"
+                                            name="productType"
+                                            onChange={(event) => this.onChangeRadioValue(event)} />
+                                        Đồ chơi
+                                    </label>
+                                </div>
+                                <div className="radio col-4 form-group">
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="stationary"
+                                            name="productType"
+                                            onChange={(event) => this.onChangeRadioValue(event)} />
+                                        Văn phòng phẩm/Sản phẩm khác
+                                    </label>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -473,7 +482,7 @@ class AddProductModal extends Component {
                         </div>
                     </div>
 
-                </Modal>
+                </Modal >
 
                 {/* {isOpenedPreviewImage === true &&
                     <Lightbox

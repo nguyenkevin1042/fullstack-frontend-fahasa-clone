@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
+import Select from 'react-select';
 
-// import * as actions from "../store/actions";
+import * as actions from "../../../../../store/actions";
+import { languages } from '../../../../../utils';
 
 class BookDescriptionComponent extends Component {
     constructor(props) {
@@ -14,11 +16,15 @@ class BookDescriptionComponent extends Component {
             publisher: '',
             language: '',
             pages: '',
+            booklayout: '',
+
+            listBookLayout: [],
+            selectedBookLayout: ''
         };
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
+        // await this.props.fetchAllCodesByType('booklayout')
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -26,7 +32,31 @@ class BookDescriptionComponent extends Component {
 
         }
 
+        if (prevProps.bookLayoutArr !== this.props.bookLayoutArr) {
+            let dataSelect = this.buildDataInputSelect(this.props.bookLayoutArr, "category");
+            this.setState({
+                listBookLayout: dataSelect
+            })
+        }
 
+    }
+
+    buildDataInputSelect = (inputData, type) => {
+        let result = [];
+        let language = this.props.lang;
+
+        inputData.map((item, index) => {
+            let obj = {};
+            let labelVI = item.valueVI;
+            let labelEN = item.valueEN;
+
+            obj.keyMap = item.keyMap;
+            obj.label = language === languages.VI ? labelVI : labelEN;
+            result.push(obj);
+        });
+
+
+        return result;
     }
 
     handleOnChangeInput = (event, key) => {
@@ -40,9 +70,18 @@ class BookDescriptionComponent extends Component {
         });
     }
 
+    handleChange = (selectedBookLayout) => {
+        this.setState({
+            selectedBookLayout: selectedBookLayout,
+            booklayout: selectedBookLayout.keyMap
+        })
+
+    }
+
 
     render() {
-        let { supplier, author, translator, publisher, pages, language } = this.state
+        let { supplier, author, translator, publisher, pages, language,
+            selectedBookLayout, listBookLayout } = this.state
         return (
             <div className='row'>
                 <div className='col-4 form-group'>
@@ -69,20 +108,28 @@ class BookDescriptionComponent extends Component {
                         value={translator}
                         onChange={(event) => this.handleOnChangeInput(event, 'translator')} />
                 </div>
-                <div className='col-4 form-group'>
+                <div className='col-2 form-group'>
                     <label>Số trang</label>
                     <input className='form-control'
                         type='number' min={0}
                         value={pages}
                         onChange={(event) => this.handleOnChangeInput(event, 'pages')} />
                 </div>
-                <div className='col-4 form-group'>
+                <div className='col-3 form-group'>
                     <label>Ngôn ngữ</label>
                     <input className='form-control'
                         value={language}
                         onChange={(event) => this.handleOnChangeInput(event, 'language')} />
                 </div>
-
+                {/* <div className='col-3 form-group'>
+                    <label>Hình thức bìa</label>
+                    <Select
+                        value={selectedBookLayout}
+                        onChange={this.handleChange}
+                        options={listBookLayout}
+                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                        name="selectedBookLayout" />
+                </div> */}
             </div>
 
         );
@@ -92,12 +139,14 @@ class BookDescriptionComponent extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        bookLayoutArr: state.admin.bookLayoutArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
 
     };
 };

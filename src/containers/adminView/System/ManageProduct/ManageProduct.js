@@ -46,16 +46,31 @@ class ManageProduct extends Component {
         this.props.fetchAllProduct();
     }
 
+    handleDelete = async (item) => {
+        await this.props.deleteProduct(item.id)
+    }
+
     renderProductsTableData = () => {
         let { listProduct } = this.state
+        console.log(listProduct)
         return (
             <>
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => {
+                        let imageBase64 = '';
+                        if (item.image) {
+                            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                        }
+                        console.log(imageBase64)
                         return (
                             <>
                                 <tr key={index}>
                                     <td>{item.id}</td>
+                                    <td className='product-img'>
+                                        <div className='img'
+                                            style={{
+                                                backgroundImage: "url(" + imageBase64 + ")"
+                                            }} /></td>
                                     <td>{item.name}</td>
                                     <td>{item.price}</td>
 
@@ -64,7 +79,7 @@ class ManageProduct extends Component {
                                         // onClick={() => this.handleEdit(item)}
                                         > <i className="fas fa-pencil-alt"></i></button>
                                         <button className='btn-delete'
-                                        // onClick={() => this.handleDelete(item)}
+                                            onClick={() => this.handleDelete(item)}
                                         ><i className="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -100,6 +115,7 @@ class ManageProduct extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Ảnh sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Giá sản phẩm</th>
 
@@ -133,7 +149,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllProduct: () => dispatch(actions.fetchAllProduct())
+        fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
+        deleteProduct: (inputId) => dispatch(actions.deleteProduct(inputId))
     };
 };
 

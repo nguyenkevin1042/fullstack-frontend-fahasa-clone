@@ -100,12 +100,19 @@ const deleteChildCategoryAPI = (inputId) => {
     );
 }
 
+//PRODUCT
 const addNewProductAPI = (data) => {
     return axios.post("/api/add-new-product", data);
 }
 
 const getAllProductAPI = () => {
     return axios.get("/api/get-all-product");
+}
+
+const deleteProductAPI = (inputId) => {
+    return axios.delete("/api/delete-product",
+        { params: { id: inputId } }
+    );
 }
 
 
@@ -116,5 +123,5 @@ export {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI, editSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI,
-    deleteChildCategoryAPI, addNewProductAPI, getAllProductAPI
+    deleteChildCategoryAPI, addNewProductAPI, getAllProductAPI, deleteProductAPI
 };
