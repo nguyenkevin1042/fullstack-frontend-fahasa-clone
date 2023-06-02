@@ -58,6 +58,11 @@
             "confirm-text": "Xác nhận",
             "back-text": "Trở về",
             "skip-text": "Bỏ qua"
+        },
+        "product-list": {
+            "category": {
+                "title": "Thể loại"
+            }
         }
     },
     "common": {

@@ -10,9 +10,9 @@ import { languages } from '../../../utils'
 import viFlag from '../../../assets/vietnamese.svg';
 import enFlag from '../../../assets/english.svg';
 
-import { adminMenu } from '../../adminView/Header/menuApp';
+
 import DropdownMenu from './DropdownComponents/DropdownMenu';
-import { Menu, Dropdown, Icon } from 'antd';
+import { Dropdown } from 'antd';
 import DropdownAccount from './DropdownComponents/DropdownAccount';
 
 
@@ -144,7 +144,7 @@ class Header extends Component {
 
 
     render() {
-        let { listLanguage, selectedLanguage, hoverMenu, listCategory } = this.state
+        let { listLanguage, selectedLanguage } = this.state
         let language = this.props.lang
         let customStyles = {
             control: (baseStyles, state) => ({

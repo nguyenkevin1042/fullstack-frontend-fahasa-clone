@@ -86,22 +86,12 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_SUCCESS:
-            switch (action.inputType) {
-                case 'category':
-                    state.allCodesArr = action.allCodeData
-                case 'booklayout':
-                    state.bookLayoutArr = action.allCodeData
-
-                default:
-                    return {
-                        ...state,
-                    }
-            }
-
+            state.allCodesArr = action.allCodeData
 
             return {
                 ...state,
             }
+
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_FAIL:
             state.allCodesArr = []
             state.bookLayoutArr = []

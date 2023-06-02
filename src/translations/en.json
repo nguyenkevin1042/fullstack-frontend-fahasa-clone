@@ -58,6 +58,11 @@
             "confirm-text": "Confirm",
             "back-text": "Go back",
             "skip-text": "Skip"
+        },
+        "product-list": {
+            "category": {
+                "title": "Category"
+            }
         }
     },
     "common": {

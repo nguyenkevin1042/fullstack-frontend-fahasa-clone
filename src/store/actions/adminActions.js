@@ -134,11 +134,11 @@ export const fetchAllCodesByType = (inputType) => {
     return async (dispatch, getState) => {
         let res;
         try {
-
             res = await getCodeByTypeAPI(inputType);
+            console.log(res)
 
             if (res && res.errCode === 0) {
-                dispatch(fetchAllCodesByTypeSuccess(res.data, inputType));
+                dispatch(fetchAllCodesByTypeSuccess(res.data));
             } else {
                 dispatch(fetchAllCodesByTypeFail());
             }
@@ -149,10 +149,9 @@ export const fetchAllCodesByType = (inputType) => {
     }
 }
 
-export const fetchAllCodesByTypeSuccess = (allCode, inputType) => ({
+export const fetchAllCodesByTypeSuccess = (allCode) => ({
     type: actionTypes.FETCH_ALL_CODE_SUCCESS,
-    allCodeData: allCode,
-    inputType: inputType
+    allCodeData: allCode
 })
 
 export const fetchAllCodesByTypeFail = () => ({
