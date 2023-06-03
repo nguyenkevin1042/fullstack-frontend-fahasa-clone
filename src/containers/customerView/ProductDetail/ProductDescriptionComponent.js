@@ -25,10 +25,12 @@ class ProductDescriptionComponent extends Component {
     }
 
     renderProductSize = (length, width, height) => {
-        console.log(length, width, height)
+        let lengthValue = parseFloat(length)
+        let widthValue = parseFloat(width)
+        let heightValue = height == 0 ? '' : ' x ' + parseFloat(height);
         return (
             <>
-
+                {lengthValue} x {widthValue} {heightValue}
             </>
         )
     }
@@ -70,7 +72,7 @@ class ProductDescriptionComponent extends Component {
                     <tr>
                         <th>Kích thước</th>
                         {/* <td>20 x 14.5 cm</td> */}
-                        <td>{this.renderProductSize(product.length, product.width, product.height)}</td>
+                        <td>{this.renderProductSize(product.length, product.width, product.height)} cm</td>
                     </tr>
                     <tr>
                         <th>Số Trang</th>

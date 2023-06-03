@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
+
 import './ProductDetail.scss';
 import Header from '../components/Header';
 import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 import PolicyComponent from '../components/PolicyComponent';
 import ProductDescriptionComponent from './ProductDescriptionComponent';
-// import actionTypes from '../../../store/actions';
+
+import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
+import { languages } from '../../../utils';
 
 class ProductDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantityValue: 1
+            quantityValue: 1,
+            bookDescriptionData: ''
         };
     }
 
@@ -27,6 +31,11 @@ class ProductDetail extends Component {
 
         }
 
+        if (prevProps.product !== this.props.product) {
+            this.setState({
+                bookDescriptionData: this.props.product.bookDescriptionData
+            })
+        }
     }
 
     handleIncreaseQuantityValue = () => {
@@ -50,14 +59,53 @@ class ProductDetail extends Component {
         this.setState({ ...copyState });
     }
 
+    formatPrice = (price) => {
+        let result = <NumericFormat value={parseFloat(price)}
+            displayType={'text'}
+            thousandSeparator={true} />
+        return result;
+    }
+
+    renderProductPrice = (price, discount) => {
+        let salePrice = price - ((price * discount) / 100);
+        let language = this.props.lang
+        console.log(this.formatPrice(price))
+
+        return (
+            <>
+                <div className='product-price'>
+                    <NumericFormat value={salePrice}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        suffix={'đ'} />
+                    {/* {salePrice} đ */}
+                    {/* {language === languages.VI && (
+                        <NumericFormat value={salePrice}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            suffix={'đ'} />
+                    )} */}
+
+                </div>
+
+                <div className='product-discount-price'>
+                    {/* {parseFloat(price)} */}
+                    <NumericFormat value={parseFloat(price)}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                    />
+
+                </div>
+
+                <div className='discount'>-{discount}%</div>
+            </>
+        )
+
+    }
+
     render() {
-        let { quantityValue } = this.state
+        let { quantityValue, bookDescriptionData } = this.state
         let { product } = this.props
-        let bookDescriptionData = product.bookDescriptionData
-
-        console.log(product.bookDescriptionData)
-
-        // this.props.fetchProductByKeyName(this.props.match.params.keyName)
 
         return (
             <>
@@ -102,9 +150,7 @@ class ProductDetail extends Component {
                                 <div className='flash-sale col-xl-12'>Flash Sale</div>
 
                                 <div className='product-price-text col-xl-12'>
-                                    <div className='product-price'>{product.price} đ</div>
-                                    <div className='product-discount-price'>108.000</div>
-                                    <div className='discount'>-{product.discount}%</div>
+                                    {this.renderProductPrice(product.price, product.discount)}
                                 </div>
 
                                 <div className='col-xl-12'>
