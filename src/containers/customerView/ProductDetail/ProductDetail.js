@@ -7,7 +7,8 @@ import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 import PolicyComponent from '../components/PolicyComponent';
 import ProductDescriptionComponent from './ProductDescriptionComponent';
-// import * as actions from "../store/actions";
+// import actionTypes from '../../../store/actions';
+import * as actions from "../../../store/actions";
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -17,8 +18,8 @@ class ProductDetail extends Component {
         };
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
+        await this.props.fetchProductByKeyName(this.props.match.params.keyName);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -51,6 +52,12 @@ class ProductDetail extends Component {
 
     render() {
         let { quantityValue } = this.state
+        let { product } = this.props
+        let bookDescriptionData = product.bookDescriptionData
+
+        console.log(product.bookDescriptionData)
+
+        // this.props.fetchProductByKeyName(this.props.match.params.keyName)
 
         return (
             <>
@@ -73,18 +80,18 @@ class ProductDetail extends Component {
                         </div>
                         <div className='product-detail-right col-xl-7'>
                             <div className='row'>
-                                <div className='product-name col-xl-12'>Cây Cam Ngọt Của Tôi</div>
+                                <div className='product-name col-xl-12'>{product.name}</div>
                                 <div className='sharing-content col-xl-6'>
                                     <label>Nhà cung cấp:</label>
-                                    <a className='sharing-text'>Nhã Nam</a>
+                                    <a className='sharing-text'>{bookDescriptionData.supplier}</a>
                                 </div>
                                 <div className='sharing-content col-xl-6'>
                                     <label>Tác giả:</label>
-                                    <p className='sharing-text'>José Mauro de Vasconcelos</p>
+                                    <p className='sharing-text'>{bookDescriptionData.author}</p>
                                 </div>
                                 <div className='sharing-content col-xl-6'>
                                     <label>Nhà xuất bản:</label>
-                                    <p className='sharing-text'>NXB Hội Nhà Văn</p>
+                                    <p className='sharing-text'>{bookDescriptionData.publisher}</p>
                                 </div>
                                 <div className='sharing-content col-xl-6'>
                                     <label>Hình thức bìa:</label>
@@ -95,9 +102,9 @@ class ProductDetail extends Component {
                                 <div className='flash-sale col-xl-12'>Flash Sale</div>
 
                                 <div className='product-price-text col-xl-12'>
-                                    <div className='product-price'>84.240 đ</div>
+                                    <div className='product-price'>{product.price} đ</div>
                                     <div className='product-discount-price'>108.000</div>
-                                    <div className='discount'>-22%</div>
+                                    <div className='discount'>-{product.discount}%</div>
                                 </div>
 
                                 <div className='col-xl-12'>
@@ -133,7 +140,9 @@ class ProductDetail extends Component {
 
                 </div>
 
-                <ProductDescriptionComponent />
+                <ProductDescriptionComponent
+                    product={product}
+                    bookDescriptionData={bookDescriptionData} />
 
                 <PolicyComponent />
                 <SignUpNewletter />
@@ -148,13 +157,14 @@ class ProductDetail extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        product: state.user.product
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        fetchProductByKeyName: (inputKeyName) => dispatch(actions.fetchProductByKeyName(inputKeyName))
     };
 };
 

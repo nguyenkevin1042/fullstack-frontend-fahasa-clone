@@ -4,7 +4,8 @@ const initialState = {
     isLoggedIn: false,
     userInfo: null,
     signInMessage: '',
-    signInErrCode: ''
+    signInErrCode: '',
+    product: ''
 }
 
 const appReducer = (state = initialState, action) => {
@@ -23,12 +24,25 @@ const appReducer = (state = initialState, action) => {
                 userInfo: null,
                 signInErrCode: action.response.errCode
             }
+
+        case actionTypes.FETCH_PRODUCT_BY_KEY_NAME_SUCCESS:
+            state.product = action.prouductData;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_PRODUCT_BY_KEY_NAME_FAIL:
+
+            return {
+                ...state,
+            }
+
         case actionTypes.USER_PROCESS_LOGOUT:
             return {
                 ...state,
                 isLoggedIn: false,
                 userInfo: null
             }
+
         default:
             return state;
     }

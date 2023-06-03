@@ -83,6 +83,7 @@ class ProductList extends Component {
     }
 
     renderCategoryList = () => {
+        let { listCategory } = this.state
         return (
             <div className='sharing-menu'>
                 <div className='sharing-title'>
@@ -90,7 +91,16 @@ class ProductList extends Component {
                 </div>
 
                 <div className='sharing-menu'>
+                    {/* <div className='all-category-text'>
+                        <FormattedMessage id="customer.product-list.category.all-category" />
+                    </div> */}
 
+                    <div className='all-category-text'>
+                        {listCategory && listCategory.length > 0 &&
+                            listCategory.map((item, index) => (
+                                <div key={index}>{item.label}</div>
+                            ))}
+                    </div>
                 </div>
             </div>
         )
@@ -99,7 +109,7 @@ class ProductList extends Component {
 
     render() {
         console.log(this.props.match.params)
-        console.log(this.props.allCodesArr)
+        console.log(this.state.listCategory)
 
         return (
             <React.Fragment>

@@ -109,6 +109,11 @@ const getAllProductAPI = () => {
     return axios.get("/api/get-all-product");
 }
 
+const getProductByKeyNameAPI = (inputKeyName) => {
+    return axios.get("/api/get-product-by-key-name",
+        { params: { keyName: inputKeyName } });
+}
+
 const deleteProductAPI = (inputId) => {
     return axios.delete("/api/delete-product",
         { params: { id: inputId } }
@@ -123,5 +128,6 @@ export {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI, editSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI,
-    deleteChildCategoryAPI, addNewProductAPI, getAllProductAPI, deleteProductAPI
+    deleteChildCategoryAPI,
+    addNewProductAPI, getAllProductAPI, getProductByKeyNameAPI, deleteProductAPI
 };

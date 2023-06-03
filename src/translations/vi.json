@@ -61,7 +61,8 @@
         },
         "product-list": {
             "category": {
-                "title": "Thể loại"
+                "title": "Nhóm sản phẩm",
+                "all-category": "Tất Cả Nhóm Sản Phẩm"
             }
         }
     },

@@ -61,7 +61,8 @@
         },
         "product-list": {
             "category": {
-                "title": "Category"
+                "title": "Category",
+                "all-category": "All Category"
             }
         }
     },

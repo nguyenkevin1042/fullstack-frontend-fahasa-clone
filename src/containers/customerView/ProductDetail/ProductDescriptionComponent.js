@@ -24,46 +24,57 @@ class ProductDescriptionComponent extends Component {
 
     }
 
+    renderProductSize = (length, width, height) => {
+        console.log(length, width, height)
+        return (
+            <>
+
+            </>
+        )
+    }
+
     renderBookDescription = () => {
         let { showLess } = this.state
+        let { product, bookDescriptionData } = this.props
         return (
             <>
                 <table>
                     <tr >
                         <th>Mã hàng</th>
-                        <td>8935235228351</td>
+                        <td>{product.id}</td>
                     </tr>
                     <tr>
                         <th>Tên Nhà Cung Cấp</th>
-                        <td className='supplier-name'>Nhã Nam</td>
+                        <td className='supplier-name'>{bookDescriptionData.supplier}</td>
                     </tr>
                     <tr>
                         <th>Tác giả</th>
-                        <td>José Mauro de Vasconcelos</td>
+                        <td>{bookDescriptionData.author}</td>
                     </tr>
                     <tr>
                         <th>Người Dịch</th>
-                        <td>Nguyễn Bích Lan, Tô Yến Ly</td>
+                        <td>{bookDescriptionData.translator}</td>
                     </tr>
                     <tr>
                         <th>NXB</th>
-                        <td>NXB Hội Nhà Văn</td>
+                        <td>{bookDescriptionData.publisher}</td>
                     </tr>
                     <tr>
                         <th>Năm XB</th>
-                        <td>2020</td>
+                        <td>{product.publishYear}</td>
                     </tr>
                     <tr>
                         <th>Trọng lượng (gr)</th>
-                        <td>280</td>
+                        <td>{product.weight}</td>
                     </tr>
                     <tr>
                         <th>Kích thước</th>
-                        <td>20 x 14.5 cm</td>
+                        {/* <td>20 x 14.5 cm</td> */}
+                        <td>{this.renderProductSize(product.length, product.width, product.height)}</td>
                     </tr>
                     <tr>
                         <th>Số Trang</th>
-                        <td>244</td>
+                        <td>{bookDescriptionData.pages}</td>
                     </tr>
                     <tr>
                         <th>Hình thức</th>

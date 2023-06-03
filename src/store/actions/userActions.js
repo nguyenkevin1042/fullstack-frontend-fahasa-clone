@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { customerLoginAPI } from '../../services/userService';
+import { customerLoginAPI, getProductByKeyNameAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -35,4 +35,33 @@ export const userLoginFail = (response) => ({
 
 export const userProcessLogout = () => ({
     type: actionTypes.USER_PROCESS_LOGOUT
+})
+
+//GET PRODUCT BY KEY NAME
+export const fetchProductByKeyName = (inputKeyName) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getProductByKeyNameAPI(inputKeyName);
+            // console.log(res)
+            // return;
+            if (res && res.errCode === 0) {
+                dispatch(fetchProductByKeyNameSuccess(res.product));
+            } else {
+                dispatch(fetchProductByKeyNameFail());
+            }
+        } catch (error) {
+            dispatch(fetchProductByKeyNameFail());
+            console.log("fetchAllCodesByType Error: ", error)
+        }
+    }
+}
+
+export const fetchProductByKeyNameSuccess = (data) => ({
+    type: actionTypes.FETCH_PRODUCT_BY_KEY_NAME_SUCCESS,
+    prouductData: data
+})
+
+export const fetchProductByKeyNameFail = () => ({
+    type: actionTypes.FETCH_PRODUCT_BY_KEY_NAME_FAIL
 })
