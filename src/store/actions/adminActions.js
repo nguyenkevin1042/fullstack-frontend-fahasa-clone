@@ -6,7 +6,7 @@ import {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI
+    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI, getChildCategoryByKeyNameAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -451,6 +451,34 @@ export const fetchAllChildCategoryBySubCategorySuccess = (childCatData) => ({
 
 export const fetchAllChildCategoryBySubCategoryFail = () => ({
     type: actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_SUB_CATEGORY_FAIL
+})
+
+//FETCH ALL CHILD CATEGORY BY KEY NAME
+export const fetchChildCategoryByKeyName = (inputKeyName) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getChildCategoryByKeyNameAPI(inputKeyName);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchChildCategoryByKeyNameSuccess(res.data));
+            } else {
+                dispatch(fetchChildCategoryByKeyNameFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllChildCategoryBySubCategoryFail());
+            console.log("fetchAllCodesByType Error: ", error)
+        }
+    }
+}
+
+export const fetchChildCategoryByKeyNameSuccess = (childCategoryData) => ({
+    type: actionTypes.FETCH_CHILD_CATEGORY_BY_KEY_NAME_SUCCESS,
+    childCategoryData: childCategoryData
+})
+
+export const fetchChildCategoryByKeyNameFail = () => ({
+    type: actionTypes.FETCH_CHILD_CATEGORY_BY_KEY_NAME_FAIL
 })
 
 

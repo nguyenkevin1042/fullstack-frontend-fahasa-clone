@@ -20,7 +20,7 @@ import ToyDescriptionComponent from './components/ToyDescriptionComponent';
 
 const mdParser = new MarkdownIt();
 
-class AddProductModal extends Component {
+class EditProductModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +49,6 @@ class AddProductModal extends Component {
     }
 
     async componentDidMount() {
-
         await this.props.fetchAllCodesByType('category')
     }
 
@@ -57,46 +56,74 @@ class AddProductModal extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
-        if (prevProps.isOpenedAddModal !== this.props.isOpenedAddModal) {
-            // this.setState({
-            //     name: '',
-            //     price: '',
-            //     discount: '',
-            //     weight: '',
-            //     height: '',
-            //     width: '',
-            //     length: '',
-            //     categoryKeyName: '',
-            //     image: '',
-            //     previewImgURL: '',
-            //     selectedProductType: '',
+        if (prevProps.product !== this.props.product) {
+            let product = this.props.product;
+            let dataSelectedCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory.AllCode, "category");
+            let dataSelectedSubCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory, "subCategory");
+            let dataSelectedChildCategory = this.buildDataInputSelect(product.ChildCategory, "childCategory");
+            let dataOptionSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
 
-            //     listCategory: [], selectedCategory: '',
-            //     listSubCategory: [], selectedSubCategory: '',
-            //     listChildCategory: [], selectedChildCategory: '',
+            let imageBase64 = '';
 
-            //     isOpenedPreviewImage: false
-            // })
+            if (product.image) {
+                imageBase64 = new Buffer(product.image, 'base64').toString('binary');
+            }
+
+            this.setState({
+                name: product.name,
+                keyName: product.keyName,
+                price: product.price,
+                discount: product.discount,
+                weight: product.weight,
+                height: product.height,
+                width: product.width,
+                length: product.length,
+                publishYear: product.publishYear,
+                categoryKeyName: product.categoryKeyName,
+                image: product.image,
+                previewImgURL: imageBase64,
+                selectedProductType: '',
+
+                listSubCategory: dataOptionSubCategory,
+                selectedCategory: dataSelectedCategory,
+                selectedSubCategory: dataSelectedSubCategory,
+                selectedChildCategory: dataSelectedChildCategory,
+
+                isOpenedPreviewImage: false
+            })
+
+            if (product.markdownData != null) {
+                this.setState({
+                    contentMarkdown: product.markdownData.contentMarkdown,
+                    contentHTML: product.markdownData.contentHTML,
+                })
+            } else {
+                this.setState({
+                    contentMarkdown: '',
+                    contentHTML: '',
+                })
+            }
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
-            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
+            let dataOption = this.buildDataInputSelect(this.props.allCodesArr, "category");
+
             this.setState({
-                listCategory: dataSelect
+                listCategory: dataOption,
             })
         }
 
         if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
-            let dataSelect = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
+            let dataOption = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
             this.setState({
-                listSubCategory: dataSelect
+                listSubCategory: dataOption
             })
         }
 
         if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr) {
-            let dataSelect = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
+            let dataOption = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
             this.setState({
-                listChildCategory: dataSelect
+                listChildCategory: dataOption
             })
         }
     }
@@ -105,6 +132,38 @@ class AddProductModal extends Component {
         let result = [];
         let language = this.props.lang;
 
+        //Single Item
+        // if (inputData) {
+        //     if (type === "category") {
+        //         let obj = {};
+        //         let labelVI = inputData.valueVI;
+        //         let labelEN = inputData.valueEN;
+
+        //         obj.keyMap = inputData.keyMap;
+        //         obj.label = language === languages.VI ? labelVI : labelEN;
+        //         result.push(obj);
+        //     }
+        //     if (type === "subCategory") {
+        //         let obj = {};
+        //         let labelVI = inputData.valueVI;
+        //         let labelEN = inputData.valueEN;
+
+        //         obj.keyName = inputData.keyName;
+        //         obj.label = language === languages.VI ? labelVI : labelEN;
+        //         result.push(obj);
+        //     }
+        //     if (type === "childCategory") {
+        //         let obj = {};
+        //         let labelVI = inputData.valueVI;
+        //         let labelEN = inputData.valueEN;
+
+        //         obj.keyName = inputData.keyName;
+        //         obj.label = language === languages.VI ? labelVI : labelEN;
+        //         result.push(obj);
+        //     }
+
+        // }
+        //Array
         if (inputData && inputData.length > 0) {
             if (type === "category") {
                 inputData.map((item, index) => {
@@ -140,6 +199,35 @@ class AddProductModal extends Component {
                 });
             }
 
+        } else {
+            //Single Item
+            if (type === "category") {
+                let obj = {};
+                let labelVI = inputData.valueVI;
+                let labelEN = inputData.valueEN;
+
+                obj.keyMap = inputData.keyMap;
+                obj.label = language === languages.VI ? labelVI : labelEN;
+                result.push(obj);
+            }
+            if (type === "subCategory") {
+                let obj = {};
+                let labelVI = inputData.valueVI;
+                let labelEN = inputData.valueEN;
+
+                obj.keyName = inputData.keyName;
+                obj.label = language === languages.VI ? labelVI : labelEN;
+                result.push(obj);
+            }
+            if (type === "childCategory") {
+                let obj = {};
+                let labelVI = inputData.valueVI;
+                let labelEN = inputData.valueEN;
+
+                obj.keyName = inputData.keyName;
+                obj.label = language === languages.VI ? labelVI : labelEN;
+                result.push(obj);
+            }
         }
 
         return result;
@@ -311,13 +399,15 @@ class AddProductModal extends Component {
             listChildCategory, selectedChildCategory,
             isOpenedPreviewImage, selectedProductType, contentMarkdown,
             contentHTML } = this.state;
-        let { isOpenedAddModal, closeModal } = this.props
+        let { isOpenedEditModal, closeModal, product, childCategory } = this.props
+
+        console.log('check props.product: ', product.ChildCategory)
 
         return (
 
             <>
 
-                <Modal isOpen={isOpenedAddModal}
+                <Modal isOpen={isOpenedEditModal}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
                     size='xl'
                     centered>
@@ -325,7 +415,7 @@ class AddProductModal extends Component {
                     <div className='sharing-modal-container'>
 
                         <div className='sharing-modal-header'>
-                            Thêm sản phẩm
+                            Cập nhật sản phẩm
                         </div>
 
                         <div className='modal-input-section'>
@@ -531,7 +621,8 @@ const mapStateToProps = state => {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
-        allChildCategoryArr: state.admin.allChildCategoryArr
+        allChildCategoryArr: state.admin.allChildCategoryArr,
+        childCategory: state.admin.childCategory
     };
 };
 
@@ -541,8 +632,9 @@ const mapDispatchToProps = dispatch => {
         fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
         fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
         fetchAllChildCategoryBySubCategory: (subCat) => dispatch(actions.fetchAllChildCategoryBySubCategory(subCat)),
+        fetchChildCategoryByKeyName: (keyName) => dispatch(actions.fetchChildCategoryByKeyName(keyName)),
         addNewProduct: (inputData) => dispatch(actions.addNewProduct(inputData))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddProductModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProductModal);

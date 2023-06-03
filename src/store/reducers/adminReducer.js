@@ -11,7 +11,8 @@ const initialState = {
     allSubCategoryArr: [],
     allChildCategoryArr: [],
     allProductArr: [],
-    errResponse: ''
+    errResponse: '',
+    childCategory: ''
 }
 
 const appReducer = (state = initialState, action) => {
@@ -194,6 +195,17 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_CHILD_CATEGORY_BY_SUB_CATEGORY_FAIL:
             state.allChildCategoryArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_CHILD_CATEGORY_BY_KEY_NAME_SUCCESS:
+            state.childCategory = action.childCategoryData
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_CHILD_CATEGORY_BY_KEY_NAME_FAIL:
+            state.childCategory = []
             return {
                 ...state,
             }

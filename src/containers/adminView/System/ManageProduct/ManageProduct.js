@@ -3,14 +3,17 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './ManageProduct.scss';
 import AddProductModal from './AddProductModal';
+import EditProductModal from './EditProductModal';
 import * as actions from "../../../../store/actions";
 
 class ManageProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpenedModal: false,
-            listProduct: []
+            isOpenedAddModal: false,
+            isOpenedEditModal: false,
+            listProduct: [],
+            selectedProduct: ''
         };
     }
 
@@ -34,13 +37,28 @@ class ManageProduct extends Component {
 
     handleOpenAddProductModal = () => {
         this.setState({
-            isOpenedModal: true
+            isOpenedAddModal: true
         })
     }
 
     handleCloseAddProductModal = () => {
         this.setState({
-            isOpenedModal: false
+            isOpenedAddModal: false
+        })
+        this.props.fetchAllProduct();
+    }
+
+    handleEdit = (item) => {
+        console.log(item)
+        this.setState({
+            isOpenedEditModal: true,
+            selectedProduct: item
+        })
+    }
+
+    handleCloseEditProductModal = () => {
+        this.setState({
+            isOpenedEditModal: false
         })
         this.props.fetchAllProduct();
     }
@@ -74,7 +92,7 @@ class ManageProduct extends Component {
 
                                     <td>
                                         <button className='btn-edit'
-                                        // onClick={() => this.handleEdit(item)}
+                                            onClick={() => this.handleEdit(item)}
                                         > <i className="fas fa-pencil-alt"></i></button>
                                         <button className='btn-delete'
                                             onClick={() => this.handleDelete(item)}
@@ -93,9 +111,7 @@ class ManageProduct extends Component {
 
 
     render() {
-        let { isOpenedModal } = this.state
-
-        console.log(this.props.allProductArr)
+        let { isOpenedAddModal, isOpenedEditModal, selectedProduct } = this.state
 
         return (
             <>
@@ -130,8 +146,12 @@ class ManageProduct extends Component {
                     </div>
                 </div>
                 <AddProductModal
-                    isOpenedModal={isOpenedModal}
+                    isOpenedAddModal={isOpenedAddModal}
                     closeModal={this.handleCloseAddProductModal} />
+                <EditProductModal
+                    isOpenedEditModal={isOpenedEditModal}
+                    closeModal={this.handleCloseEditProductModal}
+                    product={selectedProduct} />
             </>
         );
     }

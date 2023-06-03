@@ -86,6 +86,11 @@ const getAllChildCategoryBySubCategoryAPI = (inputSubCategory) => {
         { params: { subCategory: inputSubCategory } });
 }
 
+const getChildCategoryByKeyNameAPI = (inputKeyName) => {
+    return axios.get("/api/get-child-category-by-key-name",
+        { params: { keyName: inputKeyName } });
+}
+
 const addNewChildCategoryAPI = (data) => {
     return axios.post("/api/add-new-child-category", data);
 }
@@ -128,6 +133,6 @@ export {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI, editSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI,
-    deleteChildCategoryAPI,
+    deleteChildCategoryAPI, getChildCategoryByKeyNameAPI,
     addNewProductAPI, getAllProductAPI, getProductByKeyNameAPI, deleteProductAPI
 };

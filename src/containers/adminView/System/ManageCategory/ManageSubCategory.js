@@ -52,9 +52,12 @@ class ManageSubCategory extends Component {
     }
 
     handleConvertToKeyName = (inputName) => {
+        let keyArr = ['(', ')', ' ', '/', ',', '.', '+', '-', '#', "'", '"', '---', '--']
+
         inputName = this.handleConvertToNonAccentVietnamese(inputName)
-        inputName = inputName.split(' - ').join('-');
-        inputName = inputName.split(' ').join('-');
+        for (let index = 0; index < keyArr.length; index++) {
+            inputName = inputName.split(keyArr[index]).join('-');
+        }
         inputName = inputName.toLowerCase();
         this.setState({
             keyName: inputName

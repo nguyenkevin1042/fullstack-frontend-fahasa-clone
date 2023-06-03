@@ -76,25 +76,16 @@ class ProductDetail extends Component {
                 <div className='product-price'>
                     <NumericFormat value={salePrice}
                         displayType={'text'}
-                        thousandSeparator={true}
+                        thousandSeparator={'.'}
+                        decimalSeparator={','}
                         suffix={'đ'} />
-                    {/* {salePrice} đ */}
-                    {/* {language === languages.VI && (
-                        <NumericFormat value={salePrice}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            suffix={'đ'} />
-                    )} */}
-
                 </div>
 
                 <div className='product-discount-price'>
-                    {/* {parseFloat(price)} */}
                     <NumericFormat value={parseFloat(price)}
                         displayType={'text'}
-                        thousandSeparator={true}
-                    />
-
+                        thousandSeparator={'.'}
+                        decimalSeparator={','} />
                 </div>
 
                 <div className='discount'>-{discount}%</div>
