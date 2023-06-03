@@ -1,9 +1,4 @@
 class CommonUtils {
-    static getNumber(number) {
-        console.log(number)
-        return number;
-    }
-
     static getBase64(file) {
         return new Promise(resolve => {
             let reader = new FileReader();
@@ -13,6 +8,20 @@ class CommonUtils {
                 resolve(reader);
             };
         });
+    }
+
+    static convertToKeyName = (inputName) => {
+        let keyArr = ['(', ')', ' ', '/', ',', '.', '+', '-', '&', '#', "'", '"', '---', '--']
+
+        inputName = this.convertToNonAccentVietnamese(inputName)
+
+        for (let index = 0; index < keyArr.length; index++) {
+            inputName = inputName.split(keyArr[index]).join('-');
+        }
+
+        inputName = inputName.toLowerCase();
+
+        return inputName;
     }
 
     static convertToNonAccentVietnamese(string) {

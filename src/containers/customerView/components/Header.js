@@ -169,9 +169,7 @@ class Header extends Component {
             })
         };
 
-        const menu = (<DropdownMenu
-        // listCategory={listCategory} 
-        />);
+        const menu = (<DropdownMenu />);
 
 
         return (
@@ -186,8 +184,7 @@ class Header extends Component {
                         {/* MENU */}
                         <div className='home-header-menu col-1 col-lg-1 px-1'>
                             <Dropdown overlay={menu}>
-                                <div className='home-header-menu-toggle'
-                                >
+                                <div className='home-header-menu-toggle'>
                                     <div className='home-header-menu-toggle-icon img-fluid'></div>
                                     <div><i className="fa fa-angle-down"></i></div>
                                 </div>

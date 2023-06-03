@@ -168,7 +168,7 @@ $ex-large: 1200px;// Extra large >= 1200
             i{
                 cursor: pointer;
             }
-        }
+        }        
     }
 
     .home-header-search-bar{
@@ -224,6 +224,14 @@ $ex-large: 1200px;// Extra large >= 1200
         
     }
     
+    
 
 
+}
+
+:where(.css-dev-only-do-not-override-w8mnev).ant-dropdown{
+    width: 100vw !important;    
+    left: 0 !important;
+    top: 70px!important;
+    // padding: 0 !important;
 }

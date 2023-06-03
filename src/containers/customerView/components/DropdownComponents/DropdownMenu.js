@@ -174,7 +174,7 @@ class DropdownMenu extends Component {
 
     render() {
         return (
-            <div className='dropdown-menu-container container'>
+            <div className='dropdown-menu-container'>
                 <div className='row'>
                     <div className='left-menu col-xl-3'>
                         <div className='left-menu-title'>

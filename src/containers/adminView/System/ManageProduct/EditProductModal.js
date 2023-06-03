@@ -63,6 +63,7 @@ class EditProductModal extends Component {
             let dataSelectedChildCategory = this.buildDataInputSelect(product.ChildCategory, "childCategory");
             let dataOptionSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
 
+            let productType = this.getProductType(product);
             let imageBase64 = '';
 
             if (product.image) {
@@ -82,7 +83,7 @@ class EditProductModal extends Component {
                 categoryKeyName: product.categoryKeyName,
                 image: product.image,
                 previewImgURL: imageBase64,
-                selectedProductType: '',
+                selectedProductType: productType,
 
                 listSubCategory: dataOptionSubCategory,
                 selectedCategory: dataSelectedCategory,
@@ -233,6 +234,18 @@ class EditProductModal extends Component {
         return result;
     }
 
+    getProductType = (product) => {
+        let bookDescriptionId = product.bookDescriptionId
+        let stationaryDescriptionId = product.stationaryDescriptionId
+        let toyDescriptionId = product.toyDescriptionId
+
+        let resultType;
+        if (bookDescriptionId != null) { resultType = 'book' }
+        if (stationaryDescriptionId != null) { resultType = 'stationary' }
+        if (toyDescriptionId != null) { resultType = 'toy' }
+        return resultType
+    }
+
     handleOnChangeInput = (event, key) => {
         let data = event.target.value;
         let copyState = { ...this.state };
@@ -291,45 +304,11 @@ class EditProductModal extends Component {
 
     handleOnChangeInputName = (event) => {
         let data = event.target.value
-        let keyName = this.handleConvertToKeyName(data)
+        let keyName = CommonUtils.convertToKeyName(data)
         this.setState({
             name: data,
             keyName: keyName
         })
-    }
-
-    handleConvertToKeyName = (inputName) => {
-        let keyArr = ['(', ')', ' ', '/', ',', '.', '+', '-', '#', "'", '"', '---', '--']
-
-        inputName = this.handleConvertToNonAccentVietnamese(inputName)
-        for (let index = 0; index < keyArr.length; index++) {
-            inputName = inputName.split(keyArr[index]).join('-');
-        }
-        inputName = inputName.toLowerCase();
-        this.setState({
-            keyName: inputName
-        })
-        return inputName;
-    }
-
-    handleConvertToNonAccentVietnamese = (string) => {
-        string = string.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-        string = string.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-        string = string.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-        string = string.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-        string = string.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-        string = string.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-        string = string.replace(/đ/g, "d");
-
-        string = string.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "a");
-        string = string.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "e");
-        string = string.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "i");
-        string = string.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "o");
-        string = string.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "u");
-        string = string.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "y");
-        string = string.replace(/Đ/g, "d");
-
-        return string;
     }
 
     handleEditorChange = (obj) => {
@@ -345,26 +324,27 @@ class EditProductModal extends Component {
         })
     }
 
-    handleSaveNewProduct = () => {
-        this.props.addNewProduct({
-            name: this.state.name,
-            keyName: this.state.keyName,
-            price: this.state.price,
-            discount: this.state.discount,
-            weight: this.state.weight,
-            height: this.state.height,
-            width: this.state.width,
-            length: this.state.length,
-            categoryKeyName: this.state.categoryKeyName,
-            publishYear: this.state.publishYear,
-            image: this.state.image,
-            productType: this.state.selectedProductType,
-            descriptionData: this.state.stateFromComponent,
-            contentHTML: this.state.contentHTML,
-            contentMarkdown: this.state.contentMarkdown
-        })
+    handleUpdateProduct = () => {
+        console.log(this.state)
+        // this.props.addNewProduct({
+        //     name: this.state.name,
+        //     keyName: this.state.keyName,
+        //     price: this.state.price,
+        //     discount: this.state.discount,
+        //     weight: this.state.weight,
+        //     height: this.state.height,
+        //     width: this.state.width,
+        //     length: this.state.length,
+        //     categoryKeyName: this.state.categoryKeyName,
+        //     publishYear: this.state.publishYear,
+        //     image: this.state.image,
+        //     productType: this.state.selectedProductType,
+        //     descriptionData: this.state.stateFromComponent,
+        //     contentHTML: this.state.contentHTML,
+        //     contentMarkdown: this.state.contentMarkdown
+        // })
 
-        this.props.closeModal();
+        // this.props.closeModal();
     }
 
     eventhandler = (data) => {
@@ -401,7 +381,7 @@ class EditProductModal extends Component {
             contentHTML } = this.state;
         let { isOpenedEditModal, closeModal, product, childCategory } = this.props
 
-        console.log('check props.product: ', product.ChildCategory)
+
 
         return (
 
@@ -558,6 +538,7 @@ class EditProductModal extends Component {
                                             value="book"
                                             name="productType"
                                             onChange={(event) => this.onChangeRadioValue(event)}
+                                            checked={selectedProductType === 'book' ? "checked" : ''}
                                         />
                                         Sách
                                     </label>
@@ -568,7 +549,8 @@ class EditProductModal extends Component {
                                             type="radio"
                                             value="toy"
                                             name="productType"
-                                            onChange={(event) => this.onChangeRadioValue(event)} />
+                                            onChange={(event) => this.onChangeRadioValue(event)}
+                                            checked={selectedProductType === 'toy' ? "checked" : ''} />
                                         Đồ chơi
                                     </label>
                                 </div>
@@ -578,7 +560,8 @@ class EditProductModal extends Component {
                                             type="radio"
                                             value="stationary"
                                             name="productType"
-                                            onChange={(event) => this.onChangeRadioValue(event)} />
+                                            onChange={(event) => this.onChangeRadioValue(event)}
+                                            checked={selectedProductType === 'stationary' ? "checked" : ''} />
                                         Văn phòng phẩm/Sản phẩm khác
                                     </label>
                                 </div>
@@ -594,7 +577,7 @@ class EditProductModal extends Component {
 
                         <div className='sharing-modal-buttons'>
                             <button className='add-btn'
-                                onClick={() => this.handleSaveNewProduct()}>Save</button>
+                                onClick={() => this.handleUpdateProduct()}>Save</button>
                             <button className='cancel-btn'
                                 onClick={closeModal}>Cancel</button>
                         </div>
