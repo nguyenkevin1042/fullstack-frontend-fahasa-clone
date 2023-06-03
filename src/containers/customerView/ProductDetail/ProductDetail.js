@@ -106,6 +106,10 @@ class ProductDetail extends Component {
     render() {
         let { quantityValue, bookDescriptionData } = this.state
         let { product } = this.props
+        let imageBase64 = '';
+        if (product.image) {
+            imageBase64 = new Buffer(product.image, 'base64').toString('binary');
+        }
 
         return (
             <>
@@ -117,7 +121,10 @@ class ProductDetail extends Component {
                         <div className='product-detail-left col-xl-5'>
                             <div className='row'>
                                 <div className='col-xl-2'></div>
-                                <div className='product-img col-xl-10'>
+                                <div className='product-img col-xl-10'
+                                    style={{
+                                        backgroundImage: "url(" + imageBase64 + ")"
+                                    }}>
 
                                 </div>
                                 <div className='product-action col-xl-12'>

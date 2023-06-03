@@ -23,10 +23,11 @@ $ex-large: 1200px;// Extra large >= 1200
         .product-detail-left{
 
             .product-img{
-                background: url('./../../../assets/product//image_217480.jpg') no-repeat center center;
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
                 height: 380px;
                 width: 100%;
-                background-size: contain;
             }
 
             .product-action{
@@ -57,7 +58,6 @@ $ex-large: 1200px;// Extra large >= 1200
         }
 
         .product-detail-right{
-            border: 1px solid green;
 
             .product-name{
                 font-size: 1.5em;

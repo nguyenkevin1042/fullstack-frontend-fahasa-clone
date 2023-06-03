@@ -24,7 +24,6 @@ class ManageProduct extends Component {
         }
 
         if (prevProps.allProductArr !== this.props.allProductArr) {
-            // let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
             this.setState({
                 listProduct: this.props.allProductArr
             })
@@ -52,7 +51,7 @@ class ManageProduct extends Component {
 
     renderProductsTableData = () => {
         let { listProduct } = this.state
-        console.log(listProduct)
+
         return (
             <>
                 {listProduct && listProduct.length > 0 &&
@@ -61,7 +60,6 @@ class ManageProduct extends Component {
                         if (item.image) {
                             imageBase64 = new Buffer(item.image, 'base64').toString('binary');
                         }
-                        console.log(imageBase64)
                         return (
                             <>
                                 <tr key={index}>

@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './AddProductModal.scss';
 import Select from 'react-select';
+
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { CommonUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
@@ -12,6 +17,8 @@ import 'react-image-lightbox/style.css';
 import BookDescriptionComponent from './components/BookDescriptionComponent';
 import StationaryDescriptionComponent from './components/StationaryDescriptionComponent';
 import ToyDescriptionComponent from './components/ToyDescriptionComponent';
+
+const mdParser = new MarkdownIt();
 
 class AddProductModal extends Component {
     constructor(props) {
@@ -29,6 +36,8 @@ class AddProductModal extends Component {
             categoryKeyName: '',
             image: '',
             previewImgURL: '',
+            contentMarkdown: '',
+            contentHTML: '',
 
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
@@ -42,7 +51,6 @@ class AddProductModal extends Component {
     async componentDidMount() {
 
         await this.props.fetchAllCodesByType('category')
-        // this.props.fetchAllChildCategory()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -203,11 +211,18 @@ class AddProductModal extends Component {
     }
 
     handleConvertToKeyName = (inputName) => {
+        let keyArr = ['(', ')', ' ', '/', ',', '.', '+', '-', '#', "'", '"', '---', '--']
+        for (let index = 0; index < keyArr.length; index++) {
+            inputName = inputName.split(keyArr[index]).join('-');
+
+        }
         inputName = this.handleConvertToNonAccentVietnamese(inputName)
-        inputName = inputName.split('(').join('');
-        inputName = inputName.split(')').join('');
-        inputName = inputName.split(' - ').join('-');
-        inputName = inputName.split(' ').join('-');
+        // inputName = inputName.split('(').join('');
+        // inputName = inputName.split(')').join('');
+        // inputName = inputName.split(' - ').join('-');
+        // inputName = inputName.split(' ').join('-');
+        // inputName = inputName.split('/').join('-');
+        // inputName = inputName.replace(/(|)| |,|.|+|-|#|'|"|--|---/g, '-');
         inputName = inputName.toLowerCase();
         this.setState({
             keyName: inputName
@@ -235,6 +250,13 @@ class AddProductModal extends Component {
         return string;
     }
 
+    handleEditorChange = (obj) => {
+        this.setState({
+            contentMarkdown: obj.text,
+            contentHTML: obj.html
+        })
+    }
+
     onChangeRadioValue = (event) => {
         this.setState({
             selectedProductType: event.target.value
@@ -255,9 +277,12 @@ class AddProductModal extends Component {
             publishYear: this.state.publishYear,
             image: this.state.image,
             productType: this.state.selectedProductType,
-            descriptionData: this.state.stateFromComponent
+            descriptionData: this.state.stateFromComponent,
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown
         })
-        // this.props.closeModal();
+
+        this.props.closeModal();
     }
 
     eventhandler = (data) => {
@@ -290,11 +315,10 @@ class AddProductModal extends Component {
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
             listChildCategory, selectedChildCategory,
-            isOpenedPreviewImage, selectedProductType } = this.state;
+            isOpenedPreviewImage, selectedProductType, contentMarkdown,
+            contentHTML } = this.state;
         let { isOpenedModal, closeModal } = this.props
-        // console.log(listCategory)
-        // console.log(listSubCategory)
-        // console.log(listChildCategory)
+
         return (
 
             <>
@@ -430,7 +454,38 @@ class AddProductModal extends Component {
                                         onClick={() => this.handleOpenPreviewImage()}>
                                     </div>
                                 </div>
+                                <div className='col-12 form-group'>
+                                    <label>Mô tả sản phẩm</label>
+                                    <MdEditor style={{
+                                        height: '400px',
+                                        marginBottom: '20px'
+                                    }}
+                                        value={contentMarkdown}
+                                        renderHTML={text => mdParser.render(text)}
+                                        onChange={this.handleEditorChange} />
+                                </div>
                             </div>
+
+                            {/* <div className='markdown-editor'>
+                                <MdEditor
+                                    // style={{
+                                    //     height: '400px',
+                                    //     width: '100vw',
+                                    //     marginBottom: '20px'
+                                    // }}
+                                    value={contentMarkdown}
+                                    renderHTML={text => mdParser.render(text)}
+                                    onChange={this.handleEditorChange} />
+                            </div> */}
+
+                            {/* <MdEditor style={{
+                                height: '400px',
+                                marginBottom: '20px'
+                            }}
+                                value={contentMarkdown}
+                                renderHTML={text => mdParser.render(text)}
+                                onChange={this.handleEditorChange} /> */}
+
 
                             <div className='row'>
                                 <div className="radio col-4 form-group">
