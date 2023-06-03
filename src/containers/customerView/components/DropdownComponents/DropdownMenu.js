@@ -14,7 +14,6 @@ class DropdownMenu extends Component {
             listCategory: [],
             selectedCategory: '',
             listSubCategory: [],
-            listChildCategory: [],
         };
     }
 
@@ -31,14 +30,7 @@ class DropdownMenu extends Component {
         let dataSelectSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
         this.setState({
             listSubCategory: dataSelectSubCategory,
-            // listSubCategory: this.props.allSubCategoryArr,
         })
-
-        // await this.props.fetchAllChildCategoryBySubCategory(dataSelectSubCategory[0].keyName);
-        // let dataSelectChildCategory = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
-        // this.setState({
-        //     listChildCategory: dataSelectChildCategory,
-        // })
 
     }
 
@@ -62,14 +54,6 @@ class DropdownMenu extends Component {
                 listSubCategory: dataSelectSubCategory,
             })
         }
-
-        // if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr ||
-        //     prevProps.lang !== this.props.lang) {
-        //     // let dataSelectChildCategory = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
-        //     // this.setState({
-        //     //     listChildCategory: dataSelectChildCategory
-        //     // })
-        // }
     }
 
     buildDataInputSelect = (inputData, type) => {
@@ -96,28 +80,16 @@ class DropdownMenu extends Component {
 
                     obj.keyName = item.keyName;
                     obj.label = language === languages.VI ? labelVI : labelEN;
+                    obj.childCategoryData = item.ChildCategories
                     result.push(obj);
                 });
             }
-            if (type === "childCategory") {
-                inputData.map((item, index) => {
-                    let obj = {};
-                    let labelVI = item.valueVI;
-                    let labelEN = item.valueEN;
-
-                    obj.keyName = item.keyName;
-                    obj.label = language === languages.VI ? labelVI : labelEN;
-                    result.push(obj);
-                });
-            }
-
         }
 
         return result;
     }
 
     handleOnMouseOver = async (hoveredCategory) => {
-        // console.log('hoveredCategory: ', hoveredCategory)
         await this.props.fetchAllSubCategoryByCategory(hoveredCategory.keyName);
         this.setState({
             selectedCategory: hoveredCategory,
@@ -144,6 +116,7 @@ class DropdownMenu extends Component {
 
     renderSubCategoryList = () => {
         let { selectedCategory, listSubCategory } = this.state
+        let language = this.props.lang;
 
         return (
 
@@ -161,7 +134,20 @@ class DropdownMenu extends Component {
                                     </div>
                                     <div>
                                         <ul className='child-category-list'>
-                                            {/* {this.renderChildCategoryList(item)} */}
+                                            {item.childCategoryData && item.childCategoryData.length > 0 &&
+                                                item.childCategoryData.map((item, index) => (
+                                                    <li key={index} className='child-category-item'
+                                                        onClick={() => this.handleToProductList(item.keyName)}>
+                                                        {language === languages.VI ? item.valueVI : item.valueEN}
+                                                    </li>
+                                                ))
+                                            }
+                                            {item.childCategoryData && item.childCategoryData.length > 0 ?
+                                                <li className='view-all-child-category'>
+                                                    <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
+                                                </li> :
+                                                <></>
+                                            }
                                         </ul>
 
                                     </div>
@@ -183,38 +169,10 @@ class DropdownMenu extends Component {
         }
     }
 
-    renderChildCategoryList = async (item) => {
-        let language = this.props.lang;
 
-        // await this.fetchAllChildCategoryBySubCategory(item.keyName)
-        console.log('item: ', item)
-        // fetchAllChildCategoryBySubCategory
-        return (
-            <>
-                {/* {childCategoryData && childCategoryData.length > 0 &&
-                    childCategoryData.map((item, index) => (
-                        <li key={index} className='child-category-item'
-                            onClick={() => this.handleToProductList(item.id)}>
-                            {language === languages.VI ? item.valueVI : item.valueEN}
-                        </li>
-                    ))
-                }
-                {childCategoryData && childCategoryData.length > 0 ?
-                    <li className='view-all-child-category'>
-                        <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
-                    </li> :
-                    <></>
-                } */}
-            </>
-        )
-    }
 
 
     render() {
-        // console.log('childCategoryData: ', this.props.allChildCategoryArr)
-        // console.log('subCategoryData: ', this.props.allSubCategoryArr)
-        // console.log(this.state.listSubCategory)
-        // console.log(this.props.allCodesArr)
         return (
             <div className='dropdown-menu-container container'>
                 <div className='row'>
@@ -249,8 +207,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         fetchAllCodesById: (categoryId) => dispatch(actions.fetchAllCodesById(categoryId)),
-        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
-        fetchAllChildCategoryBySubCategory: (subCat) => dispatch(actions.fetchAllChildCategoryBySubCategory(subCat))
+        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category))
     };
 };
 

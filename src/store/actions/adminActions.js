@@ -135,7 +135,6 @@ export const fetchAllCodesByType = (inputType) => {
         let res;
         try {
             res = await getCodeByTypeAPI(inputType);
-            console.log(res)
 
             if (res && res.errCode === 0) {
                 dispatch(fetchAllCodesByTypeSuccess(res.data));
