@@ -142,14 +142,16 @@ class DropdownMenu extends Component {
                                                     </li>
                                                 ))
                                             }
-                                            {item.childCategoryData && item.childCategoryData.length > 0 ?
-                                                <li className='view-all-child-category'>
-                                                    <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
-                                                </li> :
-                                                <></>
-                                            }
                                         </ul>
+                                    </div>
 
+                                    <div className='view-all-child-category'>
+                                        {item.childCategoryData && item.childCategoryData.length > 0 ?
+                                            <p >
+                                                <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
+                                            </p> :
+                                            <></>
+                                        }
                                     </div>
                                 </div>
                             ))

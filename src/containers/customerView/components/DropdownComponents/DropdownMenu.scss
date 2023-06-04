@@ -6,7 +6,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
 .dropdown-menu-container{
     background-color: white;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0px 0px 2px 2px rgba(200, 200, 200, 0.42);
     height: max-content;
     padding: 20px 10px;
@@ -67,19 +67,25 @@ $ex-large: 1200px;// Extra large >= 1200
                 .child-category-list{
                     list-style: none;
                     padding: 0;
+                    margin: 0;
+                    max-height: 110px;
+                    overflow: hidden;
 
                     .child-category-item{
                         color: #666;
                         cursor: pointer;
-
+                        
                         &:hover{
                             color: #bf9a61;
                         }
-                    }
+                    } 
+                }
 
-                    .view-all-child-category{
+                .view-all-child-category{
+                    p{
                         cursor: pointer;
                         color: #2489f4;
+                        width: fit-content;
                     }
                 }
             }

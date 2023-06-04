@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './AccountModal.scss';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, ListGroupItem } from 'reactstrap'
+import { Modal } from 'reactstrap'
 import SignInComponent from '../../Login/SignInComponent';
 import SignUpComponent from '../../Login/SignUpComponent';
 import ForgotPasswordComponent from '../../Login/ForgotPasswordComponent';

@@ -64,6 +64,24 @@
                 "title": "Nhóm sản phẩm",
                 "all-category": "Tất Cả Nhóm Sản Phẩm"
             }
+        },
+        "product-detail": {
+            "add-to-cart": "Thêm vào giỏ hàng",
+            "buy-now": "Mua ngay",
+            "supplier": "Nhà cung cấp",
+            "publisher": "Nhà xuất bản",
+            "author": "Tác giả",
+            "book-layout": "Hình thức bìa",
+            "quantity": "Số lượng",
+            "product-detail": "Thông tin sản phẩm",
+            "product-id": "Mã hàng",
+            "translator": "Người dịch",
+            "publish-year": "Năm xuất bản",
+            "weight": "Trọng lượng",
+            "size": "Kích thước",
+            "pages": "Số trang",
+            "more": "Xem thêm",
+            "less": "Rút gọn"
         }
     },
     "common": {

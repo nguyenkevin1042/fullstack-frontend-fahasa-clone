@@ -11,7 +11,6 @@ import ProductDescriptionComponent from './ProductDescriptionComponent';
 
 import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
-import { languages } from '../../../utils';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -68,8 +67,6 @@ class ProductDetail extends Component {
 
     renderProductPrice = (price, discount) => {
         let salePrice = price - ((price * discount) / 100);
-        let language = this.props.lang
-        console.log(this.formatPrice(price))
 
         return (
             <>
@@ -119,8 +116,8 @@ class ProductDetail extends Component {
 
                                 </div>
                                 <div className='product-action col-xl-12'>
-                                    <button className='add-to-cart-btn'>Thêm vào giỏ hàng</button>
-                                    <button className='buy-now-btn'>Mua ngay</button>
+                                    <button className='add-to-cart-btn'><FormattedMessage id="customer.product-detail.add-to-cart" /></button>
+                                    <button className='buy-now-btn'><FormattedMessage id="customer.product-detail.buy-now" /></button>
                                 </div>
                             </div>
                         </div>
@@ -128,19 +125,19 @@ class ProductDetail extends Component {
                             <div className='row'>
                                 <div className='product-name col-xl-12'>{product.name}</div>
                                 <div className='sharing-content col-xl-6'>
-                                    <label>Nhà cung cấp:</label>
+                                    <label><FormattedMessage id="customer.product-detail.supplier" />:</label>
                                     <a className='sharing-text'>{bookDescriptionData.supplier}</a>
                                 </div>
                                 <div className='sharing-content col-xl-6'>
-                                    <label>Tác giả:</label>
+                                    <label><FormattedMessage id="customer.product-detail.author" />:</label>
                                     <p className='sharing-text'>{bookDescriptionData.author}</p>
                                 </div>
                                 <div className='sharing-content col-xl-6'>
-                                    <label>Nhà xuất bản:</label>
+                                    <label><FormattedMessage id="customer.product-detail.publisher" />:</label>
                                     <p className='sharing-text'>{bookDescriptionData.publisher}</p>
                                 </div>
                                 <div className='sharing-content col-xl-6'>
-                                    <label>Hình thức bìa:</label>
+                                    <label><FormattedMessage id="customer.product-detail.book-layout" />:</label>
                                     <p className='sharing-text'>Bìa mềm</p>
                                 </div>
 
@@ -168,7 +165,7 @@ class ProductDetail extends Component {
                                 </div>
 
                                 <div className='sharing-content col-xl-12'>
-                                    <label className='quantity-label col-xl-3'>Số lượng:</label>
+                                    <label className='quantity-label col-xl-3'><FormattedMessage id="customer.product-detail.quantity" />:</label>
                                     <div className='col-xl-9'>
                                         <div className='select-quantity'>
                                             <button onClick={() => this.handleDecreaseQuantityValue()}>-</button>

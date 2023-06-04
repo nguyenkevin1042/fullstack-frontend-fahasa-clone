@@ -64,6 +64,24 @@
                 "title": "Category",
                 "all-category": "All Category"
             }
+        },
+        "product-detail": {
+            "add-to-cart": "Add to cart",
+            "buy-now": "Buy now",
+            "supplier": "Supplier",
+            "publisher": "Publisher",
+            "author": "Author",
+            "book-layout": "Book layout",
+            "quantity": "Quantity",
+            "product-detail": "Product detail",
+            "product-id": "Product ID",
+            "translator": "Translator",
+            "publish-year": "Published year",
+            "weight": "Weight",
+            "size": "Size",
+            "pages": "Pages",
+            "more": "Show more",
+            "less": "Show less"
         }
     },
     "common": {

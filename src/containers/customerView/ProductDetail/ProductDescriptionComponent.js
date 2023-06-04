@@ -42,43 +42,43 @@ class ProductDescriptionComponent extends Component {
             <>
                 <table>
                     <tr >
-                        <th>Mã hàng</th>
+                        <th><FormattedMessage id="customer.product-detail.product-id" /></th>
                         <td>{product.id}</td>
                     </tr>
                     <tr>
-                        <th>Tên Nhà Cung Cấp</th>
+                        <th><FormattedMessage id="customer.product-detail.supplier" /></th>
                         <td className='supplier-name'>{bookDescriptionData.supplier}</td>
                     </tr>
                     <tr>
-                        <th>Tác giả</th>
+                        <th><FormattedMessage id="customer.product-detail.author" /></th>
                         <td>{bookDescriptionData.author}</td>
                     </tr>
                     <tr>
-                        <th>Người Dịch</th>
+                        <th><FormattedMessage id="customer.product-detail.translator" /></th>
                         <td>{bookDescriptionData.translator}</td>
                     </tr>
                     <tr>
-                        <th>NXB</th>
+                        <th><FormattedMessage id="customer.product-detail.publisher" /></th>
                         <td>{bookDescriptionData.publisher}</td>
                     </tr>
                     <tr>
-                        <th>Năm XB</th>
+                        <th><FormattedMessage id="customer.product-detail.publish-year" /></th>
                         <td>{product.publishYear}</td>
                     </tr>
                     <tr>
-                        <th>Trọng lượng (gr)</th>
+                        <th><FormattedMessage id="customer.product-detail.weight" /> (gr)</th>
                         <td>{product.weight}</td>
                     </tr>
                     <tr>
-                        <th>Kích thước</th>
+                        <th><FormattedMessage id="customer.product-detail.size" /></th>
                         <td>{this.renderProductSize(product.length, product.width, product.height)} cm</td>
                     </tr>
                     <tr>
-                        <th>Số Trang</th>
+                        <th><FormattedMessage id="customer.product-detail.pages" /></th>
                         <td>{bookDescriptionData.pages}</td>
                     </tr>
                     <tr>
-                        <th>Hình thức</th>
+                        <th><FormattedMessage id="customer.product-detail.book-layout" /></th>
                         <td>Bìa Mềm</td>
                     </tr>
                 </table>
@@ -95,7 +95,9 @@ class ProductDescriptionComponent extends Component {
 
                 <div className='show-hide-btn'>
                     <button onClick={() => this.handleShowDescription()}>
-                        {showLess === true ? 'Xem thêm' : 'Rút gọn'}
+                        {showLess === true ?
+                            <FormattedMessage id="customer.product-detail.more" /> :
+                            <FormattedMessage id="customer.product-detail.less" />}
                     </button>
                 </div>
             </>
@@ -115,7 +117,7 @@ class ProductDescriptionComponent extends Component {
             <div className='product-description-container'>
                 <div className='product-description-content'>
                     <div className='description-header'>
-                        Thông tin sản phẩm
+                        <FormattedMessage id="customer.product-detail.product-detail" />
                     </div>
                     {this.renderBookDescription()}
 
