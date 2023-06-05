@@ -82,6 +82,9 @@
             "pages": "Pages",
             "brand": "Brand",
             "origin": "Origin",
+            "madeBy": "Made By",
+            "color": "Color",
+            "material": "Material",
             "more": "Show more",
             "less": "Show less"
         }

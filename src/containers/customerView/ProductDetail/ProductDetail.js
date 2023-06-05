@@ -23,6 +23,7 @@ class ProductDetail extends Component {
     }
 
     async componentDidMount() {
+
         await this.props.fetchProductByKeyName(this.props.match.params.keyName);
     }
 
@@ -32,6 +33,7 @@ class ProductDetail extends Component {
         }
 
         if (prevProps.product !== this.props.product) {
+            document.title = this.props.product.name
             if (this.props.product.stationaryDescriptionId) {
                 this.setState({
                     descriptionData: this.props.product.stationaryDescriptionData,
@@ -94,14 +96,18 @@ class ProductDetail extends Component {
                         suffix={'đ'} />
                 </div>
 
-                <div className='product-discount-price'>
-                    <NumericFormat value={parseFloat(price)}
-                        displayType={'text'}
-                        thousandSeparator={'.'}
-                        decimalSeparator={','} />
-                </div>
+                {discount ?
+                    <>
+                        <div className='product-discount-price'>
+                            <NumericFormat value={parseFloat(price)}
+                                displayType={'text'}
+                                thousandSeparator={'.'}
+                                decimalSeparator={','} />
+                        </div>
 
-                <div className='discount'>-{discount}%</div>
+                        <div className='discount'>-{discount}%</div>
+                    </> : <></>}
+
             </>
         )
 

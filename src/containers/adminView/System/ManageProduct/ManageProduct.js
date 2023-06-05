@@ -5,6 +5,7 @@ import './ManageProduct.scss';
 import AddProductModal from './AddProductModal';
 import EditProductModal from './EditProductModal';
 import * as actions from "../../../../store/actions";
+import { languages } from '../../../../utils';
 
 class ManageProduct extends Component {
     constructor(props) {
@@ -67,6 +68,30 @@ class ManageProduct extends Component {
         await this.props.deleteProduct(item.id)
     }
 
+    renderCategoryOfProduct = (item) => {
+        let language = this.props.lang
+
+        let category = item.ChildCategory.SubCategory.AllCode
+        let subCategory = item.ChildCategory.SubCategory
+        let childCategory = item.ChildCategory
+
+        let categoryVI = category.valueVI
+        let subCategoryVI = subCategory.valueVI
+        let childCategoryVI = childCategory.valueVI
+
+        let categoryEN = category.valueEN
+        let subCategoryEN = subCategory.valueEN
+        let childCategoryEN = childCategory.valueEN
+        let rightArrow = String.fromCodePoint(parseInt(2192, 16))
+
+        let result = language === languages.VI ?
+            categoryVI + rightArrow + subCategoryVI + rightArrow + childCategoryVI :
+            categoryEN + rightArrow + subCategoryEN + rightArrow + childCategoryEN
+        return (
+            <>{result}</>
+        )
+    }
+
     renderProductsTableData = () => {
         let { listProduct } = this.state
 
@@ -87,6 +112,7 @@ class ManageProduct extends Component {
                                             style={{
                                                 backgroundImage: "url(" + imageBase64 + ")"
                                             }} /></td>
+                                    <td>{this.renderCategoryOfProduct(item)}</td>
                                     <td>{item.name}</td>
                                     <td>{item.price}</td>
 
@@ -130,9 +156,9 @@ class ManageProduct extends Component {
                                 <tr>
                                     <th>ID</th>
                                     <th>Ảnh sản phẩm</th>
+                                    <th>Danh mục sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Giá sản phẩm</th>
-
                                     <th>Actions</th>
                                 </tr>
                             </thead>
