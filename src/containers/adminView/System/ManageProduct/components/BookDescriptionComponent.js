@@ -24,7 +24,6 @@ class BookDescriptionComponent extends Component {
     }
 
     async componentDidMount() {
-        // await this.props.fetchAllCodesByType('booklayout')
         if (this.props.descriptionData) {
             this.setState({
                 supplier: this.props.descriptionData.supplier,
@@ -107,7 +106,6 @@ class BookDescriptionComponent extends Component {
         let { supplier, author, translator, publisher, pages, language,
             selectedBookLayout, listBookLayout } = this.state
 
-        console.log(this.state)
         return (
             <div className='row'>
                 <div className='col-4 form-group'>

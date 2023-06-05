@@ -640,25 +640,26 @@ export const updateProduct = (inputData) => {
             res = await updateProductAPI(inputData);
 
             if (res && res.errCode === 0) {
-                dispatch(updateProductSuccess());
+                dispatch(updateProductSuccess(res));
                 toast.success(res.message)
                 dispatch(fetchAllProduct());
             } else {
-                dispatch(updateProductFail());
+                dispatch(updateProductFail(res));
                 toast.error(res.message)
             }
         } catch (error) {
-            dispatch(updateProductFail());
+            dispatch(updateProductFail(res));
             console.log("updateProduct Error: ", error)
         }
     }
 }
 
-export const updateProductSuccess = () => ({
+export const updateProductSuccess = (response) => ({
     type: actionTypes.UPDATE_PRODUCT_SUCCESS,
-
+    response: response
 })
 
-export const updateProductFail = () => ({
-    type: actionTypes.UPDATE_PRODUCT_FAIL
+export const updateProductFail = (response) => ({
+    type: actionTypes.UPDATE_PRODUCT_FAIL,
+    response: response
 })

@@ -12,7 +12,8 @@ const initialState = {
     allChildCategoryArr: [],
     allProductArr: [],
     errResponse: '',
-    childCategory: ''
+    childCategory: '',
+    actionResponse: ''
 }
 
 const appReducer = (state = initialState, action) => {
@@ -217,6 +218,18 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_PRODUCT_FAIL:
             state.allProductArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.UPDATE_PRODUCT_SUCCESS:
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
+        case actionTypes.UPDATE_PRODUCT_FAIL:
+            state.actionResponse = action.response
             return {
                 ...state,
             }

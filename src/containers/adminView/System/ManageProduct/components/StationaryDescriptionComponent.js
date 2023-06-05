@@ -19,7 +19,17 @@ class StationaryDescriptionComponent extends Component {
     }
 
     componentDidMount() {
-
+        if (this.props.descriptionData) {
+            this.setState({
+                supplier: this.props.descriptionData.supplier,
+                brand: this.props.descriptionData.brand,
+                origin: this.props.descriptionData.origin,
+                color: this.props.descriptionData.color,
+                material: this.props.descriptionData.material,
+                quantity: this.props.descriptionData.quantity,
+                madeBy: this.props.descriptionData.madeBy,
+            })
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -27,7 +37,17 @@ class StationaryDescriptionComponent extends Component {
 
         }
 
-
+        if (this.props.descriptionData && prevProps.descriptionData !== this.props.descriptionData) {
+            this.setState({
+                supplier: this.props.descriptionData.supplier,
+                brand: this.props.descriptionData.brand,
+                origin: this.props.descriptionData.origin,
+                color: this.props.descriptionData.color,
+                material: this.props.descriptionData.material,
+                quantity: this.props.descriptionData.quantity,
+                madeBy: this.props.descriptionData.madeBy,
+            })
+        }
     }
 
     handleOnChangeInput = (event, key) => {
@@ -44,6 +64,7 @@ class StationaryDescriptionComponent extends Component {
 
     render() {
         let { supplier, brand, color, madeBy, material, origin, quantity } = this.state
+
         return (
             <div className='row'>
                 <div className='col-4 form-group'>

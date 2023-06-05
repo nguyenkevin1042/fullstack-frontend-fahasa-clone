@@ -39,6 +39,9 @@ class EditProductModal extends Component {
             previewImgURL: '',
             contentMarkdown: '',
             contentHTML: '',
+            bookDescriptionId: '',
+            stationaryDescriptionId: '',
+            toyDescriptionId: '',
 
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
@@ -75,6 +78,7 @@ class EditProductModal extends Component {
             }
 
             this.setState({
+                id: product.id,
                 name: product.name,
                 keyName: product.keyName,
                 price: product.price,
@@ -98,6 +102,7 @@ class EditProductModal extends Component {
                 isOpenedPreviewImage: false
             })
 
+            //setState markdown
             if (product.markdownData != null) {
                 this.setState({
                     contentMarkdown: product.markdownData.contentMarkdown,
@@ -109,6 +114,26 @@ class EditProductModal extends Component {
                     contentHTML: '',
                 })
             }
+            // bookDescriptionId:'',
+            // stationaryDescriptionId:'',
+            // toyDescriptionId:''
+
+            // setState stateFromComponent
+            // if (product.bookDescriptionId != null) {
+            //     this.setState({
+            //         stateFromComponent: product.bookDescriptionData
+            //     })
+            // }
+            // if (product.stationaryDescriptionId != null) {
+            //     this.setState({
+            //         stateFromComponent: product.stationaryDescriptionData
+            //     })
+            // }
+            // if (product.toyDescriptionId != null) {
+            //     this.setState({
+            //         stateFromComponent: product.toyDescriptionData
+            //     })
+            // }
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -135,19 +160,22 @@ class EditProductModal extends Component {
 
         if (product.bookDescriptionId && prevProps.product.bookDescriptionId !== product.bookDescriptionId) {
             this.setState({
-                stateFromComponent: product.bookDescriptionData
+                stateFromComponent: product.bookDescriptionData,
+                bookDescriptionId: product.bookDescriptionId
             })
         }
 
         if (product.stationaryDescriptionId && prevProps.product.stationaryDescriptionId !== product.stationaryDescriptionId) {
             this.setState({
-                stateFromComponent: product.stationaryDescriptionData
+                stateFromComponent: product.stationaryDescriptionData,
+                stationaryDescriptionId: product.stationaryDescriptionId
             })
         }
 
         if (product.toyDescriptionId && prevProps.product.toyDescriptionId !== product.toyDescriptionId) {
             this.setState({
-                stateFromComponent: product.toyDescriptionData
+                stateFromComponent: product.toyDescriptionData,
+                toyDescriptionId: product.toyDescriptionId
             })
         }
 
@@ -350,6 +378,7 @@ class EditProductModal extends Component {
 
     handleUpdateProduct = () => {
         this.props.updateProduct({
+            id: this.state.id,
             name: this.state.name,
             keyName: this.state.keyName,
             price: this.state.price,
@@ -364,10 +393,15 @@ class EditProductModal extends Component {
             productType: this.state.selectedProductType,
             descriptionData: this.state.stateFromComponent,
             contentHTML: this.state.contentHTML,
-            contentMarkdown: this.state.contentMarkdown
+            contentMarkdown: this.state.contentMarkdown,
+            bookDescriptionId: this.state.bookDescriptionId,
+            stationaryDescriptionId: this.state.stationaryDescriptionId,
+            toyDescriptionId: this.state.toyDescriptionId
         })
 
-        // this.props.closeModal();
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal();
+        }
     }
 
     eventhandler = (data) => {
@@ -385,10 +419,12 @@ class EditProductModal extends Component {
                         descriptionData={stateFromComponent} />
                 }
                 {productType === 'toy' &&
-                    <ToyDescriptionComponent onChange={this.eventhandler} />
+                    <ToyDescriptionComponent onChange={this.eventhandler}
+                        descriptionData={stateFromComponent} />
                 }
                 {productType === 'stationary' &&
-                    <StationaryDescriptionComponent onChange={this.eventhandler} />
+                    <StationaryDescriptionComponent onChange={this.eventhandler}
+                        descriptionData={stateFromComponent} />
                 }
 
             </>
@@ -626,7 +662,8 @@ const mapStateToProps = state => {
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
         allChildCategoryArr: state.admin.allChildCategoryArr,
-        childCategory: state.admin.childCategory
+        childCategory: state.admin.childCategory,
+        actionResponse: state.admin.actionResponse
     };
 };
 

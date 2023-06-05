@@ -22,14 +22,40 @@ class ToyDescriptionComponent extends Component {
     }
 
     componentDidMount() {
-
+        if (this.props.descriptionData) {
+            this.setState({
+                age: this.props.descriptionData.age,
+                supplier: this.props.descriptionData.supplier,
+                brand: this.props.descriptionData.brand,
+                origin: this.props.descriptionData.origin,
+                madeBy: this.props.descriptionData.madeBy,
+                color: this.props.descriptionData.color,
+                material: this.props.descriptionData.material,
+                specification: this.props.descriptionData.specification,
+                warning: this.props.descriptionData.warning,
+                usage: this.props.descriptionData.usage,
+            })
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
         }
-
+        if (this.props.descriptionData && prevProps.descriptionData !== this.props.descriptionData) {
+            this.setState({
+                age: this.props.descriptionData.age,
+                supplier: this.props.descriptionData.supplier,
+                brand: this.props.descriptionData.brand,
+                origin: this.props.descriptionData.origin,
+                madeBy: this.props.descriptionData.madeBy,
+                color: this.props.descriptionData.color,
+                material: this.props.descriptionData.material,
+                specification: this.props.descriptionData.specification,
+                warning: this.props.descriptionData.warning,
+                usage: this.props.descriptionData.usage,
+            })
+        }
 
     }
 
