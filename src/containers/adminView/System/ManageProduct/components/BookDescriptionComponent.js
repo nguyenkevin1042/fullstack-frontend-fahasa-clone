@@ -25,6 +25,17 @@ class BookDescriptionComponent extends Component {
 
     async componentDidMount() {
         // await this.props.fetchAllCodesByType('booklayout')
+        if (this.props.descriptionData) {
+            this.setState({
+                supplier: this.props.descriptionData.supplier,
+                author: this.props.descriptionData.author,
+                translator: this.props.descriptionData.translator,
+                publisher: this.props.descriptionData.publisher,
+                language: this.props.descriptionData.language,
+                pages: this.props.descriptionData.pages,
+                booklayout: this.props.descriptionData.booklayout,
+            })
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -36,6 +47,19 @@ class BookDescriptionComponent extends Component {
             let dataSelect = this.buildDataInputSelect(this.props.bookLayoutArr, "category");
             this.setState({
                 listBookLayout: dataSelect
+            })
+        }
+
+
+        if (this.props.descriptionData && prevProps.descriptionData !== this.props.descriptionData) {
+            this.setState({
+                supplier: this.props.descriptionData.supplier,
+                author: this.props.descriptionData.author,
+                translator: this.props.descriptionData.translator,
+                publisher: this.props.descriptionData.publisher,
+                language: this.props.descriptionData.language,
+                pages: this.props.descriptionData.pages,
+                booklayout: this.props.descriptionData.booklayout,
             })
         }
 
@@ -82,6 +106,8 @@ class BookDescriptionComponent extends Component {
     render() {
         let { supplier, author, translator, publisher, pages, language,
             selectedBookLayout, listBookLayout } = this.state
+
+        console.log(this.state)
         return (
             <div className='row'>
                 <div className='col-4 form-group'>

@@ -80,6 +80,8 @@
             "weight": "Trọng lượng",
             "size": "Kích thước",
             "pages": "Số trang",
+            "brand": "Thương hiệu",
+            "origin": "Xuất xứ",
             "more": "Xem thêm",
             "less": "Rút gọn"
         }

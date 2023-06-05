@@ -11,7 +11,7 @@ class CommonUtils {
     }
 
     static convertToKeyName = (inputName) => {
-        let keyArr = ['(', ')', ' ', '/', ',', '.', '+', '-', '&', '#', "'", '"', '---', '--']
+        let keyArr = ['(', ')', ':', ' ', '/', ',', '.', '+', '-', '&', '#', "'", '"', '---', '--']
 
         inputName = this.convertToNonAccentVietnamese(inputName)
 

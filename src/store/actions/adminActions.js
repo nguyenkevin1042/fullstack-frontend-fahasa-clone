@@ -6,7 +6,7 @@ import {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI, getChildCategoryByKeyNameAPI
+    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI, getChildCategoryByKeyNameAPI, updateProductAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -630,4 +630,35 @@ export const deleteProductSuccess = () => ({
 
 export const deleteProductFail = () => ({
     type: actionTypes.DELETE_PRODUCT_FAIL
+})
+
+//UPDATE PPRODUCT
+export const updateProduct = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await updateProductAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(updateProductSuccess());
+                toast.success(res.message)
+                dispatch(fetchAllProduct());
+            } else {
+                dispatch(updateProductFail());
+                toast.error(res.message)
+            }
+        } catch (error) {
+            dispatch(updateProductFail());
+            console.log("updateProduct Error: ", error)
+        }
+    }
+}
+
+export const updateProductSuccess = () => ({
+    type: actionTypes.UPDATE_PRODUCT_SUCCESS,
+
+})
+
+export const updateProductFail = () => ({
+    type: actionTypes.UPDATE_PRODUCT_FAIL
 })

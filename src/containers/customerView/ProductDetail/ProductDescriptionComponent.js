@@ -37,7 +37,7 @@ class ProductDescriptionComponent extends Component {
 
     renderBookDescription = () => {
         let { showLess } = this.state
-        let { product, bookDescriptionData } = this.props
+        let { product, descriptionData } = this.props
         return (
             <>
                 <table>
@@ -47,19 +47,19 @@ class ProductDescriptionComponent extends Component {
                     </tr>
                     <tr>
                         <th><FormattedMessage id="customer.product-detail.supplier" /></th>
-                        <td className='supplier-name'>{bookDescriptionData.supplier}</td>
+                        <td className='supplier-name'>{descriptionData.supplier}</td>
                     </tr>
                     <tr>
                         <th><FormattedMessage id="customer.product-detail.author" /></th>
-                        <td>{bookDescriptionData.author}</td>
+                        <td>{descriptionData.author}</td>
                     </tr>
                     <tr>
                         <th><FormattedMessage id="customer.product-detail.translator" /></th>
-                        <td>{bookDescriptionData.translator}</td>
+                        <td>{descriptionData.translator}</td>
                     </tr>
                     <tr>
                         <th><FormattedMessage id="customer.product-detail.publisher" /></th>
-                        <td>{bookDescriptionData.publisher}</td>
+                        <td>{descriptionData.publisher}</td>
                     </tr>
                     <tr>
                         <th><FormattedMessage id="customer.product-detail.publish-year" /></th>
@@ -75,7 +75,76 @@ class ProductDescriptionComponent extends Component {
                     </tr>
                     <tr>
                         <th><FormattedMessage id="customer.product-detail.pages" /></th>
-                        <td>{bookDescriptionData.pages}</td>
+                        <td>{descriptionData.pages}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.book-layout" /></th>
+                        <td>Bìa Mềm</td>
+                    </tr>
+                </table>
+
+                <div className='about-product-price'>
+                    Giá sản phẩm trên Fahasa.com đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như Phụ phí đóng gói, phí vận chuyển, phụ phí hàng cồng kềnh,..
+                </div>
+                <div className={showLess === true ? 'about-product-text-less' : 'about-product-text-more'}>
+                    {product.markdownData && product.markdownData.contentHTML &&
+                        <div dangerouslySetInnerHTML={{ __html: product.markdownData.contentHTML }} />
+
+                    }
+                </div>
+
+                <div className='show-hide-btn'>
+                    <button onClick={() => this.handleShowDescription()}>
+                        {showLess === true ?
+                            <FormattedMessage id="customer.product-detail.more" /> :
+                            <FormattedMessage id="customer.product-detail.less" />}
+                    </button>
+                </div>
+            </>
+        )
+    }
+
+    renderStationaryDescription = () => {
+        let { showLess } = this.state
+        let { product, descriptionData } = this.props
+        return (
+            <>
+                <table>
+                    <tr >
+                        <th><FormattedMessage id="customer.product-detail.product-id" /></th>
+                        <td>{product.id}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.supplier" /></th>
+                        <td className='supplier-name'>{descriptionData.supplier}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.author" /></th>
+                        <td>{descriptionData.author}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.translator" /></th>
+                        <td>{descriptionData.translator}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.publisher" /></th>
+                        <td>{descriptionData.publisher}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.publish-year" /></th>
+                        <td>{product.publishYear}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.weight" /> (gr)</th>
+                        <td>{product.weight}</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.size" /></th>
+                        <td>{this.renderProductSize(product.length, product.width, product.height)} cm</td>
+                    </tr>
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.pages" /></th>
+                        <td>{descriptionData.pages}</td>
                     </tr>
                     <tr>
                         <th><FormattedMessage id="customer.product-detail.book-layout" /></th>

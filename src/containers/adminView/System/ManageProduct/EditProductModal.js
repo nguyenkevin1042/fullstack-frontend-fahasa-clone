@@ -24,6 +24,7 @@ class EditProductModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             name: '',
             keyName: '',
             price: '',
@@ -53,15 +54,18 @@ class EditProductModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        let product = this.props.product;
+
         if (prevProps.lang !== this.props.lang) {
 
         }
         if (prevProps.product !== this.props.product) {
-            let product = this.props.product;
+
             let dataSelectedCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory.AllCode, "category");
             let dataSelectedSubCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory, "subCategory");
             let dataSelectedChildCategory = this.buildDataInputSelect(product.ChildCategory, "childCategory");
-            let dataOptionSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
+            // let dataOptionSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
+            // let dataOptionChildCategory = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
 
             let productType = this.getProductType(product);
             let imageBase64 = '';
@@ -85,7 +89,8 @@ class EditProductModal extends Component {
                 previewImgURL: imageBase64,
                 selectedProductType: productType,
 
-                listSubCategory: dataOptionSubCategory,
+                // listSubCategory: dataOptionSubCategory,
+                // listChildCategory: dataOptionChildCategory,
                 selectedCategory: dataSelectedCategory,
                 selectedSubCategory: dataSelectedSubCategory,
                 selectedChildCategory: dataSelectedChildCategory,
@@ -127,6 +132,25 @@ class EditProductModal extends Component {
                 listChildCategory: dataOption
             })
         }
+
+        if (product.bookDescriptionId && prevProps.product.bookDescriptionId !== product.bookDescriptionId) {
+            this.setState({
+                stateFromComponent: product.bookDescriptionData
+            })
+        }
+
+        if (product.stationaryDescriptionId && prevProps.product.stationaryDescriptionId !== product.stationaryDescriptionId) {
+            this.setState({
+                stateFromComponent: product.stationaryDescriptionData
+            })
+        }
+
+        if (product.toyDescriptionId && prevProps.product.toyDescriptionId !== product.toyDescriptionId) {
+            this.setState({
+                stateFromComponent: product.toyDescriptionData
+            })
+        }
+
     }
 
     buildDataInputSelect = (inputData, type) => {
@@ -325,24 +349,23 @@ class EditProductModal extends Component {
     }
 
     handleUpdateProduct = () => {
-        console.log(this.state)
-        // this.props.addNewProduct({
-        //     name: this.state.name,
-        //     keyName: this.state.keyName,
-        //     price: this.state.price,
-        //     discount: this.state.discount,
-        //     weight: this.state.weight,
-        //     height: this.state.height,
-        //     width: this.state.width,
-        //     length: this.state.length,
-        //     categoryKeyName: this.state.categoryKeyName,
-        //     publishYear: this.state.publishYear,
-        //     image: this.state.image,
-        //     productType: this.state.selectedProductType,
-        //     descriptionData: this.state.stateFromComponent,
-        //     contentHTML: this.state.contentHTML,
-        //     contentMarkdown: this.state.contentMarkdown
-        // })
+        this.props.updateProduct({
+            name: this.state.name,
+            keyName: this.state.keyName,
+            price: this.state.price,
+            discount: this.state.discount,
+            weight: this.state.weight,
+            height: this.state.height,
+            width: this.state.width,
+            length: this.state.length,
+            categoryKeyName: this.state.categoryKeyName,
+            publishYear: this.state.publishYear,
+            image: this.state.image,
+            productType: this.state.selectedProductType,
+            descriptionData: this.state.stateFromComponent,
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown
+        })
 
         // this.props.closeModal();
     }
@@ -354,10 +377,12 @@ class EditProductModal extends Component {
     }
 
     renderDescriptionSectionByProductType = (productType) => {
+        let { stateFromComponent } = this.state
         return (
             <>
                 {productType === 'book' &&
-                    <BookDescriptionComponent onChange={this.eventhandler} />
+                    <BookDescriptionComponent onChange={this.eventhandler}
+                        descriptionData={stateFromComponent} />
                 }
                 {productType === 'toy' &&
                     <ToyDescriptionComponent onChange={this.eventhandler} />
@@ -569,11 +594,7 @@ class EditProductModal extends Component {
 
                         </div>
 
-
-
                         {this.renderDescriptionSectionByProductType(selectedProductType)}
-
-
 
                         <div className='sharing-modal-buttons'>
                             <button className='add-btn'
@@ -616,7 +637,7 @@ const mapDispatchToProps = dispatch => {
         fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
         fetchAllChildCategoryBySubCategory: (subCat) => dispatch(actions.fetchAllChildCategoryBySubCategory(subCat)),
         fetchChildCategoryByKeyName: (keyName) => dispatch(actions.fetchChildCategoryByKeyName(keyName)),
-        addNewProduct: (inputData) => dispatch(actions.addNewProduct(inputData))
+        updateProduct: (inputData) => dispatch(actions.updateProduct(inputData))
     };
 };
 

@@ -17,7 +17,8 @@ class ProductDetail extends Component {
         super(props);
         this.state = {
             quantityValue: 1,
-            bookDescriptionData: ''
+            descriptionData: '',
+            productType: ''
         };
     }
 
@@ -31,9 +32,24 @@ class ProductDetail extends Component {
         }
 
         if (prevProps.product !== this.props.product) {
-            this.setState({
-                bookDescriptionData: this.props.product.bookDescriptionData
-            })
+            if (this.props.product.stationaryDescriptionId) {
+                this.setState({
+                    descriptionData: this.props.product.stationaryDescriptionData,
+                    productType: 'stationary'
+                })
+            }
+            if (this.props.product.bookDescriptionId) {
+                this.setState({
+                    descriptionData: this.props.product.bookDescriptionData,
+                    productType: 'book'
+                })
+            }
+            if (this.props.product.toyDescriptionId) {
+                this.setState({
+                    descriptionData: this.props.product.toyDescriptionData,
+                    productType: 'toy'
+                })
+            }
         }
     }
 
@@ -91,8 +107,97 @@ class ProductDetail extends Component {
 
     }
 
+    renderBookDescription = (descriptionData) => {
+        return (
+            <>
+                {descriptionData.supplier && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.supplier" />:</label>
+                        <a className='sharing-text'>{descriptionData.supplier}</a>
+                    </div>
+                )}
+
+                {descriptionData.author && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.author" />:</label>
+                        <p className='sharing-text'>{descriptionData.author}</p>
+                    </div>
+                )}
+                {descriptionData.publisher && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.publisher" />:</label>
+                        <p className='sharing-text'>{descriptionData.publisher}</p>
+                    </div>
+                )}
+                {descriptionData.bookLayout && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.book-layout" />:</label>
+                        <p className='sharing-text'>Bìa mềm</p>
+                    </div>
+                )}
+
+            </>
+        )
+    }
+
+    renderStationaryDescription = (descriptionData) => {
+        return (
+            <>
+                {descriptionData.supplier && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.supplier" />:</label>
+                        <a className='sharing-text'>{descriptionData.supplier}</a>
+                    </div>
+                )}
+
+                {descriptionData.brand && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.brand" />:</label>
+                        <p className='sharing-text'>{descriptionData.brand}</p>
+                    </div>
+                )}
+
+                {descriptionData.origin && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.origin" />:</label>
+                        <p className='sharing-text'>{descriptionData.origin}</p>
+                    </div>
+                )}
+
+            </>
+        )
+    }
+
+    renderToyDescription = (descriptionData) => {
+        return (
+            <>
+                {descriptionData.supplier && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.supplier" />:</label>
+                        <a className='sharing-text'>{descriptionData.supplier}</a>
+                    </div>
+                )}
+
+                {descriptionData.brand && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.brand" />:</label>
+                        <p className='sharing-text'>{descriptionData.brand}</p>
+                    </div>
+                )}
+
+                {descriptionData.origin && (
+                    <div className='sharing-content col-xl-6'>
+                        <label><FormattedMessage id="customer.product-detail.origin" />:</label>
+                        <p className='sharing-text'>{descriptionData.origin}</p>
+                    </div>
+                )}
+
+            </>
+        )
+    }
+
     render() {
-        let { quantityValue, bookDescriptionData } = this.state
+        let { quantityValue, descriptionData, productType } = this.state
         let { product } = this.props
         let imageBase64 = '';
         if (product.image) {
@@ -124,22 +229,9 @@ class ProductDetail extends Component {
                         <div className='product-detail-right col-xl-7'>
                             <div className='row'>
                                 <div className='product-name col-xl-12'>{product.name}</div>
-                                <div className='sharing-content col-xl-6'>
-                                    <label><FormattedMessage id="customer.product-detail.supplier" />:</label>
-                                    <a className='sharing-text'>{bookDescriptionData.supplier}</a>
-                                </div>
-                                <div className='sharing-content col-xl-6'>
-                                    <label><FormattedMessage id="customer.product-detail.author" />:</label>
-                                    <p className='sharing-text'>{bookDescriptionData.author}</p>
-                                </div>
-                                <div className='sharing-content col-xl-6'>
-                                    <label><FormattedMessage id="customer.product-detail.publisher" />:</label>
-                                    <p className='sharing-text'>{bookDescriptionData.publisher}</p>
-                                </div>
-                                <div className='sharing-content col-xl-6'>
-                                    <label><FormattedMessage id="customer.product-detail.book-layout" />:</label>
-                                    <p className='sharing-text'>Bìa mềm</p>
-                                </div>
+                                {productType === 'book' && this.renderBookDescription(descriptionData)}
+                                {productType === 'stationary' && this.renderStationaryDescription(descriptionData)}
+                                {productType === 'toy' && this.renderToyDescription(descriptionData)}
 
                                 <div className='review col-xl-12'>Đánh giá</div>
                                 <div className='flash-sale col-xl-12'>Flash Sale</div>
@@ -183,7 +275,8 @@ class ProductDetail extends Component {
 
                 <ProductDescriptionComponent
                     product={product}
-                    bookDescriptionData={bookDescriptionData} />
+                    descriptionData={descriptionData}
+                    productType={productType} />
 
                 <PolicyComponent />
                 <SignUpNewletter />

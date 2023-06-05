@@ -80,6 +80,8 @@
             "weight": "Weight",
             "size": "Size",
             "pages": "Pages",
+            "brand": "Brand",
+            "origin": "Origin",
             "more": "Show more",
             "less": "Show less"
         }
