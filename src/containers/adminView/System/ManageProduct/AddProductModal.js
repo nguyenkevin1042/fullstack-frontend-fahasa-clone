@@ -49,7 +49,6 @@ class AddProductModal extends Component {
     }
 
     async componentDidMount() {
-
         await this.props.fetchAllCodesByType('category')
     }
 
@@ -58,25 +57,7 @@ class AddProductModal extends Component {
 
         }
         if (prevProps.isOpenedAddModal !== this.props.isOpenedAddModal) {
-            // this.setState({
-            //     name: '',
-            //     price: '',
-            //     discount: '',
-            //     weight: '',
-            //     height: '',
-            //     width: '',
-            //     length: '',
-            //     categoryKeyName: '',
-            //     image: '',
-            //     previewImgURL: '',
-            //     selectedProductType: '',
 
-            //     listCategory: [], selectedCategory: '',
-            //     listSubCategory: [], selectedSubCategory: '',
-            //     listChildCategory: [], selectedChildCategory: '',
-
-            //     isOpenedPreviewImage: false
-            // })
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -223,8 +204,8 @@ class AddProductModal extends Component {
         })
     }
 
-    handleSaveNewProduct = () => {
-        this.props.addNewProduct({
+    handleSaveNewProduct = async () => {
+        await this.props.addNewProduct({
             name: this.state.name,
             keyName: this.state.keyName,
             price: this.state.price,
@@ -242,7 +223,9 @@ class AddProductModal extends Component {
             contentMarkdown: this.state.contentMarkdown
         })
 
-        this.props.closeModal();
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal()
+        }
     }
 
     eventhandler = (data) => {
@@ -280,9 +263,7 @@ class AddProductModal extends Component {
         let { isOpenedAddModal, closeModal } = this.props
 
         return (
-
             <>
-
                 <Modal isOpen={isOpenedAddModal}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
                     size='xl'
@@ -462,11 +443,7 @@ class AddProductModal extends Component {
 
                         </div>
 
-
-
                         {this.renderDescriptionSectionByProductType(selectedProductType)}
-
-
 
                         <div className='sharing-modal-buttons'>
                             <button className='add-btn'
@@ -497,7 +474,8 @@ const mapStateToProps = state => {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
-        allChildCategoryArr: state.admin.allChildCategoryArr
+        allChildCategoryArr: state.admin.allChildCategoryArr,
+        actionResponse: state.admin.actionResponse
     };
 };
 

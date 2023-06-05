@@ -553,6 +553,7 @@ export const addNewProduct = (inputData) => {
             if (res && res.errCode === 0) {
                 dispatch(addNewProductSuccess(res));
                 toast.success(res.message)
+                dispatch(fetchAllProduct())
             } else {
                 dispatch(addNewProductFail(res));
                 toast.error(res.message)

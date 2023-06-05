@@ -18,8 +18,8 @@ class ManageProduct extends Component {
         };
     }
 
-    componentDidMount() {
-        this.props.fetchAllProduct();
+    async componentDidMount() {
+        await this.props.fetchAllProduct();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -42,26 +42,26 @@ class ManageProduct extends Component {
         })
     }
 
-    handleCloseAddProductModal = () => {
+    handleCloseAddProductModal = async () => {
         this.setState({
             isOpenedAddModal: false
         })
-        this.props.fetchAllProduct();
+        //    await  this.props.fetchAllProduct();
     }
 
     handleEdit = (item) => {
-        console.log(item)
         this.setState({
             isOpenedEditModal: true,
             selectedProduct: item
         })
     }
 
-    handleCloseEditProductModal = () => {
+    handleCloseEditProductModal = async () => {
         this.setState({
             isOpenedEditModal: false
         })
-        this.props.fetchAllProduct();
+        // await this.fetchAllProduct();
+
     }
 
     handleDelete = async (item) => {

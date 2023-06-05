@@ -222,13 +222,29 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.ADD_NEW_PRODUCT_SUCCESS:
+            state.actionResponse = ''
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
+        case actionTypes.ADD_NEW_PRODUCT_FAIL:
+            state.actionResponse = ''
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
         case actionTypes.UPDATE_PRODUCT_SUCCESS:
+            state.actionResponse = ''
             state.actionResponse = action.response
             return {
                 ...state,
             }
 
         case actionTypes.UPDATE_PRODUCT_FAIL:
+            state.actionResponse = ''
             state.actionResponse = action.response
             return {
                 ...state,

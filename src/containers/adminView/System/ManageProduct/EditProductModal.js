@@ -48,7 +48,8 @@ class EditProductModal extends Component {
             listChildCategory: [], selectedChildCategory: '',
 
             selectedProductType: '',
-            stateFromComponent: []
+            stateFromComponent: [],
+            response: ''
         };
     }
 
@@ -62,8 +63,14 @@ class EditProductModal extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
-        if (prevProps.product !== this.props.product) {
 
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            this.setState({
+                response: this.props.actionResponse
+            })
+        }
+
+        if (prevProps.product !== this.props.product) {
             let dataSelectedCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory.AllCode, "category");
             let dataSelectedSubCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory, "subCategory");
             let dataSelectedChildCategory = this.buildDataInputSelect(product.ChildCategory, "childCategory");
@@ -114,26 +121,6 @@ class EditProductModal extends Component {
                     contentHTML: '',
                 })
             }
-            // bookDescriptionId:'',
-            // stationaryDescriptionId:'',
-            // toyDescriptionId:''
-
-            // setState stateFromComponent
-            // if (product.bookDescriptionId != null) {
-            //     this.setState({
-            //         stateFromComponent: product.bookDescriptionData
-            //     })
-            // }
-            // if (product.stationaryDescriptionId != null) {
-            //     this.setState({
-            //         stateFromComponent: product.stationaryDescriptionData
-            //     })
-            // }
-            // if (product.toyDescriptionId != null) {
-            //     this.setState({
-            //         stateFromComponent: product.toyDescriptionData
-            //     })
-            // }
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -178,7 +165,6 @@ class EditProductModal extends Component {
                 toyDescriptionId: product.toyDescriptionId
             })
         }
-
     }
 
     buildDataInputSelect = (inputData, type) => {
@@ -338,7 +324,6 @@ class EditProductModal extends Component {
             let objectURL = URL.createObjectURL(file);
 
             let base64 = await CommonUtils.getBase64(file);
-            console.log(base64)
             this.setState({
                 previewImgURL: objectURL,
                 image: base64.result
@@ -376,8 +361,8 @@ class EditProductModal extends Component {
         })
     }
 
-    handleUpdateProduct = () => {
-        this.props.updateProduct({
+    handleUpdateProduct = async () => {
+        await this.props.updateProduct({
             id: this.state.id,
             name: this.state.name,
             keyName: this.state.keyName,
@@ -392,15 +377,15 @@ class EditProductModal extends Component {
             image: this.state.image,
             productType: this.state.selectedProductType,
             descriptionData: this.state.stateFromComponent,
-            contentHTML: this.state.contentHTML,
-            contentMarkdown: this.state.contentMarkdown,
             bookDescriptionId: this.state.bookDescriptionId,
             stationaryDescriptionId: this.state.stationaryDescriptionId,
-            toyDescriptionId: this.state.toyDescriptionId
+            toyDescriptionId: this.state.toyDescriptionId,
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
         })
 
-        if (this.props.actionResponse.errCode === 0) {
-            this.props.closeModal();
+        if (this.props.actionResponse) {
+            this.props.closeModal()
         }
     }
 
@@ -442,12 +427,11 @@ class EditProductModal extends Component {
             contentHTML } = this.state;
         let { isOpenedEditModal, closeModal, product, childCategory } = this.props
 
-
+        // console.log(this.props.actionResponse)
 
         return (
 
             <>
-
                 <Modal isOpen={isOpenedEditModal}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
                     size='xl'
