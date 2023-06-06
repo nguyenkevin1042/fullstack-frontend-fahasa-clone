@@ -23,20 +23,22 @@ class Header extends Component {
             listLanguage: [
                 {
                     value: 'vi', label: (
-                        <>
+                        <div className='langugage-option'>
                             <img src={viFlag}
                                 className='language-icon'
-                                alt="Vietnamese Logo" /> VI
-                        </>
+                                alt="Vietnamese Logo" />
+                            <span>VI</span>
+                        </div>
                     )
                 },
                 {
                     value: 'en', label: (
-                        <>
+                        <div className='langugage-option'>
                             <img src={enFlag}
                                 className='language-icon '
-                                alt="English Logo" /> EN
-                        </>
+                                alt="English Logo" />
+                            <span>EN</span>
+                        </div>
                     )
                 }
             ],

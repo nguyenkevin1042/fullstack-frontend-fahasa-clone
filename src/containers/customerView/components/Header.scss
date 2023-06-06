@@ -99,7 +99,7 @@ $ex-large: 1200px;// Extra large >= 1200
 @media (min-width: $large) {
     .home-header-container{
         background-color: white;
-        padding: 25px 55px 10px 75px;
+        padding: 25px 50px 10px 75px;
 
         .home-header-logo{
             background: url('./../../../assets/fahasa_logo.png') no-repeat center center;
@@ -214,29 +214,73 @@ $ex-large: 1200px;// Extra large >= 1200
         }
 
         .user-options-change-language{
-            padding: 0;
-            margin: 0;
-            border: 1px solid red;
 
             .select-language-option{
+                width: 110px;
+
                 .react-select__control{
                     width: 80px;
-                    border: 1px solid red;
+                    border-radius: 8px;
+                    box-shadow: none;
+                    cursor: pointer;
+                    
+                    .react-select__indicators{
+                        border: none;
+                    }
+                    .react-select__dropdown-indicator{
+                        padding: 0;
+                        margin-right: 5px;
+                    }
+                    .react-select__indicator-separator{
+                        display: none;
+                    }
+                    .react-select__value-container{
+                        min-width: 50px;
+                        max-width: 42px;
+                    }
                 }
-                .react-select__indicators{
-                    border: none;
+                
+                .react-select__menu{
+                    border-radius: 8px;
+                    position: absolute;
+                    right: 30px;
+
+                    .react-select__menu-list{
+                        width: 90px;
+                        margin: auto;
+                    }
+                    .react-select__option{      
+                        width: 90px;
+                        cursor: pointer;
+
+                        &:hover{
+                            background-color: #F2F4F5;
+                            border-radius: 8px;
+                        }
+                    }
+                    .react-select__option--is-selected{
+                        background-color: #F2F4F5;
+                            border-radius: 8px;
+                    }
                 }
 
-                .react-select__option{
-                    border: 1px solid red;
+                .langugage-option{
+                    .language-icon{
+                        width: 37px;
+                        height: 27px;
+                        background-size: contain;
+                    }
+                    span{
+                        margin-left: 5px;
+                        font-weight: bold;
+                        color: #7A7E7F;
+                    }
                 }
+                
             }
            
 
-            .language-icon{
-                width: 32px;
-                height: 20px;
-            }
+            
         }
 
         
