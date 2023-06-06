@@ -21,7 +21,7 @@ class ProductList extends Component {
             // categoryKeyName: '',
             // subCategoryKeyName: '',
             // childCategoryKeyName: '',
-            keyName: 'all',
+            keyName: '',
             listCategory: [],
             listSubCategory: [],
             selectedCategory: '',
@@ -43,10 +43,6 @@ class ProductList extends Component {
 
         if (this.props.match.params.keyName === 'all') {
             await this.props.fetchAllProduct()
-        } else {
-            this.setState({
-                keyName: this.props.match.params.keyName
-            })
         }
 
     }
@@ -72,17 +68,13 @@ class ProductList extends Component {
             })
         }
 
-        if (prevProps.match.params.keyName !== this.props.match.params.keyName ||
-            prevProps.lang !== this.props.lang) {
+        if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
             if (this.props.match.params.keyName === 'all') {
                 this.setState({
+                    // categoryKeyName: this.props.match.params.keyName,
                     keyName: 'all'
                 })
                 await this.props.fetchAllProduct()
-            } else {
-                this.setState({
-                    keyName: this.props.match.params.keyName
-                })
             }
         }
 
@@ -155,15 +147,22 @@ class ProductList extends Component {
     }
 
     handleOnClickCategory = (item) => {
+        // let dataSubCategory = this.buildDataInputSelect(item.subCategories, "subCategory");
+
+        // this.setState({
+        //     selectedCategory: item,
+        //     listSubCategory: dataSubCategory,
+        //     keyName: item.keyName
+        // })
+
         if (item != undefined && this.props.history) {
             let dataSubCategory = this.buildDataInputSelect(item.subCategories, "subCategory");
 
             this.setState({
                 keyName: item.keyName,
                 selectedCategory: item,
-                selectedSubCategory: '',
-                selectedChildCategory: '',
                 listSubCategory: dataSubCategory,
+
             })
 
             this.props.history.push("/category/" + item.keyName);
@@ -173,37 +172,15 @@ class ProductList extends Component {
     }
 
     handleOnClickSubCategory = (item) => {
-        if (item != undefined && this.props.history) {
-            let dataChildCategory = this.buildDataInputSelect(item.childCategories, "childCategory");
-
-            this.setState({
-                keyName: item.keyName,
-                selectedSubCategory: item,
-                selectedChildCategory: '',
-                listChildCategory: dataChildCategory,
-            })
+        console.log(item)
+        if (this.props.history) {
 
             this.props.history.push("/category/" + item.keyName);
-        } else {
-            this.props.history.push("/category/all");
-        }
-    }
-
-    handleOnClickChildCategory = (item) => {
-        if (item != undefined && this.props.history) {
-            this.setState({
-                keyName: item.keyName,
-                selectedChildCategory: item,
-            })
-            this.props.history.push("/category/" + item.keyName);
-        } else {
-            // this.props.history.push("/category/all");
-            // }
         }
     }
 
     renderCategoryList = () => {
-        let { listCategory, listSubCategory, listChildCategory, keyName, selectedCategory, selectedSubCategory, selectedChildCategory } = this.state
+        let { listCategory, listSubCategory, keyName, selectedCategory } = this.state
         return (
             <div className='sharing-menu'>
                 <div className='sharing-title'>
@@ -218,84 +195,96 @@ class ProductList extends Component {
                     </div>
 
                     <div className='list-category'>
-                        {keyName === 'all' && this.renderMainCategoryList(listCategory)}
-                        {keyName === selectedCategory.keyName && this.renderSubCategoryList(listSubCategory)}
-                        {keyName === selectedSubCategory.keyName && this.renderChildCategoryList(listChildCategory)}
-                        {keyName === selectedChildCategory.keyName && this.renderChildCategoryList(listChildCategory)} </div>
+                        <ul>
+                            {listCategory && listCategory.length > 0 &&
+                                listCategory.map((item, index) => (
+                                    <>
+                                        <li key={index} onClick={() => this.handleOnClickCategory(item)}
+                                            className={selectedCategory.keyName === item.keyName ?
+                                                'active' : 'hover'}>
+                                            {/* {item.label} */}
+                                            {this.renderSubCategoryList(item)}
+                                        </li>
+
+                                        {/* <div
+                                             className={selectedCategory.keyName === item.keyName ? 'active' : 'hover'}
+                                            >
+                                                {item.label}
+                                            </div> */}
+
+                                        {/* <ul>
+                                                {listSubCategory && listSubCategory.length > 0 &&
+                                                    listSubCategory.map((item, index) => (
+                                                        <li key={index}
+                                                            onClick={() => this.handleOnClickSubCategory(item)}
+                                                            className={keyName === item.keyName ? 'active' : 'hover'}
+                                                        >
+                                                            {item.label}
+                                                        </li>
+
+                                                    ))
+                                                }
+                                            </ul> */}
+                                        {/* </li> */}
+
+                                        {/* {this.renderSubCategoryList(item)} */}
+                                        {/* {keyName === item.keyName ?
+                                            <>{this.renderSubCategoryList(item)}</>
+                                            : <></>} */}
+                                    </>
+                                ))}
+                            {/* {selectedCategory.keyName === keyName ?
+                                <>{this.renderSubCategoryList()}</>
+                                : <></>} */}
+                        </ul>
+                    </div>
                 </div>
             </div>
         )
     }
 
-    renderMainCategoryList = (list) => {
-        let { keyName } = this.state
+    renderSubCategoryList = () => {
+        let { listSubCategory, keyName } = this.state
+        console.log(listSubCategory, keyName)
         return (
             <>
-                <ul>
-                    {list && list.length > 0 &&
-                        list.map((item, index) => (
+                {listSubCategory && listSubCategory.length > 0 &&
+                    listSubCategory.map((item, index) => { console.log(item) }
+                        // <li key={index}
+                        // // onClick={() => this.handleOnClickSubCategory(item)}
+                        // // className={keyName === item.keyName ? 'active' : 'hover'}
+                        // >
+                        //     {item.label}
+                        // </li>
+                    )
+                }
+                {/* {keyName === item.keyName &&
+                    <ul>
+                        {listSubCategory && listSubCategory.length > 0 &&
+                            listSubCategory.map((item, index) => (
+                                <li key={index}
+                                    onClick={() => this.handleOnClickSubCategory(item)}
+                                    className={keyName === item.keyName ? 'active' : 'hover'}
+                                >
+                                    {item.label}
+                                </li>
+
+                            ))
+                        }
+                    </ul>} */}
+                {/* <ul>
+                    {listSubCategory && listSubCategory.length > 0 &&
+                        listSubCategory.map((item, index) => (
                             <li key={index}
-                                onClick={() => this.handleOnClickCategory(item)}
-                                className={item.keyName === keyName ? 'active' : 'hover'}>
+                            // onClick={() => this.handleOnClickSubCategory(item)}
+                            // className={keyName === item.keyName ? 'active' : 'hover'}
+                            >
                                 {item.label}
                             </li>
-                        ))
 
-                    }
-                </ul>
-            </>
-        )
-    }
-
-    renderSubCategoryList = (list) => {
-        let { keyName, selectedCategory } = this.state
-        console.log(keyName, selectedCategory)
-        return (
-            <>
-                <div className={keyName === selectedCategory.keyName ?
-                    'active' : 'hover'}>
-                    {selectedCategory.label}
-                </div>
-                <ul>
-                    {list && list.length > 0 &&
-                        list.map((item, index) => (
-                            <li key={index}
-                                onClick={() => this.handleOnClickSubCategory(item)}
-                                className={item.keyName === keyName ? 'active' : 'hover'}>
-                                {item.label}
-                            </li>
                         ))
                     }
-                </ul>
-            </>
-        )
-    }
-
-    renderChildCategoryList = (list) => {
-        let { keyName, selectedSubCategory, selectedCategory } = this.state
-        return (
-            <>
-                <div className={keyName === selectedCategory.keyName ?
-                    'active' : 'hover'}
-                    onClick={() => this.handleOnClickSubCategory(selectedCategory)}>
-                    {selectedCategory.label}
-                </div>
-                <div className={keyName === selectedSubCategory.keyName ?
-                    'active' : 'hover'}>
-                    {selectedSubCategory.label}
-                </div >
-                <ul>
-                    {list && list.length > 0 &&
-                        list.map((item, index) => (
-                            <li key={index}
-                                onClick={() => this.handleOnClickChildCategory(item)}
-                                className={item.keyName === keyName ? 'active' : 'hover'}>
-                                {item.label}
-                            </li>
-                        ))
-
-                    }
-                </ul>
+                </ul> */}
             </>
         )
     }

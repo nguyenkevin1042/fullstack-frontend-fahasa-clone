@@ -35,13 +35,19 @@
                     }
                 }
 
+                .hidden{
+                    display: none;
+                }
+
                 .active{
+                    cursor: pointer;
                     color: #F7941E;
                     font-weight: bold;
-                    cursor: text !important;
+                    // cursor: text !important;
                 }
     
                 .hover{
+                    cursor: pointer;
                     &:hover{
                         color: #bf9a61;
                     }
