@@ -74,6 +74,7 @@ $ex-large: 1200px;// Extra large >= 1200
                     .child-category-item{
                         color: #666;
                         cursor: pointer;
+                        transition: all 300ms ease-in 0s;
                         
                         &:hover{
                             color: #bf9a61;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 import './ProductList.scss';
 import Header from '../components/Header';
 import SignUpNewletter from '../Homepage/SignUpNewletter';
@@ -12,28 +13,51 @@ class ProductList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listCategory: []
+            keyName: '',
+            listCategory: [],
+            listSubCategory: []
         };
     }
 
     async componentDidMount() {
+        this.setState({
+            keyName: this.props.match.params.keyName
+        })
+
         await this.props.fetchAllCodesByType('category')
         let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
         this.setState({
             listCategory: dataSelectCategory,
 
         })
+        // }
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
         }
+
         if (prevProps.allCodesArr !== this.props.allCodesArr ||
             prevProps.lang !== this.props.lang) {
             let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
             this.setState({
                 listCategory: dataSelect
+            })
+        }
+
+        if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr ||
+            prevProps.lang !== this.props.lang) {
+            let dataSelectSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
+            this.setState({
+                listSubCategory: dataSelectSubCategory,
+            })
+        }
+
+        if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
+            this.setState({
+                keyName: this.props.match.params.keyName
             })
         }
     }
@@ -51,6 +75,7 @@ class ProductList extends Component {
 
                     obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
+                    obj.subCategories = item.SubCategories;
                     result.push(obj);
                 });
             }
@@ -61,6 +86,7 @@ class ProductList extends Component {
                     let labelEN = item.valueEN;
 
                     obj.keyName = item.keyName;
+                    obj.childCategories = item.ChildCategories;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
@@ -82,34 +108,125 @@ class ProductList extends Component {
         return result;
     }
 
+    handleOnClickCategory = (item) => {
+
+        if (item != undefined && this.props.history) {
+            let dataSubCategory = this.buildDataInputSelect(item.subCategories, "subCategory");
+
+            this.setState({
+                listSubCategory: dataSubCategory
+            })
+            this.props.history.push("/category/" + item.keyName);
+        } else {
+            this.props.history.push("/category/all");
+        }
+    }
+
+    handleOnClickSubCategory = (item) => {
+        console.log(item)
+        if (this.props.history) {
+
+            this.props.history.push("/category/" + item.keyName);
+        }
+    }
+
     renderCategoryList = () => {
-        let { listCategory } = this.state
+        let { listCategory, listSubCategory, keyName } = this.state
         return (
             <div className='sharing-menu'>
                 <div className='sharing-title'>
                     <FormattedMessage id="customer.product-list.category.title" />
                 </div>
 
-                <div className='sharing-menu'>
-                    {/* <div className='all-category-text'>
+                <div className='sharing-list-category'>
+                    <div className={keyName === 'all' ?
+                        'all-category-text active' : 'all-category-text hover'}
+                        onClick={() => this.handleOnClickCategory()}>
                         <FormattedMessage id="customer.product-list.category.all-category" />
-                    </div> */}
+                    </div>
 
-                    <div className='all-category-text'>
-                        {listCategory && listCategory.length > 0 &&
-                            listCategory.map((item, index) => (
-                                <div key={index}>{item.label}</div>
-                            ))}
+                    <div className='list-category'>
+                        <ul>
+                            {listCategory && listCategory.length > 0 &&
+                                listCategory.map((item, index) => (
+                                    <>
+
+                                        <li key={index}
+                                            onClick={() => this.handleOnClickCategory(item)}
+                                        // className={keyName === item.keyName ? 'active' : 'hover'}
+                                        >
+                                            <div className={keyName === item.keyName ? 'active' : 'hover'}>
+                                                {item.label}
+                                            </div>
+
+                                            {/* <ul>
+                                                {listSubCategory && listSubCategory.length > 0 &&
+                                                    listSubCategory.map((item, index) => (
+                                                        <li key={index}
+                                                            onClick={() => this.handleOnClickSubCategory(item)}
+                                                            className={keyName === item.keyName ? 'active' : 'hover'}
+                                                        >
+                                                            {item.label}
+                                                        </li>
+
+                                                    ))
+                                                }
+                                            </ul> */}
+                                        </li>
+
+                                        {/* {this.renderSubCategoryList(item)} */}
+                                        {keyName === item.keyName ?
+                                            <>{this.renderSubCategoryList(item)}</>
+                                            : <></>}
+                                    </>
+                                ))}
+                        </ul>
                     </div>
                 </div>
             </div>
         )
     }
 
+    renderSubCategoryList = (item) => {
+        let { listSubCategory, keyName } = this.state
+        // console.log(item)
+        return (
+            <>
+                {keyName === item.keyName &&
+                    <ul>
+                        {listSubCategory && listSubCategory.length > 0 &&
+                            listSubCategory.map((item, index) => (
+                                <li key={index}
+                                    onClick={() => this.handleOnClickSubCategory(item)}
+                                    className={keyName === item.keyName ? 'active' : 'hover'}
+                                >
+                                    {item.label}
+                                </li>
+
+                            ))
+                        }
+                    </ul>}
+                {/* <ul>
+                    {listSubCategory && listSubCategory.length > 0 &&
+                        listSubCategory.map((item, index) => (
+                            <li key={index}
+                                onClick={() => this.handleOnClickSubCategory(item)}
+                                className={keyName === item.keyName ? 'active' : 'hover'}
+                            >
+                                {item.label}
+                            </li>
+
+                        ))
+                    }
+                </ul> */}
+            </>
+        )
+    }
+
 
     render() {
-        console.log(this.props.match.params)
-        console.log(this.state.listCategory)
+        // console.log(this.props.match.params.keyName)
+        console.log(this.state.keyName)
 
         return (
             <React.Fragment>
@@ -141,13 +258,16 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
+        allSubCategoryArr: state.admin.allSubCategoryArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
+        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category))
+
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductList));

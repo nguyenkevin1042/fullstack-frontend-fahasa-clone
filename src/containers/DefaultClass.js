@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 import './DefaultClass.scss';
 import * as actions from "../store/actions";
 
@@ -49,4 +50,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultClass);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DefaultClass));
