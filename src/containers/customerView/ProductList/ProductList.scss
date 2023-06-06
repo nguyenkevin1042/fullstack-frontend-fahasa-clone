@@ -1,6 +1,5 @@
 .product-list-container{
-
-    margin: 20px 60px 0 60px;
+    margin: 20px 75px 0 60px;
 
     .left-menu-content{
         .left-content{
@@ -63,9 +62,24 @@
         }
     }
 
-    .right-list-content{
-        border: 1px solid green;
+    .right-list-container{
         background-color: white;
+        padding: 0;
 
+        .sort-actions{
+            display: flex;
+            align-items: center;
+            padding: 20px 20px 30px 20px;
+            border: 1px solid red;
+            // border-bottom: 2px solid #f6f6f6;
+
+            .select{
+                border: 1px solid red;
+            }
+        }
+
+        .sharing-product-item-container{
+            padding: 7px;
+        }
     }
 }

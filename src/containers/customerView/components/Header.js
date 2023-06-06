@@ -149,33 +149,45 @@ class Header extends Component {
         let customStyles = {
             control: (baseStyles, state) => ({
                 ...baseStyles,
-                width: 65,
+                width: 75,
+                borderRadius: 8,
                 boxShadow: "none",
                 cursor: "pointer",
                 "&:hover": {
                     borderColor: state.isFocused ? "none" : "none"
                 }
             }),
-
             dropdownIndicator: base => ({
                 ...base,
-                padding: 1,
-            }),
+                padding: 0,
 
+            }),
             option: (baseStyles, state) => ({
                 ...baseStyles,
-                padding: 4,
+                padding: 0,
+                paddingTop: 10,
+                borderRadius: 8,
+                width: 80,
+                cursor: "pointer"
+            }),
+            menu: (baseStyles, state) => ({
+                ...baseStyles,
+                padding: 10,
+                // margin: 'auto',
+                width: 100,
+                right: 5,
+                borderRadius: 8,
                 cursor: "pointer"
             })
         };
 
         const menu = (<DropdownMenu />);
 
-
         return (
             <>
                 <div className='home-header-container container-fluid'>
-                    <div className='row'>
+                    {/* <div className='home-header-container container'> */}
+                    <div className='home-header-content row'>
                         {/* LOGO */}
                         <div className='home-header-logo col-12 col-lg-2'
                             onClick={() => this.handleToHomepage()}>
@@ -221,7 +233,9 @@ class Header extends Component {
 
                                     <div className='user-options-change-language option col-md-3'>
                                         <Select
-                                            styles={customStyles}
+                                            className={'select-language-option'}
+                                            // styles={customStyles}
+                                            classNamePrefix="react-select"
                                             value={selectedLanguage}
                                             onChange={this.handleChangeLanguage}
                                             options={listLanguage}

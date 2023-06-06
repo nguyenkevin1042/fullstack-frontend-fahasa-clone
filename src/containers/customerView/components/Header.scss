@@ -99,7 +99,7 @@ $ex-large: 1200px;// Extra large >= 1200
 @media (min-width: $large) {
     .home-header-container{
         background-color: white;
-        padding: 20px 30px 0px 70px;
+        padding: 25px 55px 10px 75px;
 
         .home-header-logo{
             background: url('./../../../assets/fahasa_logo.png') no-repeat center center;
@@ -115,8 +115,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 display: flex;
                 justify-content: right;
                 align-items: center;
-                // height: 55px;
-                // border: 1px solid red;
+                margin-right: 5px;
 
                 .home-header-menu-toggle-icon{
                     background: url('./../../../assets/ico_menu.svg') no-repeat center center;
@@ -196,6 +195,7 @@ $ex-large: 1200px;// Extra large >= 1200
         display: flex;
 
         .option{
+
             height: fit-content;
             display: grid;
             cursor: pointer;
@@ -214,6 +214,24 @@ $ex-large: 1200px;// Extra large >= 1200
         }
 
         .user-options-change-language{
+            padding: 0;
+            margin: 0;
+            border: 1px solid red;
+
+            .select-language-option{
+                .react-select__control{
+                    width: 80px;
+                    border: 1px solid red;
+                }
+                .react-select__indicators{
+                    border: none;
+                }
+
+                .react-select__option{
+                    border: 1px solid red;
+                }
+            }
+           
 
             .language-icon{
                 width: 32px;

@@ -9,24 +9,25 @@ import Footer from '../components/Footer';
 import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
 import ProductItem from '../components/ProductItem';
+
+import Select from 'react-select';
 import Slider from 'react-slick';
+import LoadingOverlay from 'react-loading-overlay'
 
 class ProductList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            previousKeyName: '',
             keyName: '',
             listCategory: [],
             listSubCategory: [],
-            listProduct: []
+            listProduct: [],
+            isLoading: false
         };
     }
 
     async componentDidMount() {
-        this.setState({
-            keyName: this.props.match.params.keyName
-        })
-
         await this.props.fetchAllCodesByType('category')
 
         let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
@@ -34,9 +35,9 @@ class ProductList extends Component {
             listCategory: dataSelectCategory,
         })
 
-        // if (this.props.match.params.keyName === 'all') {
-        await this.props.fetchAllProduct()
-        // }
+        if (this.props.match.params.keyName === 'all') {
+            await this.props.fetchAllProduct()
+        }
 
     }
 
@@ -63,16 +64,18 @@ class ProductList extends Component {
 
         if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
             this.setState({
+                previousKeyName: this.state.keyName,
                 keyName: this.props.match.params.keyName
             })
         }
 
-        if (
-            prevProps.allProductArr !== this.props.allProductArr) {
+        if (prevProps.allProductArr !== this.props.allProductArr ||
+            prevProps.lang !== this.props.lang) {
             this.setState({
-                // keyName: this.props.match.params.keyName,
                 listProduct: this.props.allProductArr,
+
             })
+
         }
     }
 
@@ -116,14 +119,12 @@ class ProductList extends Component {
                     result.push(obj);
                 });
             }
-
         }
 
         return result;
     }
 
     handleOnClickCategory = (item) => {
-
         if (item != undefined && this.props.history) {
             let dataSubCategory = this.buildDataInputSelect(item.subCategories, "subCategory");
 
@@ -143,7 +144,6 @@ class ProductList extends Component {
             this.props.history.push("/category/" + item.keyName);
         }
     }
-
 
     renderCategoryList = () => {
         let { listCategory, listSubCategory, keyName } = this.state
@@ -266,56 +266,24 @@ class ProductList extends Component {
 
     renderProductList = () => {
         let { listProduct } = this.state
-        let settings = {
-            // className: "flash-sale-list",
-            dots: false,
-            infinite: false,
-            slidesToShow: 5,
-            slidesToScroll: 2,
-            responsive: [{
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 2,
-                }
-            }, {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 2,
-                }
-            },
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 5,
-                    slidesToScroll: 2,
-                }
-            }]
-        };
 
         return (
             <>
-                {/* <Slider {...settings} >
-                    {Array(7).fill(
-                        this.renderAProduct())
-                    }
-                </Slider> */}
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => (
-                        <ProductItem productData={item}
-                        // redirectToProductDetail={this.handleRedirectToProductDetail(item)} 
-                        />
+                        <div className='sharing-product-item-container col-xl-3'>
+                            <ProductItem productData={item} />
+                        </div>
                     ))
                 }
-
             </>
         )
     }
 
 
     render() {
-        console.log(this.props.allProductArr)
+        let { isLoading } = this.state
+        console.log(this.state)
 
         return (
             <React.Fragment>
@@ -328,15 +296,29 @@ class ProductList extends Component {
                                 {this.renderCategoryList()}
                             </div>
                         </div>
-                        <div className='right-list-content col-xl-9'>
-                            {/* <div className='container'> */}
-                            <div className='row'>
-                                {this.renderProductList()}
-                            </div>
-                            {/* </div> */}
+                        <div className='right-list-container col-xl-9'>
 
+                            {/* SORT PRODUCT ACTION */}
+                            <div className='sort-actions'>
+                                <label>Săp xếp theo:</label>
+
+                                <Select
+                                    className={"sort-actions-select"}
+                                    // value={selectedCategory}
+                                    // onChange={this.handleChangeCategory}
+                                    // options={listCategory}
+                                    // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                    name="selectedCategory" />
+                            </div>
+                            {/* LIST PRODUCT */}
+                            <div className='container'>
+                                <div className='row'>
+                                    {this.renderProductList()}
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
                 <SignUpNewletter />
