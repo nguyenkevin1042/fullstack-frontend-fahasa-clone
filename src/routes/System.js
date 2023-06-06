@@ -15,7 +15,7 @@ class System extends Component {
         const { systemMenuPath } = this.props;
         return (
             <Fragment>
-                {this.props.isLoggedIn && <Header />}
+                {this.props.isAdminLoggedIn && <Header />}
                 <div className="system-container">
                     <div className="system-list">
                         <Switch>
@@ -37,7 +37,7 @@ class System extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.admin.isLoggedIn,
+        isAdminLoggedIn: state.admin.isLoggedIn,
         systemMenuPath: state.app.systemMenuPath
     };
 };

@@ -1,4 +1,8 @@
 class CommonUtils {
+    static getSalePrice(price, discount) {
+        return price - ((price * discount) / 100);
+    }
+
     static getBase64(file) {
         return new Promise(resolve => {
             let reader = new FileReader();
@@ -20,6 +24,11 @@ class CommonUtils {
         }
 
         inputName = inputName.toLowerCase();
+
+        let lastChar = inputName.slice(- 1)
+        if (lastChar === '-') {
+            inputName = inputName.slice(0, -1)
+        }
 
         return inputName;
     }

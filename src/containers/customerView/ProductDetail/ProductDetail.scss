@@ -77,10 +77,12 @@ $ex-large: 1200px;// Extra large >= 1200
                 label{
                     margin: 0;
                     margin-right: 5px;
+                    white-space: nowrap;
                 }
                 a{
                     color: #2489F4;
                     font-weight: bold;
+                    white-space: nowrap;
                 }
                 .sharing-text{
                     font-weight: bold;

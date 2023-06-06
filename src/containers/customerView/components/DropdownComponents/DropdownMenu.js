@@ -96,6 +96,10 @@ class DropdownMenu extends Component {
         })
     }
 
+    // hanldeRedirectToAllChildCategory = (item) => {
+    //     console.log(childCategoryData)
+    // }
+
 
     renderCategoryList = () => {
         let { listCategory } = this.state;
@@ -147,7 +151,7 @@ class DropdownMenu extends Component {
 
                                     <div className='view-all-child-category'>
                                         {item.childCategoryData && item.childCategoryData.length > 0 ?
-                                            <p >
+                                            <p onClick={() => this.handleToProductList(item.keyName)}>
                                                 <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
                                             </p> :
                                             <></>

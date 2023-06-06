@@ -8,6 +8,8 @@ import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
+import ProductItem from '../components/ProductItem';
+import Slider from 'react-slick';
 
 class ProductList extends Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class ProductList extends Component {
         this.state = {
             keyName: '',
             listCategory: [],
-            listSubCategory: []
+            listSubCategory: [],
+            listProduct: []
         };
     }
 
@@ -25,11 +28,14 @@ class ProductList extends Component {
         })
 
         await this.props.fetchAllCodesByType('category')
+
         let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
         this.setState({
             listCategory: dataSelectCategory,
-
         })
+
+        // if (this.props.match.params.keyName === 'all') {
+        await this.props.fetchAllProduct()
         // }
 
     }
@@ -58,6 +64,14 @@ class ProductList extends Component {
         if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
             this.setState({
                 keyName: this.props.match.params.keyName
+            })
+        }
+
+        if (
+            prevProps.allProductArr !== this.props.allProductArr) {
+            this.setState({
+                // keyName: this.props.match.params.keyName,
+                listProduct: this.props.allProductArr,
             })
         }
     }
@@ -129,6 +143,7 @@ class ProductList extends Component {
             this.props.history.push("/category/" + item.keyName);
         }
     }
+
 
     renderCategoryList = () => {
         let { listCategory, listSubCategory, keyName } = this.state
@@ -223,10 +238,84 @@ class ProductList extends Component {
         )
     }
 
+    renderAProduct = () => {
+        return (
+            <div className='sharing-product-item' title='Shaman King - Tập 30 - Bìa Đôi'>
+                <div className='sharing-product-item-image sold'>
+                    <div className='discount'>50%</div>
+                </div>
+                <div className='sharing-product-item-text'>
+                    <div className='item-name'>
+                        Shaman King - Tập 30 - Bìa Đôi
+                    </div>
+                    <div className='item-price-chapter'>
+                        <div className='item-discount-price'>
+                            17.500
+                        </div>
+                        <div className='item-price'>
+                            35.000
+                        </div>
+                        <div className='item-chapter'>
+                            Tập 30
+                        </div>
+                    </div>
+                </div>
+            </div >
+        )
+    }
+
+    renderProductList = () => {
+        let { listProduct } = this.state
+        let settings = {
+            // className: "flash-sale-list",
+            dots: false,
+            infinite: false,
+            slidesToShow: 5,
+            slidesToScroll: 2,
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 2,
+                }
+            }, {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 2,
+                }
+            },
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 2,
+                }
+            }]
+        };
+
+        return (
+            <>
+                {/* <Slider {...settings} >
+                    {Array(7).fill(
+                        this.renderAProduct())
+                    }
+                </Slider> */}
+                {listProduct && listProduct.length > 0 &&
+                    listProduct.map((item, index) => (
+                        <ProductItem productData={item}
+                        // redirectToProductDetail={this.handleRedirectToProductDetail(item)} 
+                        />
+                    ))
+                }
+
+            </>
+        )
+    }
+
 
     render() {
-        // console.log(this.props.match.params.keyName)
-        console.log(this.state.keyName)
+        console.log(this.props.allProductArr)
 
         return (
             <React.Fragment>
@@ -240,6 +329,12 @@ class ProductList extends Component {
                             </div>
                         </div>
                         <div className='right-list-content col-xl-9'>
+                            {/* <div className='container'> */}
+                            <div className='row'>
+                                {this.renderProductList()}
+                            </div>
+                            {/* </div> */}
+
                         </div>
                     </div>
                 </div>
@@ -259,13 +354,15 @@ const mapStateToProps = state => {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
+        allProductArr: state.admin.allProductArr
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
-        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category))
+        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
+        fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
 
     };
 };

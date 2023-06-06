@@ -384,9 +384,9 @@ class EditProductModal extends Component {
             contentMarkdown: this.state.contentMarkdown,
         })
 
-        if (this.props.actionResponse) {
-            this.props.closeModal()
-        }
+        // if (this.props.actionResponse) {
+        //     this.props.closeModal()
+        // }
     }
 
     eventhandler = (data) => {
