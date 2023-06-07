@@ -42,9 +42,7 @@ class ProductList extends Component {
         if (this.props.match.params.keyName === 'all') {
             await this.props.fetchAllProduct()
         } else {
-            // this.setState({
-            //     keyName: this.props.match.params.keyName
-            // })
+
             this.setState({
                 keyName: localStorage.getItem('keyName'),
                 listCategory: JSON.parse(localStorage.getItem('listCategory')),

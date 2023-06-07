@@ -49,6 +49,7 @@ class AddProductModal extends Component {
     }
 
     async componentDidMount() {
+
         await this.props.fetchAllCodesByType('category')
     }
 
@@ -57,7 +58,22 @@ class AddProductModal extends Component {
 
         }
         if (prevProps.isOpenedAddModal !== this.props.isOpenedAddModal) {
-
+            this.setState({
+                name: '',
+                keyName: '',
+                price: '',
+                discount: '',
+                weight: '',
+                height: '',
+                width: '',
+                length: '',
+                publishYear: '',
+                categoryKeyName: '',
+                image: '',
+                previewImgURL: '',
+                contentMarkdown: '',
+                contentHTML: '',
+            });
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {

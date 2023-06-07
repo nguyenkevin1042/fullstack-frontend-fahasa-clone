@@ -25,8 +25,8 @@ class SignUpComponent extends Component {
 
     }
 
-    handleSignUp = () => {
-        console.log(this.props.errResponse)
+    handleSignUp = async () => {
+        await this.props.createNewUser(this.state)
     }
 
 

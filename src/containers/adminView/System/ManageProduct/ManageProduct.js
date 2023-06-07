@@ -46,10 +46,11 @@ class ManageProduct extends Component {
         this.setState({
             isOpenedAddModal: false
         })
-        //    await  this.props.fetchAllProduct();
+        await this.props.fetchAllProduct();
     }
 
     handleEdit = (item) => {
+        console.log(item)
         this.setState({
             isOpenedEditModal: true,
             selectedProduct: item
@@ -60,12 +61,13 @@ class ManageProduct extends Component {
         this.setState({
             isOpenedEditModal: false
         })
-        // await this.fetchAllProduct();
+        await this.props.fetchAllProduct();
 
     }
 
     handleDelete = async (item) => {
         await this.props.deleteProduct(item.id)
+        await this.props.fetchAllProduct();
     }
 
     renderCategoryOfProduct = (item) => {
@@ -139,6 +141,7 @@ class ManageProduct extends Component {
     render() {
         let { isOpenedAddModal, isOpenedEditModal, selectedProduct } = this.state
 
+        console.log(this.props.allProductArr)
         return (
             <>
                 <div className='sharing-manage-container'>

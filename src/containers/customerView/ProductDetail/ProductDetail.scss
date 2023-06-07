@@ -71,7 +71,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
             .sharing-content{
                 display: flex;
-                align-items: center;
+                // align-items: center;
 
 
                 label{
@@ -82,7 +82,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 a{
                     color: #2489F4;
                     font-weight: bold;
-                    white-space: nowrap;
+                    // white-space: nowrap;
                 }
                 .sharing-text{
                     font-weight: bold;

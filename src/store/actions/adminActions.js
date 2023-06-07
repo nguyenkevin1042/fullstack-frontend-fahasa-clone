@@ -643,7 +643,6 @@ export const updateProduct = (inputData) => {
             if (res && res.errCode === 0) {
                 dispatch(updateProductSuccess(res));
                 toast.success(res.message)
-                dispatch(fetchAllProduct());
             } else {
                 dispatch(updateProductFail(res));
                 toast.error(res.message)

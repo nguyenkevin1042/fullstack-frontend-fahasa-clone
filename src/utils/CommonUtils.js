@@ -22,6 +22,8 @@ class CommonUtils {
         for (let index = 0; index < keyArr.length; index++) {
             inputName = inputName.split(keyArr[index]).join('-');
         }
+        // inputName = inputName.replace("'", 'a');
+        // inputName = inputName.replace('"', 'a');
 
         inputName = inputName.toLowerCase();
 

@@ -27,6 +27,12 @@ class SignInComponent extends Component {
             this.setState({
                 message: this.props.signInMessage
             })
+
+        }
+        if (prevProps.signInErrCode !== this.props.signInErrCode) {
+            if (this.props.signInErrCode === 0 && this.props.history) {
+                this.props.history.push("/home");
+            }
         }
     }
 
@@ -48,13 +54,14 @@ class SignInComponent extends Component {
         if (signInErrCode === 0 && this.props.history) {
             this.props.history.push("/home");
         }
+        this.props.closeAccountModal();
     }
 
 
     render() {
         let { email, password, message } = this.state;
 
-        let { isOpenSignInForm, handleOpenForgotPasswordForm, signInErrCode } = this.props;
+        let { isOpenSignInForm, handleOpenForgotPasswordForm, signInErrCode, signInMessage } = this.props;
 
         console.log(signInErrCode)
         return (

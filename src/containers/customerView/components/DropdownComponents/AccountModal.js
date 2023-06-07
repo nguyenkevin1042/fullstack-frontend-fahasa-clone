@@ -103,7 +103,8 @@ class AccountModal extends Component {
                         <div className='log-in-form-input'>
                             <SignInComponent
                                 isOpenSignInForm={loadSignInForm}
-                                handleOpenForgotPasswordForm={this.handleOpenForgotPasswordForm} />
+                                handleOpenForgotPasswordForm={this.handleOpenForgotPasswordForm}
+                                closeAccountModal={closeAccountModal} />
                             <SignUpComponent
                                 isOpenSignUpForm={loadSignUpForm} />
                             <ForgotPasswordComponent

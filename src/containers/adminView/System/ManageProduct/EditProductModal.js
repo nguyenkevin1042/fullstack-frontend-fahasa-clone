@@ -384,9 +384,9 @@ class EditProductModal extends Component {
             contentMarkdown: this.state.contentMarkdown,
         })
 
-        // if (this.props.actionResponse) {
-        //     this.props.closeModal()
-        // }
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal()
+        }
     }
 
     eventhandler = (data) => {
@@ -427,7 +427,7 @@ class EditProductModal extends Component {
             contentHTML } = this.state;
         let { isOpenedEditModal, closeModal, product, childCategory } = this.props
 
-        // console.log(this.props.actionResponse)
+        console.log(selectedProductType)
 
         return (
 
