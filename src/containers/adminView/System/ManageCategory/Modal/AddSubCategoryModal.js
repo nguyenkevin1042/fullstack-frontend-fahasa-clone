@@ -1,91 +1,82 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import './EditModal.scss';
-import _ from 'lodash';
+import { withRouter } from 'react-router';
+import { CommonUtils, languages } from '../../../../../utils'
+import { Modal } from 'reactstrap'
 import Select from 'react-select';
-import { CommonUtils, languages } from '../../../../utils'
+import './AddSubCategoryModal.scss';
+import * as actions from "../../../../../store/actions";
 
-import * as actions from "../../../../store/actions";
-
-
-class EditSubCategoryModal extends Component {
+class AddSubCategoryModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
             category: '',
             keyName: '',
             valueVI: '',
             valueEN: '',
-
-            errResponse: [],
-            selectedItem: ''
+            listCategory: [],
+            selectedCategory: '',
         };
     }
 
     componentDidMount() {
-        let dataSelect = this.buildDataInputSelect(this.props.selectedItem);
-        this.setState({
-            selectedItem: dataSelect
-        })
+        this.props.fetchAllCodesByType('category')
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        let { selectedItem } = this.props
         if (prevProps.lang !== this.props.lang) {
 
         }
 
-        if (prevProps.selectedItem !== this.props.selectedItem) {
+        if (prevProps.allCodesArr !== this.props.allCodesArr) {
+            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
             this.setState({
-                id: selectedItem.id,
-                category: selectedItem.category,
-                keyName: selectedItem.keyName,
-                valueVI: selectedItem.valueVI,
-                valueEN: selectedItem.valueEN,
+                listCategory: dataSelect
             })
         }
-
-        if (prevProps.selectedItem !== this.props.selectedItem) {
-            let dataSelect = this.buildDataInputSelect(this.props.selectedItem);
-            this.setState({
-                selectedItem: dataSelect
-            })
-        }
-
-        // if (prevProps.errResponse !== this.props.errResponse) {
-        //     this.setState({
-        //         message: this.props.errResponse.message
-        //     })
-        // }
-
-
     }
 
-    buildDataInputSelect = (inputData) => {
+    buildDataInputSelect = (inputData, type) => {
         let result = [];
         let language = this.props.lang;
 
+        if (inputData && inputData.length > 0) {
+            if (type === "category") {
+                inputData.map((item, index) => {
+                    let obj = {};
+                    let labelVI = item.valueVI;
+                    let labelEN = item.valueEN;
 
-        let obj = {};
-        let labelVI = inputData.valueVI;
-        let labelEN = inputData.valueEN;
-
-        obj.keyName = inputData.category;
-        obj.label = language === languages.VI ? labelVI : labelEN;
-        result.push(obj);
-
+                    obj.keyName = item.keyMap;
+                    obj.label = language === languages.VI ? labelVI : labelEN;
+                    result.push(obj);
+                });
+            }
+        }
 
         return result;
     }
 
-    handleChange = (selectedItem) => {
+    handleChange = (selectedCategory) => {
         this.setState({
-            category: selectedItem.keyName,
-            selectedItem: selectedItem
+            category: selectedCategory.keyName,
+            selectedCategory: selectedCategory
         })
+    }
+
+    handleSaveNewSubCategory = async () => {
+        await this.props.addNewSubCategory({
+            category: this.state.category,
+            keyName: this.state.keyName,
+            valueVI: this.state.valueVI,
+            valueEN: this.state.valueEN,
+        })
+        if (this.props.errResponse.errCode === 0) {
+            this.props.closeAddSubCategoryModel()
+        }
+
     }
 
     handleOnChangeInput = (event, key) => {
@@ -95,22 +86,15 @@ class EditSubCategoryModal extends Component {
         this.setState({ ...copyState });
     }
 
-    handleUpdate = async () => {
-        console.log(this.state)
-        // this.props.closeEditCodeModel();
-        // await this.props.updateCode({
-        //     id: this.state.id,
-        //     type: this.state.type,
-        //     keyMap: this.state.keyMap,
-        //     valueVI: this.state.valueVI,
-        //     valueEN: this.state.valueEN,
-        // })
-        // let { errResponse } = this.state;
+    handleClearAllInput = () => {
+        this.setState({
+            keyName: '',
+            // type: '',
+            valueVI: '',
+            valueEN: '',
+        })
 
 
-        // if (errResponse.errCode === 0) {
-        //     this.props.closeEditCodeModel();
-        // }
     }
 
     handleOnChangeInputValueVI = (event) => {
@@ -123,27 +107,26 @@ class EditSubCategoryModal extends Component {
     }
 
     render() {
-        let { category, keyName, valueVI, valueEN, selectedItem } = this.state;
-        let { isModalEditOpened, closeEditCodeModel,
-            listCategory } = this.props;
+        let { valueVI, valueEN, keyName, listCategory, selectedCategory,
+            isModalEditOpened, selectedItem } = this.state;
+        let { isModalAddOpened, closeAddSubCategoryModel } = this.props;
 
         return (
             <React.Fragment>
-
-                <Modal isOpen={isModalEditOpened}
+                <Modal isOpen={isModalAddOpened}
                     className={'sharing-edit-modal-container'}
                     size='lg'
                     centered>
 
                     <div className='sharing-edit-modal-title text-center'>
-                        <h3>Cập nhật danh mục phụ</h3>
+                        <h3>Thêm danh mục phụ</h3>
                     </div>
 
                     <div className='sharing-edit-section row'>
                         <div className='col-6 form-group'>
                             <label>Danh mục chính</label>
                             <Select
-                                value={selectedItem}
+                                value={selectedCategory}
                                 onChange={this.handleChange}
                                 options={listCategory}
                                 // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
@@ -169,16 +152,21 @@ class EditSubCategoryModal extends Component {
                                 value={valueEN}
                                 onChange={(event) => this.handleOnChangeInput(event, 'valueEN')} />
                         </div>
-                        <div className='col-6'>
+                        <div className='col-4'>
                             <button className='btn btn-primary'
-                                onClick={() => this.handleUpdate()}>Update</button>
+                                onClick={() => this.handleSaveNewSubCategory()}>Save</button>
                         </div>
-                        <div className='col-6 form-group'>
+                        <div className='col-4 form-group'>
+                            <button className='btn btn-primary'
+                                onClick={() => this.handleClearAllInput()} > Reset</button>
+                        </div>
+                        <div className='col-4 form-group'>
                             <button className='btn btn-secondary'
-                                onClick={closeEditCodeModel}>Close</button>
+                                onClick={closeAddSubCategoryModel}>Close</button>
                         </div>
                     </div>
                 </Modal >
+
             </React.Fragment >
 
         );
@@ -189,14 +177,16 @@ class EditSubCategoryModal extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
+        allCodesArr: state.admin.allCodesArr,
         errResponse: state.admin.errResponse
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateSubCategory: (inputData) => dispatch(actions.updateSubCategory(inputData)),
+        addNewSubCategory: (inputData) => dispatch(actions.addNewSubCategory(inputData)),
+        fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditSubCategoryModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddSubCategoryModal));

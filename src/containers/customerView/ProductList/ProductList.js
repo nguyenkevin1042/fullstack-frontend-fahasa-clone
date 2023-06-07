@@ -54,8 +54,6 @@ class ProductList extends Component {
             })
         }
 
-
-
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {

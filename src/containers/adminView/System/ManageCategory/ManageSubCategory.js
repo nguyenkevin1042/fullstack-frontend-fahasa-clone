@@ -2,26 +2,23 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './ManageCategory.scss';
-import { CommonUtils, KeyCodeUtils, languages } from '../../../../utils'
+import { CommonUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import Select from 'react-select';
 import EditSubCategoryModal from './EditSubCategoryModal';
+import AddSubCategoryModal from './Modal/AddSubCategoryModal';
 
 class ManageSubCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            category: '',
-            keyName: '',
-            valueVI: '',
-            valueEN: '',
             listCategory: [],
             listSubCategory: [],
             selectedCategory: '',
 
             selectedItem: '',
-            isModalOpened: false
-
+            isModalEditOpened: false,
+            isModalAddOpened: false
         };
     }
 
@@ -78,25 +75,11 @@ class ManageSubCategory extends Component {
         })
     }
 
-    handleSaveNewSubCategory = async () => {
-        await this.props.addNewSubCategory({
-            category: this.state.category,
-            keyName: this.state.keyName,
-            valueVI: this.state.valueVI,
-            valueEN: this.state.valueEN,
-        })
-        if (this.props.errResponse.errCode === 0) {
-            this.handleClearAllInput();
-            this.props.fetchAllSubCategory();
-            this.props.fetchAllCodesByType('category')
-        }
-
-    }
 
     handleEdit = (item) => {
         this.setState({
             selectedItem: item,
-            isModalOpened: true
+            isModalEditOpened: true
         })
     }
 
@@ -106,40 +89,25 @@ class ManageSubCategory extends Component {
 
     handleCloseEditModel = () => {
         this.setState({
-            isModalOpened: false
+            isModalEditOpened: false
         })
         this.props.fetchAllSubCategory();
-        // this.props.fetchAllCodesByType('category')
     }
 
-    handleOnChangeInput = (event, key) => {
-        let data = event.target.value;
-        let copyState = { ...this.state };
-        copyState[key] = data;
-        this.setState({ ...copyState });
-    }
-
-    handleClearAllInput = () => {
+    handleCloseAddModel = () => {
         this.setState({
-            keyName: '',
-            // type: '',
-            valueVI: '',
-            valueEN: '',
+            isModalAddOpened: false
         })
-
-
+        this.props.fetchAllSubCategory();
     }
 
-    handleOnChangeInputValueVI = (event) => {
-        let data = event.target.value
-        let keyName = CommonUtils.convertToKeyName(data)
+    handleOpenAddSubCategoryModal = () => {
         this.setState({
-            valueVI: data,
-            keyName: keyName
+            isModalAddOpened: true
         })
     }
 
-    renderSubCategoriesTableData() {
+    renderSubCategoriesTableData = () => {
         let { listSubCategory } = this.state
         return (
             <>
@@ -172,8 +140,7 @@ class ManageSubCategory extends Component {
     }
 
     render() {
-        let { valueVI, valueEN, keyName, listCategory, selectedCategory,
-            isModalOpened, selectedItem } = this.state;
+        let { listCategory, selectedCategory, isModalEditOpened, selectedItem, isModalAddOpened } = this.state;
 
         return (
             <React.Fragment>
@@ -182,44 +149,24 @@ class ManageSubCategory extends Component {
                         Quản lý danh mục phụ
                     </div>
 
-                    <div className='manage-category-add-section row'>
-                        <div className='col-6 form-group'>
-                            <label>Danh mục chính</label>
-                            <Select
-                                value={selectedCategory}
-                                onChange={this.handleChange}
-                                options={listCategory}
-                                // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
-                                name="selectedCategory"
-                            />
+                    <div className='sharing-manage-add'>
+                        <button className='btn btn-primary'
+                            onClick={() => this.handleOpenAddSubCategoryModal()}>Thêm danh mục phụ</button>
+                    </div>
 
-                        </div>
-                        <div className='col-6 form-group'>
-                            <label>Mã danh mục phụ</label>
-                            <input className='form-control'
-                                value={keyName}
-                                readOnly />
-                        </div>
-                        <div className='col-6 form-group'>
-                            <label>Tiếng Việt</label>
-                            <input className='form-control'
-                                value={valueVI}
-                                onChange={(event) => this.handleOnChangeInputValueVI(event)} />
-                        </div>
-                        <div className='col-6'>
-                            <label>Tiếng Anh</label>
-                            <input className='form-control'
-                                value={valueEN}
-                                onChange={(event) => this.handleOnChangeInput(event, 'valueEN')} />
-                        </div>
-                        <div className='col-6'>
-                            <button className='btn btn-primary'
-                                onClick={() => this.handleSaveNewSubCategory()}>Save</button>
-                        </div>
-                        <div className='col-6 form-group'>
-                            <button className='btn btn-primary'
-                                onClick={() => this.handleClearAllInput()} > Reset</button>
-                        </div>
+
+                    <div className='sharing-sort-category row'>
+                        {/* <div className='col-6 form-group'> */}
+                        <label>Tìm kiếm theo:</label>
+                        <Select
+                            value={selectedCategory}
+                            onChange={this.handleChange}
+                            options={listCategory}
+                            // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                            name="selectedCategory"
+                        />
+
+                        {/* </div> */}
                     </div>
 
                     <div className="row">
@@ -248,7 +195,10 @@ class ManageSubCategory extends Component {
                     </div>
                 </div>
 
-                <EditSubCategoryModal isModalOpened={isModalOpened}
+                <AddSubCategoryModal isModalAddOpened={isModalAddOpened}
+                    closeAddSubCategoryModel={this.handleCloseAddModel} />
+
+                <EditSubCategoryModal isModalEditOpened={isModalEditOpened}
                     selectedItem={selectedItem}
                     closeEditCodeModel={this.handleCloseEditModel}
                     listCategory={listCategory} />

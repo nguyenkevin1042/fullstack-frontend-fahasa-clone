@@ -12,6 +12,31 @@ body{
         font-size: 30px;
         font-weight: 600;
   }
+
+  .sharing-manage-add{
+    .add-btn{
+      padding: 10px;
+      height: fit-content;
+    }
+  }
+
+  .sharing-manage-sort{
+    margin-top: 20px;
+
+    .sharing-manage-sort-title{
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .sharing-sort-section{
+      display: flex;
+      align-items: center;
+
+      label{
+        text-align: center;
+      }
+    }
+  }
 }
 
 .manage-sharing-table{

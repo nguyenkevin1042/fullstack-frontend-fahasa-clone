@@ -14,6 +14,7 @@ class DropdownMenu extends Component {
             listCategory: [],
             selectedCategory: '',
             listSubCategory: [],
+            selectedChildCategory: [],
         };
     }
 
@@ -52,6 +53,13 @@ class DropdownMenu extends Component {
             let dataSelectSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
             this.setState({
                 listSubCategory: dataSelectSubCategory,
+            })
+        }
+
+        if (prevProps.childCategory !== this.props.childCategory ||
+            prevProps.lang !== this.props.lang) {
+            this.setState({
+                selectedChildCategory: this.props.childCategory[0],
             })
         }
     }
@@ -169,16 +177,27 @@ class DropdownMenu extends Component {
         )
     }
 
-    handleToProductList = (data) => {
-        if (this.props.history) {
-            this.props.history.push("/category/" + data);
-        }
+    handleToProductList = async (data) => {
+        await this.props.fetchChildCategoryByKeyName(data)
+        let { selectedChildCategory } = this.state
+        let subCategoryKeyName = selectedChildCategory.SubCategory.keyName;
+        let childCategoryKeyName = selectedChildCategory.keyName;
+        // localStorage.setItem('selectedCategory', JSON.stringify(this.state.selectedCategory))
+        // localStorage.setItem('selectedSubCategory', subCategoryKeyName)
+        // localStorage.setItem('selectedChildCategory', childCategoryKeyName)
+
+        // if (this.props.history) {
+        //     this.props.history.push("/category/" + data);
+        // }
     }
 
 
 
 
     render() {
+        // let { childCategory } = this.props
+        // console.log(this.state.selectedChildCategory)
+        // console.log(this.props.childCategory)
         return (
             <div className='dropdown-menu-container'>
                 <div className='row'>
@@ -205,7 +224,8 @@ const mapStateToProps = state => {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
-        allChildCategoryArr: state.admin.allChildCategoryArr
+        allChildCategoryArr: state.admin.allChildCategoryArr,
+        childCategory: state.admin.childCategory,
     };
 };
 
@@ -213,7 +233,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         fetchAllCodesById: (categoryId) => dispatch(actions.fetchAllCodesById(categoryId)),
-        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category))
+        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
+        fetchChildCategoryByKeyName: (keyName) => dispatch(actions.fetchChildCategoryByKeyName(keyName)),
     };
 };
 

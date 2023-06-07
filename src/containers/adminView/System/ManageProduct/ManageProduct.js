@@ -6,6 +6,7 @@ import AddProductModal from './AddProductModal';
 import EditProductModal from './EditProductModal';
 import * as actions from "../../../../store/actions";
 import { languages } from '../../../../utils';
+import Select from 'react-select';
 
 class ManageProduct extends Component {
     constructor(props) {
@@ -14,12 +15,17 @@ class ManageProduct extends Component {
             isOpenedAddModal: false,
             isOpenedEditModal: false,
             listProduct: [],
-            selectedProduct: ''
+            selectedProduct: '',
+
+            listCategory: [], selectedCategory: '',
+            listSubCategory: [], selectedSubCategory: '',
+            listChildCategory: [], selectedChildCategory: '',
         };
     }
 
     async componentDidMount() {
         await this.props.fetchAllProduct();
+        // await this.props.fetchAllCodesByType('category')
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -33,7 +39,96 @@ class ManageProduct extends Component {
             })
         }
 
+        if (prevProps.allCodesArr !== this.props.allCodesArr) {
+            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
+            this.setState({
+                listCategory: dataSelect
+            })
+        }
 
+        if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
+            let dataSelect = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
+            this.setState({
+                listSubCategory: dataSelect
+            })
+        }
+
+        if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr) {
+            let dataSelect = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
+            this.setState({
+                listChildCategory: dataSelect
+            })
+        }
+
+
+    }
+
+    buildDataInputSelect = (inputData, type) => {
+        let result = [];
+        let language = this.props.lang;
+
+        if (inputData && inputData.length > 0) {
+            if (type === "category") {
+                inputData.map((item, index) => {
+                    let obj = {};
+                    let labelVI = item.valueVI;
+                    let labelEN = item.valueEN;
+
+                    obj.keyMap = item.keyMap;
+                    obj.label = language === languages.VI ? labelVI : labelEN;
+                    result.push(obj);
+                });
+            }
+            if (type === "subCategory") {
+                inputData.map((item, index) => {
+                    let obj = {};
+                    let labelVI = item.valueVI;
+                    let labelEN = item.valueEN;
+
+                    obj.keyName = item.keyName;
+                    obj.label = language === languages.VI ? labelVI : labelEN;
+                    result.push(obj);
+                });
+            }
+            if (type === "childCategory") {
+                inputData.map((item, index) => {
+                    let obj = {};
+                    let labelVI = item.valueVI;
+                    let labelEN = item.valueEN;
+
+                    obj.keyName = item.keyName;
+                    obj.label = language === languages.VI ? labelVI : labelEN;
+                    result.push(obj);
+                });
+            }
+
+        }
+
+        return result;
+    }
+
+    handleChangeCategory = async (selectedCategory) => {
+        this.setState({
+            selectedCategory: selectedCategory,
+            selectedSubCategory: '',
+            selectedChildCategory: ''
+        })
+        // await this.props.fetchAllSubCategoryByCategory(selectedCategory.keyMap);
+    }
+
+    handleChangeSubCategory = async (selectedSubCategory) => {
+        this.setState({
+            selectedSubCategory: selectedSubCategory,
+            selectedChildCategory: ''
+        })
+        await this.props.fetchAllChildCategoryBySubCategory(selectedSubCategory.keyName)
+    }
+
+    handleChangeChildCategory = (selectedChildCategory) => {
+        this.setState({
+            // categoryKeyName: selectedChildCategory.keyName,
+            selectedChildCategory: selectedChildCategory
+        })
     }
 
     handleOpenAddProductModal = () => {
@@ -139,18 +234,58 @@ class ManageProduct extends Component {
 
 
     render() {
-        let { isOpenedAddModal, isOpenedEditModal, selectedProduct } = this.state
+        let { isOpenedAddModal, isOpenedEditModal, selectedProduct,
+            listCategory, selectedCategory,
+            listSubCategory, selectedSubCategory,
+            listChildCategory, selectedChildCategory, } = this.state
 
-        console.log(this.props.allProductArr)
+        console.log(selectedCategory)
         return (
             <>
                 <div className='sharing-manage-container'>
                     <div className='sharing-manage-title'>
                         Quản lý sản phẩm
                     </div>
+
                     <div className='sharing-manage-add'>
-                        <button className='btn btn-primary'
+                        <button className='add-btn btn btn-primary'
                             onClick={() => this.handleOpenAddProductModal()}>Thêm sản phẩm mới</button>
+                    </div>
+
+                    <div className='sharing-manage-sort'>
+                        <div className='sharing-manage-sort-title'>
+                            Tìm kiếm sản phẩm
+                        </div>
+
+                        <div className='sharing-sort-section'>
+                            <label className='col-3 form-group'>Tìm theo danh mục:</label>
+                            <div className='col-3 form-group'>
+                                <Select
+                                    value={selectedCategory}
+                                    onChange={this.handleChangeCategory}
+                                    options={listCategory}
+                                    placeholder={'Danh mục chính'}
+                                    name="selectedCategory" />
+                            </div>
+                            <div className='col-3 form-group'>
+                                <Select
+                                    value={selectedSubCategory}
+                                    onChange={this.handleChangeSubCategory}
+                                    options={listSubCategory}
+                                    placeholder={'Danh mục phụ'}
+                                    name="selectedSubCategory" />
+                            </div>
+                            <div className='col-3 form-group'>
+                                <Select
+                                    value={selectedChildCategory}
+                                    onChange={this.handleChangeChildCategory}
+                                    options={listChildCategory}
+                                    placeholder={'Danh mục con'}
+                                    name="selectedChildCategory" />
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div className='manage-sharing-table'>
@@ -190,13 +325,20 @@ class ManageProduct extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        allProductArr: state.admin.allProductArr
+        allProductArr: state.admin.allProductArr,
+        allCodesArr: state.admin.allCodesArr,
+        allSubCategoryArr: state.admin.allSubCategoryArr,
+        allChildCategoryArr: state.admin.allChildCategoryArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
+        fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
+        fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
+        fetchAllChildCategory: () => dispatch(actions.fetchAllChildCategory()),
+        fetchAllChildCategoryBySubCategory: (subCat) => dispatch(actions.fetchAllChildCategoryBySubCategory(subCat)),
         deleteProduct: (inputId) => dispatch(actions.deleteProduct(inputId))
     };
 };
