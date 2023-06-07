@@ -18,12 +18,10 @@ class ProductList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // categoryKeyName: '',
-            // subCategoryKeyName: '',
-            // childCategoryKeyName: '',
             keyName: 'all',
             listCategory: [],
             listSubCategory: [],
+            listChildCategory: [],
             selectedCategory: '',
             selectedSubCategory: '',
             selectedChildCategory: '',
@@ -44,10 +42,21 @@ class ProductList extends Component {
         if (this.props.match.params.keyName === 'all') {
             await this.props.fetchAllProduct()
         } else {
+            // this.setState({
+            //     keyName: this.props.match.params.keyName
+            // })
             this.setState({
-                keyName: this.props.match.params.keyName
+                keyName: localStorage.getItem('keyName'),
+                listCategory: JSON.parse(localStorage.getItem('listCategory')),
+                listSubCategory: JSON.parse(localStorage.getItem('listSubCategory')),
+                listChildCategory: JSON.parse(localStorage.getItem('listChildCategory')),
+                selectedCategory: JSON.parse(localStorage.getItem('selectedCategory')),
+                selectedSubCategory: JSON.parse(localStorage.getItem('selectedSubCategory')),
+                selectedChildCategory: JSON.parse(localStorage.getItem('selectedChildCategory')),
             })
         }
+
+
 
     }
 
@@ -84,6 +93,7 @@ class ProductList extends Component {
                     keyName: this.props.match.params.keyName
                 })
             }
+            this.setItemsforLocalStorage()
         }
 
         if (prevProps.allProductArr !== this.props.allProductArr ||
@@ -92,7 +102,6 @@ class ProductList extends Component {
                 listProduct: this.props.allProductArr,
 
             })
-
         }
     }
 
@@ -148,10 +157,12 @@ class ProductList extends Component {
                 selectedCategory: '',
                 selectedSubCategory: '',
                 selectedChildCategory: '',
+                listSubCategory: []
             })
 
             this.props.history.push("/category/all");
         }
+
     }
 
     handleOnClickCategory = (item) => {
@@ -165,10 +176,7 @@ class ProductList extends Component {
                 selectedChildCategory: '',
                 listSubCategory: dataSubCategory,
             })
-
             this.props.history.push("/category/" + item.keyName);
-        } else {
-            this.props.history.push("/category/all");
         }
     }
 
@@ -184,8 +192,6 @@ class ProductList extends Component {
             })
 
             this.props.history.push("/category/" + item.keyName);
-        } else {
-            this.props.history.push("/category/all");
         }
     }
 
@@ -195,11 +201,20 @@ class ProductList extends Component {
                 keyName: item.keyName,
                 selectedChildCategory: item,
             })
+
             this.props.history.push("/category/" + item.keyName);
-        } else {
-            // this.props.history.push("/category/all");
-            // }
         }
+    }
+
+
+    setItemsforLocalStorage = () => {
+        localStorage.setItem('keyName', this.state.keyName)
+        localStorage.setItem('selectedCategory', JSON.stringify(this.state.selectedCategory))
+        localStorage.setItem('selectedSubCategory', JSON.stringify(this.state.selectedSubCategory))
+        localStorage.setItem('selectedChildCategory', JSON.stringify(this.state.selectedChildCategory))
+        localStorage.setItem('listCategory', JSON.stringify(this.state.listCategory))
+        localStorage.setItem('listSubCategory', JSON.stringify(this.state.listSubCategory))
+        localStorage.setItem('listChildCategory', JSON.stringify(this.state.listChildCategory))
     }
 
     renderCategoryList = () => {
@@ -217,7 +232,7 @@ class ProductList extends Component {
                         <FormattedMessage id="customer.product-list.category.all-category" />
                     </div>
 
-                    <div className='list-category'>
+                    <div className='list-all-category'>
                         {keyName === 'all' && this.renderMainCategoryList(listCategory)}
                         {keyName === selectedCategory.keyName && this.renderSubCategoryList(listSubCategory)}
                         {keyName === selectedSubCategory.keyName && this.renderChildCategoryList(listChildCategory)}
@@ -231,7 +246,7 @@ class ProductList extends Component {
         let { keyName } = this.state
         return (
             <>
-                <ul>
+                <ul className='list-category'>
                     {list && list.length > 0 &&
                         list.map((item, index) => (
                             <li key={index}
@@ -249,14 +264,15 @@ class ProductList extends Component {
 
     renderSubCategoryList = (list) => {
         let { keyName, selectedCategory } = this.state
-        console.log(keyName, selectedCategory)
+
         return (
             <>
                 <div className={keyName === selectedCategory.keyName ?
-                    'active' : 'hover'}>
+                    'list-category active' : 'list-category hover'}
+                    onClick={() => this.handleOnClickCategory()}>
                     {selectedCategory.label}
                 </div>
-                <ul>
+                <ul className='list-sub-category'>
                     {list && list.length > 0 &&
                         list.map((item, index) => (
                             <li key={index}
@@ -276,15 +292,15 @@ class ProductList extends Component {
         return (
             <>
                 <div className={keyName === selectedCategory.keyName ?
-                    'active' : 'hover'}
-                    onClick={() => this.handleOnClickSubCategory(selectedCategory)}>
+                    'list-category active' : 'list-category hover'}
+                    onClick={() => this.handleOnClickCategory(selectedCategory)}>
                     {selectedCategory.label}
                 </div>
                 <div className={keyName === selectedSubCategory.keyName ?
-                    'active' : 'hover'}>
+                    'list-sub-category active' : 'list-sub-category hover'}>
                     {selectedSubCategory.label}
                 </div >
-                <ul>
+                <ul className='list-child-category'>
                     {list && list.length > 0 &&
                         list.map((item, index) => (
                             <li key={index}
@@ -342,10 +358,7 @@ class ProductList extends Component {
         )
     }
 
-
     render() {
-        let { isLoading } = this.state
-        console.log(this.state)
 
         return (
             <React.Fragment>
