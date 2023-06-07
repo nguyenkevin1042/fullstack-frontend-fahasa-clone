@@ -12,6 +12,7 @@ const initialState = {
     allChildCategoryArr: [],
     allProductArr: [],
     errResponse: '',
+    selectedCategory: '',
     childCategory: '',
     actionResponse: ''
 }
@@ -97,6 +98,17 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_FAIL:
             state.allCodesArr = []
             state.bookLayoutArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_ALL_CODE_BY_KEY_MAP_SUCCESS:
+            state.selectedCategory = action.categoryResult
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_CODE_BY_KEY_MAP_FAIL:
+            state.selectedCategory = ''
             return {
                 ...state,
             }
@@ -218,6 +230,19 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_PRODUCT_FAIL:
             state.allProductArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_PRODUCT_BY_CATEGORY_SUCCESS:
+            state.actionResponse = action.response
+            state.allProductArr = action.response.allProducts
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_PRODUCT_BY_CATEGORY_FAIL:
+            state.allProductArr = []
+            state.actionResponse = action.response
             return {
                 ...state,
             }

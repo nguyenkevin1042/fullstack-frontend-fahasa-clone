@@ -36,6 +36,14 @@ const getAllCodesByIdAPI = (inputId) => {
     });
 }
 
+const getAllCodesByKeyMapAPI = (inputKeyMap) => {
+    return axios.get("/api/get-code-by-key-map", {
+        params: {
+            keyMap: inputKeyMap
+        }
+    });
+}
+
 const deleteCodeAPI = (inputId) => {
     return axios.delete("/api/delete-code", {
         params: {
@@ -123,6 +131,11 @@ const getProductByKeyNameAPI = (inputKeyName) => {
         { params: { keyName: inputKeyName } });
 }
 
+const getProductByCategoryAPI = (inputCategory) => {
+    return axios.get("/api/get-all-product-by-category",
+        { params: { category: inputCategory } });
+}
+
 const deleteProductAPI = (inputId) => {
     return axios.delete("/api/delete-product",
         { params: { id: inputId } }
@@ -132,11 +145,12 @@ const deleteProductAPI = (inputId) => {
 
 export {
     createNewUserAPI, adminLoginAPI, customerLoginAPI,
-    addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI,
+    addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, getAllCodesByKeyMapAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI, editSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI,
     deleteChildCategoryAPI, getChildCategoryByKeyNameAPI,
-    addNewProductAPI, updateProductAPI, getAllProductAPI, getProductByKeyNameAPI, deleteProductAPI
+    addNewProductAPI, updateProductAPI, getAllProductAPI,
+    getProductByKeyNameAPI, getProductByCategoryAPI, deleteProductAPI
 };

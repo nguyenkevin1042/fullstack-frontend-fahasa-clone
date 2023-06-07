@@ -6,7 +6,7 @@ import {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI, getChildCategoryByKeyNameAPI, updateProductAPI
+    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI, getChildCategoryByKeyNameAPI, updateProductAPI, getAllCodesByKeyMapAPI, getProductByCategoryAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -183,6 +183,34 @@ export const fetchAllCodesByIdSuccess = (allCode) => ({
 
 export const fetchAllCodesByIdFail = () => ({
     type: actionTypes.FETCH_ALL_CODE_BY_ID_FAIL
+})
+
+//FETCH ALL CODES BY KEYMAP
+export const fetchAllCodesByKeyMap = (inputKeyMap) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllCodesByKeyMapAPI(inputKeyMap);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllCodesByKeyMapSuccess(res.data));
+            } else {
+                dispatch(fetchAllCodesByIdFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllCodesByKeyMapFail());
+            console.log("fetchAllCodesByKeyMap Error: ", error)
+        }
+    }
+}
+
+export const fetchAllCodesByKeyMapSuccess = (response) => ({
+    type: actionTypes.FETCH_ALL_CODE_BY_KEY_MAP_SUCCESS,
+    categoryResult: response
+})
+
+export const fetchAllCodesByKeyMapFail = () => ({
+    type: actionTypes.FETCH_ALL_CODE_BY_KEY_MAP_FAIL
 })
 
 // DELETE CODE
@@ -602,6 +630,36 @@ export const fetchAllProductSuccess = (data) => ({
 export const fetchAllProductFail = () => ({
     type: actionTypes.FETCH_ALL_PRODUCT_FAIL
 })
+
+//FETCH ALL PRODUCTS
+export const fetchAllProductByCategory = (inputCategory) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getProductByCategoryAPI(inputCategory);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllProductByCategorySuccess(res));
+            } else {
+                dispatch(fetchAllProductByCategoryFail(res));
+            }
+        } catch (error) {
+            dispatch(fetchAllProductByCategoryFail(res));
+            console.log("fetchAllProductByCategory Error: ", error)
+        }
+    }
+}
+
+export const fetchAllProductByCategorySuccess = (response) => ({
+    type: actionTypes.FETCH_PRODUCT_BY_CATEGORY_SUCCESS,
+    response: response
+})
+
+export const fetchAllProductByCategoryFail = (response) => ({
+    type: actionTypes.FETCH_PRODUCT_BY_CATEGORY_FAIL,
+    response: response
+})
+
 
 //DELETE PPRODUCT
 export const deleteProduct = (inputId) => {

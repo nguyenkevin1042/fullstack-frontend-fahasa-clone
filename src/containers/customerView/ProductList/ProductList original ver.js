@@ -36,6 +36,7 @@ class ProductList extends Component {
     }
 
     async componentDidMount() {
+
         await this.props.fetchAllCodesByType('category')
 
         let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
@@ -45,7 +46,7 @@ class ProductList extends Component {
 
         if (this.props.match.params.keyName === 'all') {
             localStorage.setItem('keyName', this.state.keyName)
-            await this.props.fetchAllProduct()
+            // await this.props.fetchAllProduct()
         } else {
 
             this.setState({
@@ -68,6 +69,7 @@ class ProductList extends Component {
             //     childCategoryKeyName: localStorage.getItem('selectedChildCategory'),
             // })
         }
+
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -75,14 +77,14 @@ class ProductList extends Component {
 
         }
 
-        // if (prevState.categoryKeyName !== this.state.keyName) {
-        //     // await this.props.fetchAllSubCategoryByCategory(this.state.categoryKeyName)
-        //     await this.props.fetchAllCodesByKeyMap(this.state.keyName)
-        //     let dataSelect = this.buildDataInputSelect(this.props.selectedCategory, "category");
-        //     this.setState({
-        //         selectedCategory: dataSelect
-        //     })
-        // }
+        if (prevState.categoryKeyName !== this.state.keyName) {
+            // await this.props.fetchAllSubCategoryByCategory(this.state.categoryKeyName)
+            await this.props.fetchAllCodesByKeyMap(this.state.keyName)
+            let dataSelect = this.buildDataInputSelect(this.props.selectedCategory, "category");
+            this.setState({
+                selectedCategory: dataSelect
+            })
+        }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr ||
             prevProps.lang !== this.props.lang) {
@@ -188,7 +190,6 @@ class ProductList extends Component {
     }
 
     handleOnClickCategory = (item) => {
-
         if (item != undefined && this.props.history) {
             let dataSubCategory = this.buildDataInputSelect(item.subCategories, "subCategory");
 
@@ -198,13 +199,10 @@ class ProductList extends Component {
                 selectedCategory: item,
                 selectedSubCategory: '',
                 selectedChildCategory: '',
-                listSubCategory: dataSubCategory
+                listSubCategory: dataSubCategory,
             })
             this.props.history.push("/category/" + item.keyName);
-            this.props.fetchAllProductByCategory(item.keyName)
-
         }
-
     }
 
     handleOnClickSubCategory = (item) => {
@@ -268,7 +266,7 @@ class ProductList extends Component {
                         {keyName === 'all' && this.renderMainCategoryList(listCategory)}
                         {keyName === categoryKeyName && this.renderSubCategoryList(listSubCategory)}
                         {keyName === subCategoryKeyName && this.renderChildCategoryList(listChildCategory)}
-                        {keyName === childCategoryKeyName && this.renderChildCategoryList(listChildCategory)}
+                        {/* {keyName === childCategoryKeyName && this.renderChildCategoryList(listChildCategory)} */}
 
                         {/* {keyName === 'all' && this.renderMainCategoryList(listCategory)}
                         {keyName === selectedCategory.keyName && this.renderSubCategoryList(listSubCategory)}
@@ -398,9 +396,9 @@ class ProductList extends Component {
     }
 
     render() {
-        console.log(this.props.actionResponse)
 
-        let { isLoading } = this.state
+        console.log(this.state.keyName)
+
         return (
             <React.Fragment>
                 <Header />
@@ -427,25 +425,11 @@ class ProductList extends Component {
                                     name="selectedCategory" />
                             </div>
                             {/* LIST PRODUCT */}
-                            {/* <LoadingOverlay
-                                active={isLoading}
-                                spinner
-                                styles={{
-                                    spinner: (base) => ({
-                                        ...base,
-                                        width: '100px',
-                                        '& svg circle': {
-                                            stroke: 'rgba(255, 0, 0, 0.5)'
-                                        }
-                                    })
-                                }}
-                                text='Loading your content...'> */}
                             <div className='container'>
                                 <div className='row'>
                                     {this.renderProductList()}
                                 </div>
                             </div>
-                            {/* </LoadingOverlay> */}
                         </div>
                     </div>
 
@@ -453,9 +437,6 @@ class ProductList extends Component {
 
                 <SignUpNewletter />
                 <Footer />
-
-
-
 
             </React.Fragment >
 
@@ -470,7 +451,6 @@ const mapStateToProps = state => {
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
         allProductArr: state.admin.allProductArr,
-        actionResponse: state.admin.actionResponse,
         selectedCategory: state.admin.selectedCategory
     };
 };
@@ -481,7 +461,6 @@ const mapDispatchToProps = dispatch => {
         fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
         fetchAllCodesByKeyMap: (inputKeyMap) => dispatch(actions.fetchAllCodesByKeyMap(inputKeyMap)),
-        fetchAllProductByCategory: (inputCategory) => dispatch(actions.fetchAllProductByCategory(inputCategory)),
 
     };
 };
