@@ -104,9 +104,22 @@ class DropdownMenu extends Component {
         })
     }
 
-    // hanldeRedirectToAllChildCategory = (item) => {
-    //     console.log(childCategoryData)
-    // }
+    hanldeRedirectToSubCategoryProductList = (event, item) => {
+        let { selectedCategory } = this.state
+        event.preventDefault();
+        if (this.props.history) {
+            this.props.history.push("/" + selectedCategory.keyName + "/" + item.keyName);
+        }
+    }
+
+    hanldeRedirectToChildCategoryProductList = (event, subCategoryItem, item) => {
+        let { selectedCategory } = this.state
+        event.preventDefault();
+        if (this.props.history) {
+            this.props.history.push("/" + selectedCategory.keyName
+                + "/" + subCategoryItem.keyName + "/" + item.keyName);
+        }
+    }
 
 
     renderCategoryList = () => {
@@ -131,7 +144,6 @@ class DropdownMenu extends Component {
         let language = this.props.lang;
 
         return (
-
             <>
                 <div className='right-menu-title'>
                     {selectedCategory.label}
@@ -139,17 +151,18 @@ class DropdownMenu extends Component {
                 <div className='right-menu-sub-category'>
                     <div className='row'>
                         {listSubCategory && listSubCategory.length > 0 &&
-                            listSubCategory.map((item, index) => (
+                            listSubCategory.map((subCategoryItem, index) => (
                                 <div className='sub-category-item col-md-3' key={index}>
-                                    <div className='sub-category-title'>
-                                        {item.label}
+                                    <div className='sub-category-title'
+                                        onClick={(event) => this.hanldeRedirectToSubCategoryProductList(event, subCategoryItem)}>
+                                        {subCategoryItem.label}
                                     </div>
                                     <div>
                                         <ul className='child-category-list'>
-                                            {item.childCategoryData && item.childCategoryData.length > 0 &&
-                                                item.childCategoryData.map((item, index) => (
+                                            {subCategoryItem.childCategoryData && subCategoryItem.childCategoryData.length > 0 &&
+                                                subCategoryItem.childCategoryData.map((item, index) => (
                                                     <li key={index} className='child-category-item'
-                                                        onClick={() => this.handleToProductList(item.keyName)}>
+                                                        onClick={(event) => this.hanldeRedirectToChildCategoryProductList(event, subCategoryItem, item)}>
                                                         {language === languages.VI ? item.valueVI : item.valueEN}
                                                     </li>
                                                 ))
@@ -158,8 +171,8 @@ class DropdownMenu extends Component {
                                     </div>
 
                                     <div className='view-all-child-category'>
-                                        {item.childCategoryData && item.childCategoryData.length > 0 ?
-                                            <p onClick={() => this.handleToProductList(item.keyName)}>
+                                        {subCategoryItem.childCategoryData && subCategoryItem.childCategoryData.length > 0 ?
+                                            <p onClick={(event) => this.hanldeRedirectToSubCategoryProductList(event, subCategoryItem)}>
                                                 <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
                                             </p> :
                                             <></>
@@ -176,25 +189,6 @@ class DropdownMenu extends Component {
             </>
         )
     }
-
-    handleToProductList = async (data) => {
-        console.log(data)
-        console.log(this.state)
-        // await this.props.fetchChildCategoryByKeyName(data)
-        let { selectedChildCategory } = this.state
-        // let subCategoryKeyName = selectedChildCategory.SubCategory.keyName;
-        // let childCategoryKeyName = selectedChildCategory.keyName;
-        // localStorage.setItem('selectedCategory', JSON.stringify(this.state.selectedCategory))
-        // localStorage.setItem('selectedSubCategory', subCategoryKeyName)
-        // localStorage.setItem('selectedChildCategory', childCategoryKeyName)
-
-        // if (this.props.history) {
-        //     this.props.history.push("/category/" + data);
-        // }
-    }
-
-
-
 
     render() {
         return (

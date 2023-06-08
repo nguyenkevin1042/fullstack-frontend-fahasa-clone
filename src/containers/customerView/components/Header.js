@@ -45,7 +45,8 @@ class Header extends Component {
             selectedLanguage: '',
             hoverMenu: false,
             listCategory: [],
-            selectedCategory: ''
+            selectedCategory: '',
+            visible: false,
         };
     }
 

@@ -35,6 +35,7 @@ class ProductList extends Component {
     async componentDidMount() {
         let { category, subCategory, childCategory } = this.props.match.params
 
+        console.log(category, subCategory, childCategory)
         if (category === 'all-category') {
             this.setState({
                 keyName: 'all-category',
@@ -110,9 +111,9 @@ class ProductList extends Component {
 
         if (this.props.match.params.category &&
             prevProps.match.params.category !== this.props.match.params.category) {
-            console.log(category)
-            console.log(subCategory)
-            console.log(childCategory)
+            // console.log(category)
+            // console.log(subCategory)
+            // console.log(childCategory)
 
 
             if (this.props.match.params.category === 'all-category') {
@@ -125,7 +126,10 @@ class ProductList extends Component {
                 this.setState({
                     keyName: category,
                 })
-                // await this.props.fetchAllSubCategoryByCategory(category)
+
+                await this.props.fetchAllCodesByKeyMap(category)
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllSubCategoryByCategory(category)
 
             }
         }
@@ -141,13 +145,18 @@ class ProductList extends Component {
             this.setState({
                 keyName: subCategory,
             })
+
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+            await this.props.fetchAllSubCategoryByKeyName(subCategory)
         }
 
         if (prevProps.match.params.childCategory !== this.props.match.params.childCategory) {
             this.setState({
                 keyName: childCategory,
             })
-
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+            await this.props.fetchAllSubCategoryByKeyName(subCategory)
+            await this.props.fetchChildCategoryByKeyName(childCategory)
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr ||
