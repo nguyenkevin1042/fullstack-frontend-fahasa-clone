@@ -13,6 +13,7 @@ const initialState = {
     allProductArr: [],
     errResponse: '',
     selectedCategory: '',
+    subCategory: '',
     childCategory: '',
     actionResponse: ''
 }
@@ -103,7 +104,6 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_ALL_CODE_BY_KEY_MAP_SUCCESS:
-            // state.selectedCategory = action.categoryResult
             state.allCodesArr = action.categoryResult
             return {
                 ...state,
@@ -169,6 +169,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_KEY_NAME_SUCCESS:
+            state.subCategory = action.subCategoryResult
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_KEY_NAME_FAIL:
+            state.subCategory = []
+            return {
+                ...state,
+            }
+
         case actionTypes.FETCH_ALL_SUB_CATEGORY_BY_ID_SUCCESS:
             state.allSubCategoryArr = action.allSubCategoryData
             return {
@@ -214,7 +225,7 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_CHILD_CATEGORY_BY_KEY_NAME_SUCCESS:
-            state.childCategory = action.childCategoryData
+            state.childCategory = action.childCategoryResult
             return {
                 ...state,
             }

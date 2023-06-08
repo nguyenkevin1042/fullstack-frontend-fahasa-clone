@@ -6,7 +6,7 @@ import {
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
     getAllSubCategoryAPI,
     getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
-    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI, getChildCategoryByKeyNameAPI, updateProductAPI, getAllCodesByKeyMapAPI, getProductByCategoryAPI
+    addNewProductAPI, getAllProductAPI, editSubCategoryAPI, deleteProductAPI, getChildCategoryByKeyNameAPI, updateProductAPI, getAllCodesByKeyMapAPI, getProductByCategoryAPI, getAllSubCategoryByKeyNameAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -333,6 +333,34 @@ export const fetchAllSubCategoryByCategoryFail = () => ({
     type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_CATEGORY_FAIL
 })
 
+//FETCH ALL SUB CATEGORY BY CATEGORY
+export const fetchAllSubCategoryByKeyName = (keyName) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllSubCategoryByKeyNameAPI(keyName);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllSubCategoryByKeyNameSuccess(res.data));
+            } else {
+                dispatch(fetchAllSubCategoryByKeyNameFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllSubCategoryByKeyNameFail());
+            console.log("fetchAllSubCategoryByKeyName Error: ", error)
+        }
+    }
+}
+
+export const fetchAllSubCategoryByKeyNameSuccess = (response) => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_KEY_NAME_SUCCESS,
+    subCategoryResult: response
+})
+
+export const fetchAllSubCategoryByKeyNameFail = () => ({
+    type: actionTypes.FETCH_ALL_SUB_CATEGORY_BY_KEY_NAME_FAIL
+})
+
 //ADD NEW SUB CATEGORY
 export const addNewSubCategory = (inputData) => {
     return async (dispatch, getState) => {
@@ -502,7 +530,7 @@ export const fetchChildCategoryByKeyName = (inputKeyName) => {
 
 export const fetchChildCategoryByKeyNameSuccess = (childCategoryData) => ({
     type: actionTypes.FETCH_CHILD_CATEGORY_BY_KEY_NAME_SUCCESS,
-    childCategoryData: childCategoryData
+    childCategoryResult: childCategoryData
 })
 
 export const fetchChildCategoryByKeyNameFail = () => ({

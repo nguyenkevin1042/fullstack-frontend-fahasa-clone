@@ -179,6 +179,7 @@ class DropdownMenu extends Component {
 
     handleToProductList = async (data) => {
         console.log(data)
+        console.log(this.state)
         // await this.props.fetchChildCategoryByKeyName(data)
         let { selectedChildCategory } = this.state
         // let subCategoryKeyName = selectedChildCategory.SubCategory.keyName;
@@ -196,9 +197,6 @@ class DropdownMenu extends Component {
 
 
     render() {
-        // let { childCategory } = this.props
-        // console.log(this.state.selectedChildCategory)
-        // console.log(this.props.childCategory)
         return (
             <div className='dropdown-menu-container'>
                 <div className='row'>

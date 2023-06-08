@@ -35,32 +35,68 @@ class ProductList extends Component {
     async componentDidMount() {
         let { category, subCategory, childCategory } = this.props.match.params
 
-
-
         if (category === 'all-category') {
             this.setState({
                 keyName: 'all-category',
             })
             await this.props.fetchAllCodesByType('category')
             await this.props.fetchAllProduct()
-        } else {
+        }
+
+        if (category != 'all-category') {
             this.setState({
                 keyName: category,
             })
             await this.props.fetchAllCodesByKeyMap(category)
+            await this.props.fetchAllCodesByType('category')
             await this.props.fetchAllSubCategoryByCategory(category)
         }
+
+        if (subCategory) {
+            this.setState({
+                keyName: subCategory,
+            })
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+            await this.props.fetchAllSubCategoryByKeyName(subCategory)
+        }
+
+        if (childCategory) {
+            this.setState({
+                keyName: childCategory,
+            })
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+            await this.props.fetchAllSubCategoryByKeyName(subCategory)
+            await this.props.fetchChildCategoryByKeyName(childCategory)
+        }
+
+        // if (category === 'all-category') {
+        //     this.setState({
+        //         keyName: 'all-category',
+        //     })
+        //     await this.props.fetchAllCodesByType('category')
+        //     await this.props.fetchAllProduct()
+        // } else {
+        //     this.setState({
+        //         keyName: category,
+        //     })
+        // await this.props.fetchAllCodesByKeyMap(category)
+        // await this.props.fetchAllSubCategoryByCategory(category)
+        // }
 
         // if (subCategory !== undefined || subCategory !== '') {
         //     this.setState({
         //         keyName: subCategory,
         //     })
+        //     await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+        //     await this.props.fetchAllSubCategoryByKeyName(subCategory)
+
         // }
 
         // if (childCategory !== undefined || childCategory !== '') {
         //     this.setState({
         //         keyName: childCategory,
         //     })
+        //     await this.props.fetchChildCategoryByKeyName(childCategory)
         // }
 
 
@@ -72,32 +108,42 @@ class ProductList extends Component {
 
         }
 
-        if (prevProps.match.params.category !== this.props.match.params.category ||
-            prevProps.lang !== this.props.lang) {
+        if (this.props.match.params.category &&
+            prevProps.match.params.category !== this.props.match.params.category) {
+            console.log(category)
+            console.log(subCategory)
+            console.log(childCategory)
+
+
             if (this.props.match.params.category === 'all-category') {
                 this.setState({
                     keyName: 'all-category',
                 })
-                // await this.props.fetchAllProduct()
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllProduct()
             } else {
                 this.setState({
                     keyName: category,
                 })
-                await this.props.fetchAllSubCategoryByCategory(category)
+                // await this.props.fetchAllSubCategoryByCategory(category)
 
             }
         }
 
-        if (prevProps.match.params.subCategory !== this.props.match.params.subCategory ||
-            prevProps.lang !== this.props.lang) {
+        if (this.props.match.params.subCategory && prevProps.match.params.subCategory !== this.props.match.params.subCategory) {
+
+            if (this.props.match.params.category === this.state.keyName) {
+                console.log('prevProps.match.params.subCategory === this.props.match.params.subCategory')
+                console.log(category)
+                console.log(subCategory)
+                console.log(childCategory)
+            }
             this.setState({
                 keyName: subCategory,
             })
         }
 
-        if (prevProps.match.params.childCategory !== this.props.match.params.childCategory ||
-            prevProps.lang !== this.props.lang) {
-
+        if (prevProps.match.params.childCategory !== this.props.match.params.childCategory) {
             this.setState({
                 keyName: childCategory,
             })
@@ -122,7 +168,15 @@ class ProductList extends Component {
             prevProps.lang !== this.props.lang) {
             let dataSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
             this.setState({
-                listSubCategory: dataSubCategory,
+                listSubCategory: dataSubCategory
+            })
+        }
+
+        if (prevProps.subCategory !== this.props.subCategory ||
+            prevProps.lang !== this.props.lang) {
+            let dataSubCategory = this.buildDataInputSelect(this.props.subCategory, "subCategory");
+            this.setState({
+                selectedSubCategory: dataSubCategory[0]
             })
         }
 
@@ -134,6 +188,14 @@ class ProductList extends Component {
             })
         }
 
+
+        if (prevProps.childCategory !== this.props.childCategory ||
+            prevProps.lang !== this.props.lang) {
+            let dataChildCategory = this.buildDataInputSelect(this.props.childCategory, "childCategory");
+            this.setState({
+                selectedChildCategory: dataChildCategory[0],
+            })
+        }
 
 
         if (prevProps.allProductArr !== this.props.allProductArr ||
@@ -194,7 +256,7 @@ class ProductList extends Component {
         if (this.props.history) {
             this.setState({
                 keyName: 'all-category',
-                selectedCategory: 'all-category',
+                selectedCategory: '',
                 selectedSubCategory: '',
                 selectedChildCategory: '',
                 listSubCategory: [],
@@ -207,11 +269,13 @@ class ProductList extends Component {
     }
 
     handleOnClickCategory = async (item) => {
+
         if (item != undefined && this.props.history) {
             this.setState({
                 keyName: item.keyName,
                 selectedCategory: item,
                 selectedSubCategory: '',
+                selectedChildCategory: '',
                 listChildCategory: [],
             })
 
@@ -224,13 +288,14 @@ class ProductList extends Component {
 
     handleOnClickSubCategory = async (item) => {
         let { selectedCategory } = this.state
+
         if (item != undefined && this.props.history) {
 
             this.setState({
                 keyName: item.keyName,
                 selectedSubCategory: item,
-                selectedChildCategory: '',
-                listChildCategory: [],
+                // selectedChildCategory: '',
+                // listChildCategory: [],
             })
             await this.props.fetchAllChildCategoryBySubCategory(item.keyName)
 
@@ -240,7 +305,7 @@ class ProductList extends Component {
 
     handleOnClickChildCategory = (item) => {
         let { selectedCategory, selectedSubCategory } = this.state
-        if (item != undefined && this.props.history) {
+        if (item && item != undefined && this.props.history) {
             this.setState({
                 keyName: item.keyName,
                 selectedChildCategory: item,
@@ -268,8 +333,6 @@ class ProductList extends Component {
                     </div>
 
                     <div className='list-all-category'>
-
-
                         {keyName === 'all-category' && this.renderMainCategoryList(listCategory)}
                         {keyName === selectedCategory.keyName && this.renderSubCategoryList(listSubCategory)}
                         {keyName === selectedSubCategory.keyName && this.renderChildCategoryList(listChildCategory)}
@@ -301,13 +364,13 @@ class ProductList extends Component {
     }
 
     renderSubCategoryList = (list) => {
-        let { keyName, selectedCategory } = this.state
-
+        let { keyName, selectedCategory, listSubCategory } = this.state
 
         return (
             <>
-                <div className={keyName === selectedCategory.keyName ?
-                    'list-category active' : 'list-category hover'}>
+                <div className={(keyName === selectedCategory.keyName) ?
+                    'list-category active' : 'list-category hover'}
+                    onClick={() => this.handleOnClickCategory(selectedCategory)}>
                     {selectedCategory.label}
                 </div>
                 <ul className='list-sub-category'>
@@ -336,7 +399,8 @@ class ProductList extends Component {
                     {selectedCategory.label}
                 </div>
                 <div className={keyName === selectedSubCategory.keyName ?
-                    'list-sub-category active' : 'list-sub-category hover'}>
+                    'list-sub-category active' : 'list-sub-category hover'}
+                    onClick={() => this.handleOnClickSubCategory(selectedSubCategory)}>
                     {selectedSubCategory.label}
                 </div >
                 <ul className='list-child-category'>
@@ -373,10 +437,11 @@ class ProductList extends Component {
     }
 
     render() {
-        console.log("Testing props: ", this.props.match.params)
+        // console.log("Testing props: ", this.props.match.params)
         console.log("Testing state: ", this.state)
         // console.log("Testing listCategory: ", this.state.listCategory)
         // console.log("Testing listSubCategory: ", this.state.listSubCategory)
+        // console.log("Testing listChildCategory: ", this.state.listChildCategory)
 
         let { isLoading } = this.state
         return (
@@ -448,9 +513,10 @@ const mapStateToProps = state => {
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
         allChildCategoryArr: state.admin.allChildCategoryArr,
+        subCategory: state.admin.subCategory,
+        childCategory: state.admin.childCategory,
         allProductArr: state.admin.allProductArr,
         actionResponse: state.admin.actionResponse,
-        selectedCategory: state.admin.selectedCategory
     };
 };
 
@@ -458,7 +524,10 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
+        fetchAllSubCategoryByKeyName: (subCategory) => dispatch(actions.fetchAllSubCategoryByKeyName(subCategory)),
         fetchAllChildCategoryBySubCategory: (subCategory) => dispatch(actions.fetchAllChildCategoryBySubCategory(subCategory)),
+        fetchChildCategoryByKeyName: (keyName) => dispatch(actions.fetchChildCategoryByKeyName(keyName)),
+
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
         fetchAllCodesByKeyMap: (inputKeyMap) => dispatch(actions.fetchAllCodesByKeyMap(inputKeyMap)),
         fetchAllProductByCategory: (inputCategory) => dispatch(actions.fetchAllProductByCategory(inputCategory)),
