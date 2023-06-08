@@ -178,10 +178,11 @@ class DropdownMenu extends Component {
     }
 
     handleToProductList = async (data) => {
-        await this.props.fetchChildCategoryByKeyName(data)
+        console.log(data)
+        // await this.props.fetchChildCategoryByKeyName(data)
         let { selectedChildCategory } = this.state
-        let subCategoryKeyName = selectedChildCategory.SubCategory.keyName;
-        let childCategoryKeyName = selectedChildCategory.keyName;
+        // let subCategoryKeyName = selectedChildCategory.SubCategory.keyName;
+        // let childCategoryKeyName = selectedChildCategory.keyName;
         // localStorage.setItem('selectedCategory', JSON.stringify(this.state.selectedCategory))
         // localStorage.setItem('selectedSubCategory', subCategoryKeyName)
         // localStorage.setItem('selectedChildCategory', childCategoryKeyName)

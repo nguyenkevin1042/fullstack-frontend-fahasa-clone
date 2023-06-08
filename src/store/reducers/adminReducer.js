@@ -103,7 +103,8 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_ALL_CODE_BY_KEY_MAP_SUCCESS:
-            state.selectedCategory = action.categoryResult
+            // state.selectedCategory = action.categoryResult
+            state.allCodesArr = action.categoryResult
             return {
                 ...state,
             }

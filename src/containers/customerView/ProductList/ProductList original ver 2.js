@@ -18,7 +18,8 @@ class ProductList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            keyName: 'all',
+            // keyName: 'all-category',
+            keyName: '',
             listCategory: [],
             listSubCategory: [],
             listChildCategory: [],
@@ -36,87 +37,118 @@ class ProductList extends Component {
     }
 
     async componentDidMount() {
+        let { category, subCategory, childCategory } = this.props.match.params
+
         await this.props.fetchAllCodesByType('category')
 
-        let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
-        this.setState({
-            listCategory: dataSelectCategory,
-        })
-
-        if (this.props.match.params.keyName === 'all') {
-            localStorage.setItem('keyName', this.state.keyName)
-            await this.props.fetchAllProduct()
-        } else {
-
+        if (category === 'all-category') {
             this.setState({
-                keyName: localStorage.getItem('keyName'),
-                // categoryKeyName: localStorage.getItem('selectedCategoryKeyName'),
-                // subCategoryKeyName: localStorage.getItem('selectedSubCategoryKeyName'),
-                // childCategoryKeyName: localStorage.getItem('selectedChildCategoryKeyName'),
+                keyName: 'all-category',
+                categoryKeyName: 'all-category'
             })
-
-            // this.setState({
-            //     keyName: localStorage.getItem('keyName'),
-            //     // listCategory: JSON.parse(localStorage.getItem('listCategory')),
-            //     // listSubCategory: JSON.parse(localStorage.getItem('listSubCategory')),
-            //     // listChildCategory: JSON.parse(localStorage.getItem('listChildCategory')),
-            //     // selectedCategory: JSON.parse(localStorage.getItem('selectedCategoryKeyName')),
-            //     // selectedSubCategory: JSON.parse(localStorage.getItem('selectedSubCategory')),
-            //     // selectedChildCategory: JSON.parse(localStorage.getItem('selectedChildCategory')),
-            //     categoryKeyName: localStorage.getItem('selectedCategoryKeyName'),
-            //     subCategoryKeyName: localStorage.getItem('selectedSubCategory'),
-            //     childCategoryKeyName: localStorage.getItem('selectedChildCategory'),
-            // })
+            // await this.props.fetchAllCodesByType('category')
+        } else {
+            this.setState({
+                keyName: category,
+                categoryKeyName: category
+            })
+            await this.props.fetchAllCodesByKeyMap(category)
+            await this.props.fetchAllSubCategoryByCategory(category)
         }
+
+        if (subCategory !== undefined || subCategory !== '') {
+            this.setState({
+                keyName: subCategory,
+                subCategoryKeyName: subCategory
+            })
+        }
+
+        if (childCategory !== undefined || childCategory !== '') {
+            this.setState({
+                keyName: childCategory,
+                childCategoryKeyName: childCategory
+            })
+        }
+
+
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        let { category, subCategory, childCategory } = this.props.match.params
         if (prevProps.lang !== this.props.lang) {
 
         }
 
-        // if (prevState.categoryKeyName !== this.state.keyName) {
-        //     // await this.props.fetchAllSubCategoryByCategory(this.state.categoryKeyName)
-        //     await this.props.fetchAllCodesByKeyMap(this.state.keyName)
-        //     let dataSelect = this.buildDataInputSelect(this.props.selectedCategory, "category");
-        //     this.setState({
-        //         selectedCategory: dataSelect
-        //     })
-        // }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr ||
             prevProps.lang !== this.props.lang) {
-            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
-            this.setState({
-                listCategory: dataSelect
-            })
-        }
-
-        if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr ||
-            prevProps.lang !== this.props.lang) {
-            let dataSelectSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
-            this.setState({
-                listSubCategory: dataSelectSubCategory,
-            })
-        }
-
-        if (prevProps.match.params.keyName !== this.props.match.params.keyName ||
-            prevProps.lang !== this.props.lang) {
-            if (this.props.match.params.keyName === 'all') {
+            let dataCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
+            if (this.props.allCodesArr.length === 1) {
                 this.setState({
-                    keyName: 'all'
+                    selectedCategory: dataCategory[0]
+                })
+            } else {
+                this.setState({
+                    listCategory: dataCategory
+                })
+            }
+        }
+
+
+
+        if (prevProps.match.params.category !== this.props.match.params.category ||
+            prevProps.lang !== this.props.lang) {
+            if (this.props.match.params.category === 'all-category') {
+                this.setState({
+                    keyName: 'all-category',
+                    categoryKeyName: 'all-category'
                 })
                 await this.props.fetchAllProduct()
             } else {
                 this.setState({
-                    keyName: this.props.match.params.keyName
+                    keyName: category,
+                    categoryKeyName: category
                 })
+                await this.props.fetchAllSubCategoryByCategory(category)
+
             }
-            // this.setState({
-            //     keyName: this.props.match.params.keyName
-            // })
-            this.setItemsforLocalStorage()
         }
+
+        if (prevProps.match.params.subCategory !== this.props.match.params.subCategory ||
+            prevProps.lang !== this.props.lang) {
+            this.setState({
+                keyName: subCategory,
+                subCategoryKeyName: subCategory
+            })
+        }
+
+        if (prevProps.match.params.childCategory !== this.props.match.params.childCategory ||
+            prevProps.lang !== this.props.lang) {
+
+            this.setState({
+                keyName: childCategory,
+                childCategoryKeyName: childCategory
+            })
+
+        }
+
+        if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr ||
+            prevProps.lang !== this.props.lang) {
+            let dataSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
+            this.setState({
+                listSubCategory: dataSubCategory,
+            })
+        }
+
+        if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr ||
+            prevProps.lang !== this.props.lang) {
+            let dataChildCategory = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
+            this.setState({
+                listChildCategory: dataChildCategory,
+            })
+        }
+
+
 
         if (prevProps.allProductArr !== this.props.allProductArr ||
             prevProps.lang !== this.props.lang) {
@@ -140,7 +172,7 @@ class ProductList extends Component {
 
                     obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
-                    obj.subCategories = item.SubCategories;
+                    // obj.subCategories = item.SubCategories;
                     result.push(obj);
                 });
             }
@@ -151,7 +183,7 @@ class ProductList extends Component {
                     let labelEN = item.valueEN;
 
                     obj.keyName = item.keyName;
-                    obj.childCategories = item.ChildCategories;
+                    // obj.childCategories = item.ChildCategories;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });
@@ -175,55 +207,58 @@ class ProductList extends Component {
     handleOnClickAllCategory = () => {
         if (this.props.history) {
             this.setState({
-                keyName: 'all',
-                selectedCategory: '',
+                keyName: 'all-category',
+                categoryKeyName: 'all-category',
+                selectedCategory: 'all-category',
                 selectedSubCategory: '',
                 selectedChildCategory: '',
-                listSubCategory: []
+                listSubCategory: [],
+                listChildCategory: [],
             })
 
-            this.props.history.push("/category/all");
+            this.props.history.push("/all-category");
         }
 
     }
 
-    handleOnClickCategory = (item) => {
-
+    handleOnClickCategory = async (item) => {
         if (item != undefined && this.props.history) {
-            let dataSubCategory = this.buildDataInputSelect(item.subCategories, "subCategory");
-
             this.setState({
                 keyName: item.keyName,
                 categoryKeyName: item.keyName,
                 selectedCategory: item,
                 selectedSubCategory: '',
                 selectedChildCategory: '',
-                listSubCategory: dataSubCategory
+                // listSubCategory: [],
+                listChildCategory: [],
             })
-            this.props.history.push("/category/" + item.keyName);
-            this.props.fetchAllProductByCategory(item.keyName)
 
+            await this.props.fetchAllProductByCategory(item.keyName)
+            // await this.props.fetchAllSubCategoryByCategory(item.keyName)
+
+            this.props.history.push("/" + item.keyName);
         }
-
     }
 
-    handleOnClickSubCategory = (item) => {
+    handleOnClickSubCategory = async (item) => {
+        let { selectedCategory, categoryKeyName } = this.state
         if (item != undefined && this.props.history) {
-            let dataChildCategory = this.buildDataInputSelect(item.childCategories, "childCategory");
 
             this.setState({
                 keyName: item.keyName,
                 subCategoryKeyName: item.keyName,
                 selectedSubCategory: item,
                 selectedChildCategory: '',
-                listChildCategory: dataChildCategory,
+                listChildCategory: [],
             })
+            await this.props.fetchAllChildCategoryBySubCategory(item.keyName)
 
-            this.props.history.push("/category/" + item.keyName);
+            this.props.history.push("/" + categoryKeyName + "/" + item.keyName);
         }
     }
 
     handleOnClickChildCategory = (item) => {
+        let { categoryKeyName, subCategoryKeyName } = this.state
         if (item != undefined && this.props.history) {
             this.setState({
                 keyName: item.keyName,
@@ -231,7 +266,7 @@ class ProductList extends Component {
                 selectedChildCategory: item,
             })
 
-            this.props.history.push("/category/" + item.keyName);
+            this.props.history.push("/" + categoryKeyName + "/" + subCategoryKeyName + "/" + item.keyName);
         }
     }
 
@@ -258,22 +293,22 @@ class ProductList extends Component {
                 </div>
 
                 <div className='sharing-list-category'>
-                    <div className={keyName === 'all' ?
+                    <div className={keyName === 'all-category' ?
                         'all-category-text active' : 'all-category-text hover'}
                         onClick={() => this.handleOnClickAllCategory()}>
                         <FormattedMessage id="customer.product-list.category.all-category" />
                     </div>
 
                     <div className='list-all-category'>
-                        {keyName === 'all' && this.renderMainCategoryList(listCategory)}
-                        {keyName === categoryKeyName && this.renderSubCategoryList(listSubCategory)}
-                        {keyName === subCategoryKeyName && this.renderChildCategoryList(listChildCategory)}
-                        {keyName === childCategoryKeyName && this.renderChildCategoryList(listChildCategory)}
+                        {/* {categoryKeyName === 'all-category' && this.renderMainCategoryList(listCategory)} */}
+                        {/* {categoryKeyName === selectedCategory.keyName && this.renderSubCategoryList(listSubCategory)} */}
+                        {/* {subCategoryKeyName === selectedSubCategory.keyName && this.renderChildCategoryList(listChildCategory)} */}
+                        {/* {subCategoryKeyName === selectedSubCategory.keyName && this.renderChildCategoryList(listChildCategory)} */}
 
-                        {/* {keyName === 'all' && this.renderMainCategoryList(listCategory)}
+                        {keyName === 'all-category' && this.renderMainCategoryList(listCategory)}
                         {keyName === selectedCategory.keyName && this.renderSubCategoryList(listSubCategory)}
                         {keyName === selectedSubCategory.keyName && this.renderChildCategoryList(listChildCategory)}
-                        {keyName === selectedChildCategory.keyName && this.renderChildCategoryList(listChildCategory)} */}
+                        {keyName === selectedChildCategory.keyName && this.renderChildCategoryList(listChildCategory)}
                     </div>
                 </div>
             </div>
@@ -281,7 +316,7 @@ class ProductList extends Component {
     }
 
     renderMainCategoryList = (list) => {
-        let { keyName } = this.state
+        let { keyName, categoryKeyName } = this.state
         return (
             <>
                 <ul className='list-category'>
@@ -301,13 +336,13 @@ class ProductList extends Component {
     }
 
     renderSubCategoryList = (list) => {
-        let { keyName, selectedCategory, categoryKeyName } = this.state
+        let { keyName, selectedCategory, categoryKeyName, subCategoryKeyName } = this.state
+
 
         return (
             <>
-                <div className={keyName === categoryKeyName ?
-                    'list-category active' : 'list-category hover'}
-                    onClick={() => this.handleOnClickCategory()}>
+                <div className={keyName === selectedCategory.keyName ?
+                    'list-category active' : 'list-category hover'}>
                     {selectedCategory.label}
                 </div>
                 <ul className='list-sub-category'>
@@ -327,15 +362,16 @@ class ProductList extends Component {
 
     renderChildCategoryList = (list) => {
         let { keyName, selectedSubCategory, selectedCategory,
-            categoryKeyName, subCategoryKeyName } = this.state
+            categoryKeyName, subCategoryKeyName, childCategoryKeyName } = this.state
+
         return (
             <>
-                <div className={keyName === categoryKeyName ?
+                <div className={keyName === selectedCategory.keyName ?
                     'list-category active' : 'list-category hover'}
                     onClick={() => this.handleOnClickCategory(selectedCategory)}>
                     {selectedCategory.label}
                 </div>
-                <div className={keyName === subCategoryKeyName ?
+                <div className={keyName === selectedSubCategory.keyName ?
                     'list-sub-category active' : 'list-sub-category hover'}>
                     {selectedSubCategory.label}
                 </div >
@@ -373,7 +409,10 @@ class ProductList extends Component {
     }
 
     render() {
-        console.log(this.props.actionResponse)
+        console.log("Testing props: ", this.props.match.params)
+        console.log("Testing state: ", this.state)
+        // console.log("Testing listCategory: ", this.state.listCategory)
+        // console.log("Testing listSubCategory: ", this.state.listSubCategory)
 
         let { isLoading } = this.state
         return (
@@ -444,6 +483,7 @@ const mapStateToProps = state => {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
+        allChildCategoryArr: state.admin.allChildCategoryArr,
         allProductArr: state.admin.allProductArr,
         actionResponse: state.admin.actionResponse,
         selectedCategory: state.admin.selectedCategory
@@ -454,6 +494,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
+        fetchAllChildCategoryBySubCategory: (subCategory) => dispatch(actions.fetchAllChildCategoryBySubCategory(subCategory)),
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
         fetchAllCodesByKeyMap: (inputKeyMap) => dispatch(actions.fetchAllCodesByKeyMap(inputKeyMap)),
         fetchAllProductByCategory: (inputCategory) => dispatch(actions.fetchAllProductByCategory(inputCategory)),
