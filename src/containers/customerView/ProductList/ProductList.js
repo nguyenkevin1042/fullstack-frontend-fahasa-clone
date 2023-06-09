@@ -119,13 +119,9 @@ class ProductList extends Component {
             })
         }
 
-        if (this.props.match.params.category &&
+        if (this.props.match.params.category && !this.props.match.params.subCategory &&
+            !this.props.match.params.childCategory &&
             prevProps.match.params.category !== this.props.match.params.category) {
-            // console.log(category)
-            // console.log(subCategory)
-            // console.log(childCategory)
-
-
             if (this.props.match.params.category === 'all-category') {
                 this.setState({
                     keyName: 'all-category',
@@ -144,14 +140,9 @@ class ProductList extends Component {
             }
         }
 
-        if (this.props.match.params.subCategory && prevProps.match.params.subCategory !== this.props.match.params.subCategory) {
+        if (!this.props.match.params.childCategory &&
+            this.props.match.params.subCategory && prevProps.match.params.subCategory !== this.props.match.params.subCategory) {
 
-            if (this.props.match.params.category === this.state.keyName) {
-                console.log('prevProps.match.params.subCategory === this.props.match.params.subCategory')
-                console.log(category)
-                console.log(subCategory)
-                console.log(childCategory)
-            }
             this.setState({
                 keyName: subCategory,
             })
@@ -163,14 +154,16 @@ class ProductList extends Component {
         }
 
         if (prevProps.match.params.childCategory !== this.props.match.params.childCategory) {
-            this.setState({
-                keyName: childCategory,
-            })
-            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
-            await this.props.fetchAllSubCategoryByKeyName(subCategory)
-            await this.props.fetchChildCategoryByKeyName(childCategory)
-            await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+            if (childCategory != undefined) {
+                this.setState({
+                    keyName: childCategory,
+                })
+                await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+                await this.props.fetchAllSubCategoryByKeyName(subCategory)
+                await this.props.fetchChildCategoryByKeyName(childCategory)
+                await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
 
+            }
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr ||
@@ -288,12 +281,11 @@ class ProductList extends Component {
 
             this.props.history.push("/all-category");
         }
-
     }
 
     handleOnClickCategory = async (item) => {
 
-        if (item != undefined && this.props.history) {
+        if (item && this.props.history) {
             this.setState({
                 keyName: item.keyName,
                 selectedCategory: item,
@@ -312,23 +304,22 @@ class ProductList extends Component {
     handleOnClickSubCategory = async (item) => {
         let { selectedCategory } = this.state
 
-        if (item != undefined && this.props.history) {
+        if (this.props.history) {
 
             this.setState({
                 keyName: item.keyName,
                 selectedSubCategory: item,
-                // selectedChildCategory: '',
-                // listChildCategory: [],
             })
             await this.props.fetchAllChildCategoryBySubCategory(item.keyName)
             await this.props.fetchAllProductBySubCategory(selectedCategory.keyName, item.keyName)
-            this.props.history.push("/" + selectedCategory.keyName + "/" + item.keyName);
+            await this.props.history.push("/" + selectedCategory.keyName + "/" + item.keyName);
         }
+
     }
 
     handleOnClickChildCategory = async (item) => {
         let { selectedCategory, selectedSubCategory } = this.state
-        if (item && item != undefined && this.props.history) {
+        if (this.props.history) {
             this.setState({
                 keyName: item.keyName,
                 selectedChildCategory: item,
@@ -342,8 +333,8 @@ class ProductList extends Component {
 
     renderCategoryList = () => {
         let { listCategory, listSubCategory, listChildCategory,
-            keyName,
-            selectedCategory, selectedSubCategory, selectedChildCategory } = this.state
+            keyName, selectedCategory, selectedSubCategory,
+            selectedChildCategory } = this.state
         return (
             <div className='sharing-menu'>
                 <div className='sharing-title'>
@@ -445,7 +436,7 @@ class ProductList extends Component {
     }
 
     renderProductList = () => {
-        let { listProduct } = this.state
+        let { listProduct, isLoading } = this.state
 
         return (
             <>
@@ -458,7 +449,7 @@ class ProductList extends Component {
                     ))
                 }
 
-                {listProduct.length === 0 && (
+                {isLoading === false && listProduct.length === 0 && (
                     <div className='no-products-text'>
                         <FormattedMessage id="customer.product-list.no-product" />
                     </div>
@@ -468,13 +459,8 @@ class ProductList extends Component {
     }
 
     render() {
-        console.log("Testing props: ", this.props.isFetchingData)
-        // console.log("Testing state: ", this.state)
-        // console.log("Testing listCategory: ", this.state.listCategory)
-        // console.log("Testing listSubCategory: ", this.state.listSubCategory)
-        // console.log("Testing listChildCategory: ", this.state.listChildCategory)
-
         let { isLoading } = this.state
+
         return (
             <React.Fragment>
                 <Header />
@@ -528,15 +514,10 @@ class ProductList extends Component {
                             </LoadingOverlay>
                         </div>
                     </div>
-
                 </div>
 
                 <SignUpNewletter />
                 <Footer />
-
-
-
-
             </React.Fragment >
 
         );

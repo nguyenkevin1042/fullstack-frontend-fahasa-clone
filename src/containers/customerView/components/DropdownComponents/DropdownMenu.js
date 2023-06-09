@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 import './DropdownMenu.scss';
 import { languages } from '../../../../utils'
 
+import { Link } from "react-router-dom";
+
 import * as actions from "../../../../store/actions";
 
 class DropdownMenu extends Component {
@@ -19,6 +21,12 @@ class DropdownMenu extends Component {
     }
 
     async componentDidMount() {
+        this.setState({
+            listCategory: [],
+            selectedCategory: '',
+            listSubCategory: [],
+            selectedChildCategory: [],
+        })
         await this.props.fetchAllCodesByType('category')
         let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
         this.setState({
@@ -154,8 +162,10 @@ class DropdownMenu extends Component {
                             listSubCategory.map((subCategoryItem, index) => (
                                 <div className='sub-category-item col-md-3' key={index}>
                                     <div className='sub-category-title'
-                                        onClick={(event) => this.hanldeRedirectToSubCategoryProductList(event, subCategoryItem)}>
+                                        onClick={(event) => this.hanldeRedirectToSubCategoryProductList(event, subCategoryItem)}
+                                    >
                                         {subCategoryItem.label}
+                                        {/* <Link to={"/" + selectedCategory.keyName + "/" + subCategoryItem.keyName}>{subCategoryItem.label}</Link> */}
                                     </div>
                                     <div>
                                         <ul className='child-category-list'>
