@@ -70,6 +70,7 @@
     .right-list-container{
         background-color: white;
         padding: 0;
+        height: fit-content;
 
         .sort-actions{
             display: flex;
@@ -85,6 +86,22 @@
 
         .sharing-product-item-container{
             padding: 7px;
+        }
+
+        // .hide{
+        //     margin: 0 50px;
+        //     // display: none;
+        // }
+
+        .no-products-text{
+            margin: 20px;
+            width: 100%;
+            border: 2px solid #fcd344;
+            background-color: #fafaec;
+            color: #3d6611;
+            padding: 15px !important;
+            font-weight: 600;
+            font-size: 1.2em;
         }
     }
 }

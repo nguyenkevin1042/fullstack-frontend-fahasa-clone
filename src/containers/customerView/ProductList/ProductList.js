@@ -35,7 +35,6 @@ class ProductList extends Component {
     async componentDidMount() {
         let { category, subCategory, childCategory } = this.props.match.params
 
-        console.log(category, subCategory, childCategory)
         if (category === 'all-category') {
             this.setState({
                 keyName: 'all-category',
@@ -51,6 +50,7 @@ class ProductList extends Component {
             await this.props.fetchAllCodesByKeyMap(category)
             await this.props.fetchAllCodesByType('category')
             await this.props.fetchAllSubCategoryByCategory(category)
+            await this.props.fetchAllProductByCategory(category)
         }
 
         if (subCategory) {
@@ -59,6 +59,8 @@ class ProductList extends Component {
             })
             await this.props.fetchAllChildCategoryBySubCategory(subCategory)
             await this.props.fetchAllSubCategoryByKeyName(subCategory)
+            await this.props.fetchAllProductBySubCategory(category, subCategory)
+
         }
 
         if (childCategory) {
@@ -68,6 +70,8 @@ class ProductList extends Component {
             await this.props.fetchAllChildCategoryBySubCategory(subCategory)
             await this.props.fetchAllSubCategoryByKeyName(subCategory)
             await this.props.fetchChildCategoryByKeyName(childCategory)
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+
         }
 
         // if (category === 'all-category') {
@@ -109,6 +113,12 @@ class ProductList extends Component {
 
         }
 
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
+        }
+
         if (this.props.match.params.category &&
             prevProps.match.params.category !== this.props.match.params.category) {
             // console.log(category)
@@ -148,6 +158,8 @@ class ProductList extends Component {
 
             await this.props.fetchAllChildCategoryBySubCategory(subCategory)
             await this.props.fetchAllSubCategoryByKeyName(subCategory)
+            await this.props.fetchAllProductBySubCategory(category, subCategory)
+
         }
 
         if (prevProps.match.params.childCategory !== this.props.match.params.childCategory) {
@@ -157,6 +169,8 @@ class ProductList extends Component {
             await this.props.fetchAllChildCategoryBySubCategory(subCategory)
             await this.props.fetchAllSubCategoryByKeyName(subCategory)
             await this.props.fetchChildCategoryByKeyName(childCategory)
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr ||
@@ -307,18 +321,20 @@ class ProductList extends Component {
                 // listChildCategory: [],
             })
             await this.props.fetchAllChildCategoryBySubCategory(item.keyName)
-
+            await this.props.fetchAllProductBySubCategory(selectedCategory.keyName, item.keyName)
             this.props.history.push("/" + selectedCategory.keyName + "/" + item.keyName);
         }
     }
 
-    handleOnClickChildCategory = (item) => {
+    handleOnClickChildCategory = async (item) => {
         let { selectedCategory, selectedSubCategory } = this.state
         if (item && item != undefined && this.props.history) {
             this.setState({
                 keyName: item.keyName,
                 selectedChildCategory: item,
             })
+
+            await this.props.fetchAllChildCategoryBySubCategory(selectedSubCategory.keyName, item.keyName)
 
             this.props.history.push("/" + selectedCategory.keyName + "/" + selectedSubCategory.keyName + "/" + item.keyName);
         }
@@ -441,13 +457,19 @@ class ProductList extends Component {
                         </div>
                     ))
                 }
+
+                {listProduct.length === 0 && (
+                    <div className='no-products-text'>
+                        <FormattedMessage id="customer.product-list.no-product" />
+                    </div>
+                )}
             </>
         )
     }
 
     render() {
-        // console.log("Testing props: ", this.props.match.params)
-        console.log("Testing state: ", this.state)
+        console.log("Testing props: ", this.props.isFetchingData)
+        // console.log("Testing state: ", this.state)
         // console.log("Testing listCategory: ", this.state.listCategory)
         // console.log("Testing listSubCategory: ", this.state.listSubCategory)
         // console.log("Testing listChildCategory: ", this.state.listChildCategory)
@@ -479,25 +501,31 @@ class ProductList extends Component {
                                     name="selectedCategory" />
                             </div>
                             {/* LIST PRODUCT */}
-                            {/* <LoadingOverlay
+                            <LoadingOverlay
                                 active={isLoading}
-                                spinner
+                                spinner={true}
                                 styles={{
+                                    overlay: (base) => ({
+                                        ...base,
+                                        border: '2px solid #F7941E'
+                                    }),
                                     spinner: (base) => ({
                                         ...base,
-                                        width: '100px',
+                                        width: '50px',
                                         '& svg circle': {
-                                            stroke: 'rgba(255, 0, 0, 0.5)'
+                                            stroke: '#F7941E'
                                         }
                                     })
                                 }}
-                                text='Loading your content...'> */}
-                            <div className='container'>
-                                <div className='row'>
-                                    {this.renderProductList()}
+                                text='Please wait...'>
+                                <div className={isLoading === true ?
+                                    'list-product-items hide container' :
+                                    'list-product-items container'}>
+                                    <div className='row'>
+                                        {this.renderProductList()}
+                                    </div>
                                 </div>
-                            </div>
-                            {/* </LoadingOverlay> */}
+                            </LoadingOverlay>
                         </div>
                     </div>
 
@@ -526,6 +554,7 @@ const mapStateToProps = state => {
         childCategory: state.admin.childCategory,
         allProductArr: state.admin.allProductArr,
         actionResponse: state.admin.actionResponse,
+        isFetchingData: state.admin.isFetchingData,
     };
 };
 
@@ -540,7 +569,8 @@ const mapDispatchToProps = dispatch => {
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
         fetchAllCodesByKeyMap: (inputKeyMap) => dispatch(actions.fetchAllCodesByKeyMap(inputKeyMap)),
         fetchAllProductByCategory: (inputCategory) => dispatch(actions.fetchAllProductByCategory(inputCategory)),
-
+        fetchAllProductBySubCategory: (inputCategory, inputSubCategory) => dispatch(actions.fetchAllProductBySubCategory(inputCategory, inputSubCategory)),
+        fetchAllProductByChildCategory: (inputSubCategory, inputChildCategory) => dispatch(actions.fetchAllProductByChildCategory(inputSubCategory, inputChildCategory)),
     };
 };
 

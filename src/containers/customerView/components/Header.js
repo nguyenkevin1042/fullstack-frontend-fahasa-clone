@@ -184,7 +184,8 @@ class Header extends Component {
             })
         };
 
-        const menu = (<DropdownMenu />);
+        // const menu = (<DropdownMenu disabled={true} />);
+        const item = (<DropdownMenu />);
 
         return (
             <>
@@ -198,7 +199,9 @@ class Header extends Component {
                         </div >
                         {/* MENU */}
                         <div className='home-header-menu col-1 col-lg-1 px-1'>
-                            <Dropdown overlay={menu}>
+                            <Dropdown overlay={item}
+                            // overlay={menu}
+                            >
                                 <div className='home-header-menu-toggle'>
                                     <div className='home-header-menu-toggle-icon img-fluid'></div>
                                     <div><i className="fa fa-angle-down"></i></div>

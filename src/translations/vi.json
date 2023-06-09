@@ -63,7 +63,8 @@
             "category": {
                 "title": "Nhóm sản phẩm",
                 "all-category": "Tất Cả Nhóm Sản Phẩm"
-            }
+            },
+            "no-product": "Thể loại này hiện tại chưa có sản phẩm nào"
         },
         "product-detail": {
             "add-to-cart": "Thêm Vào Giỏ Hàng",

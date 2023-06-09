@@ -63,7 +63,8 @@
             "category": {
                 "title": "Category",
                 "all-category": "All Category"
-            }
+            },
+            "no-product": "This category currently does not have any products"
         },
         "product-detail": {
             "add-to-cart": "Add to cart",

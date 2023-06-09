@@ -109,3 +109,26 @@ body{
  
      
  }
+
+//  ._loading_overlay_overlay{
+//   background-color: white;
+//   height: 200px;
+//   border: 2px solid #F7941E;
+//  }
+
+ ._loading_overlay_wrapper{
+  // display: none;
+
+ }
+
+ ._loading_overlay_spinner{
+  margin: auto;
+
+ }
+
+ ._loading_overlay_content{
+  margin: auto;
+  color: #F7941E;
+  font-weight: 600;
+  font-size: 0.9em;
+ }

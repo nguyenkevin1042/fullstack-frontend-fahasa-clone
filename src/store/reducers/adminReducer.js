@@ -1,6 +1,7 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    isFetchingData: false,
     isLoggedIn: false,
     adminInfo: null,
     signInMessage: '',
@@ -32,6 +33,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: false,
                 adminInfo: null
+            }
+
+        case actionTypes.FETCHING_DATA_SUCCESS:
+            state.isFetchingData = true
+            return {
+                ...state,
+            }
+        case actionTypes.FETCHING_DATA_FAIL:
+            state.isFetchingData = false
+            return {
+                ...state,
             }
 
         case actionTypes.CREATE_NEW_USER_SUCCESS:
@@ -249,10 +261,38 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.FETCH_PRODUCT_BY_CATEGORY_SUCCESS:
             state.actionResponse = action.response
             state.allProductArr = action.response.allProducts
+            // state.isFetchingData = false
             return {
                 ...state,
             }
         case actionTypes.FETCH_PRODUCT_BY_CATEGORY_FAIL:
+            state.allProductArr = []
+            state.actionResponse = action.response
+            // state.isFetchingData = false
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_PRODUCT_BY_SUB_CATEGORY_SUCCESS:
+            state.actionResponse = action.response
+            state.allProductArr = action.response.allProducts
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_PRODUCT_BY_SUB_CATEGORY_FAIL:
+            state.allProductArr = []
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
+        case actionTypes.FETCH_PRODUCT_BY_CHILD_CATEGORY_SUCCESS:
+            state.actionResponse = action.response
+            state.allProductArr = action.response.allProducts
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_PRODUCT_BY_CHILD_CATEGORY_FAIL:
             state.allProductArr = []
             state.actionResponse = action.response
             return {
