@@ -69,12 +69,12 @@ class ProductItem extends Component {
     render() {
         let productData = this.props.productData
 
-
         let imageBase64 = '';
         if (productData.image) {
             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
         }
 
+        console.log(productData)
 
         return (
             <React.Fragment>
@@ -96,22 +96,13 @@ class ProductItem extends Component {
                         </div>
                         <div className='item-price-chapter'>
                             {this.renderProductPrice(productData.price, productData.discount)}
-                            {/* <div className='item-discount-price'>
-                                <NumericFormat value={salePrice}
-                                    displayType={'text'}
-                                    thousandSeparator={'.'}
-                                    decimalSeparator={','}
-                                    suffix={'đ'} />
-                            </div>
-                            <div className='item-price'>
-                                <NumericFormat value={parseFloat(productData.price)}
-                                    displayType={'text'}
-                                    thousandSeparator={'.'}
-                                    decimalSeparator={','} />
-                            </div> */}
-                            <div className='item-chapter'>
-                                Tập 30
-                            </div>
+
+                            {/* {productData.bookDescriptionData.chapter != undefined && (
+                                <div className='item-chapter'>
+                                    Tập {productData.bookDescriptionData.chapter}
+                                </div>
+                            )} */}
+
                         </div>
                     </div>
                 </div >

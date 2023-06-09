@@ -3,8 +3,7 @@ import actionTypes from '../actions/actionTypes';
 const initialState = {
     isLoggedIn: false,
     userInfo: null,
-    signInMessage: '',
-    signInErrCode: '',
+    actionResponse: '',
     product: ''
 }
 
@@ -15,14 +14,13 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: true,
                 userInfo: action.response.user,
-                signInErrCode: action.response.errCode
+                actionResponse: action.response
             }
         case actionTypes.USER_LOGIN_FAIL:
-            state.signInMessage = action.response.message
             return {
                 ...state,
                 userInfo: null,
-                signInErrCode: action.response.errCode
+                actionResponse: action.response
             }
 
         case actionTypes.FETCH_PRODUCT_BY_KEY_NAME_SUCCESS:

@@ -10,7 +10,7 @@ class SignUpComponent extends Component {
         this.state = {
             email: '',
             password: '',
-            retypePassword: ''
+            message: ''
         };
     }
 
@@ -25,12 +25,24 @@ class SignUpComponent extends Component {
 
     }
 
+    handleOnChangeInput = (event, key) => {
+        let data = event.target.value;
+        let copyState = { ...this.state };
+        copyState[key] = data;
+        this.setState({ ...copyState });
+    }
+
     handleSignUp = async () => {
-        await this.props.createNewUser(this.state)
+        await this.props.createNewUser({
+            email: this.state.email,
+            password: this.state.password,
+            isAdmin: false
+        })
     }
 
 
     render() {
+        let { email, password, message } = this.state
         let { isOpenSignUpForm } = this.props;
 
         return (
@@ -41,25 +53,27 @@ class SignUpComponent extends Component {
                             <label><FormattedMessage id="customer.login.email-phone" /></label>
                             <input className='form-control'
                                 placeholder='Email'
+                                value={email}
+                                onChange={(event) => this.handleOnChangeInput(event, 'email')}
                                 required />
                         </div>
                         <div className="col-12 form-group">
                             <label><FormattedMessage id="customer.login.password" /></label>
                             <input type='password' className='form-control'
                                 placeholder='Password'
-                                required />
-                        </div>
-                        <div className="col-12 form-group">
-                            <label><FormattedMessage id="customer.login.retype-password" /></label>
-                            <input type='password' className='form-control'
-                                placeholder='Retype Password'
+                                value={password}
+                                onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                 required />
                         </div>
                         <div className="col-12 sign-in-btn ">
                             <button onClick={() => this.handleSignUp()}>
                                 <FormattedMessage id="customer.login.sign-up-text" />
                             </button>
-                        </div ></>
+                        </div >
+                        <div className='col-12 error-message mt-4'>
+                            {message}
+                        </div>
+                    </>
                 }
             </>
         );

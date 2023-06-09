@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import './SignInComponent.scss';
 import * as actions from "../../../store/actions";
 
+import { languages } from '../../../utils';
+
 class SignInComponent extends Component {
     constructor(props) {
         super(props);
@@ -16,24 +18,26 @@ class SignInComponent extends Component {
     }
 
     componentDidMount() {
-
+        this.setState({
+            message: ''
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-
-        }
-        if (prevProps.signInMessage !== this.props.signInMessage) {
+        if (prevProps.actionResponse !== this.props.actionResponse) {
             this.setState({
-                message: this.props.signInMessage
+                message: this.props.lang === languages.VI ?
+                    this.props.actionResponse.messageVI :
+                    this.props.actionResponse.messageEN
             })
+        }
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            // this.setState({
+            //     message: this.props.signInMessage
+            // })
 
         }
-        if (prevProps.signInErrCode !== this.props.signInErrCode) {
-            if (this.props.signInErrCode === 0 && this.props.history) {
-                this.props.history.push("/home");
-            }
-        }
+
     }
 
     handleOnChangeInput = (event, key) => {
@@ -44,26 +48,31 @@ class SignInComponent extends Component {
     }
 
     handleLogin = async () => {
-        let { signInErrCode } = this.props
+        let { actionResponse } = this.props
 
         this.setState({
             message: ''
         })
         await this.props.userLogin(this.state.email, this.state.password)
 
-        if (signInErrCode === 0 && this.props.history) {
-            this.props.history.push("/home");
+        if (actionResponse.errCode === 0) {
+            await this.props.history.push("/home");
+            if (this.props.closeAccountModal) {
+                await this.props.closeAccountModal();
+            }
         }
-        this.props.closeAccountModal();
+
     }
 
 
     render() {
         let { email, password, message } = this.state;
 
-        let { isOpenSignInForm, handleOpenForgotPasswordForm, signInErrCode, signInMessage } = this.props;
+        let { isOpenSignInForm, handleOpenForgotPasswordForm, actionResponse } = this.props;
 
-        console.log(signInErrCode)
+        let language = this.props.lang
+
+        console.log(actionResponse)
         return (
             <>
                 {isOpenSignInForm === true &&
@@ -84,18 +93,20 @@ class SignInComponent extends Component {
                                 onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                 required />
                         </div>
-                        <div className='col-12 error-message mt-4'>
-                            {message}
-                        </div>
+
                         <div className="col-12 forgot-password"
                             onClick={() => handleOpenForgotPasswordForm()}>
                             <FormattedMessage id="customer.login.forgot-password" />
+                        </div>
+                        <div className='col-12 error-message mt-4'>
+                            {message}
                         </div>
                         <div className="col-12 sign-in-btn ">
                             <button onClick={(event) => { this.handleLogin(event) }}>
                                 <FormattedMessage id="customer.login.sign-in-text" />
                             </button>
                         </div >
+
                     </>
                 }
             </>
@@ -109,8 +120,7 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         userInfo: state.user.userInfo,
-        signInMessage: state.user.signInMessage,
-        signInErrCode: state.user.signInErrCode
+        actionResponse: state.user.actionResponse,
     };
 };
 

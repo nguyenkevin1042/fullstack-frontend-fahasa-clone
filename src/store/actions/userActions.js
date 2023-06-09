@@ -9,6 +9,8 @@ export const userLogin = (inputEmail, inputPassword) => {
     return async (dispatch, getState) => {
         let res;
         try {
+            console.log(inputEmail, inputPassword)
+            // return;
             res = await customerLoginAPI(inputEmail, inputPassword);
 
             if (res && res.errCode === 0) {

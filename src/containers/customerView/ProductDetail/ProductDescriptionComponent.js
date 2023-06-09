@@ -39,10 +39,13 @@ class ProductDescriptionComponent extends Component {
                     <th><FormattedMessage id="customer.product-detail.author" /></th>
                     <td>{descriptionData.author}</td>
                 </tr>
-                <tr>
-                    <th><FormattedMessage id="customer.product-detail.translator" /></th>
-                    <td>{descriptionData.translator}</td>
-                </tr>
+                {descriptionData.translator && (
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.translator" /></th>
+                        <td>{descriptionData.translator}</td>
+                    </tr>
+                )}
+
                 <tr>
                     <th><FormattedMessage id="customer.product-detail.publisher" /></th>
                     <td>{descriptionData.publisher}</td>
