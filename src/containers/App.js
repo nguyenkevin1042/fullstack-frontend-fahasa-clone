@@ -67,6 +67,7 @@ class App extends Component {
                                     <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
                                     <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
                                     <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
+                                    {/* <Route path={path.SEARCH_RESULT} exact component={(SeacrchResult)} /> */}
                                 </Switch>
 
                             </span>

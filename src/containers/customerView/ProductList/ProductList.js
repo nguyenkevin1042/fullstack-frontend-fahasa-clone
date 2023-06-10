@@ -60,7 +60,6 @@ class ProductList extends Component {
             await this.props.fetchAllChildCategoryBySubCategory(subCategory)
             await this.props.fetchAllSubCategoryByKeyName(subCategory)
             await this.props.fetchAllProductBySubCategory(category, subCategory)
-
         }
 
         if (childCategory) {
@@ -71,40 +70,9 @@ class ProductList extends Component {
             await this.props.fetchAllSubCategoryByKeyName(subCategory)
             await this.props.fetchChildCategoryByKeyName(childCategory)
             await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+            await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
 
         }
-
-        // if (category === 'all-category') {
-        //     this.setState({
-        //         keyName: 'all-category',
-        //     })
-        //     await this.props.fetchAllCodesByType('category')
-        //     await this.props.fetchAllProduct()
-        // } else {
-        //     this.setState({
-        //         keyName: category,
-        //     })
-        // await this.props.fetchAllCodesByKeyMap(category)
-        // await this.props.fetchAllSubCategoryByCategory(category)
-        // }
-
-        // if (subCategory !== undefined || subCategory !== '') {
-        //     this.setState({
-        //         keyName: subCategory,
-        //     })
-        //     await this.props.fetchAllChildCategoryBySubCategory(subCategory)
-        //     await this.props.fetchAllSubCategoryByKeyName(subCategory)
-
-        // }
-
-        // if (childCategory !== undefined || childCategory !== '') {
-        //     this.setState({
-        //         keyName: childCategory,
-        //     })
-        //     await this.props.fetchChildCategoryByKeyName(childCategory)
-        // }
-
-
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -162,6 +130,7 @@ class ProductList extends Component {
                 await this.props.fetchAllSubCategoryByKeyName(subCategory)
                 await this.props.fetchChildCategoryByKeyName(childCategory)
                 await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+                await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
 
             }
         }
