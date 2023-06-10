@@ -135,18 +135,23 @@ class Header extends Component {
     }
 
     renderCustomerOption = () => {
-        let { userInfo } = this.props;
         const accountMenu = (<DropdownAccount />);
-
+        let { userInfo, lang } = this.props
+        // let firstName = userInfo.firstName
+        // let lastName = userInfo.lastName
+        // let labelVI = firstName + " " + lastName;
+        // let labelEN = lastName + " " + firstName;
+        // let customerName = lang === languages.VI ? labelVI : labelEN
 
         return (
+
             <Dropdown overlay={accountMenu}>
                 <div className='user-options-information option col-6 col-md-3'
                     onClick={userInfo ? this.handleRedirectToAccountPage : this.handleRedirectToLoginPage}
                 >
                     <i className="fa fa-user"></i>
                     {userInfo ?
-                        <p>{userInfo.lastName} {userInfo.firstName}</p>
+                        <p className='customer-name'>{userInfo.firstName} {userInfo.lastName}</p>
                         :
                         <p><FormattedMessage id="customer.homepage.header.account.title" /></p>
                     }

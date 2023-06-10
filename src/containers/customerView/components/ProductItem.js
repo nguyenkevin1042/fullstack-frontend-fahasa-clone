@@ -74,8 +74,6 @@ class ProductItem extends Component {
             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
         }
 
-        console.log(productData)
-
         return (
             <React.Fragment>
                 <div className='sharing-product-item'

@@ -55,24 +55,31 @@ $ex-large: 1200px;// Extra large >= 1200
             margin-top: 20px;
 
             .child-item{
-                // width: fit-content;
                 height: fit-content;
                 cursor: pointer;
                 display: grid;
                 justify-content: center;
+                .sharing-link-content{
+                    .item-image{
+                        width: 100px;
+                        height: 100px;
+                    }
 
-                &:hover{
-                    color: #C92127;
-                }
+                    .item-text{
+                        margin-top: 10px;
+                        color:black !important;     
+                    }
 
-                .item-image{
-                    width: 100px;
-                    height: 100px;
+                    &:hover{
+                        text-decoration: none;
+                        .item-text{
+                            color: #C92127 !important;
+                            
+                        }               
+                    }
+                    
                 }
                 
-                .item-text{
-                    margin-top: 10px;
-                }
 
                 .item1{
                     background: url('../../../assets/productcategory/item1.jpg') center center no-repeat;

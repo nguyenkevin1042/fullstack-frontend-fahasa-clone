@@ -19,7 +19,6 @@ class ProductList extends Component {
         super(props);
         this.state = {
             keyName: 'all-category',
-            // keyName: '',
             listCategory: [],
             listSubCategory: [],
             listChildCategory: [],
@@ -71,7 +70,6 @@ class ProductList extends Component {
             await this.props.fetchChildCategoryByKeyName(childCategory)
             await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
             await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
-
         }
     }
 
@@ -104,7 +102,6 @@ class ProductList extends Component {
                 await this.props.fetchAllCodesByKeyMap(category)
                 await this.props.fetchAllCodesByType('category')
                 await this.props.fetchAllSubCategoryByCategory(category)
-
             }
         }
 
@@ -118,7 +115,6 @@ class ProductList extends Component {
             await this.props.fetchAllChildCategoryBySubCategory(subCategory)
             await this.props.fetchAllSubCategoryByKeyName(subCategory)
             await this.props.fetchAllProductBySubCategory(category, subCategory)
-
         }
 
         if (prevProps.match.params.childCategory !== this.props.match.params.childCategory) {
@@ -131,7 +127,6 @@ class ProductList extends Component {
                 await this.props.fetchChildCategoryByKeyName(childCategory)
                 await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
                 await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
-
             }
         }
 
@@ -173,7 +168,6 @@ class ProductList extends Component {
             })
         }
 
-
         if (prevProps.childCategory !== this.props.childCategory ||
             prevProps.lang !== this.props.lang) {
             let dataChildCategory = this.buildDataInputSelect(this.props.childCategory, "childCategory");
@@ -181,7 +175,6 @@ class ProductList extends Component {
                 selectedChildCategory: dataChildCategory[0],
             })
         }
-
 
         if (prevProps.allProductArr !== this.props.allProductArr ||
             prevProps.lang !== this.props.lang) {
@@ -430,11 +423,13 @@ class ProductList extends Component {
     render() {
         let { isLoading } = this.state
 
+        console.log(this.props.allProductArr)
+
         return (
             <React.Fragment>
                 <Header />
 
-                <div className='product-list-container'>
+                <div className='product-list-container' >
                     <div className='row'>
                         <div className='left-menu-content col-xl-3'>
                             <div className='left-content'>

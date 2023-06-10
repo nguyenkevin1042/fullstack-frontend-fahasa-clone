@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './ProductCategory.scss';
-// import * as actions from "../store/actions";
+import { Link } from "react-router-dom";
 
 class ProductCategory extends Component {
     constructor(props) {
@@ -36,49 +36,79 @@ class ProductCategory extends Component {
                         </div>
                     </div>
                     <div className='context-items row'>
+
                         <div className='child-item col-1'>
-                            <div className='item-image item1'></div>
-                            <div className='item-text text-center'>VPP<br />DCHS</div>
+                            <Link to='/vpp-dung-cu-hoc-sinh'
+                                className='sharing-link-content'
+                            >
+                                <div className='item-image item1'></div>
+                                <div className='item-text text-center'>VPP<br />DCHS</div>
+                            </Link>
+                        </div>
+
+                        <div className='child-item col-1'>
+                            <Link to='/do-choi'
+                                className='sharing-link-content'>
+                                <div className='item-image item2'></div>
+                                <div className='item-text text-center'>
+                                    <FormattedMessage id="customer.homepage.product-category.toys" /></div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item2'></div>
-                            <div className='item-text text-center'><FormattedMessage id="customer.homepage.product-category.toys" /></div>
+                            <Link to='/vpp-dung-cu-hoc-sinh' className='sharing-link-content'>
+                                <div className='item-image item3'></div>
+                                <div className='item-text text-center'>
+                                    <FormattedMessage id="customer.homepage.product-category.romantic-fiction" />
+                                    <br />
+                                    <FormattedMessage id="customer.homepage.product-category.danmei" />
+                                </div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item3'></div>
-                            <div className='item-text text-center'>
-                                <FormattedMessage id="customer.homepage.product-category.romantic-fiction" />
-                                <br />
-                                <FormattedMessage id="customer.homepage.product-category.danmei" />
-                            </div>
+                            <Link className='sharing-link-content'>
+                                <div className='item-image item4'></div>
+                                <div className='item-text text-center'><FormattedMessage id="customer.homepage.product-category.foreign-language-book" /></div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item4'></div>
-                            <div className='item-text text-center'><FormattedMessage id="customer.homepage.product-category.foreign-language-book" /></div>
+                            <Link className='sharing-link-content'>
+                                <div className='item-image item5'></div>
+                                <div className='item-text text-center'>Manga</div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item5'></div>
-                            <div className='item-text text-center'>Manga</div>
+                            <Link className='sharing-link-content'>
+                                <div className='item-image item6'></div>
+                                <div className='item-text text-center'>Tâm Linh<br />Luân Hồi</div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item6'></div>
-                            <div className='item-text text-center'>Tâm Linh<br />Luân Hồi</div>
+                            <Link className='sharing-link-content'>
+                                <div className='item-image item7'></div>
+                                <div className='item-text text-center'>Tâm Lý<br />Thao Túng</div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item7'></div>
-                            <div className='item-text text-center'>Tâm Lý<br />Thao Túng</div>
+                            <Link to='/sach-trong-nuoc/tam-ly-ky-nang-song/ky-nang-song'
+                                className='sharing-link-content'>
+                                <div className='item-image item8'></div>
+                                <div className='item-text text-center'>Đối Mặt<br />Thức Tỉnh</div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item8'></div>
-                            <div className='item-text text-center'>Đối Mặt<br />Thức Tỉnh</div>
+                            <Link to='/sach-trong-nuoc/van-hoc/tieu-thuyet'
+                                className='sharing-link-content'>
+                                <div className='item-image item9'></div>
+                                <div className='item-text text-center'>
+                                    <FormattedMessage id="customer.homepage.product-category.novel" /></div>
+                            </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <div className='item-image item9'></div>
-                            <div className='item-text text-center'><FormattedMessage id="customer.homepage.product-category.novel" /></div>
-                        </div>
-                        <div className='child-item col-1'>
-                            <div className='item-image item10'></div>
-                            <div className='item-text text-center'><FormattedMessage id="customer.homepage.product-category.light-novel" /></div>
+                            <Link to='/sach-trong-nuoc/van-hoc/light-novel'
+                                className='sharing-link-content'>
+                                <div className='item-image item10'></div>
+                                <div className='item-text text-center'><FormattedMessage id="customer.homepage.product-category.light-novel" /></div>
+                            </Link>
                         </div>
                     </div>
                 </div>

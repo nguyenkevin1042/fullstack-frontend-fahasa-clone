@@ -701,9 +701,10 @@ export const fetchAllProductByCategoryFail = (response) => ({
 //FETCH ALL PRODUCTS BY SUB CATEGORY
 export const fetchAllProductBySubCategory = (inputCategory, inputSubCategory) => {
     return async (dispatch, getState) => {
-        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+        // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
         let res;
         try {
+            console.log('fetchAllProductBySubCategory')
             res = await getProductBySubCategoryAPI(inputCategory, inputSubCategory);
 
             if (res && res.errCode === 0) {
@@ -715,7 +716,7 @@ export const fetchAllProductBySubCategory = (inputCategory, inputSubCategory) =>
             dispatch(fetchAllProductBySubCategoryFail(res));
             console.log("fetchAllProductBySubCategory Error: ", error)
         }
-        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        // dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
     }
 }
 
@@ -734,6 +735,7 @@ export const fetchAllProductByChildCategory = (inputSubCategory, inputChildCateg
     return async (dispatch, getState) => {
         let res;
         try {
+
             res = await getProductByChildCategoryAPI(inputSubCategory, inputChildCategory);
 
             if (res && res.errCode === 0) {

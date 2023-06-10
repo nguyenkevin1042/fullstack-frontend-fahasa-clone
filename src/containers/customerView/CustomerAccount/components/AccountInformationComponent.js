@@ -172,35 +172,20 @@ class AccountInformationComponent extends Component {
                         <div className='select-gender-option'>
                             {listGender && listGender.length > 0 && (
                                 listGender.map((item, index) => (
-                                    <label key={index}>
-                                        <input
-                                            type="radio"
-                                            value={item.keyMap}
-                                            name="gender"
-                                            onChange={(event) => this.onChangeRadioValue(event)}
-                                        />
-                                        {item.label}                                    </label>
+                                    <div>
+                                        <label key={index}>
+                                            <input
+                                                type="radio"
+                                                value={item.keyMap}
+                                                name="gender"
+                                                onChange={(event) => this.onChangeRadioValue(event)}
+                                            />
+                                            {item.label}
+                                        </label>
+                                    </div>
                                 ))
                             )}
 
-                            {/* <label>
-                                <input
-                                    type="radio"
-                                    value="male"
-                                    name="gender"
-                                    onChange={(event) => this.onChangeRadioValue(event)}
-                                />
-                                <FormattedMessage id='customer.account.account-information.male' />
-                            </label>
-                            <label className='mx-5'>
-                                <input
-                                    type="radio"
-                                    value="female"
-                                    name="gender"
-                                    onChange={(event) => this.onChangeRadioValue(event)}
-                                />
-                                <FormattedMessage id='customer.account.account-information.female' />
-                            </label> */}
                         </div>
 
                     </div>

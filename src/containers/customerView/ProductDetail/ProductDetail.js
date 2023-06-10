@@ -11,6 +11,8 @@ import ProductDescriptionComponent from './ProductDescriptionComponent';
 
 import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
+import OtherProductsComponent from './OtherProductsComponent';
+
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -18,22 +20,28 @@ class ProductDetail extends Component {
         this.state = {
             quantityValue: 1,
             descriptionData: '',
-            productType: ''
+            productType: '',
+
+            category: '',
+            subCategory: '',
         };
     }
 
     async componentDidMount() {
-
         await this.props.fetchProductByKeyName(this.props.match.params.keyName);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
         }
 
         if (prevProps.product !== this.props.product) {
             document.title = this.props.product.name
+            this.setState({
+                category: this.props.product.ChildCategory.SubCategory.AllCode.keyMap,
+                subCategory: this.props.product.ChildCategory.SubCategory.keyName
+            })
             if (this.props.product.stationaryDescriptionId) {
                 this.setState({
                     descriptionData: this.props.product.stationaryDescriptionData,
@@ -203,14 +211,15 @@ class ProductDetail extends Component {
     }
 
     render() {
-        let { quantityValue, descriptionData, productType } = this.state
+        let { quantityValue, descriptionData, productType, category, subCategory } = this.state
         let { product } = this.props
         let imageBase64 = '';
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
 
-        console.log(product)
+        console.log(this.state)
+
         return (
             <>
                 <Header />
@@ -279,6 +288,11 @@ class ProductDetail extends Component {
                     </div>
 
                 </div>
+                <OtherProductsComponent titleKey={'same-author'} />
+                <OtherProductsComponent titleKey={'relevant-products'} />
+                <OtherProductsComponent titleKey={'suggest'}
+                    category={category} subCategory={subCategory} />
+
 
                 <ProductDescriptionComponent
                     product={product}
@@ -299,13 +313,14 @@ class ProductDetail extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        product: state.user.product
+        product: state.user.product,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProductByKeyName: (inputKeyName) => dispatch(actions.fetchProductByKeyName(inputKeyName))
+        fetchProductByKeyName: (inputKeyName) => dispatch(actions.fetchProductByKeyName(inputKeyName)),
+
     };
 };
 

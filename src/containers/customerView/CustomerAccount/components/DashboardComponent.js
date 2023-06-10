@@ -30,11 +30,11 @@ class DashboardComponent extends Component {
 
     render() {
         let { userInfo, lang } = this.props
-        let firstName = userInfo.firstName ? userInfo.firstName : ''
-        let lastName = userInfo.lastName ? userInfo.lastName : ''
-        let labelVI = firstName + " " + lastName;
-        let labelEN = lastName + " " + firstName;
-        let customerName = lang === languages.VI ? labelVI : labelEN
+        // let firstName = userInfo.firstName ? userInfo.firstName : ''
+        // let lastName = userInfo.lastName ? userInfo.lastName : ''
+        // let labelVI = userInfo.firstName + " " + userInfo.lastName;
+        // let labelEN = userInfo.lastName + " " + userInfo.firstName;
+        // let customerName = lang === languages.VI ? labelVI : labelEN
 
         return (
             <React.Fragment>
@@ -44,7 +44,7 @@ class DashboardComponent extends Component {
                 <div className='dashboard-customer'>
                     <div className='col-12'>
                         <label>Full Name:</label>
-                        <b className='mx-3'>{customerName}</b>
+                        <b className='mx-3'>{userInfo.firstName + " " + userInfo.lastName}</b>
                     </div>
                     <div className='col-12'>
                         <label>Email:</label>

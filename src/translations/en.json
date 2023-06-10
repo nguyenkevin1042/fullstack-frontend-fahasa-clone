@@ -87,7 +87,10 @@
             "color": "Color",
             "material": "Material",
             "more": "Show more",
-            "less": "Show less"
+            "less": "Show less",
+            "suggest": "Suggestions from Fahasa",
+            "same-author": "Other products of this author",
+            "relevant-products": "Relevant products"
         },
         "account": {
             "title": "Account",

@@ -139,3 +139,9 @@ body{
   color:#dc3545;
   font-size: 16px;
 }
+
+.sharing-link-content{
+  &:hover{
+    text-decoration: none;
+  }
+}

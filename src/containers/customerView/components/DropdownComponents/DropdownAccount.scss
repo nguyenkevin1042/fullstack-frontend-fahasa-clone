@@ -7,7 +7,7 @@
     position: absolute;
     right: 130px;
 
-
+    //NOT SIGN IN
     .sign-in-btn{
         // margin-top: 10px;
         display: flex;
@@ -48,6 +48,13 @@
         }
     }
 
+    //SIGNED IN
+    .signed-in-item{
+        &:hover {
+            background-color: #F2F4F5 !important;
+        }
+    }
+
     .signed-in-action{
         border-top: 1px solid #F2F4F5;
         cursor: pointer;
@@ -58,9 +65,18 @@
         span{
             margin-left: 5px;
         }
+    }
+
+    .sharing-link-content{
+        p{
+            color: black;
+            font-weight: 600;
+            font-size: 16px;
+        }
 
         &:hover {
-            background-color: #F2F4F5;
+            background-color: #F2F4F5 !important;
         }
     }
+
 }

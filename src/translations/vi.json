@@ -91,7 +91,10 @@
             "usage": "Hướng Dẫn Sử Dụng",
             "warning": "Thông Tin Cảnh Báo",
             "more": "Xem Thêm",
-            "less": "Rút Gọn"
+            "less": "Rút Gọn",
+            "suggest": "Fahasa giới thiệu",
+            "same-author": "Cùng tác giả",
+            "relevant-products": "Sản phẩm liên quan"
         },
         "account": {
             "title": "Tài khoản",

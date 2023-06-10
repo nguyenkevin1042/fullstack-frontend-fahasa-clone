@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import './DropdownAccount.scss';
 import * as actions from "../../../../store/actions";
 import AccountModal from './AccountModal';
+import { Link } from "react-router-dom";
+import { languages } from '../../../../utils';
 
 class DropdownAccount extends Component {
     constructor(props) {
@@ -57,10 +59,21 @@ class DropdownAccount extends Component {
     }
 
     renderIfSignedIn = () => {
-        let { userInfo, userProcessLogout } = this.props
+        let { userInfo, lang } = this.props
+        // let firstName = userInfo && userInfo.firstName ? userInfo.lastName : ''
+        // let lastName = userInfo && userInfo.lastName ? userInfo.lastName : ''
+        let labelVI = userInfo.firstName + " " + userInfo.lastName;
+        let labelEN = userInfo.lastName + " " + userInfo.firstName;
+        let customerName = lang === languages.VI ? labelVI : labelEN
         return (
             <>
-                <div className='col-12 signed-in-action' onClick={() => this.handleSignOut()}>
+                <div className='col-12 ' >
+                    <Link to='/customer/account' className='sharing-link-content signed-in-item'>
+                        <p>{customerName}</p>
+                    </Link>
+                </div>
+
+                <div className='col-12 signed-in-action signed-in-item' onClick={() => this.handleSignOut()}>
                     <i className="fas fa-sign-out-alt"></i>
                     <span><FormattedMessage id="customer.homepage.header.account.signout" /></span>
                 </div>
