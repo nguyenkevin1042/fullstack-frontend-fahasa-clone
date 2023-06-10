@@ -5,6 +5,10 @@ const createNewUserAPI = (data) => {
     return axios.post("/api/create-new-user", data);
 }
 
+const updateUserAPI = (data) => {
+    return axios.post("/api/update-user", data);
+}
+
 const adminLoginAPI = (inputEmail, inputPassword) => {
     return axios.post("/api/admin/login", {
         email: inputEmail,
@@ -170,7 +174,7 @@ const deleteProductAPI = (inputId) => {
 
 export {
     //USER
-    createNewUserAPI, adminLoginAPI, customerLoginAPI,
+    createNewUserAPI, adminLoginAPI, customerLoginAPI, updateUserAPI,
     //ALLCODES
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, getAllCodesByKeyMapAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,

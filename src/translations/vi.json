@@ -103,6 +103,8 @@
                 "email": "Email",
                 "phone-number": "Số điện thoại",
                 "gender": "Giới tính*",
+                "male": "Nam",
+                "female": "Nữ",
                 "birthday": "Ngày sinh*",
                 "save-changes-text": "Lưu thay đổi"
             },

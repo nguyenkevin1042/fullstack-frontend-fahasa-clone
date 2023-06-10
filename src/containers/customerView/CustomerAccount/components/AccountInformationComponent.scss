@@ -3,6 +3,19 @@
         font-weight: 600;
     }
 
+    .select-gender-option{
+        display: flex;
+        justify-content: space-between;
+
+        input[type='radio']:after{
+            background-color:  #F7941E !important;
+        }
+
+        input[type='radio']:checked:after {
+            background-color:  #F7941E !important;
+        }
+    }
+
     .save-changes-btn{
         font-weight: 600;
     color: white;

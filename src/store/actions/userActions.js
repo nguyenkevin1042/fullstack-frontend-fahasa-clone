@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { customerLoginAPI, getProductByKeyNameAPI } from '../../services/userService';
+import { customerLoginAPI, getProductByKeyNameAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -9,8 +9,6 @@ export const userLogin = (inputEmail, inputPassword) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            console.log(inputEmail, inputPassword)
-            // return;
             res = await customerLoginAPI(inputEmail, inputPassword);
 
             if (res && res.errCode === 0) {
@@ -67,3 +65,35 @@ export const fetchProductByKeyNameSuccess = (data) => ({
 export const fetchProductByKeyNameFail = () => ({
     type: actionTypes.FETCH_PRODUCT_BY_KEY_NAME_FAIL
 })
+
+//UPDATE USER
+export const updateUser = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await updateUserAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(updateUserSuccess(res));
+            } else {
+                dispatch(updateUserFail(res));
+            }
+        } catch (error) {
+            dispatch(updateUserFail(res));
+            console.log("updateUser Error: ", error)
+        }
+    }
+}
+
+export const updateUserSuccess = (response) => ({
+    type: actionTypes.USER_LOGIN_SUCCESS,
+    response: response
+})
+
+export const updateUserFail = (response) => ({
+    type: actionTypes.USER_LOGIN_FAIL,
+    response: response
+})
+
+

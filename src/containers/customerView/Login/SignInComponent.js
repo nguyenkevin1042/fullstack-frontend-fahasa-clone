@@ -31,12 +31,6 @@ class SignInComponent extends Component {
                     this.props.actionResponse.messageEN
             })
         }
-        if (prevProps.actionResponse !== this.props.actionResponse) {
-            // this.setState({
-            //     message: this.props.signInMessage
-            // })
-
-        }
 
     }
 
@@ -72,7 +66,6 @@ class SignInComponent extends Component {
 
         let language = this.props.lang
 
-        console.log(actionResponse)
         return (
             <>
                 {isOpenSignInForm === true &&

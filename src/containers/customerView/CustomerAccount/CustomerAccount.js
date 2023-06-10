@@ -15,11 +15,12 @@ class CustomerAccount extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedSection: ''
+            selectedSection: 'dashboard'
         };
     }
 
     componentDidMount() {
+        // if (selectedSection === 'dashboard')
 
     }
 
@@ -58,6 +59,8 @@ class CustomerAccount extends Component {
 
     render() {
         let { selectedSection } = this.state
+        console.log(selectedSection)
+        console.log(this.props.userInfo)
 
         return (
             <React.Fragment>

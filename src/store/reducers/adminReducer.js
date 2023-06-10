@@ -261,14 +261,12 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.FETCH_PRODUCT_BY_CATEGORY_SUCCESS:
             state.actionResponse = action.response
             state.allProductArr = action.response.allProducts
-            // state.isFetchingData = false
             return {
                 ...state,
             }
         case actionTypes.FETCH_PRODUCT_BY_CATEGORY_FAIL:
             state.allProductArr = []
             state.actionResponse = action.response
-            // state.isFetchingData = false
             return {
                 ...state,
             }

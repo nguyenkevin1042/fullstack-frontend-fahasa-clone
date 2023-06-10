@@ -23,6 +23,17 @@ const appReducer = (state = initialState, action) => {
                 actionResponse: action.response
             }
 
+        case actionTypes.UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.UPDATE_USER_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
         case actionTypes.FETCH_PRODUCT_BY_KEY_NAME_SUCCESS:
             state.product = action.prouductData;
             return {

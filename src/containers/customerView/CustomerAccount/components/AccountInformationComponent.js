@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './AccountInformationComponent.scss';
-// import * as actions from "../store/actions";
+import * as actions from "../../../../store/actions";
+import { languages } from '../../../../utils';
 
 class AccountInformationComponent extends Component {
     constructor(props) {
@@ -19,52 +20,104 @@ class AccountInformationComponent extends Component {
             newPassword: '',
             retypeNewPassword: '',
 
+            listGender: [],
+            message: ''
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.props.fetchAllCodesByType('gender')
 
-        this.setState = {
-            firstName: this.props.userInfo.firstName,
-
-        };
+        if (this.props.userInfo) {
+            this.setState({
+                firstName: this.props.userInfo.firstName,
+                lastName: this.props.userInfo.lastName,
+                phoneNumber: this.props.userInfo.phoneNumber,
+                email: this.props.userInfo.email,
+                gender: this.props.userInfo.gender,
+                birthday: '',
+            });
+        }
 
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            this.setState({
+                message: this.props.lang === languages.VI ?
+                    this.props.actionResponse.messageVI :
+                    this.props.actionResponse.messageEN
+            })
+        }
 
+        if (prevProps.allCodesArr !== this.props.allCodesArr ||
+            prevProps.lang !== this.props.lang) {
+            let dataGender = this.buildDataInputSelect(this.props.allCodesArr);
+            this.setState({
+                listGender: dataGender
+            })
         }
 
         if (this.props.userInfo && prevProps.userInfo !== this.props.userInfo) {
-            this.setState = {
+            this.setState({
                 firstName: this.props.userInfo.firstName,
-                // lastName: this.props.userInfo.lastname,
-                // phoneNumber: this.props.userInfo.phoneNumber,
-                // email: this.props.userInfo.email,
-                // gender: '',
-                // birthday: '',
-            };
+                lastName: this.props.userInfo.lastName,
+                phoneNumber: this.props.userInfo.phoneNumber,
+                email: this.props.userInfo.email,
+                gender: this.props.userInfo.gender,
+                birthday: '',
+            });
         }
+    }
 
+    buildDataInputSelect = (inputData) => {
+        let result = [];
+        let language = this.props.lang;
 
+        inputData.map((item, index) => {
+            let obj = {};
+            let labelVI = item.valueVI;
+            let labelEN = item.valueEN;
+
+            obj.keyMap = item.keyMap;
+            obj.label = language === languages.VI ? labelVI : labelEN;
+            result.push(obj);
+        });
+
+        return result;
     }
 
     handleOnChangeInput = (event) => {
-        // let key = event.target.id;
-        // let data = event.target.value;
-        // console.log(key, data)
-        // let copyState = { ...this.state };
-        // copyState[key] = data;
-        // this.setState({ ...copyState });
+        let key = event.target.id;
+        let data = event.target.value;
+        let copyState = { ...this.state };
+        copyState[key] = data;
+        this.setState({ ...copyState });
+    }
+
+    onChangeRadioValue = (event) => {
+        this.setState({
+            gender: event.target.value
+        })
+    }
+
+    handleSaveChanges = async () => {
+        await this.props.updateUser({
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            phoneNumber: this.state.phoneNumber,
+            email: this.state.email,
+            gender: this.state.gender,
+            birthday: this.state.birthday,
+        })
     }
 
 
     render() {
-        let { firstName, lastName, phoneNumber, email, gender, birthday, oldPassword, newPassword, retypeNewPassword } = this.state
+        let { firstName, lastName, phoneNumber, email, gender, birthday,
+            oldPassword, newPassword, retypeNewPassword, message, listGender } = this.state
 
-        console.log(this.state)
-        console.log(this.props.userInfo.firstName)
+        console.log(listGender)
         return (
             <React.Fragment>
                 <div className='right-content-header'>
@@ -97,7 +150,6 @@ class AccountInformationComponent extends Component {
                             <FormattedMessage id='customer.account.account-information.phone-number' />
                         </label>
                         <input className='form-control col-xl-7'
-                            readOnly
                             value={phoneNumber}
                             id='phoneNumber'
                             onChange={(event) => this.handleOnChangeInput(event)} />
@@ -117,6 +169,39 @@ class AccountInformationComponent extends Component {
                         <label className='col-xl-3'>
                             <FormattedMessage id='customer.account.account-information.gender' />
                         </label>
+                        <div className='select-gender-option'>
+                            {listGender && listGender.length > 0 && (
+                                listGender.map((item, index) => (
+                                    <label key={index}>
+                                        <input
+                                            type="radio"
+                                            value={item.keyMap}
+                                            name="gender"
+                                            onChange={(event) => this.onChangeRadioValue(event)}
+                                        />
+                                        {item.label}                                    </label>
+                                ))
+                            )}
+
+                            {/* <label>
+                                <input
+                                    type="radio"
+                                    value="male"
+                                    name="gender"
+                                    onChange={(event) => this.onChangeRadioValue(event)}
+                                />
+                                <FormattedMessage id='customer.account.account-information.male' />
+                            </label>
+                            <label className='mx-5'>
+                                <input
+                                    type="radio"
+                                    value="female"
+                                    name="gender"
+                                    onChange={(event) => this.onChangeRadioValue(event)}
+                                />
+                                <FormattedMessage id='customer.account.account-information.female' />
+                            </label> */}
+                        </div>
 
                     </div>
 
@@ -124,11 +209,15 @@ class AccountInformationComponent extends Component {
                         <label className='col-xl-3'>
                             <FormattedMessage id='customer.account.account-information.birthday' />
                         </label>
+                    </div>
 
+                    <div className=' error-message mt-4'>
+                        {message}
                     </div>
 
                     <div className='row mt-3'>
-                        <button className='save-changes-btn'>
+                        <button className='save-changes-btn'
+                            onClick={() => this.handleSaveChanges()}>
                             <FormattedMessage id='customer.account.account-information.save-changes-text' />
                         </button>
 
@@ -147,11 +236,15 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         userInfo: state.user.userInfo,
+        allCodesArr: state.admin.allCodesArr,
+        actionResponse: state.user.actionResponse,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        updateUser: (inputData) => dispatch(actions.updateUser(inputData)),
+        fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
 
     };
 };

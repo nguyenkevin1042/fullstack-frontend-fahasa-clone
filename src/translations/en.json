@@ -99,6 +99,8 @@
                 "email": "Email",
                 "phone-number": "Phone Number",
                 "gender": "Gender*",
+                "male": "Male",
+                "female": "Female",
                 "birthday": "Birthday*",
                 "save-changes-text": "Save changes"
             },
