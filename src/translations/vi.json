@@ -92,6 +92,28 @@
             "warning": "Thông Tin Cảnh Báo",
             "more": "Xem Thêm",
             "less": "Rút Gọn"
+        },
+        "account": {
+            "title": "Tài khoản",
+            "dashboard": "Bảng điều khiển tài khoản",
+            "account-information": {
+                "title": "Thông tin tài khoản",
+                "first-name": "Tên*",
+                "last-name": "Họ*",
+                "email": "Email",
+                "phone-number": "Số điện thoại",
+                "gender": "Giới tính*",
+                "birthday": "Ngày sinh*",
+                "save-changes-text": "Lưu thay đổi"
+            },
+            "address": "Sổ địa chỉ",
+            "my-orders": "Đơn hàng của tôi",
+            "voucher": "Ví voucher",
+            "book-set": "Sách theo bộ",
+            "f-point": "Tài khoản F-point/Freeship",
+            "my-reviews": "Nhận xét của tôi",
+            "notification": "Thông báo",
+            "newletter": "Đăng ký nhận tin điện tử"
         }
     },
     "common": {

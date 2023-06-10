@@ -14,6 +14,7 @@ import enFlag from '../../../assets/english.svg';
 import DropdownMenu from './DropdownComponents/DropdownMenu';
 import { Dropdown } from 'antd';
 import DropdownAccount from './DropdownComponents/DropdownAccount';
+import SearchDropdown from './DropdownComponents/SearchDropdown';
 
 
 class Header extends Component {
@@ -47,6 +48,8 @@ class Header extends Component {
             listCategory: [],
             selectedCategory: '',
             visible: false,
+
+            productName: ''
         };
     }
 
@@ -97,6 +100,13 @@ class Header extends Component {
         return result;
     }
 
+    handleOnChangeInput = (event) => {
+        let key = event.target.id;
+        let data = event.target.value;
+        let copyState = { ...this.state };
+        copyState[key] = data;
+        this.setState({ ...copyState });
+    }
 
     handleChangeLanguage = (selectedLanguage) => {
         this.setState({
@@ -127,6 +137,8 @@ class Header extends Component {
     renderCustomerOption = () => {
         let { userInfo } = this.props;
         const accountMenu = (<DropdownAccount />);
+
+
         return (
             <Dropdown overlay={accountMenu}>
                 <div className='user-options-information option col-6 col-md-3'
@@ -184,9 +196,8 @@ class Header extends Component {
             })
         };
 
-        // const menu = (<DropdownMenu disabled={true} />);
-        const item = (<DropdownMenu />);
-
+        const menu = (<DropdownMenu />);
+        const searchDropdown = (<SearchDropdown />)
         return (
             <>
                 <div className='home-header-container container-fluid'>
@@ -199,9 +210,7 @@ class Header extends Component {
                         </div >
                         {/* MENU */}
                         <div className='home-header-menu col-1 col-lg-1 px-1'>
-                            <Dropdown overlay={item}
-                            // overlay={menu}
-                            >
+                            <Dropdown overlay={menu}>
                                 <div className='home-header-menu-toggle'>
                                     <div className='home-header-menu-toggle-icon img-fluid'></div>
                                     <div><i className="fa fa-angle-down"></i></div>
@@ -210,13 +219,18 @@ class Header extends Component {
                         </div >
                         {/* SEARCH BAR */}
                         <div className='home-header-search-bar col-8 col-md-9 col-lg-5'>
-                            <input type='text' className='form-control search-bar'
+                            {/* <Dropdown overlay={searchDropdown}> */}
+                            <input type='text'
+                                id='productName'
+                                onChange={(event) => this.handleOnChangeInput(event)}
+                                className='form-control search-bar'
                                 placeholder={
                                     language === languages.VI ?
                                         "Tìm kiếm sản phẩm mong muốn" :
                                         "Search entire store here"
                                 } />
                             <button><i className="fa fa-search"></i></button>
+                            {/* </Dropdown> */}
                         </div >
                         {/* OPTIONS */}
                         <div className='home-header-user-options col-3 col-md-2 col-lg-4'>
