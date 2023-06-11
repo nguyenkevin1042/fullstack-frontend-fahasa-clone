@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { customerLoginAPI, getProductByKeyNameAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, customerLoginAPI, getProductByKeyNameAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -96,4 +96,34 @@ export const updateUserFail = (response) => ({
     response: response
 })
 
+//ADD PRODUCT TO CART
+export const addToCart = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+
+            res = await addToCartAPI(inputData);
+            console.log(res)
+            // if (res && res.errCode === 0) {
+            //     dispatch(updateUserSuccess(res));
+            // } else {
+            //     dispatch(updateUserFail(res));
+            // }
+        } catch (error) {
+            dispatch(updateUserFail(res));
+            console.log("updateUser Error: ", error)
+        }
+    }
+}
+
+export const addToCartSuccess = (response) => ({
+    type: actionTypes.USER_LOGIN_SUCCESS,
+    response: response
+})
+
+export const addToCartFail = (response) => ({
+    type: actionTypes.USER_LOGIN_FAIL,
+    response: response
+})
 

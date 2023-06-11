@@ -171,6 +171,11 @@ const deleteProductAPI = (inputId) => {
     );
 }
 
+//CART PRODUCT
+const addToCartAPI = (data) => {
+    return axios.post("/api/add-to-cart", data);
+}
+
 
 export {
     //USER
@@ -187,5 +192,7 @@ export {
     //PRODUCT
     addNewProductAPI, updateProductAPI, getAllProductAPI, deleteProductAPI,
     getProductByKeyNameAPI, getProductByCategoryAPI, getProductBySubCategoryAPI,
-    getProductByChildCategoryAPI
+    getProductByChildCategoryAPI,
+    //CART PRODUCT
+    addToCartAPI
 };

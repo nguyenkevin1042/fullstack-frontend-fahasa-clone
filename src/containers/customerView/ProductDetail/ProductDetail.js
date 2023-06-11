@@ -24,6 +24,7 @@ class ProductDetail extends Component {
 
             category: '',
             subCategory: '',
+
         };
     }
 
@@ -40,7 +41,7 @@ class ProductDetail extends Component {
             document.title = this.props.product.name
             this.setState({
                 category: this.props.product.ChildCategory.SubCategory.AllCode.keyMap,
-                subCategory: this.props.product.ChildCategory.SubCategory.keyName
+                subCategory: this.props.product.ChildCategory.SubCategory.keyName,
             })
             if (this.props.product.stationaryDescriptionId) {
                 this.setState({
@@ -77,12 +78,23 @@ class ProductDetail extends Component {
         })
     }
 
+    handleAddToCart = async () => {
+        let { userInfo, product } = this.props
+
+        await this.props.addToCart({
+            cartId: userInfo ? userInfo.Cart.id : '',
+            productId: product.id,
+            quantity: this.state.quantityValue
+        })
+    }
+
     handleOnChangeInput = (event, key) => {
         let data = event.target.value;
         let copyState = { ...this.state };
         copyState[key] = data;
         this.setState({ ...copyState });
     }
+
 
     formatPrice = (price) => {
         let result = <NumericFormat value={parseFloat(price)}
@@ -212,13 +224,14 @@ class ProductDetail extends Component {
 
     render() {
         let { quantityValue, descriptionData, productType, category, subCategory } = this.state
-        let { product } = this.props
+        let { product, userInfo } = this.props
         let imageBase64 = '';
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
 
-        console.log(this.state)
+        console.log(userInfo)
+
 
         return (
             <>
@@ -237,11 +250,15 @@ class ProductDetail extends Component {
 
                                 </div>
                                 <div className='product-action col-xl-12'>
-                                    <button className='add-to-cart-btn'><FormattedMessage id="customer.product-detail.add-to-cart" /></button>
+                                    <button className='add-to-cart-btn'
+                                        onClick={() => this.handleAddToCart()}>
+                                        <FormattedMessage id="customer.product-detail.add-to-cart" />
+                                    </button>
                                     <button className='buy-now-btn'><FormattedMessage id="customer.product-detail.buy-now" /></button>
                                 </div>
                             </div>
                         </div>
+
                         <div className='product-detail-right col-xl-7'>
                             <div className='row'>
                                 <div className='product-name col-xl-12'>{product.name}</div>
@@ -313,6 +330,7 @@ class ProductDetail extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
+        userInfo: state.user.userInfo,
         product: state.user.product,
     };
 };
@@ -320,7 +338,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchProductByKeyName: (inputKeyName) => dispatch(actions.fetchProductByKeyName(inputKeyName)),
-
+        addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
     };
 };
 

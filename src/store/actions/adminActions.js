@@ -704,7 +704,6 @@ export const fetchAllProductBySubCategory = (inputCategory, inputSubCategory) =>
         // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
         let res;
         try {
-            console.log('fetchAllProductBySubCategory')
             res = await getProductBySubCategoryAPI(inputCategory, inputSubCategory);
 
             if (res && res.errCode === 0) {
