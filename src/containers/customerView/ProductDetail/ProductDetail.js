@@ -97,11 +97,13 @@ class ProductDetail extends Component {
 
     handleAddToCart = async () => {
         let { userInfo, product, actionResponse } = this.props
+        let salePrice = product.price - ((product.price * product.discount) / 100);
 
         await this.props.addToCart({
             cartId: userInfo ? userInfo.Cart.id : '',
             productId: product.id,
-            quantity: this.state.quantityValue
+            quantity: this.state.quantityValue,
+            productPrice: product.discount ? salePrice : product.price
         })
 
         // if (actionResponse && actionResponse.errCode === 0) {
