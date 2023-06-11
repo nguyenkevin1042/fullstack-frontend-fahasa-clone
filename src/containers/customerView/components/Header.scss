@@ -203,6 +203,7 @@ $ex-large: 1200px;// Extra large >= 1200
             cursor: pointer;
             padding: 0;
             justify-content: center;
+            position: relative;
 
             .fa{
                 text-align: center;
@@ -223,6 +224,24 @@ $ex-large: 1200px;// Extra large >= 1200
                 font-size: 0.7em;
                 color: #333333;
                 text-overflow: ellipsis;
+            }
+
+            span{
+                font-size: inherit !important;
+            }
+            .sum-products-in-cart{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #C92127;
+                border: 1px solid white;
+                color: white;
+                font-weight: 600;
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                top: -12px;left: 50%;
+                border-radius: 20px;
             }
         }
 

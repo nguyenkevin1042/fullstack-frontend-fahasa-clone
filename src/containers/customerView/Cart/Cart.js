@@ -3,34 +3,172 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './Cart.scss';
-// import * as actions from "../store/actions";
+import * as actions from "../../../store/actions";
 
 import Header from '../components/Header';
 import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
+import NumericFormat from 'react-number-format';
 
 class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            listProductInCart: []
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        if (this.props.userInfo) {
+            await this.props.getCartByUserId(this.props.userInfo.id)
+        }
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
         }
 
+        if (prevProps.userInfo !== this.props.userInfo
+            || prevProps.lang !== this.props.lang) {
+            await this.props.getCartByUserId(this.props.userInfo.id)
+        }
 
+        if (prevProps.cartData !== this.props.cartData
+            || prevProps.lang !== this.props.lang) {
+            this.setState({
+                listProductInCart: this.props.cartData
+            })
+        }
     }
 
+    renderLeftContent = () => {
+        let { listProductInCart } = this.state
+
+        return (
+            <>
+                <table>
+                    <div className='left-content-up'>
+                        <tr className='row'>
+                            <th className='col-xl-1'>
+                                <input type="checkbox" id="choose-all" name="choose-all" checked />
+                            </th>
+                            <th className='col-xl-6'>
+                                <label for="choose-all">
+                                    <FormattedMessage id="customer.cart.choose-all" />
+                                </label>
+                            </th>
+                            <th className='col-xl-2'>
+                                <label>
+                                    Số lượng
+                                </label>
+                            </th>
+                            <th className='col-xl-2'>
+                                <label>
+                                    Thành tiền
+                                </label>
+                            </th>
+                            <th className='col-xl-1'></th>
+                        </tr>
+                    </div>
+
+                    <div className='left-content-down'>
+                        {listProductInCart && listProductInCart.length > 0 &&
+                            listProductInCart.map((item, index) => {
+                                let imageBase64 = '';
+                                let product = item.Product;
+                                if (product.image) {
+                                    imageBase64 = new Buffer(product.image, 'base64').toString('binary');
+                                }
+
+                                return (
+                                    <tr className='cart-item row'>
+                                        <td className='col-xl-1'>
+                                            <input type="checkbox" id="choose-all" name="choose-all" />
+                                        </td>
+                                        <td className='product-section col-xl-6'>
+                                            <div className='product-img col-xl-3'
+                                                style={{
+                                                    backgroundImage: "url(" + imageBase64 + ")"
+                                                }}>
+
+                                            </div>
+
+                                            <div className='product-name-price col-xl-9'>
+                                                <div className='product-name'>
+                                                    {product.name}
+                                                </div>
+                                                <div className='product-price'>
+                                                    {this.renderProductPrice(product.price, product.discount)}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className='col-xl-2'>
+                                            <label>
+                                                {item.quantity}
+                                            </label>
+                                        </td>
+                                        <td className='col-xl-2'>
+                                            <p className='total-price-text'>
+                                                <NumericFormat value={item.totalPrice}
+                                                    displayType={'text'}
+                                                    thousandSeparator={'.'}
+                                                    decimalSeparator={','}
+                                                    suffix={'đ'} />
+                                            </p>
+                                        </td>
+                                        <td className='delete-action col-xl-1'>
+                                            <i className="fas fa-trash"></i>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+
+                        }
+
+                    </div>
+
+                </table>
+            </>
+        )
+    }
+
+    renderProductPrice = (price, discount) => {
+        let salePrice = price - ((price * discount) / 100);
+        return (
+            <>
+                {discount != 0 ?
+                    <>
+                        <div className='item-discount-price'>
+                            <NumericFormat value={salePrice}
+                                displayType={'text'}
+                                thousandSeparator={'.'}
+                                decimalSeparator={','}
+                                suffix={'đ'} />
+                        </div>
+                        <div className='item-price'>
+                            <NumericFormat value={parseFloat(price)}
+                                displayType={'text'}
+                                thousandSeparator={'.'}
+                                decimalSeparator={','}
+                                suffix={'đ'} />
+                        </div></>
+                    :
+                    <>
+                        <div className='item-discount-price'>
+                            <NumericFormat value={parseFloat(price)}
+                                displayType={'text'}
+                                thousandSeparator={'.'}
+                                decimalSeparator={','}
+                                suffix={'đ'} />
+                        </div></>}
+            </>
+        )
+    }
 
     render() {
+        console.log(this.props.cartData)
         return (
             <React.Fragment>
                 <Header />
@@ -38,95 +176,19 @@ class Cart extends Component {
                 <div className='cart-container'>
                     <div className='row'>
                         <div className='cart-left-content col-xl-8'>
-                            <table>
-                                <div className='left-content-up'>
-                                    <tr className='row'>
-                                        <th className='col-xl-1'>
-                                            <input type="checkbox" id="choose-all" name="choose-all" checked />
-                                        </th>
-                                        <th className='col-xl-6'>
-                                            <label for="choose-all">
-                                                <FormattedMessage id="customer.cart.choose-all" />
-                                            </label>
-                                        </th>
-                                        <th className='col-xl-2'>
-                                            <label>
-                                                Số lượng
-                                            </label>
-                                        </th>
-                                        <th className='col-xl-2'>
-                                            <label>
-                                                Thành tiền
-                                            </label>
-                                        </th>
-                                        <th className='col-xl-1'></th>
-                                    </tr>
-                                </div>
+                            {this.renderLeftContent()}
 
-                                <div className='left-content-down'>
-                                    <tr className='row'>
-                                        <td className='col-xl-1'>
-                                            <input type="checkbox" id="choose-all" name="choose-all" checked />
-                                        </td>
-                                        <td className='col-xl-6'>
-                                            <label for="choose-all">
-                                                <FormattedMessage id="customer.cart.choose-all" />
-                                            </label>
-                                        </td>
-                                        <td className='col-xl-2'>
-                                            <label>
-                                                Số lượng
-                                            </label>
-                                        </td>
-                                        <td className='col-xl-2'>
-                                            <label>
-                                                Thành tiền
-                                            </label>
-                                        </td>
-                                        <td className='col-xl-1'>
-                                            <i className="fas fa-trash"></i>
-                                        </td>
-                                    </tr>
-                                </div>
-
-                            </table>
-
-
-                            {/* <div className='left-content-up'>
-                                <div className='row'>
-                                    <div className='choose-all-section col-xl-8'>
-                                        <input type="checkbox" id="choose-all" name="choose-all" checked />
-                                        <label for="choose-all">
-                                            <FormattedMessage id="customer.cart.choose-all" />
-
-                                        </label>
-                                    </div>
-                                    <div className='col-xl-2'>
-                                        <label>
-                                            Số lượng
-                                        </label>
-                                    </div>
-                                    <div className='col-xl-2'>
-                                        <label>
-                                            Thành tiền
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='left-content-down'>
-
-                            </div> */}
                         </div>
 
                         <div className='cart-right-content col-xl-4'>
 
                         </div>
+
                     </div>
                 </div >
 
                 <SignUpNewletter />
                 <Footer />
-
             </React.Fragment >
 
         );
@@ -136,12 +198,15 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        userInfo: state.user.userInfo,
+        cartData: state.user.cartData,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
 
     };
 };

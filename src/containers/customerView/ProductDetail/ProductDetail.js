@@ -257,9 +257,6 @@ class ProductDetail extends Component {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
 
-        console.log(message)
-        console.log(actionResponse)
-
         return (
             <>
                 <Header />

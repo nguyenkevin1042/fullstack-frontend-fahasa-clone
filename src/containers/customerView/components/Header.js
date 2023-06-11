@@ -54,7 +54,7 @@ class Header extends Component {
     }
 
     async componentDidMount() {
-        // await this.props.fetchAllCodesByType('category')
+        // await this.props.getCartByUserId(this.props.userInfo.id)
         this.setState({
             selectedLanguage: this.state.listLanguage[0]
         })
@@ -62,9 +62,14 @@ class Header extends Component {
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
+        }
+
+        if (prevProps.userInfo !== this.props.userInfo
+            || prevProps.lang !== this.props.lang) {
+            await this.props.getCartByUserId(this.props.userInfo.id)
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr
@@ -262,6 +267,10 @@ class Header extends Component {
                                         onClick={() => this.handleRedirectToCart()}>
                                         <i className="fa fa-shopping-cart"></i>
                                         <p><FormattedMessage id="customer.homepage.header.cart" /></p>
+                                        {this.props.cartData && this.props.cartData.length > 0 &&
+                                            (<span className='sum-products-in-cart'>{this.props.cartData.length}</span>)}
+
+
                                     </div>
 
                                     {this.renderCustomerOption()}
@@ -295,7 +304,8 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         userInfo: state.user.userInfo,
-        allCodesArr: state.admin.allCodesArr
+        allCodesArr: state.admin.allCodesArr,
+        cartData: state.user.cartData,
     };
 };
 
@@ -303,6 +313,7 @@ const mapDispatchToProps = dispatch => {
     return {
         changeLanguageApp: (language) => dispatch(actions.changeLanguageApp(language)),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
+        getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
     };
 };
 

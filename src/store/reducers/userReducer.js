@@ -4,7 +4,8 @@ const initialState = {
     isLoggedIn: false,
     userInfo: null,
     actionResponse: '',
-    product: ''
+    product: '',
+    cartData: ''
 }
 
 const appReducer = (state = initialState, action) => {
@@ -54,6 +55,17 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 actionResponse: action.response
+            }
+
+        case actionTypes.GET_CART_BY_USER_ID_SUCCESS:
+            return {
+                ...state,
+                cartData: action.response.data.CartProducts
+            }
+        case actionTypes.GET_CART_BY_USER_ID_FAIL:
+            return {
+                ...state,
+                cartData: ''
             }
 
         case actionTypes.USER_PROCESS_LOGOUT:

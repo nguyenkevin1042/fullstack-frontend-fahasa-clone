@@ -5,7 +5,9 @@
     table{
         width: 100%;
 
-
+        tr{
+            margin: auto;
+        }
     }
 
     .cart-left-content{
@@ -64,6 +66,82 @@
             height: fit-content;
             padding: 5px 5px 0px 10px;
             border-radius: 10px;
+
+            .cart-item{
+                justify-content: center;
+                align-items: center;
+                border-bottom: 1px solid #ededed;
+                padding: 20px 0;
+
+                .product-section{
+                    display: flex;
+                    padding: 0;
+
+                    .product-img{
+                        background-size: contain;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        height: 100px;
+                         width: 100%;
+                    }
+
+                    .product-name-price{
+                        padding: 0;
+
+                        .product-name{
+                            cursor: pointer;
+                            color: #333333;
+                            font-family: 'Nunito Sans' !important;
+                        }
+
+                        .product-price{
+                            position: absolute;
+                            bottom: 0px;
+                            display: flex;
+
+                            .item-discount-price{
+                                color: black;
+                                font-weight: 600;
+                            }
+
+                            .item-price{
+                                margin-left: 10px;
+                                font-size: 1.1em;
+                                opacity: 0.8;
+                                text-decoration: line-through;
+                                
+                            }
+                        }
+                    }
+
+                    
+                }
+
+                .total-price-text{
+                    font-weight: 600;
+                    color: #C92127;
+                    text-align: center;
+                }
+
+                .delete-action{
+                    border: 1px solid red;
+                    padding: 0;
+                    margin: 0;
+                    
+                    .fas{
+                        line-height: 1;
+                        border: 1px solid red;
+                        transition: all 300ms ease-in 0s;
+                        &:hover{
+                            color: #C92127;
+                        }
+                    }
+                    
+                }
+                
+            }
+
+            
         }
         
 
