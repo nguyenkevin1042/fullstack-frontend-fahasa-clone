@@ -12,6 +12,8 @@ import ProductDescriptionComponent from './ProductDescriptionComponent';
 import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
 import OtherProductsComponent from './OtherProductsComponent';
+import AddToCartSuccessModal from './AddToCartSuccessModal';
+import { languages } from '../../../utils';
 
 
 class ProductDetail extends Component {
@@ -24,7 +26,9 @@ class ProductDetail extends Component {
 
             category: '',
             subCategory: '',
+            message: '',
 
+            isModalOpened: false
         };
     }
 
@@ -62,6 +66,19 @@ class ProductDetail extends Component {
                 })
             }
         }
+
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            this.setState({
+                message: this.props.lang === languages.VI ?
+                    this.props.actionResponse.messageVI :
+                    this.props.actionResponse.messageEN
+            })
+        }
+    }
+    handleCloseModal = () => {
+        this.setState({
+            isModalOpened: false
+        })
     }
 
     handleIncreaseQuantityValue = () => {
@@ -79,12 +96,19 @@ class ProductDetail extends Component {
     }
 
     handleAddToCart = async () => {
-        let { userInfo, product } = this.props
+        let { userInfo, product, actionResponse } = this.props
 
         await this.props.addToCart({
             cartId: userInfo ? userInfo.Cart.id : '',
             productId: product.id,
             quantity: this.state.quantityValue
+        })
+
+        // if (actionResponse && actionResponse.errCode === 0) {
+        //     console.log(actionResponse)
+        // }
+        this.setState({
+            isModalOpened: true
         })
     }
 
@@ -223,15 +247,16 @@ class ProductDetail extends Component {
     }
 
     render() {
-        let { quantityValue, descriptionData, productType, category, subCategory } = this.state
-        let { product, userInfo } = this.props
+        let { quantityValue, descriptionData, productType, category,
+            subCategory, isModalOpened, message } = this.state
+        let { product, userInfo, actionResponse } = this.props
         let imageBase64 = '';
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
 
-        console.log(userInfo)
-
+        console.log(message)
+        console.log(actionResponse)
 
         return (
             <>
@@ -305,6 +330,12 @@ class ProductDetail extends Component {
                     </div>
 
                 </div>
+
+                <AddToCartSuccessModal isModalOpened={isModalOpened}
+                    message={message} productImg={imageBase64}
+                    closeModal={this.handleCloseModal} />
+
+
                 <OtherProductsComponent titleKey={'same-author'} />
                 <OtherProductsComponent titleKey={'relevant-products'} />
                 <OtherProductsComponent titleKey={'suggest'}
@@ -332,6 +363,7 @@ const mapStateToProps = state => {
         lang: state.app.language,
         userInfo: state.user.userInfo,
         product: state.user.product,
+        actionResponse: state.user.actionResponse,
     };
 };
 

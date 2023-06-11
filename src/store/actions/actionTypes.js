@@ -106,6 +106,10 @@ const actionTypes = Object.freeze({
 
     UPDATE_PRODUCT_SUCCESS: 'UPDATE_PRODUCT_SUCCESS',
     UPDATE_PRODUCT_FAIL: 'UPDATE_PRODUCT_FAIL',
+
+    //CART PRODUCT
+    ADD_TO_CART_SUCCESS: 'ADD_TO_CART_SUCCESS',
+    ADD_TO_CART_FAIL: 'ADD_TO_CART_FAIL',
 })
 
 export default actionTypes;

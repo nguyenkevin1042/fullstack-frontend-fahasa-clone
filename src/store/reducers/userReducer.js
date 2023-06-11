@@ -45,6 +45,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.ADD_TO_CART_SUCCESS:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.ADD_TO_CART_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
         case actionTypes.USER_PROCESS_LOGOUT:
             return {
                 ...state,

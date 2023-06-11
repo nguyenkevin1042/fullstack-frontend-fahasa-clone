@@ -101,29 +101,27 @@ export const addToCart = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-
-
             res = await addToCartAPI(inputData);
-            console.log(res)
-            // if (res && res.errCode === 0) {
-            //     dispatch(updateUserSuccess(res));
-            // } else {
-            //     dispatch(updateUserFail(res));
-            // }
+
+            if (res && res.errCode === 0) {
+                dispatch(addToCartSuccess(res));
+            } else {
+                dispatch(addToCartFail(res));
+            }
         } catch (error) {
-            dispatch(updateUserFail(res));
+            dispatch(addToCartFail(res));
             console.log("updateUser Error: ", error)
         }
     }
 }
 
 export const addToCartSuccess = (response) => ({
-    type: actionTypes.USER_LOGIN_SUCCESS,
+    type: actionTypes.ADD_TO_CART_SUCCESS,
     response: response
 })
 
 export const addToCartFail = (response) => ({
-    type: actionTypes.USER_LOGIN_FAIL,
+    type: actionTypes.ADD_TO_CART_FAIL,
     response: response
 })
 

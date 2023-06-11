@@ -1,0 +1,48 @@
+.cart-modal-container{
+
+    .cart-modal-content{
+        
+        .message{
+            margin:15px;
+            color: #444443;
+            border: 1px solid #eee;
+            padding: 5px;
+            text-align: center;
+            background: #fbfbfb;
+        }
+
+        .product-img{
+            background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 160px;
+                width: 100%;
+        }
+    }
+
+    .cart-modal-button{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        position: relative;
+        top: 15px;
+
+        button{
+            border: none;
+            background-color: #F7941E;
+            color: white;
+            padding: 5px 10px;
+
+            &:hover{
+                background-color: #C92127;
+            }
+        }
+    }
+
+    .modal-content{
+        width: 55%;
+        margin: auto;
+        border-radius: 0;
+        border: none;
+    }
+}
