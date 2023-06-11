@@ -134,14 +134,15 @@ class Header extends Component {
         }
     }
 
+    handleRedirectToCart = () => {
+        if (this.props.history) {
+            this.props.history.push("/cart");
+        }
+    }
+
     renderCustomerOption = () => {
         const accountMenu = (<DropdownAccount />);
         let { userInfo, lang } = this.props
-        // let firstName = userInfo.firstName
-        // let lastName = userInfo.lastName
-        // let labelVI = firstName + " " + lastName;
-        // let labelEN = lastName + " " + firstName;
-        // let customerName = lang === languages.VI ? labelVI : labelEN
 
         return (
 
@@ -151,7 +152,16 @@ class Header extends Component {
                 >
                     <i className="fa fa-user"></i>
                     {userInfo ?
-                        <p className='customer-name'>{userInfo.firstName} {userInfo.lastName}</p>
+                        <>
+                            {lang === languages.VI ?
+                                <p className='customer-name'>
+                                    {userInfo.firstName} {userInfo.lastName}
+                                </p> :
+                                <p className='customer-name'>
+                                    {userInfo.lastName} {userInfo.firstName}
+                                </p>
+                            }
+                        </>
                         :
                         <p><FormattedMessage id="customer.homepage.header.account.title" /></p>
                     }
@@ -248,7 +258,8 @@ class Header extends Component {
                                         </p>
                                     </div>
 
-                                    <div className='user-options-cart option col-6 col-md-3'>
+                                    <div className='user-options-cart option col-6 col-md-3'
+                                        onClick={() => this.handleRedirectToCart()}>
                                         <i className="fa fa-shopping-cart"></i>
                                         <p><FormattedMessage id="customer.homepage.header.cart" /></p>
                                     </div>

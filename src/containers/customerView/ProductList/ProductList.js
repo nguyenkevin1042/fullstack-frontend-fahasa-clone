@@ -241,7 +241,7 @@ class ProductList extends Component {
                 listChildCategory: [],
             })
 
-            this.props.history.push("/all-category");
+            this.props.history.push("/category/all-category");
         }
     }
 
@@ -259,7 +259,7 @@ class ProductList extends Component {
             await this.props.fetchAllProductByCategory(item.keyName)
             await this.props.fetchAllSubCategoryByCategory(item.keyName)
 
-            this.props.history.push("/" + item.keyName);
+            this.props.history.push("/category/" + item.keyName);
         }
     }
 
@@ -274,7 +274,7 @@ class ProductList extends Component {
             })
             await this.props.fetchAllChildCategoryBySubCategory(item.keyName)
             await this.props.fetchAllProductBySubCategory(selectedCategory.keyName, item.keyName)
-            await this.props.history.push("/" + selectedCategory.keyName + "/" + item.keyName);
+            await this.props.history.push("/category/" + selectedCategory.keyName + "/" + item.keyName);
         }
 
     }
@@ -289,7 +289,7 @@ class ProductList extends Component {
 
             await this.props.fetchAllChildCategoryBySubCategory(selectedSubCategory.keyName, item.keyName)
 
-            this.props.history.push("/" + selectedCategory.keyName + "/" + selectedSubCategory.keyName + "/" + item.keyName);
+            this.props.history.push("/category/" + selectedCategory.keyName + "/" + selectedSubCategory.keyName + "/" + item.keyName);
         }
     }
 
@@ -422,8 +422,6 @@ class ProductList extends Component {
 
     render() {
         let { isLoading } = this.state
-
-        console.log(this.props.allProductArr)
 
         return (
             <React.Fragment>

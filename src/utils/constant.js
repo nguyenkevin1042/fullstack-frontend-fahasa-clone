@@ -6,9 +6,10 @@ export const path = {
     HOMEPAGE: '/home',
     CUSTOMER_LOGIN: '/customer/account/login',
     CUSTOMER_ACCOUNT: '/customer/account',
-    PRODUCT_LIST: '/:category?/:subCategory?/:childCategory?',
+    PRODUCT_LIST: '/category/:category?/:subCategory?/:childCategory?',
     PRODUCT_DETAIL: '/product/:keyName',
-    SEARCH_RESULT: '/search/result/:q'
+    SEARCH_RESULT: '/search/result/:q',
+    CART: '/cart'
 };
 
 export const languages = {

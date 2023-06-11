@@ -60,8 +60,6 @@ class DropdownAccount extends Component {
 
     renderIfSignedIn = () => {
         let { userInfo, lang } = this.props
-        // let firstName = userInfo && userInfo.firstName ? userInfo.lastName : ''
-        // let lastName = userInfo && userInfo.lastName ? userInfo.lastName : ''
         let labelVI = userInfo.firstName + " " + userInfo.lastName;
         let labelEN = userInfo.lastName + " " + userInfo.firstName;
         let customerName = lang === languages.VI ? labelVI : labelEN

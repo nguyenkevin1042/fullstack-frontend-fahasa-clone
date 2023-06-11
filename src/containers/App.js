@@ -27,6 +27,7 @@ import CustomScrollbars from '../components/CustomScrollbars';
 import ProductDetail from './customerView/ProductDetail/ProductDetail';
 import CustomerAccount from './customerView/CustomerAccount/CustomerAccount';
 import ProductList from './customerView/ProductList/ProductList';
+import Cart from './customerView/Cart/Cart';
 
 class App extends Component {
 
@@ -67,6 +68,7 @@ class App extends Component {
                                     <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
                                     <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
                                     <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
+                                    <Route path={path.CART} exact component={(Cart)} />
                                     {/* <Route path={path.SEARCH_RESULT} exact component={(SeacrchResult)} /> */}
                                 </Switch>
 

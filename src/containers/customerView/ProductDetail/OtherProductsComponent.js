@@ -89,7 +89,6 @@ class OtherProductsComponent extends Component {
         let { titleKey } = this.props
         let { listProductBySubCategory } = this.state
         let settings = {
-            className: "flash-sale-list",
             dots: false,
             infinite: false,
             slidesToShow: 5,

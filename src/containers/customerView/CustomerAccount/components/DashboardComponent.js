@@ -44,11 +44,22 @@ class DashboardComponent extends Component {
                 <div className='dashboard-customer'>
                     <div className='col-12'>
                         <label>Full Name:</label>
-                        <b className='mx-3'>{userInfo.firstName + " " + userInfo.lastName}</b>
+                        {userInfo ?
+                            <>
+                                {lang === languages.VI ?
+                                    <b className='mx-3'>{userInfo.firstName} {userInfo.lastName}</b> :
+                                    <b className='mx-3'>{userInfo.lastName} {userInfo.firstName}</b>
+                                }
+                            </>
+                            :
+                            <p><FormattedMessage id="customer.homepage.header.account.title" /></p>
+                        }
+
+                        {/* <b className='mx-3'>{ userInfo.firstName } {userInfo.lastName}</b> */}
                     </div>
                     <div className='col-12'>
                         <label>Email:</label>
-                        <b className='mx-3'>{userInfo.email}</b>
+                        <b className='mx-3'>{userInfo && <>{userInfo.email}</>}</b>
                     </div>
                     <div className='col-12'>
                         <label>Member Level:</label>

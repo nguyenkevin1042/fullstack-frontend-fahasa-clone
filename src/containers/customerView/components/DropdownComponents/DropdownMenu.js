@@ -114,7 +114,7 @@ class DropdownMenu extends Component {
         let { selectedCategory } = this.state
         event.preventDefault();
         if (this.props.history) {
-            this.props.history.push("/" + selectedCategory.keyName + "/" + item.keyName);
+            this.props.history.push("/category/" + selectedCategory.keyName + "/" + item.keyName);
         }
     }
 
@@ -122,7 +122,7 @@ class DropdownMenu extends Component {
         let { selectedCategory } = this.state
         event.preventDefault();
         if (this.props.history) {
-            this.props.history.push("/" + selectedCategory.keyName
+            this.props.history.push("/category/" + selectedCategory.keyName
                 + "/" + subCategoryItem.keyName + "/" + item.keyName);
         }
     }

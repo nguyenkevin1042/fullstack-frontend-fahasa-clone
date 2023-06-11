@@ -115,6 +115,10 @@
             "my-reviews": "My reviews",
             "notification": "Notifications",
             "newletter": "Sign up for newletters"
+        },
+        "cart": {
+            "title": "Cart",
+            "choose-all": "Choose All"
         }
     },
     "common": {
