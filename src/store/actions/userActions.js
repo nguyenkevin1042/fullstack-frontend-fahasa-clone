@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { addToCartAPI, customerLoginAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, customerLoginAPI, deleteProductInCartAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -122,6 +122,35 @@ export const addToCartSuccess = (response) => ({
 
 export const addToCartFail = (response) => ({
     type: actionTypes.ADD_TO_CART_FAIL,
+    response: response
+})
+
+//DELETE PRODUCT IN CART
+export const deleteProductInCart = (inputCartId, inputProductId) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await deleteProductInCartAPI(inputCartId, inputProductId);
+
+            if (res && res.errCode === 0) {
+                dispatch(deleteProductInCartSuccess(res));
+            } else {
+                dispatch(deleteProductInCartFail(res));
+            }
+        } catch (error) {
+            dispatch(deleteProductInCartFail(res));
+            console.log("updateUser Error: ", error)
+        }
+    }
+}
+
+export const deleteProductInCartSuccess = (response) => ({
+    type: actionTypes.DELETE_PRODUCT_IN_CART_SUCCESS,
+    response: response
+})
+
+export const deleteProductInCartFail = (response) => ({
+    type: actionTypes.DELETE_PRODUCT_IN_CART_FAIL,
     response: response
 })
 

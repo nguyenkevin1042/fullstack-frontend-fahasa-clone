@@ -97,44 +97,7 @@ $ex-large: 1200px;// Extra large >= 1200
                     padding: 0 !important;
                 }
 
-                .select-quantity{
-                    border: 1px solid #adadad;
-                    display: flex;
-                    border-radius: 5px;
-                    width: fit-content;
-                    padding: 0 !important;
-
-                    input {
-                        position: relative;
-                        border: none;
-                        text-align: center;
-                        width: 40px;
-                        font-weight: bold;
-
-                        &:focus{
-                            outline: none;
-                        }
-                    }
-
-                    input::-webkit-outer-spin-button,
-                        input::-webkit-inner-spin-button {
-                        -webkit-appearance: none;
-                        margin: 0;
-                    }
-                    button{
-                        background-color: white;
-                        border: none;
-                        color: #adadad;
-                        font-size: 1.5em;
-                        font-weight: 500;
-                        border-radius: 5px;margin: auto;
-                        padding: 0 10px;
-                        // display: block;
-                        // width: 20px;
-                        display: inline-block;
-                        border: 1px solid red;
-                    }
-                }
+                
             }
 
             .review{

@@ -14,6 +14,7 @@ import * as actions from "../../../store/actions";
 import OtherProductsComponent from './OtherProductsComponent';
 import AddToCartSuccessModal from './AddToCartSuccessModal';
 import { languages } from '../../../utils';
+import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
 
 
 class ProductDetail extends Component {
@@ -37,9 +38,6 @@ class ProductDetail extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-
-        }
 
         if (prevProps.product !== this.props.product) {
             document.title = this.props.product.name
@@ -75,23 +73,10 @@ class ProductDetail extends Component {
             })
         }
     }
+
     handleCloseModal = () => {
         this.setState({
             isModalOpened: false
-        })
-    }
-
-    handleIncreaseQuantityValue = () => {
-        this.setState({
-            quantityValue: this.state.quantityValue + 1
-        })
-    }
-
-    handleDecreaseQuantityValue = () => {
-        let result = this.state.quantityValue <= 1 ?
-            1 : this.state.quantityValue - 1
-        this.setState({
-            quantityValue: result
         })
     }
 
@@ -106,9 +91,7 @@ class ProductDetail extends Component {
             productPrice: product.discount ? salePrice : product.price
         })
 
-        // if (actionResponse && actionResponse.errCode === 0) {
-        //     console.log(actionResponse)
-        // }
+
         this.setState({
             isModalOpened: true
         })
@@ -119,6 +102,12 @@ class ProductDetail extends Component {
         let copyState = { ...this.state };
         copyState[key] = data;
         this.setState({ ...copyState });
+    }
+
+    eventhandler = (data) => {
+        this.setState({
+            quantityValue: data.value
+        })
     }
 
 
@@ -316,12 +305,8 @@ class ProductDetail extends Component {
                                 <div className='sharing-content col-xl-12'>
                                     <label className='quantity-label col-xl-3'><FormattedMessage id="customer.product-detail.quantity" />:</label>
                                     <div className='col-xl-9'>
-                                        <div className='select-quantity'>
-                                            <button onClick={() => this.handleDecreaseQuantityValue()}>-</button>
-                                            <input type='number' value={quantityValue}
-                                                onChange={(event) => this.handleOnChangeInput(event, 'quantityValue')} />
-                                            <button onClick={() => this.handleIncreaseQuantityValue()}>+</button>
-                                        </div>
+                                        <ChangingQuantityComponent quantityValue={quantityValue}
+                                            onChange={this.eventhandler} />
                                     </div>
                                 </div>
                             </div>

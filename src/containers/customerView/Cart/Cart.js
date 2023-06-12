@@ -9,6 +9,7 @@ import Header from '../components/Header';
 import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 import NumericFormat from 'react-number-format';
+import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
 
 class Cart extends Component {
     constructor(props) {
@@ -35,12 +36,22 @@ class Cart extends Component {
             await this.props.getCartByUserId(this.props.userInfo.id)
         }
 
-        if (prevProps.cartData !== this.props.cartData
-            || prevProps.lang !== this.props.lang) {
+        if (prevProps.cartData !== this.props.cartData) {
             this.setState({
                 listProductInCart: this.props.cartData
             })
         }
+    }
+
+    eventhandler = (data) => {
+        this.setState({
+            quantityValue: data.value
+        })
+    }
+
+    handleDeleteItem = async (item) => {
+        await this.props.deleteProductInCart(item.cartId, item.productId)
+        await this.props.getCartByUserId(this.props.userInfo.id)
     }
 
     renderLeftContent = () => {
@@ -105,21 +116,21 @@ class Cart extends Component {
                                             </div>
                                         </td>
                                         <td className='col-xl-2'>
-                                            <label>
-                                                {item.quantity}
-                                            </label>
+                                            <ChangingQuantityComponent quantityValue={item.quantity}
+                                                onChange={this.eventhandler} />
                                         </td>
-                                        <td className='col-xl-2'>
-                                            <p className='total-price-text'>
-                                                <NumericFormat value={item.totalPrice}
-                                                    displayType={'text'}
-                                                    thousandSeparator={'.'}
-                                                    decimalSeparator={','}
-                                                    suffix={'đ'} />
-                                            </p>
+                                        <td className='total-price-text col-xl-2'>
+                                            {/* <p className='total-price-text'> */}
+                                            <NumericFormat value={item.totalPrice}
+                                                displayType={'text'}
+                                                thousandSeparator={'.'}
+                                                decimalSeparator={','}
+                                                suffix={'đ'} />
+                                            {/* </p> */}
                                         </td>
                                         <td className='delete-action col-xl-1'>
-                                            <i className="fas fa-trash"></i>
+                                            <i className="fas fa-trash"
+                                                onClick={() => this.handleDeleteItem(item)}></i>
                                         </td>
                                     </tr>
                                 )
@@ -168,7 +179,7 @@ class Cart extends Component {
     }
 
     render() {
-        console.log(this.props.cartData)
+        console.log(this.state.listProductInCart)
         return (
             <React.Fragment>
                 <Header />
@@ -207,7 +218,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
-
+        deleteProductInCart: (inputCartId, inputProductId) => dispatch(actions.deleteProductInCart(inputCartId, inputProductId)),
     };
 };
 

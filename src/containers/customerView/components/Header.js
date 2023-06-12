@@ -49,7 +49,8 @@ class Header extends Component {
             selectedCategory: '',
             visible: false,
 
-            productName: ''
+            productName: '',
+            productInCartLength: 0
         };
     }
 
@@ -72,11 +73,18 @@ class Header extends Component {
             await this.props.getCartByUserId(this.props.userInfo.id)
         }
 
+
         if (prevProps.allCodesArr !== this.props.allCodesArr
             || prevProps.lang !== this.props.lang) {
             let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
             this.setState({
                 listCategory: dataSelect
+            })
+        }
+
+        if (prevProps.cartData !== this.props.cartData) {
+            this.setState({
+                productInCartLength: this.props.cartData.length
             })
         }
 
@@ -179,7 +187,7 @@ class Header extends Component {
 
 
     render() {
-        let { listLanguage, selectedLanguage } = this.state
+        let { listLanguage, selectedLanguage, productInCartLength } = this.state
         let language = this.props.lang
         let customStyles = {
             control: (baseStyles, state) => ({
@@ -215,6 +223,8 @@ class Header extends Component {
                 cursor: "pointer"
             })
         };
+
+        console.log(this.props.cartData)
 
         const menu = (<DropdownMenu />);
         const searchDropdown = (<SearchDropdown />)
@@ -267,8 +277,10 @@ class Header extends Component {
                                         onClick={() => this.handleRedirectToCart()}>
                                         <i className="fa fa-shopping-cart"></i>
                                         <p><FormattedMessage id="customer.homepage.header.cart" /></p>
-                                        {this.props.cartData && this.props.cartData.length > 0 &&
-                                            (<span className='sum-products-in-cart'>{this.props.cartData.length}</span>)}
+                                        {productInCartLength > 0 &&
+                                            (<span className='sum-products-in-cart'>{productInCartLength}</span>)}
+                                        {/* {productInCartLength && productInCartLength.length > 0 &&
+                                            (<span className='sum-products-in-cart'>{productInCartLength}</span>)} */}
 
 
                                     </div>

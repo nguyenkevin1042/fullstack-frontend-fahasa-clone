@@ -120,18 +120,18 @@
                 .total-price-text{
                     font-weight: 600;
                     color: #C92127;
+                    padding: 0;
                     text-align: center;
                 }
 
                 .delete-action{
-                    border: 1px solid red;
                     padding: 0;
                     margin: 0;
                     
                     .fas{
-                        line-height: 1;
-                        border: 1px solid red;
+                        cursor: pointer;
                         transition: all 300ms ease-in 0s;
+
                         &:hover{
                             color: #C92127;
                         }
