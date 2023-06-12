@@ -15,7 +15,9 @@ class ChangingQuantityComponent extends Component {
     }
 
     componentDidMount() {
-
+        this.setState({
+            value: this.props.quantityValue
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {

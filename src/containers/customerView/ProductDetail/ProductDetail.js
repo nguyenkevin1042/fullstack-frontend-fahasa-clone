@@ -80,6 +80,15 @@ class ProductDetail extends Component {
         })
     }
 
+    hanldePayCheckNow = () => {
+        this.setState({
+            isModalOpened: false
+        })
+        if (this.props.history) {
+            this.props.history.push("/cart");
+        }
+    }
+
     handleAddToCart = async () => {
         let { userInfo, product, actionResponse } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
@@ -95,6 +104,21 @@ class ProductDetail extends Component {
         this.setState({
             isModalOpened: true
         })
+    }
+
+    handleBuyNow = async () => {
+        let { userInfo, product, actionResponse } = this.props
+        let salePrice = product.price - ((product.price * product.discount) / 100);
+
+        await this.props.addToCart({
+            cartId: userInfo ? userInfo.Cart.id : '',
+            productId: product.id,
+            quantity: this.state.quantityValue,
+            productPrice: product.discount ? salePrice : product.price
+        })
+        if (this.props.history) {
+            this.props.history.push("/cart");
+        }
     }
 
     handleOnChangeInput = (event, key) => {
@@ -267,7 +291,10 @@ class ProductDetail extends Component {
                                         onClick={() => this.handleAddToCart()}>
                                         <FormattedMessage id="customer.product-detail.add-to-cart" />
                                     </button>
-                                    <button className='buy-now-btn'><FormattedMessage id="customer.product-detail.buy-now" /></button>
+                                    <button className='buy-now-btn'
+                                        onClick={() => this.handleBuyNow()}>
+                                        <FormattedMessage id="customer.product-detail.buy-now" />
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -317,7 +344,8 @@ class ProductDetail extends Component {
 
                 <AddToCartSuccessModal isModalOpened={isModalOpened}
                     message={message} productImg={imageBase64}
-                    closeModal={this.handleCloseModal} />
+                    closeModal={this.handleCloseModal}
+                    payCheckNow={this.hanldePayCheckNow} />
 
 
                 <OtherProductsComponent titleKey={'same-author'} />

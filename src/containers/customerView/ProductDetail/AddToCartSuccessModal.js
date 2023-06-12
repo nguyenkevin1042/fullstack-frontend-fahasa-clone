@@ -29,7 +29,7 @@ class AddToCartSuccessModal extends Component {
 
 
     render() {
-        let { isModalOpened, closeModal, message, productImg } = this.props
+        let { isModalOpened, closeModal, message, productImg, payCheckNow } = this.props
         return (
             <React.Fragment>
                 <Modal isOpen={isModalOpened}
@@ -54,7 +54,8 @@ class AddToCartSuccessModal extends Component {
                             onClick={closeModal}>
                             Chọn thêm
                         </button>
-                        <button className='pay-check-btn'>
+                        <button className='pay-check-btn'
+                            onClick={payCheckNow}>
                             Thanh toán
                         </button>
                     </div>
