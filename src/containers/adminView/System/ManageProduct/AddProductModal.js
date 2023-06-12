@@ -206,7 +206,7 @@ class AddProductModal extends Component {
             let objectURL = URL.createObjectURL(file);
 
             let base64 = await CommonUtils.getBase64(file);
-            console.log(base64)
+
             this.setState({
                 previewImgURL: objectURL,
                 image: base64.result
@@ -304,7 +304,6 @@ class AddProductModal extends Component {
             contentHTML } = this.state;
         let { isOpenedAddModal, closeModal } = this.props
 
-        console.log(selectedForm)
         return (
             <>
                 <Modal isOpen={isOpenedAddModal}

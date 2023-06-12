@@ -96,7 +96,6 @@ class EditSubCategoryModal extends Component {
     }
 
     handleUpdate = async () => {
-        console.log(this.state)
         // this.props.closeEditCodeModel();
         // await this.props.updateCode({
         //     id: this.state.id,

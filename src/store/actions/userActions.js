@@ -43,8 +43,7 @@ export const fetchProductByKeyName = (inputKeyName) => {
         let res;
         try {
             res = await getProductByKeyNameAPI(inputKeyName);
-            // console.log(res)
-            // return;
+
             if (res && res.errCode === 0) {
                 dispatch(fetchProductByKeyNameSuccess(res.product));
             } else {

@@ -145,7 +145,6 @@ class ManageProduct extends Component {
     }
 
     handleEdit = (item) => {
-        console.log(item)
         this.setState({
             isOpenedEditModal: true,
             selectedProduct: item
@@ -201,28 +200,26 @@ class ManageProduct extends Component {
                             imageBase64 = new Buffer(item.image, 'base64').toString('binary');
                         }
                         return (
-                            <>
-                                <tr key={index}>
-                                    <td>{item.id}</td>
-                                    <td className='product-img'>
-                                        <div className='img'
-                                            style={{
-                                                backgroundImage: "url(" + imageBase64 + ")"
-                                            }} /></td>
-                                    <td>{this.renderCategoryOfProduct(item)}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.price}</td>
+                            <tr key={index}>
+                                <td>{item.id}</td>
+                                <td className='product-img'>
+                                    <div className='img'
+                                        style={{
+                                            backgroundImage: "url(" + imageBase64 + ")"
+                                        }} /></td>
+                                <td>{this.renderCategoryOfProduct(item)}</td>
+                                <td>{item.name}</td>
+                                <td>{item.price}</td>
 
-                                    <td>
-                                        <button className='btn-edit'
-                                            onClick={() => this.handleEdit(item)}
-                                        > <i className="fas fa-pencil-alt"></i></button>
-                                        <button className='btn-delete'
-                                            onClick={() => this.handleDelete(item)}
-                                        ><i className="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </ >
+                                <td>
+                                    <button className='btn-edit'
+                                        onClick={() => this.handleEdit(item)}
+                                    > <i className="fas fa-pencil-alt"></i></button>
+                                    <button className='btn-delete'
+                                        onClick={() => this.handleDelete(item)}
+                                    ><i className="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
                         )
                     })
 
@@ -239,7 +236,6 @@ class ManageProduct extends Component {
             listSubCategory, selectedSubCategory,
             listChildCategory, selectedChildCategory, } = this.state
 
-        console.log(selectedCategory)
         return (
             <>
                 <div className='sharing-manage-container'>

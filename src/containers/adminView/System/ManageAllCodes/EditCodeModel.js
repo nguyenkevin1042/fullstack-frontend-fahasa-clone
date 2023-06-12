@@ -74,8 +74,6 @@ class EditCodeModel extends Component {
         })
         let { errResponse } = this.state;
 
-        console.log(this.props.updateCodeRes)
-
         if (this.props.updateCodeRes.errCode === 0) {
             this.props.closeEditCodeModel();
         }

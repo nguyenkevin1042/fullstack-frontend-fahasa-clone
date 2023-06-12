@@ -56,6 +56,19 @@ class EditProductModal extends Component {
 
     async componentDidMount() {
         await this.props.fetchAllCodesByType('category')
+        let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
+        this.setState({
+            listCategory: dataSelectCategory
+        })
+        await this.props.fetchAllCodesByType('form')
+        let dataSelectForm = this.buildDataInputSelect(this.props.allCodesArr, "category");
+        this.setState({
+            listForm: dataSelectForm
+        })
+        // let dataSelectedForm = this.buildDataInputSelect(this.props.product.AllCode[0], "form");
+        // this.setState({
+        //     selectedForm: dataSelectedForm
+        // })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -75,8 +88,11 @@ class EditProductModal extends Component {
             let dataSelectedCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory.AllCode, "category");
             let dataSelectedSubCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory, "subCategory");
             let dataSelectedChildCategory = this.buildDataInputSelect(product.ChildCategory, "childCategory");
-            // let dataOptionSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
-            // let dataOptionChildCategory = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
+            let dataSelectedForm = ''
+
+            if (this.props.product.AllCode) {
+                dataSelectedForm = this.buildDataInputSelect(this.props.product.AllCode, "form");
+            }
 
             let productType = this.getProductType(product);
             let imageBase64 = '';
@@ -101,11 +117,10 @@ class EditProductModal extends Component {
                 previewImgURL: imageBase64,
                 selectedProductType: productType,
 
-                // listSubCategory: dataOptionSubCategory,
-                // listChildCategory: dataOptionChildCategory,
                 selectedCategory: dataSelectedCategory,
                 selectedSubCategory: dataSelectedSubCategory,
                 selectedChildCategory: dataSelectedChildCategory,
+                selectedForm: dataSelectedForm,
 
                 isOpenedPreviewImage: false
             })
@@ -172,6 +187,7 @@ class EditProductModal extends Component {
         let result = [];
         let language = this.props.lang;
 
+
         //Array
         if (inputData && inputData.length > 0) {
             if (type === "category") {
@@ -234,6 +250,15 @@ class EditProductModal extends Component {
                 let labelEN = inputData.valueEN;
 
                 obj.keyName = inputData.keyName;
+                obj.label = language === languages.VI ? labelVI : labelEN;
+                result.push(obj);
+            }
+            if (type === "form") {
+                let obj = {};
+                let labelVI = inputData.valueVI;
+                let labelEN = inputData.valueEN;
+
+                obj.keyMap = inputData.keyMap;
                 obj.label = language === languages.VI ? labelVI : labelEN;
                 result.push(obj);
             }
@@ -349,6 +374,7 @@ class EditProductModal extends Component {
             width: this.state.width,
             length: this.state.length,
             categoryKeyName: this.state.categoryKeyName,
+            formId: this.state.selectedForm.keyMap,
             publishYear: this.state.publishYear,
             image: this.state.image,
             productType: this.state.selectedProductType,
@@ -404,7 +430,7 @@ class EditProductModal extends Component {
             contentHTML } = this.state;
         let { isOpenedEditModal, closeModal, product, childCategory } = this.props
 
-        console.log(selectedProductType)
+        console.log(product.AllCode)
 
         return (
 

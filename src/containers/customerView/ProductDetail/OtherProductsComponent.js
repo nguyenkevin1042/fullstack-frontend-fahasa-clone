@@ -21,9 +21,6 @@ class OtherProductsComponent extends Component {
     }
 
     componentDidMount() {
-        // console.log(this.props.category, this.props.subCategory)
-        // let subCategory = this.props.product.ChildCategory.SubCategory.keyName
-        // await this.props.fetchAllProductBySubCategory(this.state.category, this.state.subCategory)
 
     }
 

@@ -66,7 +66,7 @@ class Login extends Component {
 
     render() {
         let { isModalOpened, email, password, message } = this.state;
-        console.log(this.props.signInMessage)
+
         return (
             <>
                 <div className='login-form-background'>

@@ -224,8 +224,6 @@ class Header extends Component {
             })
         };
 
-        console.log(this.props.cartData)
-
         const menu = (<DropdownMenu />);
         const searchDropdown = (<SearchDropdown />)
         return (

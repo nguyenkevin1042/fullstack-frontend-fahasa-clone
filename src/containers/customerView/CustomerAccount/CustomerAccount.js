@@ -59,8 +59,6 @@ class CustomerAccount extends Component {
 
     render() {
         let { selectedSection } = this.state
-        console.log(selectedSection)
-        console.log(this.props.userInfo)
 
         return (
             <React.Fragment>
