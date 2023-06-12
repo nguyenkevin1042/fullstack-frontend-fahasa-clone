@@ -10,11 +10,13 @@ import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 import NumericFormat from 'react-number-format';
 import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
+import CartItem from './CartItem';
 
 class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
+
             listProductInCart: []
         };
     }
@@ -27,8 +29,9 @@ class Cart extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-
+        if (prevState.quantityValue !== this.state.quantityValue) {
+            console.log('prevState.quantityValue: ', prevState)
+            console.log('this.state.quantityValue: ', this.state.quantityValue)
         }
 
         if (prevProps.userInfo !== this.props.userInfo
@@ -86,55 +89,58 @@ class Cart extends Component {
 
                     <div className='left-content-down'>
                         {listProductInCart && listProductInCart.length > 0 &&
-                            listProductInCart.map((item, index) => {
-                                let imageBase64 = '';
-                                let product = item.Product;
-                                if (product.image) {
-                                    imageBase64 = new Buffer(product.image, 'base64').toString('binary');
-                                }
+                            listProductInCart.map((item, index) =>
+                                (<CartItem productInCart={item} />)
+                                // let imageBase64 = '';
+                                // let product = item.Product;
+                                // if (product.image) {
+                                //     imageBase64 = new Buffer(product.image, 'base64').toString('binary');
+                                // }
 
-                                return (
-                                    <tr className='cart-item row'>
-                                        <td className='col-xl-1'>
-                                            <input type="checkbox" id="choose-all" name="choose-all" />
-                                        </td>
-                                        <td className='product-section col-xl-6'>
-                                            <div className='product-img col-xl-3'
-                                                style={{
-                                                    backgroundImage: "url(" + imageBase64 + ")"
-                                                }}>
+                                // let totalPrice = item.quantity * product.price;
 
-                                            </div>
+                                // return (
+                                //     <tr className='cart-item row'>
+                                //         <td className='col-xl-1'>
+                                //             <input type="checkbox" id="choose-all" name="choose-all" />
+                                //         </td>
+                                //         <td className='product-section col-xl-6'>
+                                //             <div className='product-img col-xl-3'
+                                //                 style={{
+                                //                     backgroundImage: "url(" + imageBase64 + ")"
+                                //                 }}>
 
-                                            <div className='product-name-price col-xl-9'>
-                                                <div className='product-name'>
-                                                    {product.name}
-                                                </div>
-                                                <div className='product-price'>
-                                                    {this.renderProductPrice(product.price, product.discount)}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className='col-xl-2'>
-                                            <ChangingQuantityComponent quantityValue={item.quantity}
-                                                onChange={this.eventhandler} />
-                                        </td>
-                                        <td className='total-price-text col-xl-2'>
-                                            {/* <p className='total-price-text'> */}
-                                            <NumericFormat value={item.totalPrice}
-                                                displayType={'text'}
-                                                thousandSeparator={'.'}
-                                                decimalSeparator={','}
-                                                suffix={'đ'} />
-                                            {/* </p> */}
-                                        </td>
-                                        <td className='delete-action col-xl-1'>
-                                            <i className="fas fa-trash"
-                                                onClick={() => this.handleDeleteItem(item)}></i>
-                                        </td>
-                                    </tr>
-                                )
-                            })
+                                //             </div>
+
+                                //             <div className='product-name-price col-xl-9'>
+                                //                 <div className='product-name'>
+                                //                     {product.name}
+                                //                 </div>
+                                //                 <div className='product-price'>
+                                //                     {this.renderProductPrice(product.price, product.discount)}
+                                //                 </div>
+                                //             </div>
+                                //         </td>
+                                //         <td className='col-xl-2'>
+                                //             <ChangingQuantityComponent quantityValue={item.quantity}
+                                //                 onChange={this.eventhandler} />
+                                //         </td>
+                                //         <td className='total-price-text col-xl-2'>
+                                //             {/* <p className='total-price-text'> */}
+                                //             <NumericFormat value={totalPrice}
+                                //                 displayType={'text'}
+                                //                 thousandSeparator={'.'}
+                                //                 decimalSeparator={','}
+                                //                 suffix={'đ'} />
+                                //             {/* </p> */}
+                                //         </td>
+                                //         <td className='delete-action col-xl-1'>
+                                //             <i className="fas fa-trash"
+                                //                 onClick={() => this.handleDeleteItem(item)}></i>
+                                //         </td>
+                                //     </tr>
+                                // )
+                            )
 
                         }
 
@@ -179,7 +185,7 @@ class Cart extends Component {
     }
 
     render() {
-        console.log(this.state.listProductInCart)
+        // console.log(this.state.quantityValue)
         return (
             <React.Fragment>
                 <Header />

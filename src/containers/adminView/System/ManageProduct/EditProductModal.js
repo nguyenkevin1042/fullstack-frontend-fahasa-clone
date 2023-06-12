@@ -46,6 +46,7 @@ class EditProductModal extends Component {
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
             listChildCategory: [], selectedChildCategory: '',
+            listForm: [], selectedForm: '',
 
             selectedProductType: '',
             stateFromComponent: [],
@@ -171,37 +172,6 @@ class EditProductModal extends Component {
         let result = [];
         let language = this.props.lang;
 
-        //Single Item
-        // if (inputData) {
-        //     if (type === "category") {
-        //         let obj = {};
-        //         let labelVI = inputData.valueVI;
-        //         let labelEN = inputData.valueEN;
-
-        //         obj.keyMap = inputData.keyMap;
-        //         obj.label = language === languages.VI ? labelVI : labelEN;
-        //         result.push(obj);
-        //     }
-        //     if (type === "subCategory") {
-        //         let obj = {};
-        //         let labelVI = inputData.valueVI;
-        //         let labelEN = inputData.valueEN;
-
-        //         obj.keyName = inputData.keyName;
-        //         obj.label = language === languages.VI ? labelVI : labelEN;
-        //         result.push(obj);
-        //     }
-        //     if (type === "childCategory") {
-        //         let obj = {};
-        //         let labelVI = inputData.valueVI;
-        //         let labelEN = inputData.valueEN;
-
-        //         obj.keyName = inputData.keyName;
-        //         obj.label = language === languages.VI ? labelVI : labelEN;
-        //         result.push(obj);
-        //     }
-
-        // }
         //Array
         if (inputData && inputData.length > 0) {
             if (type === "category") {
@@ -315,6 +285,12 @@ class EditProductModal extends Component {
         })
     }
 
+    handleChangeForm = (selectedForm) => {
+        this.setState({
+            selectedForm: selectedForm
+        })
+    }
+
     handleOnChangeImage = async (event) => {
         let data = event.target.files;
 
@@ -423,6 +399,7 @@ class EditProductModal extends Component {
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
             listChildCategory, selectedChildCategory,
+            listForm, selectedForm,
             isOpenedPreviewImage, selectedProductType, contentMarkdown,
             contentHTML } = this.state;
         let { isOpenedEditModal, closeModal, product, childCategory } = this.props
@@ -542,6 +519,15 @@ class EditProductModal extends Component {
                                         className='form-control'
                                         value={height}
                                         onChange={(event) => this.handleOnChangeInput(event, 'height')} />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Hình thức bìa</label>
+                                    <Select
+                                        value={selectedForm}
+                                        onChange={this.handleChangeForm}
+                                        options={listForm}
+                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                        name="selectedForm" />
                                 </div>
                             </div>
 

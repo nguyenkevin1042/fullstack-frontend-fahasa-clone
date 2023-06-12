@@ -28,6 +28,7 @@ class ProductDetail extends Component {
             category: '',
             subCategory: '',
             message: '',
+            formData: '',
 
             isModalOpened: false
         };
@@ -39,7 +40,7 @@ class ProductDetail extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (prevProps.product !== this.props.product) {
+        if (prevProps.product !== this.props.product && prevProps.lang !== this.state.lang) {
             document.title = this.props.product.name
             this.setState({
                 category: this.props.product.ChildCategory.SubCategory.AllCode.keyMap,
@@ -173,6 +174,7 @@ class ProductDetail extends Component {
     }
 
     renderBookDescription = (descriptionData) => {
+        let { product, lang } = this.props
         return (
             <>
                 {descriptionData.supplier && (
@@ -194,10 +196,13 @@ class ProductDetail extends Component {
                         <p className='sharing-text'>{descriptionData.publisher}</p>
                     </div>
                 )}
-                {descriptionData.bookLayout && (
+                {product.formId && (
                     <div className='sharing-content col-xl-6'>
                         <label><FormattedMessage id="customer.product-detail.book-layout" />:</label>
-                        <p className='sharing-text'>Bìa mềm</p>
+                        <p className='sharing-text'>
+                            {lang === languages.VI ?
+                                product.AllCode.valueVI : product.AllCode.valueEN}
+                        </p>
                     </div>
                 )}
 
@@ -264,7 +269,7 @@ class ProductDetail extends Component {
     render() {
         let { quantityValue, descriptionData, productType, category,
             subCategory, isModalOpened, message } = this.state
-        let { product, userInfo, actionResponse } = this.props
+        let { product } = this.props
         let imageBase64 = '';
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');

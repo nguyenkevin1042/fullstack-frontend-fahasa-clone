@@ -42,6 +42,7 @@ class AddProductModal extends Component {
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
             listChildCategory: [], selectedChildCategory: '',
+            listForm: [], selectedForm: '',
 
             selectedProductType: '',
             stateFromComponent: []
@@ -49,11 +50,21 @@ class AddProductModal extends Component {
     }
 
     async componentDidMount() {
-
         await this.props.fetchAllCodesByType('category')
+        let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
+        this.setState({
+            listCategory: dataSelectCategory
+        })
+        await this.props.fetchAllCodesByType('form')
+        let dataSelectForm = this.buildDataInputSelect(this.props.allCodesArr, "category");
+        this.setState({
+            listForm: dataSelectForm
+        })
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+
         if (prevProps.lang !== this.props.lang) {
 
         }
@@ -73,15 +84,22 @@ class AddProductModal extends Component {
                 previewImgURL: '',
                 contentMarkdown: '',
                 contentHTML: '',
+                selectedCategory: '',
+                selectedSubCategory: '',
+                selectedChildCategory: '',
+                selectedForm: '',
+
+                selectedProductType: '',
+                stateFromComponent: []
             });
         }
 
-        if (prevProps.allCodesArr !== this.props.allCodesArr) {
-            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
-            this.setState({
-                listCategory: dataSelect
-            })
-        }
+        // if (prevProps.allCodesArr !== this.props.allCodesArr) {
+        //     let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
+        //     this.setState({
+        //         listCategory: dataSelect
+        //     })
+        // }
 
         if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
             let dataSelect = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
@@ -173,6 +191,12 @@ class AddProductModal extends Component {
         })
     }
 
+    handleChangeForm = (selectedForm) => {
+        this.setState({
+            selectedForm: selectedForm
+        })
+    }
+
     handleOnChangeImage = async (event) => {
         let data = event.target.files;
 
@@ -232,6 +256,7 @@ class AddProductModal extends Component {
             length: this.state.length,
             categoryKeyName: this.state.categoryKeyName,
             publishYear: this.state.publishYear,
+            formId: this.state.selectedForm.keyMap,
             image: this.state.image,
             productType: this.state.selectedProductType,
             descriptionData: this.state.stateFromComponent,
@@ -274,10 +299,12 @@ class AddProductModal extends Component {
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
             listChildCategory, selectedChildCategory,
+            listForm, selectedForm,
             isOpenedPreviewImage, selectedProductType, contentMarkdown,
             contentHTML } = this.state;
         let { isOpenedAddModal, closeModal } = this.props
 
+        console.log(selectedForm)
         return (
             <>
                 <Modal isOpen={isOpenedAddModal}
@@ -390,6 +417,15 @@ class AddProductModal extends Component {
                                         className='form-control'
                                         value={height}
                                         onChange={(event) => this.handleOnChangeInput(event, 'height')} />
+                                </div>
+                                <div className='col-2 form-group'>
+                                    <label>Hình thức bìa</label>
+                                    <Select
+                                        value={selectedForm}
+                                        onChange={this.handleChangeForm}
+                                        options={listForm}
+                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
+                                        name="selectedForm" />
                                 </div>
                             </div>
 

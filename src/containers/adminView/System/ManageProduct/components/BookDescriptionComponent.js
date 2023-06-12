@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-import Select from 'react-select';
 
 import * as actions from "../../../../../store/actions";
 import { languages } from '../../../../../utils';
@@ -16,10 +15,7 @@ class BookDescriptionComponent extends Component {
             publisher: '',
             language: '',
             pages: '',
-            booklayout: '',
-
-            listBookLayout: [],
-            selectedBookLayout: ''
+            chapter: '',
         };
     }
 
@@ -32,7 +28,7 @@ class BookDescriptionComponent extends Component {
                 publisher: this.props.descriptionData.publisher,
                 language: this.props.descriptionData.language,
                 pages: this.props.descriptionData.pages,
-                booklayout: this.props.descriptionData.booklayout,
+                chapter: this.props.descriptionData.chapter,
             })
         }
     }
@@ -42,14 +38,6 @@ class BookDescriptionComponent extends Component {
 
         }
 
-        if (prevProps.bookLayoutArr !== this.props.bookLayoutArr) {
-            let dataSelect = this.buildDataInputSelect(this.props.bookLayoutArr, "category");
-            this.setState({
-                listBookLayout: dataSelect
-            })
-        }
-
-
         if (this.props.descriptionData && prevProps.descriptionData !== this.props.descriptionData) {
             this.setState({
                 supplier: this.props.descriptionData.supplier,
@@ -58,7 +46,7 @@ class BookDescriptionComponent extends Component {
                 publisher: this.props.descriptionData.publisher,
                 language: this.props.descriptionData.language,
                 pages: this.props.descriptionData.pages,
-                booklayout: this.props.descriptionData.booklayout,
+                chapter: this.props.descriptionData.chapter,
             })
         }
 
@@ -103,8 +91,7 @@ class BookDescriptionComponent extends Component {
 
 
     render() {
-        let { supplier, author, translator, publisher, pages, language,
-            selectedBookLayout, listBookLayout } = this.state
+        let { supplier, author, translator, publisher, pages, language, chapter } = this.state
 
         return (
             <div className='row'>
@@ -139,21 +126,19 @@ class BookDescriptionComponent extends Component {
                         value={pages}
                         onChange={(event) => this.handleOnChangeInput(event, 'pages')} />
                 </div>
-                <div className='col-3 form-group'>
+                <div className='col-2 form-group'>
+                    <label>Chương</label>
+                    <input className='form-control'
+                        type='number' min={1}
+                        value={chapter}
+                        onChange={(event) => this.handleOnChangeInput(event, 'chapter')} />
+                </div>
+                <div className='col-4 form-group'>
                     <label>Ngôn ngữ</label>
                     <input className='form-control'
                         value={language}
                         onChange={(event) => this.handleOnChangeInput(event, 'language')} />
                 </div>
-                {/* <div className='col-3 form-group'>
-                    <label>Hình thức bìa</label>
-                    <Select
-                        value={selectedBookLayout}
-                        onChange={this.handleChange}
-                        options={listBookLayout}
-                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
-                        name="selectedBookLayout" />
-                </div> */}
             </div>
 
         );
@@ -164,13 +149,11 @@ class BookDescriptionComponent extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        bookLayoutArr: state.admin.bookLayoutArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
 
     };
 };

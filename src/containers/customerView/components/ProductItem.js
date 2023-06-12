@@ -95,11 +95,11 @@ class ProductItem extends Component {
                         <div className='item-price-chapter'>
                             {this.renderProductPrice(productData.price, productData.discount)}
 
-                            {/* {productData.bookDescriptionData.chapter != undefined && (
+                            {productData.bookDescriptionData && productData.bookDescriptionData.chapter && (
                                 <div className='item-chapter'>
                                     Tập {productData.bookDescriptionData.chapter}
                                 </div>
-                            )} */}
+                            )}
 
                         </div>
                     </div>
