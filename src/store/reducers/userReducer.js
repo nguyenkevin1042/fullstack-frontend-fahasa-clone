@@ -5,7 +5,8 @@ const initialState = {
     userInfo: null,
     actionResponse: '',
     product: '',
-    cartData: ''
+    cartData: '',
+
 }
 
 const appReducer = (state = initialState, action) => {
@@ -52,6 +53,17 @@ const appReducer = (state = initialState, action) => {
                 actionResponse: action.response
             }
         case actionTypes.ADD_TO_CART_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
+        case actionTypes.UPDATE_CART_SUCCESS:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.UPDATE_CART_FAIL:
             return {
                 ...state,
                 actionResponse: action.response

@@ -148,10 +148,16 @@
     }
 
     .cart-right-content{
-        padding: 0;
         background-color: white;
-        border: 1px solid red;
-        height: 500px;
+        height: fit-content;
+        padding: 15px;
+        border-radius: 10px;
+            
+        .sharing-right-content{
+            display: flex;
+            justify-content: space-between;
+
+        }
 
     }
     // .cart-content{

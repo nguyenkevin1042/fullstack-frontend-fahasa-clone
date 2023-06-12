@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './SignUpModel.scss';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal } from 'reactstrap'
 
 import _ from 'lodash';
 import { createNewUserAPI } from '../../../../services/userService';

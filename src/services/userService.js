@@ -196,6 +196,10 @@ const deleteProductInCartAPI = (inputCartId, inputProductId) => {
         });
 }
 
+const updateCartAPI = (data) => {
+    return axios.post("/api/update-cart", data);
+}
+
 
 export {
     //USER
@@ -216,5 +220,5 @@ export {
     //CART
     getCartByUserIdAPI,
     //CART PRODUCT
-    addToCartAPI, deleteProductInCartAPI
+    addToCartAPI, deleteProductInCartAPI, updateCartAPI
 };

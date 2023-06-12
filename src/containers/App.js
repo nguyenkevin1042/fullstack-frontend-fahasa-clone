@@ -31,6 +31,7 @@ import Cart from './customerView/Cart/Cart';
 
 class App extends Component {
 
+
     handlePersistorState = () => {
         const { persistor } = this.props;
         let { bootstrapped } = persistor.getState();
@@ -50,6 +51,8 @@ class App extends Component {
     }
 
     render() {
+
+
         return (
             <Fragment>
 

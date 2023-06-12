@@ -77,7 +77,7 @@ class OtherProductsComponent extends Component {
         return (
             <>
                 {titleKey === 'suggest' && <FormattedMessage id="customer.product-detail.suggest" />}
-                {titleKey === 'same-author' && <FormattedMessage id="customer.product-detail.same-author" />}
+                {titleKey === 'relevant-products' && <FormattedMessage id="customer.product-detail.relevant-products" />}
             </>
         )
     }
@@ -125,7 +125,7 @@ class OtherProductsComponent extends Component {
                         }
                     </Slider>
                 )}
-                {titleKey === 'same-author' && <FormattedMessage id="customer.product-detail.same-author" />}
+                {titleKey === 'relevant-products' && <FormattedMessage id="customer.product-detail.same-author" />}
             </>
         )
     }

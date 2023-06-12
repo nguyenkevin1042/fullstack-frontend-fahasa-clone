@@ -353,7 +353,7 @@ class ProductDetail extends Component {
                     payCheckNow={this.hanldePayCheckNow} />
 
 
-                <OtherProductsComponent titleKey={'same-author'} />
+                {/* <OtherProductsComponent titleKey={'same-author'} /> */}
                 <OtherProductsComponent titleKey={'relevant-products'} />
                 <OtherProductsComponent titleKey={'suggest'}
                     category={category} subCategory={subCategory} />

@@ -48,7 +48,7 @@ class Cart extends Component {
     // }
 
     eventhandler = (data) => {
-        // console.log(data)
+        console.log(data)
         // this.setState({
         //     quantityValue: data.value
         // })
@@ -60,7 +60,7 @@ class Cart extends Component {
     }
 
     handleCheckAllProducts = (event) => {
-        // console.log(event.target.checked)
+        console.log(event.target.checked)
     }
 
     renderLeftContent = () => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal } from 'reactstrap'
 import './EditModal.scss';
 import { CommonUtils, languages } from '../../../../utils'
 import _ from 'lodash';

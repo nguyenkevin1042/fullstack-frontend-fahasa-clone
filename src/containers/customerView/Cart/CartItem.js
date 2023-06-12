@@ -10,20 +10,53 @@ class CartItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 1,
-            totalPrice: 0
+            id: '',
+            cartId: '',
+            productId: '',
+            quantity: '',
+            productPrice: '',
+            totalPrice: ''
         };
     }
 
     componentDidMount() {
+        let { productInCart } = this.props
+        let { discount, price } = productInCart.Product
+        let salePrice = price - ((price * discount) / 100)
+        let calTotal = discount ?
+            ((price - ((price * discount) / 100)) * productInCart.quantity) : (price * productInCart.quantity);
 
+        this.setState({
+            id: productInCart.id,
+            cartId: productInCart.cartId,
+            productId: productInCart.productId,
+            quantity: productInCart.quantity,
+            productPrice: discount ? salePrice : price,
+            totalPrice: calTotal
+        })
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.quantityValue !== this.props.quantityValue) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        let { discount, price } = this.props.productInCart.Product
+        let { quantity } = this.state
+        let salePrice = price - ((price * discount) / 100)
+
+        if (prevState.quantity !== this.state.quantity) {
+            let calTotal = discount ?
+                ((price - ((price * discount) / 100)) * quantity) : (price * quantity);
+            this.setState({
+                totalPrice: calTotal
+            }, () => {
+                if (this.props.onChange) {
+                    this.props.onChange(this.state);
+                }
+            })
+
+            this.setState({
+                totalPrice: calTotal
+            })
 
         }
-
 
     }
 
@@ -31,6 +64,29 @@ class CartItem extends Component {
         await this.props.deleteProductInCart(item.cartId, item.productId)
         await this.props.getCartByUserId(this.props.userInfo.id)
     }
+
+    handleToProductDetail = async (productKeyName) => {
+        if (this.props.history) {
+            this.props.history.push("/product/" + productKeyName);
+        }
+    }
+
+    handleUpdateCartproduct = async (value) => {
+        await this.props.updateCart({
+            cartId: this.state.cartId,
+            productId: this.state.productId,
+            quantity: value,
+            productPrice: this.state.productPrice
+        })
+
+    }
+
+    eventhandler = (data) => {
+        this.setState({
+            quantity: data.value
+        })
+    }
+
 
     renderProductPrice = (price, discount) => {
         let salePrice = price - ((price * discount) / 100);
@@ -67,15 +123,13 @@ class CartItem extends Component {
 
     render() {
         let { productInCart } = this.props
+        let { totalPrice } = this.state
         let imageBase64 = '';
         let product = productInCart.Product;
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
 
-        let totalPrice = productInCart.quantity * product.price;
-
-        console.log(productInCart)
         return (
             <React.Fragment>
                 <tr className='cart-item row'>
@@ -91,7 +145,8 @@ class CartItem extends Component {
                         </div>
 
                         <div className='product-name-price col-xl-9'>
-                            <div className='product-name'>
+                            <div className='product-name'
+                                onClick={() => this.handleToProductDetail(product.keyName)}>
                                 {product.name}
                             </div>
                             <div className='product-price'>
@@ -100,8 +155,10 @@ class CartItem extends Component {
                         </div>
                     </td>
                     <td className='col-xl-2'>
-                        <ChangingQuantityComponent quantityValue={productInCart.quantity}
-                            onChange={this.eventhandler} />
+                        <ChangingQuantityComponent
+                            quantityValue={productInCart.quantity}
+                            onChange={this.eventhandler}
+                            handleUpdateCartproduct={this.handleUpdateCartproduct} />
                     </td>
                     <td className='total-price-text col-xl-2'>
                         {/* <p className='total-price-text'> */}
@@ -130,6 +187,7 @@ const mapStateToProps = state => {
         lang: state.app.language,
         userInfo: state.user.userInfo,
         cartData: state.user.cartData,
+        actionResponse: state.user.actionResponse,
     };
 };
 
@@ -137,6 +195,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
         deleteProductInCart: (inputCartId, inputProductId) => dispatch(actions.deleteProductInCart(inputCartId, inputProductId)),
+        updateCart: (inputData) => dispatch(actions.updateCart(inputData)),
 
     };
 };

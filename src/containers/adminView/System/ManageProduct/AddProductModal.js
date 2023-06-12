@@ -8,7 +8,7 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal } from 'reactstrap'
 import { CommonUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import Lightbox from 'react-image-lightbox';
@@ -69,29 +69,32 @@ class AddProductModal extends Component {
 
         }
         if (prevProps.isOpenedAddModal !== this.props.isOpenedAddModal) {
-            this.setState({
-                name: '',
-                keyName: '',
-                price: '',
-                discount: '',
-                weight: '',
-                height: '',
-                width: '',
-                length: '',
-                publishYear: '',
-                categoryKeyName: '',
-                image: '',
-                previewImgURL: '',
-                contentMarkdown: '',
-                contentHTML: '',
-                selectedCategory: '',
-                selectedSubCategory: '',
-                selectedChildCategory: '',
-                selectedForm: '',
+            if (this.props.isOpenedAddModal === false) {
+                this.setState({
+                    name: '',
+                    keyName: '',
+                    price: '',
+                    discount: '',
+                    weight: '',
+                    height: '',
+                    width: '',
+                    length: '',
+                    publishYear: '',
+                    categoryKeyName: '',
+                    image: '',
+                    previewImgURL: '',
+                    contentMarkdown: '',
+                    contentHTML: '',
+                    selectedCategory: '',
+                    selectedSubCategory: '',
+                    selectedChildCategory: '',
+                    selectedForm: '',
 
-                selectedProductType: '',
-                stateFromComponent: []
-            });
+                    selectedProductType: '',
+                    stateFromComponent: []
+                });
+            }
+
         }
 
         // if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -435,7 +438,6 @@ class AddProductModal extends Component {
                                         className='form-control-file'
                                         onChange={(event) => this.handleOnChangeImage(event)}
                                     />
-                                    {/* <label htmlFor='previewImg' className='label-upload'>Tải ảnh <i className='fas fa-upload'></i></label> */}
                                 </div>
                                 <div className='col-6 form-group'>
 

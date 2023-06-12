@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './ChangingQuantityComponent.scss';
-// import * as actions from "../store/actions";
+import * as actions from "../../../store/actions";
 
 class ChangingQuantityComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+            value: ''
 
         };
     }
@@ -45,6 +45,10 @@ class ChangingQuantityComponent extends Component {
             if (this.props.onChange) {
                 this.props.onChange(this.state);
             }
+            if (this.props.handleUpdateCartproduct) {
+                this.props.handleUpdateCartproduct(this.state.value);
+            }
+
         })
     }
 
@@ -56,6 +60,9 @@ class ChangingQuantityComponent extends Component {
         }, () => {
             if (this.props.onChange) {
                 this.props.onChange(this.state);
+            }
+            if (this.props.handleUpdateCartproduct) {
+                this.props.handleUpdateCartproduct(this.state.value);
             }
         })
     }
@@ -89,6 +96,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
 
     };
 };

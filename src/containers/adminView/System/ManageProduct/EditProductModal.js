@@ -8,7 +8,7 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal } from 'reactstrap'
 import { CommonUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import Lightbox from 'react-image-lightbox';
@@ -318,7 +318,7 @@ class EditProductModal extends Component {
 
     handleOnChangeImage = async (event) => {
         let data = event.target.files;
-
+        console.log(data)
         let file = data[0];
 
         if (file) {
@@ -430,7 +430,6 @@ class EditProductModal extends Component {
             contentHTML } = this.state;
         let { isOpenedEditModal, closeModal, product, childCategory } = this.props
 
-        console.log(product.AllCode)
 
         return (
 
