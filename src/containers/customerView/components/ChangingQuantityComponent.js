@@ -26,8 +26,6 @@ class ChangingQuantityComponent extends Component {
                 value: this.props.quantityValue
             })
         }
-
-
     }
 
     handleOnChangeInput = (event) => {
@@ -87,7 +85,6 @@ class ChangingQuantityComponent extends Component {
     }
 }
 
-
 const mapStateToProps = state => {
     return {
         lang: state.app.language
@@ -96,7 +93,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
 
     };
 };

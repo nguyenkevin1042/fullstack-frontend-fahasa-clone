@@ -27,7 +27,7 @@ class ManageProduct extends Component {
 
 
     async componentDidMount() {
-        // await this.props.fetchAllProduct();
+        await this.props.fetchAllProduct();
         await this.props.fetchAllCodesByType('category')
         // let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
         // this.setState({
@@ -40,11 +40,11 @@ class ManageProduct extends Component {
 
         }
 
-        // if (prevProps.allProductArr !== this.props.allProductArr) {
-        //     this.setState({
-        //         listProduct: this.props.allProductArr
-        //     })
-        // }
+        if (prevProps.allProductArr !== this.props.allProductArr) {
+            this.setState({
+                listProduct: this.props.allProductArr
+            })
+        }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
             let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
@@ -242,8 +242,6 @@ class ManageProduct extends Component {
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
             listChildCategory, selectedChildCategory, } = this.state
-
-        console.log(listCategory)
 
         return (
             <>

@@ -16,7 +16,7 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            allProductTotalPrice: '',
             listProductInCart: []
         };
     }
@@ -60,7 +60,11 @@ class Cart extends Component {
     }
 
     handleCheckAllProducts = (event) => {
-        // console.log(event.target.checked)
+        console.log(event.target.checked)
+    }
+
+    getTotalPriceAllProduct = (data) => {
+        console.log('getTotalPriceAllProduct: ', data)
     }
 
     renderLeftContent = () => {
@@ -98,7 +102,8 @@ class Cart extends Component {
                         {listProductInCart && listProductInCart.length > 0 &&
                             listProductInCart.map((item, index) =>
                             (<CartItem key={index} productInCart={item}
-                                onChange={this.eventhandler} />)
+                                onChange={this.eventhandler}
+                                getTotalPriceAllProduct={this.getTotalPriceAllProduct} />)
 
                             )
 

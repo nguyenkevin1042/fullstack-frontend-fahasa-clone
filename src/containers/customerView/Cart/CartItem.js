@@ -87,6 +87,21 @@ class CartItem extends Component {
         })
     }
 
+    handleCheckThisProduct = (event) => {
+        let { getTotalPriceAllProduct } = this.props
+
+        if (getTotalPriceAllProduct) {
+            getTotalPriceAllProduct({
+                cartId: this.state.cartId,
+                productId: this.state.productId,
+                quantity: this.state.quantity,
+                productPrice: this.state.productPrice
+            })
+        }
+        console.log('handleCheckThisProduct: ', event.target.checked)
+
+    }
+
 
     renderProductPrice = (price, discount) => {
         let salePrice = price - ((price * discount) / 100);
@@ -122,7 +137,7 @@ class CartItem extends Component {
     }
 
     render() {
-        let { productInCart } = this.props
+        let { productInCart, handleCheckProduct } = this.props
         let { totalPrice } = this.state
         let imageBase64 = '';
         let product = productInCart.Product;
@@ -134,7 +149,8 @@ class CartItem extends Component {
             <React.Fragment>
                 <tr className='cart-item row'>
                     <td className='col-xl-1'>
-                        <input type="checkbox" id="choose-all" name="choose-all" />
+                        <input type="checkbox" id="choose" name="choose"
+                            onClick={(event) => this.handleCheckThisProduct(event)} />
                     </td>
                     <td className='product-section col-xl-6'>
                         <div className='product-img col-xl-3'

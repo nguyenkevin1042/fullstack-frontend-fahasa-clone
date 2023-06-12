@@ -318,7 +318,7 @@ class EditProductModal extends Component {
 
     handleOnChangeImage = async (event) => {
         let data = event.target.files;
-        console.log(data)
+
         let file = data[0];
 
         if (file) {
