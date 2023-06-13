@@ -36,12 +36,12 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCHING_DATA_SUCCESS:
-            state.isFetchingData = true
+            state.isFetchingData = false
             return {
                 ...state,
             }
         case actionTypes.FETCHING_DATA_FAIL:
-            state.isFetchingData = false
+            state.isFetchingData = true
             return {
                 ...state,
             }

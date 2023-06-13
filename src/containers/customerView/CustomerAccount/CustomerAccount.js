@@ -20,7 +20,11 @@ class CustomerAccount extends Component {
     }
 
     componentDidMount() {
-        // if (selectedSection === 'dashboard')
+        if (!this.props.userInfo) {
+            if (this.props.history) {
+                this.props.history.push("/customer/account/login");
+            }
+        }
 
     }
 

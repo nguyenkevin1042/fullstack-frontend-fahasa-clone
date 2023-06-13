@@ -117,6 +117,7 @@ class AccountInformationComponent extends Component {
         let { firstName, lastName, phoneNumber, email, gender, birthday,
             oldPassword, newPassword, retypeNewPassword, message, listGender } = this.state
 
+        console.log(this.props.actionResponse)
         return (
             <React.Fragment>
                 <div className='right-content-header'>

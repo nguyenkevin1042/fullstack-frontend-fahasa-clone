@@ -55,11 +55,9 @@ class Header extends Component {
     }
 
     async componentDidMount() {
-        // await this.props.getCartByUserId(this.props.userInfo.id)
         this.setState({
             selectedLanguage: this.state.listLanguage[0]
         })
-
 
     }
 
@@ -70,7 +68,7 @@ class Header extends Component {
 
         if (prevProps.userInfo !== this.props.userInfo
             || prevProps.lang !== this.props.lang) {
-            await this.props.getCartByUserId(this.props.userInfo.id)
+            // await this.props.getCartByUserId(this.props.userInfo.id)
         }
 
 
@@ -156,6 +154,8 @@ class Header extends Component {
     renderCustomerOption = () => {
         const accountMenu = (<DropdownAccount />);
         let { userInfo, lang } = this.props
+        let firstName = userInfo && userInfo.firstName !== null ? userInfo.firstName : ''
+        let lastName = userInfo && userInfo.lastName !== null ? userInfo.lastName : ''
 
         return (
 
@@ -168,10 +168,10 @@ class Header extends Component {
                         <>
                             {lang === languages.VI ?
                                 <p className='customer-name'>
-                                    {userInfo.firstName} {userInfo.lastName}
+                                    {firstName} {lastName}
                                 </p> :
                                 <p className='customer-name'>
-                                    {userInfo.lastName} {userInfo.firstName}
+                                    {lastName} {firstName}
                                 </p>
                             }
                         </>

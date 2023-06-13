@@ -28,6 +28,11 @@ class Login extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
+        if (prevProps.userInfo !== this.props.userInfo) {
+            if (this.props.history) {
+                this.props.history.push("/customer/account");
+            }
+        }
     }
 
     handleOpenSignInForm = () => {
@@ -122,7 +127,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 

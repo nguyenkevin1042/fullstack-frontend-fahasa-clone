@@ -98,12 +98,11 @@ export const updateUserFail = (response) => ({
 //ADD PRODUCT TO CART
 export const addToCart = (inputData) => {
     return async (dispatch, getState) => {
+
         let res;
         try {
 
             res = await addToCartAPI(inputData);
-            console.log(res)
-            return;
 
             if (res && res.errCode === 0) {
                 dispatch(addToCartSuccess(res));
@@ -185,7 +184,7 @@ export const getCartByUserIdFail = (response) => ({
     response: response
 })
 
-//ADD PRODUCT TO CART
+//UPDATE PRODUCT IN CART
 export const updateCart = (inputData) => {
     return async (dispatch, getState) => {
         let res;

@@ -637,7 +637,7 @@ export const addNewProductFail = (response) => ({
 //FETCH ALL PRODUCTS
 export const fetchAllProduct = () => {
     return async (dispatch, getState) => {
-        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
             res = await getAllProductAPI();
@@ -651,7 +651,7 @@ export const fetchAllProduct = () => {
             dispatch(fetchAllProductFail());
             console.log("fetchAllProduct Error: ", error)
         }
-        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 
@@ -699,7 +699,7 @@ export const fetchAllProductByCategoryFail = (response) => ({
 //FETCH ALL PRODUCTS BY SUB CATEGORY
 export const fetchAllProductBySubCategory = (inputCategory, inputSubCategory) => {
     return async (dispatch, getState) => {
-        // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
             res = await getProductBySubCategoryAPI(inputCategory, inputSubCategory);
@@ -713,7 +713,7 @@ export const fetchAllProductBySubCategory = (inputCategory, inputSubCategory) =>
             dispatch(fetchAllProductBySubCategoryFail(res));
             console.log("fetchAllProductBySubCategory Error: ", error)
         }
-        // dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 

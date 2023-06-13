@@ -9,7 +9,6 @@ import Header from '../components/Header';
 import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 import NumericFormat from 'react-number-format';
-import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
 import CartItem from './CartItem';
 
 class Cart extends Component {
@@ -17,7 +16,7 @@ class Cart extends Component {
         super(props);
         this.state = {
             allProductTotalPrice: '',
-            listProductInCart: []
+            listProductInCart: [],
         };
     }
 
@@ -29,7 +28,6 @@ class Cart extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-
         if (prevProps.userInfo !== this.props.userInfo
             || prevProps.lang !== this.props.lang) {
             await this.props.getCartByUserId(this.props.userInfo.id)
@@ -86,12 +84,12 @@ class Cart extends Component {
                             </th>
                             <th className='col-xl-2'>
                                 <label>
-                                    Số lượng
+                                    <FormattedMessage id="customer.cart.quantity" />
                                 </label>
                             </th>
                             <th className='col-xl-2'>
                                 <label>
-                                    Thành tiền
+                                    <FormattedMessage id="customer.cart.subtotal" />
                                 </label>
                             </th>
                             <th className='col-xl-1'></th>
@@ -149,38 +147,102 @@ class Cart extends Component {
         )
     }
 
+
+    renderIfHavingProduct = () => {
+        return (
+            <div className='row'>
+                <div className='cart-left-content col-xl-8'>
+                    {this.renderLeftContent()}
+
+                </div>
+
+                <div className='cart-right-content col-xl-4'>
+                    <div className='sharing-right-content border-bottom'>
+                        <div className='total-price-label'>
+                            <FormattedMessage id="customer.cart.subtotal" />
+                        </div>
+                        <div className='total-price-text'>
+                            500.000d
+                        </div>
+                    </div>
+                    <div className='sharing-right-content'>
+                        <div className='total-price-vat-label'>
+                            <FormattedMessage id="customer.cart.grand-total" />
+                        </div>
+                        <div className='total-price-vat-text'>
+                            500.000d
+                        </div>
+                    </div>
+                    <div className='pay-check-btn'>
+                        <button>
+                            <FormattedMessage id="customer.cart.checkout" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    renderIfNotHavingProduct = () => {
+        return (
+            <div className='no-products-content'>
+                <div className='no-products-img'>
+                </div>
+                <div className='no-products-text'>
+                    <FormattedMessage id="customer.cart.no-products" />
+                </div>
+                <div className='shopping-now-btn'>
+                    <button>
+                        <FormattedMessage id="customer.cart.shopping-now" />
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
     render() {
+        let { listProductInCart } = this.state
         return (
             <React.Fragment>
+
                 <Header />
 
+
+
                 <div className='cart-container'>
-                    <div className='row'>
+                    {listProductInCart && listProductInCart.length > 0 ?
+                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()}
+                    {/* <div className='row'>
                         <div className='cart-left-content col-xl-8'>
                             {this.renderLeftContent()}
 
                         </div>
 
                         <div className='cart-right-content col-xl-4'>
-                            <div className='sharing-right-content'>
+                            <div className='sharing-right-content border-bottom'>
                                 <div className='total-price-label'>
-                                    Thành tiền
+                                    <FormattedMessage id="customer.cart.subtotal" />
                                 </div>
-                                <div className=''>
-
+                                <div className='total-price-text'>
+                                    500.000d
                                 </div>
                             </div>
                             <div className='sharing-right-content'>
                                 <div className='total-price-vat-label'>
-                                    Tổng Số Tiền (gồm VAT)
+                                    <FormattedMessage id="customer.cart.grand-total" />
                                 </div>
-                                <div className=''>
-
+                                <div className='total-price-vat-text'>
+                                    500.000d
                                 </div>
+                            </div>
+                            <div className='pay-check-btn'>
+                                <button>
+                                    <FormattedMessage id="customer.cart.checkout" />
+                                </button>
                             </div>
                         </div>
 
-                    </div>
+                    </div> */}
                 </div >
 
                 <SignUpNewletter />
@@ -197,6 +259,7 @@ const mapStateToProps = state => {
         lang: state.app.language,
         userInfo: state.user.userInfo,
         cartData: state.user.cartData,
+        isFetchingData: state.admin.isFetchingData,
     };
 };
 

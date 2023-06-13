@@ -101,10 +101,10 @@ class ProductDetail extends Component {
             productPrice: product.discount ? salePrice : product.price
         })
 
-
         this.setState({
             isModalOpened: true
         })
+
     }
 
     handleBuyNow = async () => {

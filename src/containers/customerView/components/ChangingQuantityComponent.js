@@ -6,12 +6,15 @@ import './ChangingQuantityComponent.scss';
 import * as actions from "../../../store/actions";
 
 class ChangingQuantityComponent extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             value: ''
 
         };
+
+        this.ref = React.createRef()
     }
 
     componentDidMount() {
@@ -33,7 +36,14 @@ class ChangingQuantityComponent extends Component {
         let data = event.target.value;
         let copyState = { ...this.state };
         copyState[key] = data;
-        this.setState({ ...copyState });
+        this.setState({ ...copyState }, () => {
+            if (this.props.onChange) {
+                this.props.onChange(this.state);
+            }
+            if (this.props.handleUpdateCartproduct) {
+                this.props.handleUpdateCartproduct(this.state.value);
+            }
+        });
     }
 
     handleIncreaseQuantityValue = () => {

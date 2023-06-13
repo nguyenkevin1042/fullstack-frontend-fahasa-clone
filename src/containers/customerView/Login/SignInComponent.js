@@ -49,8 +49,11 @@ class SignInComponent extends Component {
         })
         await this.props.userLogin(this.state.email, this.state.password)
 
-        if (actionResponse.errCode === 0) {
-            await this.props.history.push("/home");
+        if (actionResponse && actionResponse.errCode === 0) {
+            if (this.props.history) {
+                this.props.history.push("/home");
+            }
+
             if (this.props.closeAccountModal) {
                 await this.props.closeAccountModal();
             }

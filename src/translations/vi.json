@@ -121,8 +121,14 @@
             "newletter": "Đăng ký nhận tin điện tử"
         },
         "cart": {
-            "title": "Giỏ hàng",
-            "choose-all": "Chọn tất cả"
+            "title": "Cart",
+            "choose-all": "Choose All",
+            "quantity": "Số lượng",
+            "subtotal": "Thành tiền",
+            "grand-total": "Tổng Số Tiền (gồm VAT)",
+            "checkout": "Thanh toán",
+            "no-products": "Chưa có sản phẩm trong giỏ hàng của bạn",
+            "shopping-now": "Mua sắm ngay"
         }
     },
     "common": {

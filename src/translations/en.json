@@ -118,7 +118,13 @@
         },
         "cart": {
             "title": "Cart",
-            "choose-all": "Choose All"
+            "choose-all": "Choose All",
+            "quantity": "Quantity",
+            "subtotal": "Subtotal",
+            "grand-total": "Grand Total",
+            "checkout": "Proceed to checkout",
+            "no-products": "There is no product in your cart",
+            "shopping-now": "Shopping now"
         }
     },
     "common": {

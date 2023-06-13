@@ -8,6 +8,8 @@ import * as actions from "../../../../store/actions";
 import { languages } from '../../../../utils';
 import Select from 'react-select';
 
+import LoadingOverlay from 'react-loading-overlay'
+
 class ManageProduct extends Component {
 
     constructor(props) {
@@ -17,6 +19,7 @@ class ManageProduct extends Component {
             isOpenedEditModal: false,
             listProduct: [],
             selectedProduct: '',
+            isLoading: false,
 
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
@@ -38,6 +41,12 @@ class ManageProduct extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
+        }
+
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
         }
 
         if (prevProps.allProductArr !== this.props.allProductArr) {
@@ -241,84 +250,103 @@ class ManageProduct extends Component {
         let { isOpenedAddModal, isOpenedEditModal, selectedProduct,
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
-            listChildCategory, selectedChildCategory, } = this.state
+            listChildCategory, selectedChildCategory, isLoading } = this.state
 
         return (
             <>
-                <div className='sharing-manage-container'>
-                    <div className='sharing-manage-title'>
-                        Quản lý sản phẩm
-                    </div>
-
-                    <div className='sharing-manage-add'>
-                        <button className='add-btn btn btn-primary'
-                            onClick={() => this.handleOpenAddProductModal()}>Thêm sản phẩm mới</button>
-                    </div>
-
-                    <div className='sharing-manage-sort'>
-                        <div className='sharing-manage-sort-title'>
-                            Tìm kiếm sản phẩm
+                <LoadingOverlay
+                    active={isLoading}
+                    spinner={true}
+                    styles={{
+                        overlay: (base) => ({
+                            ...base,
+                            height: '100vh'
+                        }),
+                        spinner: (base) => ({
+                            ...base,
+                            width: '50px',
+                            '& svg circle': {
+                                stroke: '#F7941E'
+                            }
+                        })
+                    }}
+                    text='Please wait...'>
+                    <div className='sharing-manage-container'>
+                        <div className='sharing-manage-title'>
+                            Quản lý sản phẩm
                         </div>
 
-                        <div className='sharing-sort-section'>
-                            <label className='col-3 form-group'>Tìm theo danh mục:</label>
-                            <div className='col-3 form-group'>
-                                <Select
-                                    value={selectedCategory}
-                                    onChange={this.handleChangeCategory}
-                                    options={listCategory}
-                                    placeholder={'Danh mục chính'}
-                                    name="selectedCategory" />
-                            </div>
-                            <div className='col-3 form-group'>
-                                <Select
-                                    value={selectedSubCategory}
-                                    onChange={this.handleChangeSubCategory}
-                                    options={listSubCategory}
-                                    placeholder={'Danh mục phụ'}
-                                    name="selectedSubCategory" />
-                            </div>
-                            <div className='col-3 form-group'>
-                                <Select
-                                    value={selectedChildCategory}
-                                    onChange={this.handleChangeChildCategory}
-                                    options={listChildCategory}
-                                    placeholder={'Danh mục con'}
-                                    name="selectedChildCategory" />
-                            </div>
+                        <div className='sharing-manage-add'>
+                            <button className='add-btn btn btn-primary'
+                                onClick={() => this.handleOpenAddProductModal()}>Thêm sản phẩm mới</button>
                         </div>
 
+                        <div className='sharing-manage-sort'>
+                            <div className='sharing-manage-sort-title'>
+                                Tìm kiếm sản phẩm
+                            </div>
 
+                            <div className='sharing-sort-section'>
+                                <label className='col-3 form-group'>Tìm theo danh mục:</label>
+                                <div className='col-3 form-group'>
+                                    <Select
+                                        value={selectedCategory}
+                                        onChange={this.handleChangeCategory}
+                                        options={listCategory}
+                                        placeholder={'Danh mục chính'}
+                                        name="selectedCategory" />
+                                </div>
+                                <div className='col-3 form-group'>
+                                    <Select
+                                        value={selectedSubCategory}
+                                        onChange={this.handleChangeSubCategory}
+                                        options={listSubCategory}
+                                        placeholder={'Danh mục phụ'}
+                                        name="selectedSubCategory" />
+                                </div>
+                                <div className='col-3 form-group'>
+                                    <Select
+                                        value={selectedChildCategory}
+                                        onChange={this.handleChangeChildCategory}
+                                        options={listChildCategory}
+                                        placeholder={'Danh mục con'}
+                                        name="selectedChildCategory" />
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div className='manage-sharing-table'>
+                            <table className='sharing-table'>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Ảnh sản phẩm</th>
+                                        <th>Danh mục sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Giá sản phẩm</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {this.renderProductsTableData()}
+                                </tbody>
+
+
+                            </table>
+                        </div>
                     </div>
-
-                    <div className='manage-sharing-table'>
-                        <table className='sharing-table'>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Ảnh sản phẩm</th>
-                                    <th>Danh mục sản phẩm</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Giá sản phẩm</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {this.renderProductsTableData()}
-                            </tbody>
-
-
-                        </table>
-                    </div>
-                </div>
-                <AddProductModal
-                    isOpenedAddModal={isOpenedAddModal}
-                    closeModal={this.handleCloseAddProductModal} />
-                <EditProductModal
-                    isOpenedEditModal={isOpenedEditModal}
-                    closeModal={this.handleCloseEditProductModal}
-                    product={selectedProduct} />
+                    <AddProductModal
+                        isOpenedAddModal={isOpenedAddModal}
+                        closeModal={this.handleCloseAddProductModal} />
+                    <EditProductModal
+                        isOpenedEditModal={isOpenedEditModal}
+                        closeModal={this.handleCloseEditProductModal}
+                        product={selectedProduct} />
+                </LoadingOverlay>
             </>
         );
     }
@@ -332,6 +360,7 @@ const mapStateToProps = state => {
         allCodesArr: state.admin.allCodesArr,
         allSubCategoryArr: state.admin.allSubCategoryArr,
         allChildCategoryArr: state.admin.allChildCategoryArr,
+        isFetchingData: state.admin.isFetchingData,
     };
 };
 
