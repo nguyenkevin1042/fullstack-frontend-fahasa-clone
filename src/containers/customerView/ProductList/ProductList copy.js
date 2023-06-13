@@ -43,27 +43,15 @@ class ProductList extends Component {
     async componentDidMount() {
         let { category, subCategory, childCategory } = this.props.match.params
 
-        if (category && subCategory && childCategory) {
+        if (category === 'all-category') {
             this.setState({
-                keyName: childCategory,
+                keyName: 'all-category',
             })
-            await this.props.fetchAllSubCategoryByKeyName(subCategory)
-            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
-            await this.props.fetchChildCategoryByKeyName(childCategory)
-            await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
-            await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
+            await this.props.fetchAllCodesByType('category')
+            await this.props.fetchAllProduct()
         }
 
-        if (category && subCategory && !childCategory) {
-            this.setState({
-                keyName: subCategory,
-            })
-            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
-            await this.props.fetchAllSubCategoryByKeyName(subCategory)
-            await this.props.fetchAllProductBySubCategory(category, subCategory)
-        }
-
-        if (category !== 'all-category' && !subCategory && !childCategory) {
+        if (category != 'all-category') {
             this.setState({
                 keyName: category,
             })
@@ -73,12 +61,24 @@ class ProductList extends Component {
             await this.props.fetchAllProductByCategory(category)
         }
 
-        if (category === 'all-category' && !subCategory && !childCategory) {
+        if (subCategory) {
             this.setState({
-                keyName: 'all-category',
+                keyName: subCategory,
             })
-            await this.props.fetchAllCodesByType('category')
-            await this.props.fetchAllProduct()
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+            await this.props.fetchAllSubCategoryByKeyName(subCategory)
+            await this.props.fetchAllProductBySubCategory(category, subCategory)
+        }
+
+        if (childCategory) {
+            this.setState({
+                keyName: childCategory,
+            })
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+            await this.props.fetchAllSubCategoryByKeyName(subCategory)
+            await this.props.fetchChildCategoryByKeyName(childCategory)
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+            await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
         }
 
         if (this.props.allProductArr) {
@@ -545,6 +545,8 @@ class ProductList extends Component {
         let { totalPages, currentPage, pageLimit,
             startIndex, endIndex, selectedPageLimit, numberOfProductsArr } = this.state;
         let rowsPerPage = [];
+
+        console.log(selectedPageLimit, numberOfProductsArr)
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 

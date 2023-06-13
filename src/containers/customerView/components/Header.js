@@ -50,7 +50,7 @@ class Header extends Component {
             visible: false,
 
             productName: '',
-            productInCartLength: 0
+            productInCartLength: ''
         };
     }
 
@@ -189,6 +189,8 @@ class Header extends Component {
     render() {
         let { listLanguage, selectedLanguage, productInCartLength } = this.state
         let language = this.props.lang
+        let { cartData, userInfo } = this.props
+        let cartDataLength = cartData.length
         let customStyles = {
             control: (baseStyles, state) => ({
                 ...baseStyles,
@@ -223,6 +225,9 @@ class Header extends Component {
                 cursor: "pointer"
             })
         };
+
+        console.log(this.props.userInfo)
+        console.log('cartDataLength: ', cartDataLength)
 
         const menu = (<DropdownMenu />);
         const searchDropdown = (<SearchDropdown />)
@@ -275,10 +280,11 @@ class Header extends Component {
                                         onClick={() => this.handleRedirectToCart()}>
                                         <i className="fa fa-shopping-cart"></i>
                                         <p><FormattedMessage id="customer.homepage.header.cart" /></p>
-                                        {productInCartLength > 0 &&
-                                            (<span className='sum-products-in-cart'>{productInCartLength}</span>)}
-                                        {/* {productInCartLength && productInCartLength.length > 0 &&
-                                            (<span className='sum-products-in-cart'>{productInCartLength}</span>)} */}
+                                        {userInfo && cartData && cartDataLength > 0 ?
+                                            <span className='sum-products-in-cart'>{cartDataLength}</span> : <></>}
+                                        {/* <span className='sum-products-in-cart'>{cartDataLength}</span> */}
+                                        {/* {cartDataLength && cartDataLength.length > 0 ?
+                                            <span className='sum-products-in-cart'>{cartDataLength}</span> : <></>} */}
 
 
                                     </div>
