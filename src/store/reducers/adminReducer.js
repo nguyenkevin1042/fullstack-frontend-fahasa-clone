@@ -47,12 +47,12 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.CREATE_NEW_USER_SUCCESS:
-            state.signUpResponse = action.response
+            state.actionResponse = action.response
             return {
                 ...state,
             }
         case actionTypes.CREATE_NEW_USER_FAIL:
-            state.signUpResponse = action.response
+            state.actionResponse = action.response
             return {
                 ...state,
             }

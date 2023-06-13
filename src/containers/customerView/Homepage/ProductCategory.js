@@ -38,7 +38,7 @@ class ProductCategory extends Component {
                     <div className='context-items row'>
 
                         <div className='child-item col-1'>
-                            <Link to='/vpp-dung-cu-hoc-sinh'
+                            <Link to='/category/vpp-dung-cu-hoc-sinh'
                                 className='sharing-link-content'
                             >
                                 <div className='item-image item1'></div>
@@ -47,7 +47,7 @@ class ProductCategory extends Component {
                         </div>
 
                         <div className='child-item col-1'>
-                            <Link to='/do-choi'
+                            <Link to='/category/do-choi'
                                 className='sharing-link-content'>
                                 <div className='item-image item2'></div>
                                 <div className='item-text text-center'>
@@ -55,7 +55,7 @@ class ProductCategory extends Component {
                             </Link>
                         </div>
                         <div className='child-item col-1'>
-                            <Link to='/vpp-dung-cu-hoc-sinh' className='sharing-link-content'>
+                            <Link to='/category/vpp-dung-cu-hoc-sinh' className='sharing-link-content'>
                                 <div className='item-image item3'></div>
                                 <div className='item-text text-center'>
                                     <FormattedMessage id="customer.homepage.product-category.romantic-fiction" />

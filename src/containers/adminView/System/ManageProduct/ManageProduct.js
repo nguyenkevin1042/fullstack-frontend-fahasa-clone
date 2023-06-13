@@ -7,6 +7,7 @@ import EditProductModal from './EditProductModal';
 import * as actions from "../../../../store/actions";
 import { languages } from '../../../../utils';
 import Select from 'react-select';
+import CustomPagination from '../../../../components/CustomPagination';
 
 import LoadingOverlay from 'react-loading-overlay'
 
@@ -24,6 +25,13 @@ class ManageProduct extends Component {
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
             listChildCategory: [], selectedChildCategory: '',
+
+            totalRecords: "",
+            totalPages: "",
+            pageLimit: "",
+            currentPage: "",
+            startIndex: "",
+            endIndex: ""
         };
     }
 
@@ -32,6 +40,12 @@ class ManageProduct extends Component {
     async componentDidMount() {
         await this.props.fetchAllProduct();
         await this.props.fetchAllCodesByType('category')
+
+        if (this.props.allProductArr) {
+            this.setState({
+                totalRecords: this.props.allProductArr.length
+            });
+        }
         // let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
         // this.setState({
         //     listCategory: dataSelectCategory
@@ -244,14 +258,70 @@ class ManageProduct extends Component {
         )
     }
 
+    showProducts = (products) => {
+
+        return (
+            <>
+                {products && products.length > 0 &&
+                    products.map((item, index) => {
+                        let imageBase64 = '';
+                        if (item.image) {
+                            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                        }
+                        return (
+                            <tr key={index}>
+                                <td>{item.id}</td>
+                                <td className='product-img'>
+                                    <div className='img'
+                                        style={{
+                                            backgroundImage: "url(" + imageBase64 + ")"
+                                        }} /></td>
+                                <td>{this.renderCategoryOfProduct(item)}</td>
+                                <td>{item.name}</td>
+                                <td>{item.price}</td>
+
+                                <td>
+                                    <button className='btn-edit'
+                                        onClick={() => this.handleEdit(item)}
+                                    > <i className="fas fa-pencil-alt"></i></button>
+                                    <button className='btn-delete'
+                                        onClick={() => this.handleDelete(item)}
+                                    ><i className="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        )
+                    })
+
+                }
+            </>
+        )
+    };
+
+    onChangePage = (data) => {
+        console.log(data)
+        this.setState({
+            pageLimit: data.pageLimit,
+            totalPages: data.totalPages,
+            currentPage: data.page,
+            startIndex: data.startIndex,
+            endIndex: data.endIndex
+        });
+    };
 
 
     render() {
         let { isOpenedAddModal, isOpenedEditModal, selectedProduct,
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
+            listProduct,
             listChildCategory, selectedChildCategory, isLoading } = this.state
 
+        let { totalPages, currentPage, pageLimit,
+            startIndex, endIndex } = this.state;
+        let rowsPerPage = [];
+
+        rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
+        console.log(rowsPerPage)
         return (
             <>
                 <LoadingOverlay
@@ -275,6 +345,14 @@ class ManageProduct extends Component {
                         <div className='sharing-manage-title'>
                             Quản lý sản phẩm
                         </div>
+
+                        <CustomPagination
+                            totalRecords={listProduct.length}
+                            pageLimit={pageLimit || 5}
+                            initialPage={1}
+                            pagesToShow={5}
+                            onChangePage={this.onChangePage}
+                        />
 
                         <div className='sharing-manage-add'>
                             <button className='add-btn btn btn-primary'
@@ -331,8 +409,8 @@ class ManageProduct extends Component {
                                 </thead>
 
                                 <tbody>
-
-                                    {this.renderProductsTableData()}
+                                    {this.showProducts(rowsPerPage)}
+                                    {/* {this.renderProductsTableData()} */}
                                 </tbody>
 
 

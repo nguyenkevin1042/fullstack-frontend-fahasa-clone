@@ -667,7 +667,7 @@ export const fetchAllProductFail = () => ({
 //FETCH ALL PRODUCTS BY CATEGORY
 export const fetchAllProductByCategory = (inputCategory) => {
     return async (dispatch, getState) => {
-        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
 
@@ -682,7 +682,7 @@ export const fetchAllProductByCategory = (inputCategory) => {
             dispatch(fetchAllProductByCategoryFail(res));
             console.log("fetchAllProductByCategory Error: ", error)
         }
-        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 

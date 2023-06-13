@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './SignUpComponent.scss';
 import * as actions from "../../../store/actions";
+import { languages } from '../../../utils';
 
 class SignUpComponent extends Component {
     constructor(props) {
@@ -23,6 +24,14 @@ class SignUpComponent extends Component {
 
         }
 
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            this.setState({
+                message: this.props.lang === languages.VI ?
+                    this.props.actionResponse.messageVI :
+                    this.props.actionResponse.messageEN
+            })
+        }
+
     }
 
     handleOnChangeInput = (event, key) => {
@@ -33,6 +42,9 @@ class SignUpComponent extends Component {
     }
 
     handleSignUp = async () => {
+        this.setState({
+            message: ''
+        })
         await this.props.createNewUser({
             email: this.state.email,
             password: this.state.password,
@@ -43,7 +55,7 @@ class SignUpComponent extends Component {
 
     render() {
         let { email, password, message } = this.state
-        let { isOpenSignUpForm } = this.props;
+        let { isOpenSignUpForm, actionResponse } = this.props;
 
         return (
             <>
@@ -65,14 +77,14 @@ class SignUpComponent extends Component {
                                 onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                 required />
                         </div>
+                        <div className='col-12 error-message mt-4'>
+                            {message}
+                        </div>
                         <div className="col-12 sign-in-btn ">
                             <button onClick={() => this.handleSignUp()}>
                                 <FormattedMessage id="customer.login.sign-up-text" />
                             </button>
                         </div >
-                        <div className='col-12 error-message mt-4'>
-                            {message}
-                        </div>
                     </>
                 }
             </>
@@ -84,7 +96,7 @@ class SignUpComponent extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        errResponse: state.admin.signUpResponse
+        actionResponse: state.admin.actionResponse
     };
 };
 

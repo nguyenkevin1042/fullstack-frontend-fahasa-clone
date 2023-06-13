@@ -16,10 +16,9 @@ import './App.scss';
 
 import Home from '../routes/Home';
 import Login from '../containers/adminView/Login/Login';
-import Header from '../containers/adminView/Header/Header';
+
 import System from '../routes/System';
 
-import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import Homepage from './customerView/Homepage/Homepage';
 import CustomerLogin from './customerView/Login/Login';
@@ -60,6 +59,7 @@ class App extends Component {
                     <div className="main-container">
                         <ConfirmModal />
                         <CustomScrollbars style={{ height: '100vh' }}>
+
                             <span className="content-container">
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
@@ -74,8 +74,8 @@ class App extends Component {
                                     <Route path={path.CART} exact component={(Cart)} />
                                     {/* <Route path={path.SEARCH_RESULT} exact component={(SeacrchResult)} /> */}
                                 </Switch>
-
                             </span>
+
                         </CustomScrollbars>
 
                         <ToastContainer
