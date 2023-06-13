@@ -61,6 +61,12 @@ class Cart extends Component {
         console.log(event.target.checked)
     }
 
+    handleToOneStepCheckout = () => {
+        if (this.props.history) {
+            this.props.history.push("/onestepcheckout");
+        }
+    }
+
     getTotalPriceAllProduct = (data) => {
         console.log('getTotalPriceAllProduct: ', data)
     }
@@ -174,7 +180,7 @@ class Cart extends Component {
                         </div>
                     </div>
                     <div className='pay-check-btn'>
-                        <button>
+                        <button onClick={() => this.handleToOneStepCheckout()}>
                             <FormattedMessage id="customer.cart.checkout" />
                         </button>
                     </div>

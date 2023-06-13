@@ -4,6 +4,23 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
+
+
+@media (max-width: $medium) {
+    .home-header-container{
+
+        .home-header-menu{
+        
+            .home-header-menu-toggle{
+
+                i{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
 @media (max-width: $large) {
     .home-header-container{
         background-color: #C92127;
@@ -80,26 +97,10 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 }
 
-@media (max-width: $medium) {
-    .home-header-container{
-
-        .home-header-menu{
-        
-            .home-header-menu-toggle{
-
-                i{
-                    display: none;
-                }
-            }
-        }
-    }
-}
-
-
 @media (min-width: $large) {
     .home-header-container{
         background-color: white;
-        padding: 25px 50px 10px 75px;
+        padding: 25px 30px 10px 50px;
 
         .home-header-logo{
             background: url('./../../../assets/fahasa_logo.png') no-repeat center center;

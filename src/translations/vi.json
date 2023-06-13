@@ -82,6 +82,7 @@
             "product-detail": "Thông tin sản phẩm",
             "product-id": "Mã Hàng",
             "translator": "Người Dịch",
+            "language": "Ngôn Ngữ",
             "publish-year": "Năm Xuất Bản",
             "weight": "Trọng Lượng",
             "size": "Kích Thước",
@@ -134,6 +135,10 @@
             "checkout": "Thanh toán",
             "no-products": "Chưa có sản phẩm trong giỏ hàng của bạn",
             "shopping-now": "Mua sắm ngay"
+        },
+        "one-time-checkout": {
+            "back-to-cart": "Quay về giỏ hàng",
+            "confirmation": "Thanh toán"
         }
     },
     "common": {

@@ -9,7 +9,8 @@ export const path = {
     PRODUCT_LIST: '/category/:category?/:subCategory?/:childCategory?',
     PRODUCT_DETAIL: '/product/:keyName',
     SEARCH_RESULT: '/search/result/:q',
-    CART: '/cart'
+    CART: '/cart',
+    ONE_STEP_CHECKOUT: '/onestepcheckout'
 };
 
 export const languages = {

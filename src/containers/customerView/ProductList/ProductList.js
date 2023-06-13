@@ -34,7 +34,9 @@ class ProductList extends Component {
             pageLimit: "",
             currentPage: "",
             startIndex: "",
-            endIndex: ""
+            endIndex: "",
+            selectedPageLimit: '',
+            numberOfProductsArr: []
         };
     }
 
@@ -84,12 +86,25 @@ class ProductList extends Component {
                 totalRecords: this.props.allProductArr.length
             });
         }
+
+        this.setState({
+            numberOfProductsArr: [
+                { value: 12, label: (<FormattedMessage id="customer.product-list.sort.12-products" />) },
+                { value: 24, label: (<FormattedMessage id="customer.product-list.sort.24-products" />) },
+                { value: 48, label: (<FormattedMessage id="customer.product-list.sort.48-products" />) }
+
+            ],
+            selectedPageLimit: this.state.numberOfProductsArr[0]
+        })
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         let { category, subCategory, childCategory } = this.props.match.params
-        if (prevProps.lang !== this.props.lang) {
 
+        if (prevState.numberOfProductsArr !== this.state.numberOfProductsArr) {
+            this.setState({
+                selectedPageLimit: this.state.numberOfProductsArr[0]
+            })
         }
 
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
@@ -98,9 +113,26 @@ class ProductList extends Component {
             })
         }
 
-        if (this.props.match.params.category && !this.props.match.params.subCategory &&
+        if (this.props.match.params.category &&
+            !this.props.match.params.subCategory &&
             !this.props.match.params.childCategory &&
             prevProps.match.params.category !== this.props.match.params.category) {
+            if (this.props.match.params.category === 'all-category') {
+                this.setState({
+                    keyName: 'all-category',
+                })
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllProduct()
+            } else {
+                this.setState({
+                    keyName: category,
+                })
+
+                await this.props.fetchAllCodesByKeyMap(category)
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllSubCategoryByCategory(category)
+            }
+
             if (this.props.match.params.category === 'all-category') {
                 this.setState({
                     keyName: 'all-category',
@@ -119,7 +151,8 @@ class ProductList extends Component {
         }
 
         if (!this.props.match.params.childCategory &&
-            this.props.match.params.subCategory && prevProps.match.params.subCategory !== this.props.match.params.subCategory) {
+            this.props.match.params.subCategory &&
+            prevProps.match.params.subCategory !== this.props.match.params.subCategory) {
 
             this.setState({
                 keyName: subCategory,
@@ -131,6 +164,71 @@ class ProductList extends Component {
         }
 
         if (prevProps.match.params.childCategory !== this.props.match.params.childCategory) {
+            if (childCategory != undefined) {
+                this.setState({
+                    keyName: childCategory,
+                })
+                await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+                await this.props.fetchAllSubCategoryByKeyName(subCategory)
+                await this.props.fetchChildCategoryByKeyName(childCategory)
+                await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+                await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
+            }
+        }
+
+        if (this.props.match.params.category &&
+            !this.props.match.params.subCategory &&
+            !this.props.match.params.childCategory &&
+            prevProps.match.params.category !== this.props.match.params.category) {
+            if (this.props.match.params.category === 'all-category') {
+                this.setState({
+                    keyName: 'all-category',
+                })
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllProduct()
+            } else {
+                this.setState({
+                    keyName: category,
+                })
+
+                await this.props.fetchAllCodesByKeyMap(category)
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllSubCategoryByCategory(category)
+            }
+
+            if (this.props.match.params.category === 'all-category') {
+                this.setState({
+                    keyName: 'all-category',
+                })
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllProduct()
+            } else {
+                this.setState({
+                    keyName: category,
+                })
+
+                await this.props.fetchAllCodesByKeyMap(category)
+                await this.props.fetchAllCodesByType('category')
+                await this.props.fetchAllSubCategoryByCategory(category)
+            }
+        }
+
+        if (!this.props.match.params.childCategory &&
+            this.props.match.params.subCategory &&
+            prevProps.match.params.subCategory !== this.props.match.params.subCategory &&
+            prevProps.lang !== this.props.lang) {
+
+            this.setState({
+                keyName: subCategory,
+            })
+
+            await this.props.fetchAllChildCategoryBySubCategory(subCategory)
+            await this.props.fetchAllSubCategoryByKeyName(subCategory)
+            await this.props.fetchAllProductBySubCategory(category, subCategory)
+        }
+
+        if (prevProps.match.params.childCategory !== this.props.match.params.childCategory &&
+            prevProps.lang !== this.props.lang) {
             if (childCategory != undefined) {
                 this.setState({
                     keyName: childCategory,
@@ -317,7 +415,10 @@ class ProductList extends Component {
     };
 
     handleChangeNumberOfProducts = (event) => {
-        // console.log(event.target.value)
+        this.setState({
+            selectedPageLimit: event,
+            pageLimit: event.value
+        })
     }
 
     renderCategoryList = () => {
@@ -424,29 +525,6 @@ class ProductList extends Component {
         )
     }
 
-    // renderProductList = () => {
-    //     let { listProduct, isLoading } = this.state
-
-    //     return (
-    //         <>
-    //             {listProduct && listProduct.length > 0 &&
-    //                 listProduct.map((item, index) => (
-    //                     <div key={index}
-    //                         className='sharing-product-item-container col-xl-3'>
-    //                         <ProductItem productData={item} />
-    //                     </div>
-    //                 ))
-    //             }
-
-    //             {isLoading === false && listProduct.length === 0 && (
-    //                 <div className='no-products-text'>
-    //                     <FormattedMessage id="customer.product-list.no-product" />
-    //                 </div>
-    //             )}
-    //         </>
-    //     )
-    // }
-
     renderProductList = (products) => {
         return (
             <>
@@ -465,17 +543,12 @@ class ProductList extends Component {
     render() {
         let { isLoading, listProduct } = this.state
         let { totalPages, currentPage, pageLimit,
-            startIndex, endIndex } = this.state;
+            startIndex, endIndex, selectedPageLimit, numberOfProductsArr } = this.state;
         let rowsPerPage = [];
 
+        console.log(selectedPageLimit, numberOfProductsArr)
+
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
-
-        let numberOfProductsArr = [
-            { value: 12, label: (<FormattedMessage id="customer.product-list.sort.12-products" />) },
-            { value: 24, label: (<FormattedMessage id="customer.product-list.sort.24-products" />) },
-            { value: 48, label: (<FormattedMessage id="customer.product-list.sort.48-products" />) }
-
-        ]
 
         return (
             <React.Fragment>
@@ -504,10 +577,10 @@ class ProductList extends Component {
 
                                 <Select
                                     className={"sort-actions-select"}
-                                    value={numberOfProductsArr[0]}
+                                    value={selectedPageLimit}
                                     onChange={(event) => this.handleChangeNumberOfProducts(event)}
                                     options={numberOfProductsArr}
-                                    name="selectedCategory" />
+                                    name="selectedPageLimit" />
                             </div>
                             {/* LIST PRODUCT */}
                             <LoadingOverlay
@@ -532,16 +605,25 @@ class ProductList extends Component {
                                     'list-product-items container'}>
                                     <div className='row'>
                                         {this.renderProductList(rowsPerPage)}
+                                        {isLoading === false && listProduct.length === 0 && (
+                                            <div className='no-products-text'>
+                                                <FormattedMessage id="customer.product-list.no-product" />
+                                            </div>
+                                        )}
                                     </div>
+
 
                                     <CustomPagination
                                         totalRecords={listProduct.length}
                                         pageLimit={pageLimit || 12}
                                         initialPage={1}
-                                        pagesToShow={8}
+                                        pagesToShow={6}
                                         onChangePage={this.handleOnChangePage}
                                     />
+
+
                                 </div>
+
                             </LoadingOverlay>
                         </div>
                     </div>

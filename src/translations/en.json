@@ -82,6 +82,7 @@
             "product-detail": "Product detail",
             "product-id": "Product ID",
             "translator": "Translator",
+            "language": "language",
             "publish-year": "Published year",
             "weight": "Weight",
             "size": "Size",
@@ -130,6 +131,10 @@
             "checkout": "Proceed to checkout",
             "no-products": "There is no product in your cart",
             "shopping-now": "Shopping now"
+        },
+        "one-time-checkout": {
+            "back-to-cart": "Back to cart",
+            "confirmation": "Order Confirmation"
         }
     },
     "common": {

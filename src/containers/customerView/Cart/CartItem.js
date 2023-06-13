@@ -177,15 +177,11 @@ class CartItem extends Component {
                             handleUpdateCartproduct={this.handleUpdateCartproduct} />
                     </td>
                     <td className='total-price-text col-xl-2'>
-                        {/* <p className='total-price-text'> */}
-                        {/* <div> */}
                         <NumericFormat value={totalPrice}
                             displayType={'text'}
                             thousandSeparator={'.'}
                             decimalSeparator={','}
                             suffix={'đ'} />
-                        {/* </div> */}
-                        {/* </p> */}
                     </td>
                     <td className='delete-action col-xl-1'>
                         <i className="fas fa-trash"

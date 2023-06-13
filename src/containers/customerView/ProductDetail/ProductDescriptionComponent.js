@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './ProductDescriptionComponent.scss';
-// import * as actions from "../store/actions";
+import { languages } from '../../../utils';
 
 class ProductDescriptionComponent extends Component {
     constructor(props) {
@@ -25,6 +25,7 @@ class ProductDescriptionComponent extends Component {
 
 
     renderBookDescription = (product, descriptionData) => {
+        let { lang } = this.props
         return (
             <>
                 <tr >
@@ -46,29 +47,49 @@ class ProductDescriptionComponent extends Component {
                     </tr>
                 )}
 
-                <tr>
-                    <th><FormattedMessage id="customer.product-detail.publisher" /></th>
-                    <td>{descriptionData.publisher}</td>
-                </tr>
-                <tr>
-                    <th><FormattedMessage id="customer.product-detail.publish-year" /></th>
-                    <td>{product.publishYear}</td>
-                </tr>
-                <tr>
-                    <th><FormattedMessage id="customer.product-detail.weight" /> (gr)</th>
-                    <td>{product.weight}</td>
-                </tr>
+                {descriptionData.publisher ?
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.publisher" /></th>
+                        <td>{descriptionData.publisher}</td>
+                    </tr> : <></>}
+
+
+                {product.publishYear ?
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.publish-year" /></th>
+                        <td>{product.publishYear}</td>
+                    </tr> : <></>}
+
+
+                {product.weight ?
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.weight" /> (gr)</th>
+                        <td>{product.weight}</td>
+                    </tr> : <></>}
+
+                {descriptionData.language ?
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.language" /></th>
+                        <td>{descriptionData.language}</td>
+                    </tr>
+                    : <></>}
+
                 <tr>
                     <th><FormattedMessage id="customer.product-detail.size" /></th>
                     <td>{this.renderProductSize(product.length, product.width, product.height)} cm</td>
                 </tr>
-                <tr>
-                    <th><FormattedMessage id="customer.product-detail.pages" /></th>
-                    <td>{descriptionData.pages}</td>
-                </tr>
+
+                {descriptionData.pages ?
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.pages" /></th>
+                        <td>{descriptionData.pages}</td>
+                    </tr>
+                    : <></>}
+
                 <tr>
                     <th><FormattedMessage id="customer.product-detail.book-layout" /></th>
-                    <td>Bìa Mềm</td>
+                    <td>{lang === languages.VI ?
+                        product.AllCode.valueVI : product.AllCode.valueEN}</td>
                 </tr>
             </>
         )
