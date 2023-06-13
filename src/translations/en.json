@@ -64,6 +64,11 @@
                 "title": "Category",
                 "all-category": "All Category"
             },
+            "sort": {
+                "12-products": "12 products",
+                "24-products": "24 products",
+                "48-products": "48 products"
+            },
             "no-product": "This category currently does not have any products"
         },
         "product-detail": {

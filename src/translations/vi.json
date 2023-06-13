@@ -64,6 +64,11 @@
                 "title": "Nhóm sản phẩm",
                 "all-category": "Tất Cả Nhóm Sản Phẩm"
             },
+            "sort": {
+                "12-products": "12 sản phẩm",
+                "24-products": "24 sản phẩm",
+                "48-products": "48 sản phẩm"
+            },
             "no-product": "Thể loại này hiện tại chưa có sản phẩm nào"
         },
         "product-detail": {

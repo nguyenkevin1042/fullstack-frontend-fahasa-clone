@@ -218,47 +218,47 @@ class ManageProduct extends Component {
         )
     }
 
-    renderProductsTableData = () => {
-        let { listProduct } = this.state
+    // renderProductsTableData = () => {
+    //     let { listProduct } = this.state
 
-        return (
-            <>
-                {listProduct && listProduct.length > 0 &&
-                    listProduct.map((item, index) => {
-                        let imageBase64 = '';
-                        if (item.image) {
-                            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
-                        }
-                        return (
-                            <tr key={index}>
-                                <td>{item.id}</td>
-                                <td className='product-img'>
-                                    <div className='img'
-                                        style={{
-                                            backgroundImage: "url(" + imageBase64 + ")"
-                                        }} /></td>
-                                <td>{this.renderCategoryOfProduct(item)}</td>
-                                <td>{item.name}</td>
-                                <td>{item.price}</td>
+    //     return (
+    //         <>
+    //             {listProduct && listProduct.length > 0 &&
+    //                 listProduct.map((item, index) => {
+    //                     let imageBase64 = '';
+    //                     if (item.image) {
+    //                         imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+    //                     }
+    //                     return (
+    //                         <tr key={index}>
+    //                             <td>{item.id}</td>
+    //                             <td className='product-img'>
+    //                                 <div className='img'
+    //                                     style={{
+    //                                         backgroundImage: "url(" + imageBase64 + ")"
+    //                                     }} /></td>
+    //                             <td>{this.renderCategoryOfProduct(item)}</td>
+    //                             <td>{item.name}</td>
+    //                             <td>{item.price}</td>
 
-                                <td>
-                                    <button className='btn-edit'
-                                        onClick={() => this.handleEdit(item)}
-                                    > <i className="fas fa-pencil-alt"></i></button>
-                                    <button className='btn-delete'
-                                        onClick={() => this.handleDelete(item)}
-                                    ><i className="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        )
-                    })
+    //                             <td>
+    //                                 <button className='btn-edit'
+    //                                     onClick={() => this.handleEdit(item)}
+    //                                 > <i className="fas fa-pencil-alt"></i></button>
+    //                                 <button className='btn-delete'
+    //                                     onClick={() => this.handleDelete(item)}
+    //                                 ><i className="fas fa-trash"></i></button>
+    //                             </td>
+    //                         </tr>
+    //                     )
+    //                 })
 
-                }
-            </>
-        )
-    }
+    //             }
+    //         </>
+    //     )
+    // }
 
-    showProducts = (products) => {
+    renderProductsTableData = (products) => {
 
         return (
             <>
@@ -298,7 +298,6 @@ class ManageProduct extends Component {
     };
 
     onChangePage = (data) => {
-        console.log(data)
         this.setState({
             pageLimit: data.pageLimit,
             totalPages: data.totalPages,
@@ -321,7 +320,7 @@ class ManageProduct extends Component {
         let rowsPerPage = [];
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
-        console.log(rowsPerPage)
+
         return (
             <>
                 <LoadingOverlay
@@ -345,14 +344,6 @@ class ManageProduct extends Component {
                         <div className='sharing-manage-title'>
                             Quản lý sản phẩm
                         </div>
-
-                        <CustomPagination
-                            totalRecords={listProduct.length}
-                            pageLimit={pageLimit || 5}
-                            initialPage={1}
-                            pagesToShow={5}
-                            onChangePage={this.onChangePage}
-                        />
 
                         <div className='sharing-manage-add'>
                             <button className='add-btn btn btn-primary'
@@ -409,12 +400,17 @@ class ManageProduct extends Component {
                                 </thead>
 
                                 <tbody>
-                                    {this.showProducts(rowsPerPage)}
-                                    {/* {this.renderProductsTableData()} */}
+                                    {this.renderProductsTableData(rowsPerPage)}
                                 </tbody>
-
-
                             </table>
+
+                            <CustomPagination
+                                totalRecords={listProduct.length}
+                                pageLimit={pageLimit || 5}
+                                initialPage={1}
+                                pagesToShow={5}
+                                onChangePage={this.onChangePage}
+                            />
                         </div>
                     </div>
                     <AddProductModal

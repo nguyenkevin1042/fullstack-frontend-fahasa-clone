@@ -11,7 +11,7 @@ import * as actions from "../../../store/actions";
 import ProductItem from '../components/ProductItem';
 
 import Select from 'react-select';
-import Slider from 'react-slick';
+import CustomPagination from '../../../components/CustomPagination';
 import LoadingOverlay from 'react-loading-overlay'
 
 class ProductList extends Component {
@@ -27,7 +27,14 @@ class ProductList extends Component {
             selectedChildCategory: '',
 
             listProduct: [],
-            isLoading: false
+            isLoading: false,
+
+            totalRecords: "",
+            totalPages: "",
+            pageLimit: "",
+            currentPage: "",
+            startIndex: "",
+            endIndex: ""
         };
     }
 
@@ -70,6 +77,12 @@ class ProductList extends Component {
             await this.props.fetchChildCategoryByKeyName(childCategory)
             await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
             await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
+        }
+
+        if (this.props.allProductArr) {
+            this.setState({
+                totalRecords: this.props.allProductArr.length
+            });
         }
     }
 
@@ -293,6 +306,20 @@ class ProductList extends Component {
         }
     }
 
+    handleOnChangePage = (data) => {
+        this.setState({
+            pageLimit: data.pageLimit,
+            totalPages: data.totalPages,
+            currentPage: data.page,
+            startIndex: data.startIndex,
+            endIndex: data.endIndex
+        });
+    };
+
+    handleChangeNumberOfProducts = (event) => {
+        // console.log(event.target.value)
+    }
+
     renderCategoryList = () => {
         let { listCategory, listSubCategory, listChildCategory,
             keyName, selectedCategory, selectedSubCategory,
@@ -397,31 +424,58 @@ class ProductList extends Component {
         )
     }
 
-    renderProductList = () => {
-        let { listProduct, isLoading } = this.state
+    // renderProductList = () => {
+    //     let { listProduct, isLoading } = this.state
 
+    //     return (
+    //         <>
+    //             {listProduct && listProduct.length > 0 &&
+    //                 listProduct.map((item, index) => (
+    //                     <div key={index}
+    //                         className='sharing-product-item-container col-xl-3'>
+    //                         <ProductItem productData={item} />
+    //                     </div>
+    //                 ))
+    //             }
+
+    //             {isLoading === false && listProduct.length === 0 && (
+    //                 <div className='no-products-text'>
+    //                     <FormattedMessage id="customer.product-list.no-product" />
+    //                 </div>
+    //             )}
+    //         </>
+    //     )
+    // }
+
+    renderProductList = (products) => {
         return (
             <>
-                {listProduct && listProduct.length > 0 &&
-                    listProduct.map((item, index) => (
+                {products && products.length > 0 &&
+                    products.map((item, index) => (
                         <div key={index}
                             className='sharing-product-item-container col-xl-3'>
                             <ProductItem productData={item} />
                         </div>
                     ))
                 }
-
-                {isLoading === false && listProduct.length === 0 && (
-                    <div className='no-products-text'>
-                        <FormattedMessage id="customer.product-list.no-product" />
-                    </div>
-                )}
             </>
         )
     }
 
     render() {
-        let { isLoading } = this.state
+        let { isLoading, listProduct } = this.state
+        let { totalPages, currentPage, pageLimit,
+            startIndex, endIndex } = this.state;
+        let rowsPerPage = [];
+
+        rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
+
+        let numberOfProductsArr = [
+            { value: 12, label: (<FormattedMessage id="customer.product-list.sort.12-products" />) },
+            { value: 24, label: (<FormattedMessage id="customer.product-list.sort.24-products" />) },
+            { value: 48, label: (<FormattedMessage id="customer.product-list.sort.48-products" />) }
+
+        ]
 
         return (
             <React.Fragment>
@@ -447,6 +501,13 @@ class ProductList extends Component {
                                     // options={listCategory}
                                     // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
                                     name="selectedCategory" />
+
+                                <Select
+                                    className={"sort-actions-select"}
+                                    value={numberOfProductsArr[0]}
+                                    onChange={(event) => this.handleChangeNumberOfProducts(event)}
+                                    options={numberOfProductsArr}
+                                    name="selectedCategory" />
                             </div>
                             {/* LIST PRODUCT */}
                             <LoadingOverlay
@@ -470,8 +531,16 @@ class ProductList extends Component {
                                     'list-product-items hide container' :
                                     'list-product-items container'}>
                                     <div className='row'>
-                                        {this.renderProductList()}
+                                        {this.renderProductList(rowsPerPage)}
                                     </div>
+
+                                    <CustomPagination
+                                        totalRecords={listProduct.length}
+                                        pageLimit={pageLimit || 12}
+                                        initialPage={1}
+                                        pagesToShow={8}
+                                        onChangePage={this.handleOnChangePage}
+                                    />
                                 </div>
                             </LoadingOverlay>
                         </div>

@@ -1,7 +1,8 @@
 /* https://jasonwatmore.com/post/2017/03/14/react-pagination-example-with-logic-like-google */
-
+// https://codesandbox.io/s/pagination-react-redux-forked-vf6xs8?file=/src/App.js:855-1103
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import './CustomPagination.scss';
 
 class CustomPagination extends Component {
     constructor(props) {
