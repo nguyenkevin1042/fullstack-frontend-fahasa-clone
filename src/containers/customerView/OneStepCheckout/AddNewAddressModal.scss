@@ -1,0 +1,26 @@
+.add-new-address-modal{
+    
+
+    .add-new-address-title{
+        font-size: 20px;
+        text-transform: uppercase;
+        color: #F7941E;
+        font-weight: 600;
+    }
+
+    .save-new-address-btn{
+        display: flex;
+        button{
+            background-color: #C92127;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 300px;
+            font-size: 19px;
+            padding: 10px 0;
+            font-weight: 700;
+            margin: auto;
+        }
+    }
+    
+}

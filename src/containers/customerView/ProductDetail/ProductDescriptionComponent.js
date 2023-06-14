@@ -86,11 +86,14 @@ class ProductDescriptionComponent extends Component {
                     </tr>
                     : <></>}
 
-                <tr>
-                    <th><FormattedMessage id="customer.product-detail.book-layout" /></th>
-                    <td>{lang === languages.VI ?
-                        product.AllCode.valueVI : product.AllCode.valueEN}</td>
-                </tr>
+                {product.AllCode ?
+                    <tr>
+                        <th><FormattedMessage id="customer.product-detail.book-layout" /></th>
+                        <td>{lang === languages.VI ?
+                            product.AllCode.valueVI : product.AllCode.valueEN}</td>
+                    </tr>
+                    : <></>}
+
             </>
         )
     }

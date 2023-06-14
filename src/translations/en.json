@@ -133,6 +133,19 @@
             "shopping-now": "Shopping now"
         },
         "one-time-checkout": {
+            "shipping-address": "Shipping address",
+            "shipping-to-another-address": "Shipping to another address",
+            "add-new-address-text": "Add new shipping address",
+            "full-name": "Full name of recipient",
+            "phone-number": "Phone number",
+            "country": "Country",
+            "province": "Province/City",
+            "district": "District",
+            "ward": "Ward",
+            "shipping-address-detail": "Shipping address",
+            "save-address": "Save address",
+            "shipping-method": "Shipping method",
+            "payment-method": "Payment method",
             "back-to-cart": "Back to cart",
             "confirmation": "Order Confirmation",
             "shipping-fee": "Shipping & Handling"

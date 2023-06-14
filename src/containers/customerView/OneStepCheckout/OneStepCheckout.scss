@@ -1,3 +1,20 @@
+.shipping-address-container{
+    .shipping-address-content{
+        .shipping-address-text{
+            width: fit-content;
+            
+            label{
+                cursor: pointer;
+                i{
+                    color:#C92127
+                }
+                span{
+                    margin-left: 10px;
+                }
+            }
+        }
+    }  
+}
 
 
 .process-checkout-container{
@@ -17,8 +34,23 @@
             width: 400px;
             display: flex;
             justify-content: space-between;
+
+            label{
+                text-align: right;
+                width: 250px;
+                border: 1px solid red;
+            }
+            .total-price-vat-label{
+                font-weight: 600;
+            }
+            .total-price-vat-text{
+                font-size: 1.2em;
+                font-weight: 700;
+                color: #F39801
+            }
         }
     }
+
     .process-checkout-down-content{
         display: flex;
         justify-content: space-between;

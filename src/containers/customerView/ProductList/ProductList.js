@@ -41,6 +41,7 @@ class ProductList extends Component {
     }
 
     async componentDidMount() {
+        window.scroll(0, 0)
         let { category, subCategory, childCategory } = this.props.match.params
 
         if (category && subCategory && childCategory) {
@@ -412,6 +413,7 @@ class ProductList extends Component {
             startIndex: data.startIndex,
             endIndex: data.endIndex
         });
+
     };
 
     handleChangeNumberOfProducts = (event) => {

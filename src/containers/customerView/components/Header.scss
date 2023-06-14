@@ -156,7 +156,6 @@ $ex-large: 1200px;// Extra large >= 1200
 
 .home-header-container{  
     
-
     .home-header-menu{
 
         .home-header-menu-toggle{
@@ -214,15 +213,16 @@ $ex-large: 1200px;// Extra large >= 1200
             p{
                 color: #7A7E7F;
                 text-align: center;
+                font-size: 0.6em;
             }
             .customer-name{
                 color: #7A7E7F !important;
                 text-align: center;
                 white-space: nowrap;
                 overflow: hidden;
-                min-width: 10.3em;
-                max-width: 10.3em;
-                font-size: 0.7em;
+                min-width: 9.3em;
+                max-width: 9.3em;
+                font-size: 0.6em;
                 color: #333333;
                 text-overflow: ellipsis;
             }

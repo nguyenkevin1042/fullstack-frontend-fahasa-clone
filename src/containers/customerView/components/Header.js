@@ -226,9 +226,6 @@ class Header extends Component {
             })
         };
 
-        console.log(this.props.userInfo)
-        console.log('cartDataLength: ', cartDataLength)
-
         const menu = (<DropdownMenu />);
         const searchDropdown = (<SearchDropdown />)
         return (
@@ -282,15 +279,9 @@ class Header extends Component {
                                         <p><FormattedMessage id="customer.homepage.header.cart" /></p>
                                         {userInfo && cartData && cartDataLength > 0 ?
                                             <span className='sum-products-in-cart'>{cartDataLength}</span> : <></>}
-                                        {/* <span className='sum-products-in-cart'>{cartDataLength}</span> */}
-                                        {/* {cartDataLength && cartDataLength.length > 0 ?
-                                            <span className='sum-products-in-cart'>{cartDataLength}</span> : <></>} */}
-
-
                                     </div>
 
                                     {this.renderCustomerOption()}
-
 
                                     <div className='user-options-change-language option col-md-3'>
                                         <Select
@@ -307,8 +298,6 @@ class Header extends Component {
                         </div>
                     </div>
                 </div >
-
-
             </>
 
         );

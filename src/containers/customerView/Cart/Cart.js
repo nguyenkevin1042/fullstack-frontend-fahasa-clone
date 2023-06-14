@@ -16,7 +16,8 @@ class Cart extends Component {
         super(props);
         this.state = {
             allProductTotalPrice: '',
-            listProductInCart: [],
+            listProductInCart: '',
+            selectedProducts: []
         };
     }
 
@@ -38,12 +39,20 @@ class Cart extends Component {
                 listProductInCart: this.props.cartData
             })
         }
+
+        if (prevState.selectedProducts !== this.state.selectedProducts) {
+            console.log('prevState.selectedProducts: ', prevState.selectedProducts)
+            console.log('this.state.selectedProducts: ', this.state.selectedProducts)
+        }
     }
 
-    // countTotalPrice =()=>{
-    //     let {cartData}=this.props
+    countTotalPrice = () => {
+        let { selectedProducts } = this.state
+        let totalPriceResult = 0
+        selectedProducts.map(item => totalPriceResult += item.totalPrice);
+        return totalPriceResult;
 
-    // }
+    }
 
     eventhandler = (data) => {
         // console.log(data)
@@ -67,9 +76,32 @@ class Cart extends Component {
         }
     }
 
-    getTotalPriceAllProduct = (data) => {
-        console.log('getTotalPriceAllProduct: ', data)
+    handleAddSelectedProduct = (data) => {
+        let copyState = { ...this.state };
+        copyState.selectedProducts.push(data);
+        this.setState({ ...copyState });
     }
+
+    handleDeleteSelectedProduct = (data) => {
+        let copyState = { ...this.state };
+        copyState.selectedProducts = copyState.selectedProducts.filter(item => item.id !== data);
+        this.setState({ ...copyState });
+    }
+
+    // getTotalPriceAllProduct = (isChecked, data) => {
+    //     // let copyState = { ...this.state };
+
+    //     if (isChecked === true) {
+    //         let copyState = { ...this.state };
+    //         copyState.selectedProducts.push(data);
+    //         this.setState({ ...copyState });
+    //     } else {
+    //         let copyState = { ...this.state };
+    //         let copySelectedProducts = copyState.selectedProducts
+    //         copySelectedProducts = copySelectedProducts.filter(item => item.id != data.id)
+    //         this.setState({ ...copyState });
+    //     }
+    // }
 
     renderLeftContent = () => {
         let { listProductInCart } = this.state
@@ -107,12 +139,12 @@ class Cart extends Component {
                             listProductInCart.map((item, index) =>
                             (<CartItem key={index} productInCart={item}
                                 onChange={this.eventhandler}
-                                getTotalPriceAllProduct={this.getTotalPriceAllProduct} />)
+                                getTotalPriceAllProduct={this.getTotalPriceAllProduct}
+                                addItemToSelectedProducts={this.handleAddSelectedProduct}
+                                deleteItemSelectedProducts={this.handleDeleteSelectedProduct} />)
 
                             )
-
                         }
-
                     </div>
 
                 </table>
@@ -168,7 +200,11 @@ class Cart extends Component {
                             <FormattedMessage id="customer.cart.subtotal" />
                         </div>
                         <div className='total-price-text'>
-                            500.000d
+                            <NumericFormat value={this.countTotalPrice()}
+                                displayType={'text'}
+                                thousandSeparator={'.'}
+                                decimalSeparator={','}
+                                suffix={'đ'} />
                         </div>
                     </div>
                     <div className='sharing-right-content'>
@@ -176,7 +212,11 @@ class Cart extends Component {
                             <FormattedMessage id="customer.cart.grand-total" />
                         </div>
                         <div className='total-price-vat-text'>
-                            500.000d
+                            <NumericFormat value={this.countTotalPrice()}
+                                displayType={'text'}
+                                thousandSeparator={'.'}
+                                decimalSeparator={','}
+                                suffix={'đ'} />
                         </div>
                     </div>
                     <div className='pay-check-btn'>
@@ -207,48 +247,22 @@ class Cart extends Component {
     }
 
     render() {
-        let { listProductInCart } = this.state
+        let { listProductInCart, selectedProducts } = this.state
+
+        console.log('selectedProducts: ', this.countTotalPrice())
+
         return (
             <React.Fragment>
 
                 <Header />
 
-
-
                 <div className='cart-container'>
-                    {listProductInCart && listProductInCart.length > 0 ?
-                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()}
-                    {/* <div className='row'>
-                        <div className='cart-left-content col-xl-8'>
-                            {this.renderLeftContent()}
-
-                        </div>
-
-                        <div className='cart-right-content col-xl-4'>
-                            <div className='sharing-right-content border-bottom'>
-                                <div className='total-price-label'>
-                                    <FormattedMessage id="customer.cart.subtotal" />
-                                </div>
-                                <div className='total-price-text'>
-                                    500.000d
-                                </div>
-                            </div>
-                            <div className='sharing-right-content'>
-                                <div className='total-price-vat-label'>
-                                    <FormattedMessage id="customer.cart.grand-total" />
-                                </div>
-                                <div className='total-price-vat-text'>
-                                    500.000d
-                                </div>
-                            </div>
-                            <div className='pay-check-btn'>
-                                <button>
-                                    <FormattedMessage id="customer.cart.checkout" />
-                                </button>
-                            </div>
-                        </div>
-
-                    </div> */}
+                    {listProductInCart && listProductInCart.length > 0 &&
+                        this.renderIfHavingProduct()}
+                    {listProductInCart && listProductInCart.length === 0 &&
+                        this.renderIfNotHavingProduct()}
+                    {/* {listProductInCart && listProductInCart.length > 0 ?
+                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
                 </div >
 
                 <SignUpNewletter />

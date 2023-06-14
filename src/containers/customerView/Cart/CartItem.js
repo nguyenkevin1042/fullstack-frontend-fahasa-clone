@@ -71,7 +71,7 @@ class CartItem extends Component {
         }
     }
 
-    handleUpdateCartproduct = async (value) => {
+    handleUpdateCartProduct = async (value) => {
         await this.props.updateCart({
             cartId: this.state.cartId,
             productId: this.state.productId,
@@ -88,18 +88,21 @@ class CartItem extends Component {
     }
 
     handleCheckThisProduct = (event) => {
-        let { getTotalPriceAllProduct } = this.props
-
-        if (getTotalPriceAllProduct) {
-            getTotalPriceAllProduct({
-                cartId: this.state.cartId,
-                productId: this.state.productId,
-                quantity: this.state.quantity,
-                productPrice: this.state.productPrice
-            })
+        let { getTotalPriceAllProduct, addItemToSelectedProducts, deleteItemSelectedProducts } = this.props
+        let data = {
+            id: this.state.id,
+            cartId: this.state.cartId,
+            productId: this.state.productId,
+            quantity: this.state.quantity,
+            totalPrice: this.state.totalPrice
         }
-        console.log('handleCheckThisProduct: ', event.target.checked)
+        if (event.target.checked === true) {
+            addItemToSelectedProducts(data)
+        }
 
+        if (event.target.checked === false) {
+            deleteItemSelectedProducts(data.id)
+        }
     }
 
 
@@ -174,7 +177,7 @@ class CartItem extends Component {
                         <ChangingQuantityComponent
                             quantityValue={productInCart.quantity}
                             onChange={this.eventhandler}
-                            handleUpdateCartproduct={this.handleUpdateCartproduct} />
+                            handleUpdateCartProduct={this.handleUpdateCartProduct} />
                     </td>
                     <td className='total-price-text col-xl-2'>
                         <NumericFormat value={totalPrice}

@@ -137,6 +137,19 @@
             "shopping-now": "Mua sắm ngay"
         },
         "one-time-checkout": {
+            "shipping-address": "Địa chỉ giao hàng",
+            "shipping-to-another-address": "Giao đến địa chỉ khác",
+            "add-new-address-text": "Thêm địa chỉ giao hàng mới",
+            "full-name": "Tên người nhận hàng",
+            "phone-number": "Số điện thoại",
+            "country": "Quốc gia",
+            "province": "Tỉnh/Thành phố",
+            "district": "Quận/Huyện",
+            "ward": "Phường/Xã",
+            "shipping-address-detail": "Địa chỉ giao hàng",
+            "save-address": "Lưu địa chỉ",
+            "shipping-method": "Phương thức giao hàng",
+            "payment-method": "Phương thức thanh toán",
             "back-to-cart": "Quay về giỏ hàng",
             "confirmation": "Thanh toán",
             "shipping-fee": "Phí vận chuyển"

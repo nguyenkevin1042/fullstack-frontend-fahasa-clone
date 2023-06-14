@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import './ProductItem.scss';
 import { CommonUtils } from '../../../utils';
 import NumericFormat from 'react-number-format';
+import { Link } from 'react-router-dom';
 // import * as actions from "../store/actions";
 
 class ProductItem extends Component {
@@ -76,9 +77,11 @@ class ProductItem extends Component {
 
         return (
             <React.Fragment>
+                {/* <Link to={"/product/" + productData.keyName}> */}
                 <div className='sharing-product-item'
                     title={productData.name}
-                    onClick={() => this.handleRedirectToProductDetail(productData.keyName)}>
+                    onClick={() => this.handleRedirectToProductDetail(productData.keyName)}
+                >
                     <div className='sharing-product-item-image'
                         style={{
                             backgroundImage: "url(" + imageBase64 + ")"
@@ -104,7 +107,7 @@ class ProductItem extends Component {
                         </div>
                     </div>
                 </div >
-
+                {/* </Link> */}
             </React.Fragment >
 
         );

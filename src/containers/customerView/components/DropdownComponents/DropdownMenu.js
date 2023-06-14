@@ -110,9 +110,15 @@ class DropdownMenu extends Component {
         })
     }
 
+    hanldeRedirectToCategoryProductList = (event, item) => {
+        if (this.props.history) {
+            this.props.history.push("/category/" + item.keyName);
+        }
+    }
+
     hanldeRedirectToSubCategoryProductList = (event, item) => {
         let { selectedCategory } = this.state
-        event.preventDefault();
+        // event.preventDefault();
         if (this.props.history) {
             this.props.history.push("/category/" + selectedCategory.keyName + "/" + item.keyName);
         }
@@ -120,7 +126,7 @@ class DropdownMenu extends Component {
 
     hanldeRedirectToChildCategoryProductList = (event, subCategoryItem, item) => {
         let { selectedCategory } = this.state
-        event.preventDefault();
+        // event.preventDefault();
         if (this.props.history) {
             this.props.history.push("/category/" + selectedCategory.keyName
                 + "/" + subCategoryItem.keyName + "/" + item.keyName);
@@ -136,6 +142,7 @@ class DropdownMenu extends Component {
                     listCategory.map((item, index) => (
                         <div className='left-menu-category-item'
                             onMouseOver={() => this.handleOnMouseOver(item)}
+                            onClick={(event) => this.hanldeRedirectToCategoryProductList(event, item)}
                             key={index}>
                             {item.label}
                         </div>

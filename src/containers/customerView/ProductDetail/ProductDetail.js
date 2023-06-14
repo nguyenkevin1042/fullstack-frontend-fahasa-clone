@@ -35,12 +35,13 @@ class ProductDetail extends Component {
     }
 
     async componentDidMount() {
+
         await this.props.fetchProductByKeyName(this.props.match.params.keyName);
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (prevProps.product !== this.props.product && prevProps.lang !== this.state.lang) {
+        if (prevProps.product !== this.props.product) {
             document.title = this.props.product.name
             this.setState({
                 category: this.props.product.ChildCategory.SubCategory.AllCode.keyMap,
@@ -72,6 +73,18 @@ class ProductDetail extends Component {
                     this.props.actionResponse.messageVI :
                     this.props.actionResponse.messageEN
             })
+        }
+
+        if (prevProps.keyName !== this.props.keyName) {
+
+            await this.props.fetchProductByKeyName(this.props.match.params.keyName);
+
+        }
+
+        if (prevProps.history !== this.props.history) {
+            console.log(this.props.match.params.keyName)
+            await this.props.fetchProductByKeyName(this.props.match.params.keyName);
+
         }
     }
 
@@ -175,6 +188,7 @@ class ProductDetail extends Component {
 
     renderBookDescription = (descriptionData) => {
         let { product, lang } = this.props
+
         return (
             <>
                 {descriptionData.supplier && (
@@ -274,6 +288,10 @@ class ProductDetail extends Component {
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
+
+        // console.log(this.props.match.params.keyName)
+        // console.log(product)
+        // console.log(this.props.history)
 
         return (
             <>
