@@ -89,13 +89,14 @@ class CartItem extends Component {
 
     handleCheckThisProduct = (event) => {
         let { getTotalPriceAllProduct, addItemToSelectedProducts, deleteItemSelectedProducts } = this.props
-        let data = {
-            id: this.state.id,
-            cartId: this.state.cartId,
-            productId: this.state.productId,
-            quantity: this.state.quantity,
-            totalPrice: this.state.totalPrice
-        }
+        // let data = {
+        //     id: this.state.id,
+        //     cartId: this.state.cartId,
+        //     productId: this.state.productId,
+        //     quantity: this.state.quantity,
+        //     totalPrice: this.state.totalPrice
+        // }
+        let data = this.props.productInCart
         if (event.target.checked === true) {
             addItemToSelectedProducts(data)
         }

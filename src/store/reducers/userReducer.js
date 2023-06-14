@@ -6,6 +6,7 @@ const initialState = {
     actionResponse: '',
     product: '',
     cartData: '',
+    selectedProducts: ''
 
 }
 
@@ -85,6 +86,13 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: false,
                 userInfo: null
+            }
+
+        case "STATE_FROM_CART":
+            console.log(action.selectedProducts)
+            return {
+                ...state,
+                selectedProducts: action.selectedProducts
             }
 
         default:

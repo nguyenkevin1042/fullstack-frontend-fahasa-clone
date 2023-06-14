@@ -214,3 +214,17 @@ export const updateCartFail = (response) => ({
     response: response
 })
 
+export const toOneTimeCheckout = (inputSelectedProducts) => {
+    return async (dispatch, getState) => {
+        try {
+            localStorage.setItem('selectedProducts', JSON.stringify(inputSelectedProducts))
+            // dispatch({
+            //     type: 'STATE_FROM_CART',
+            //     selectedProducts: inputSelectedProducts
+            // })
+
+        } catch (error) {
+            console.log("toOneTimeCheckout Error: ", error)
+        }
+    }
+}

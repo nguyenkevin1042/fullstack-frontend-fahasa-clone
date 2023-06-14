@@ -17,7 +17,8 @@ class Cart extends Component {
         this.state = {
             allProductTotalPrice: '',
             listProductInCart: '',
-            selectedProducts: []
+            selectedProducts: [],
+            listProductWillBuy: [],
         };
     }
 
@@ -71,6 +72,7 @@ class Cart extends Component {
     }
 
     handleToOneStepCheckout = () => {
+        this.props.toOneTimeCheckout(this.state.selectedProducts)
         if (this.props.history) {
             this.props.history.push("/onestepcheckout");
         }
@@ -87,21 +89,6 @@ class Cart extends Component {
         copyState.selectedProducts = copyState.selectedProducts.filter(item => item.id !== data);
         this.setState({ ...copyState });
     }
-
-    // getTotalPriceAllProduct = (isChecked, data) => {
-    //     // let copyState = { ...this.state };
-
-    //     if (isChecked === true) {
-    //         let copyState = { ...this.state };
-    //         copyState.selectedProducts.push(data);
-    //         this.setState({ ...copyState });
-    //     } else {
-    //         let copyState = { ...this.state };
-    //         let copySelectedProducts = copyState.selectedProducts
-    //         copySelectedProducts = copySelectedProducts.filter(item => item.id != data.id)
-    //         this.setState({ ...copyState });
-    //     }
-    // }
 
     renderLeftContent = () => {
         let { listProductInCart } = this.state
@@ -139,7 +126,6 @@ class Cart extends Component {
                             listProductInCart.map((item, index) =>
                             (<CartItem key={index} productInCart={item}
                                 onChange={this.eventhandler}
-                                getTotalPriceAllProduct={this.getTotalPriceAllProduct}
                                 addItemToSelectedProducts={this.handleAddSelectedProduct}
                                 deleteItemSelectedProducts={this.handleDeleteSelectedProduct} />)
 
@@ -247,10 +233,9 @@ class Cart extends Component {
     }
 
     render() {
-        let { listProductInCart, selectedProducts } = this.state
+        let { listProductInCart } = this.state
 
-        console.log('selectedProducts: ', this.countTotalPrice())
-
+        console.log(listProductInCart)
         return (
             <React.Fragment>
 
@@ -261,8 +246,6 @@ class Cart extends Component {
                         this.renderIfHavingProduct()}
                     {listProductInCart && listProductInCart.length === 0 &&
                         this.renderIfNotHavingProduct()}
-                    {/* {listProductInCart && listProductInCart.length > 0 ?
-                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
                 </div >
 
                 <SignUpNewletter />
@@ -287,6 +270,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
         deleteProductInCart: (inputCartId, inputProductId) => dispatch(actions.deleteProductInCart(inputCartId, inputProductId)),
+        toOneTimeCheckout: (inputData) => dispatch(actions.toOneTimeCheckout(inputData)),
     };
 };
 

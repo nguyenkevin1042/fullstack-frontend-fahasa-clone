@@ -16,11 +16,71 @@
     }  
 }
 
+.payment-method-container{
+    .payment-method-content{
+        .payment-method{
+            .payment-method-item{
+                .payment-img{
+
+                }
+
+                .payment-img-0{
+                    background: url('../../../assets/payments/ico_zalopayapp.svg') center center no-repeat;
+                    width: 40px;
+                }
+            }
+        }
+    }
+}
+
+.check-order-again-container{
+    .check-order-again-content{
+    
+        .check-order-again-list{
+
+            .border-top-none{
+                border: none !important;
+
+            }
+            
+            .product-item{
+                display: grid;
+                grid-template-columns: 10% 60% 10% 10% 10%;
+                border-top: 1px solid #ced4da;
+                padding: 5px 0;
+
+                .product-img{
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    height: 150px;
+                    // width: 25%;
+                }
+
+                .product-price{
+                    .item-price{
+                        color: #bfbfbf;
+                    text-decoration: line-through;
+                    font-size: 0.95em;
+                    }
+                }
+
+                .product-total-price{
+                    color: #F39801;
+                    font-weight: 600;
+                }
+            }
+    
+        }
+    }
+
+}
+
 
 .process-checkout-container{
     padding: 20px 40px;
     background-color: white;
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100vw;
     box-shadow: 0px -9px 7px -2px rgba(171, 171, 171, 1);
