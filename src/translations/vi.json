@@ -138,7 +138,8 @@
         },
         "one-time-checkout": {
             "back-to-cart": "Quay về giỏ hàng",
-            "confirmation": "Thanh toán"
+            "confirmation": "Thanh toán",
+            "shipping-fee": "Phí vận chuyển"
         }
     },
     "common": {

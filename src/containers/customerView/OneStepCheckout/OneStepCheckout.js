@@ -41,7 +41,34 @@ class OneStepCheckout extends Component {
                 </div>
 
                 <div className='process-checkout-container'>
-                    <div className='process-checkout-content'>
+                    <div className='process-checkout-up-content'>
+                        <div className='sharing-up-content'>
+                            <div className='total-price-label'>
+                                <FormattedMessage id="customer.cart.subtotal" />
+                            </div>
+                            <div className='total-price-text'>
+                                500.000d
+                            </div>
+                        </div>
+                        <div className='sharing-up-content'>
+                            <div className='total-price-label'>
+                                <FormattedMessage id="customer.one-time-checkout.shipping-fee" />
+                            </div>
+                            <div className='total-price-text'>
+                                31.000d
+                            </div>
+                        </div>
+                        <div className='sharing-up-content'>
+                            <div className='total-price-vat-label'>
+                                <FormattedMessage id="customer.cart.grand-total" />
+                            </div>
+                            <div className='total-price-vat-text'>
+                                500.000d
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='process-checkout-down-content'>
                         <div className='back-to-cart'
                             onClick={() => this.handleBackToCart()}>
                             <i class="fa fa-arrow-left" aria-hidden="true"></i>

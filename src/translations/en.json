@@ -134,7 +134,8 @@
         },
         "one-time-checkout": {
             "back-to-cart": "Back to cart",
-            "confirmation": "Order Confirmation"
+            "confirmation": "Order Confirmation",
+            "shipping-fee": "Shipping & Handling"
         }
     },
     "common": {

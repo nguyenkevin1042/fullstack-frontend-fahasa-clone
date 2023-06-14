@@ -8,12 +8,24 @@
     width: 100vw;
     box-shadow: 0px -9px 7px -2px rgba(171, 171, 171, 1);
 
-    .process-checkout-content{
+    .process-checkout-up-content{
+        display: inline-block;
+        float: right;
+        margin-bottom: 20px;
+        
+        .sharing-up-content{
+            width: 400px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    .process-checkout-down-content{
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-top: 1px solid #ced4da;
         padding-top: 10px;
+        clear: both;
 
         .back-to-cart{
             cursor: pointer;
