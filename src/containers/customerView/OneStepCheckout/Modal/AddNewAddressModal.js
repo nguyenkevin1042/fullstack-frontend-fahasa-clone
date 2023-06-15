@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './AddNewAddressModal.scss';
-import * as actions from "../../../store/actions";
+import * as actions from "../../../../store/actions";
 import { Modal } from 'reactstrap'
 
 class AddNewAddressModal extends Component {
@@ -62,8 +62,6 @@ class AddNewAddressModal extends Component {
     render() {
         let { fullName, phoneNumber, country, province, district, ward, addressDetail } = this.state
         let { isOpenAddNewAddress, closeAddNewAddress } = this.props
-
-        // console.log(this.props.actionResponse)
 
         return (
             <Modal isOpen={isOpenAddNewAddress}

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 
 import { languages } from '../../../../utils'
 import './DashboardComponent.scss';
-// import * as actions from "../store/actions";
+import * as actions from "../../../../store/actions";
 
 class DashboardComponent extends Component {
     constructor(props) {
@@ -15,7 +15,10 @@ class DashboardComponent extends Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        if (this.props.userInfo) {
+            await this.props.getBillByUserId(this.props.userInfo.id)
+        }
 
     }
 
@@ -36,6 +39,7 @@ class DashboardComponent extends Component {
         // let labelEN = userInfo.lastName + " " + userInfo.firstName;
         // let customerName = lang === languages.VI ? labelVI : labelEN
 
+        console.log(this.props.billData)
         return (
             <React.Fragment>
                 <div className='right-content-header'>
@@ -109,12 +113,14 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         userInfo: state.user.userInfo,
+        billData: state.user.billData,
+        actionResponse: state.user.actionResponse,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        getBillByUserId: (inputUserId) => dispatch(actions.getBillByUserId(inputUserId)),
     };
 };
 

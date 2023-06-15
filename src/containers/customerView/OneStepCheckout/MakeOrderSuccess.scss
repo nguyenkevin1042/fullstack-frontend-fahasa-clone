@@ -1,0 +1,50 @@
+.completed-ordering-container{
+    margin: 20px 40px;
+    .completed-ordering-content{
+        background-color: white;
+        border-radius: 10px;
+        display: block;
+        text-align: center;
+        padding: 30px 0;
+        
+
+        .completed-ordering-title{
+            font-size: 25px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color:#C92127
+        }
+
+        .completed-ordering-icon{
+            background: url('../../../assets/green-check-mark-icon-symbol-logo-circle-tick-symbol-green-color-vector-illustration_685751-503.avif') center center no-repeat;
+            height: 150px;
+            background-size: contain;
+        }
+
+        .completed-ordering-button{
+            border: 1px solid red;
+
+            button{
+               width: 200px;
+               padding: 10px 0;
+               border: 2px solid #C92127;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0 20px;
+            }
+
+            .to-homepage-btn{
+                color:#C92127;
+                
+                background-color: white;
+            }
+
+            .check-order-btn{
+                color: white;
+                background-color:#C92127;
+            }
+        }
+
+    }
+}

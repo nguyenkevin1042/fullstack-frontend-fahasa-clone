@@ -4,32 +4,30 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './OneStepCheckout.scss';
 import Header from '../components/Header';
-import AddNewAddressModal from './AddNewAddressModal';
+import AddNewAddressModal from './Modal/AddNewAddressModal';
 import NumericFormat from 'react-number-format';
 import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
 import secureLocalStorage from "react-secure-storage";
+import AddressConfirmationModal from './Modal/AddressConfirmationModal';
 
 class OneStepCheckout extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isOpenAddNewAddress: false,
+            isOpenConfirmAddress: false,
             listProduct: [],
             listPayment: [],
             listUserAddress: [],
             selectedPayment: '',
-            selectedAddress: ''
+            selectedAddress: '',
+
         };
     }
 
     async componentDidMount() {
         await this.props.fetchAllCodesByType('payment')
-        secureLocalStorage.setItem("number", 12);
-        secureLocalStorage.setItem("string", "12");
-        secureLocalStorage.setItem("boolean", true);
-
-
         this.setState({
             listUserAddress: this.props.userInfo.UserAddresses,
             listProduct: JSON.parse(localStorage.getItem('selectedProducts'))
@@ -40,10 +38,11 @@ class OneStepCheckout extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
+
         if (prevProps.userInfo !== this.props.userInfo) {
             let dataUserAddress = this.buildDataInputSelect(this.props.userInfo.UserAddresses, 'address');
             this.setState({
-                listUserAddress: this.props.userInfo.UserAddresses
+                listUserAddress: dataUserAddress
             })
         }
 
@@ -52,6 +51,15 @@ class OneStepCheckout extends Component {
             this.setState({
                 listPayment: dataPayment
             })
+        }
+
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode === 0) {
+                if (this.props.history) {
+                    this.props.history.push("/make-order-success");
+                }
+
+            }
         }
     }
 
@@ -99,15 +107,24 @@ class OneStepCheckout extends Component {
         })
     }
 
+    handleOpenConfirmAddress = () => {
+        this.setState({
+            isOpenConfirmAddress: true
+        })
+    }
+
+    handleCloseConfirmAddress = () => {
+        this.setState({
+            isOpenConfirmAddress: false
+        })
+    }
+
     onChangeRadioValue = (event) => {
         let key = event.target.name;
-        let data = event.target.value;
+        let data = Object.values(event.target)[2].initialValue;
         let copyState = { ...this.state };
         copyState[key] = data;
         this.setState({ ...copyState });
-        // this.setState({
-        //     selectedPayment: event.target.value
-        // })
     }
 
     handleBackToCart = () => {
@@ -116,9 +133,19 @@ class OneStepCheckout extends Component {
         }
     }
 
-    handleConfirm = () => {
-        let value = secureLocalStorage.getItem("boolean");
-        console.log(value)
+    handleConfirm = async () => {
+        let orderedDate = Date.now();
+        if (this.props.userInfo) {
+            await this.props.createNewBill({
+                orderedDate: orderedDate,
+                userId: this.props.userInfo.id,
+                userAddressId: this.state.selectedAddress.id,
+                paymentType: this.state.selectedPayment.keyMap,
+                totalPrice: this.countTotalPrice(),
+                listProduct: this.state.listProduct
+            })
+        }
+
     }
 
     countTotalPrice = () => {
@@ -128,7 +155,6 @@ class OneStepCheckout extends Component {
             listProduct.map(item => totalPriceResult += item.totalPrice);
         }
         return totalPriceResult;
-
     }
 
     renderProductPrice = (price, discount) => {
@@ -174,7 +200,7 @@ class OneStepCheckout extends Component {
                             <div className='address-text'>
                                 < input
                                     type="radio"
-                                    value={item.id}
+                                    value={item}
                                     name="selectedAddress"
                                     onChange={(event) => this.onChangeRadioValue(event)} />
                                 <span>
@@ -201,7 +227,7 @@ class OneStepCheckout extends Component {
                         <div key={index} className='payment-method-item'>
                             < input
                                 type="radio"
-                                value={item.keyMap}
+                                value={item}
                                 name="selectedPayment"
                                 onChange={(event) => this.onChangeRadioValue(event)} />
                             < div className={'payment-img payment-img-' + index} ></div >
@@ -258,10 +284,8 @@ class OneStepCheckout extends Component {
     }
 
     render() {
-        let { isOpenAddNewAddress, listProduct, selectedPayment } = this.state
-        let { selectedProducts } = this.props
-        // console.log('listUserAddress: ', this.state.listUserAddress)
-        // console.log(this.props.userInfo.UserAddresses)
+        let { isOpenAddNewAddress, isOpenConfirmAddress, listProduct, selectedPayment, selectedAddress } = this.state
+
         return (
             <React.Fragment>
                 <Header />
@@ -374,6 +398,11 @@ class OneStepCheckout extends Component {
                 <AddNewAddressModal isOpenAddNewAddress={isOpenAddNewAddress}
                     closeAddNewAddress={this.handleCloseAddNewAddress} />
 
+                <AddressConfirmationModal isOpenConfirmAddress={isOpenConfirmAddress}
+                    closeConfirmAddress={this.handleCloseConfirmAddress}
+                    completedOrder={this.handleConfirm}
+                    addressData={selectedAddress} />
+
             </React.Fragment >
 
         );
@@ -387,13 +416,13 @@ const mapStateToProps = state => {
         userInfo: state.user.userInfo,
         selectedProducts: state.user.selectedProducts,
         allCodesArr: state.admin.allCodesArr,
-
+        actionResponse: state.admin.actionResponse,
     };
-};
-
+}
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
+        createNewBill: (inputData) => dispatch(actions.createNewBill(inputData)),
 
     };
 };

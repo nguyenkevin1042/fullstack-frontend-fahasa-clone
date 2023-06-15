@@ -213,7 +213,7 @@ $ex-large: 1200px;// Extra large >= 1200
             p{
                 color: #7A7E7F;
                 text-align: center;
-                font-size: 0.6em;
+                // font-size: 1em;
             }
             .customer-name{
                 color: #7A7E7F !important;
@@ -222,7 +222,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 overflow: hidden;
                 min-width: 9.3em;
                 max-width: 9.3em;
-                font-size: 0.6em;
+                // font-size: 1em;
                 color: #333333;
                 text-overflow: ellipsis;
             }

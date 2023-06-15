@@ -154,6 +154,11 @@
             "back-to-cart": "Quay về giỏ hàng",
             "confirmation": "Thanh toán",
             "shipping-fee": "Phí vận chuyển"
+        },
+        "make-order-success": {
+            "title": "Đặt hàng thành công!",
+            "to-homepage": "Trang chủ",
+            "check-order": "Kiểm tra đơn hàng"
         }
     },
     "common": {

@@ -205,6 +205,21 @@ const createNewAddressAPI = (data) => {
     return axios.post("/api/create-new-address", data);
 }
 
+//BILL
+const createNewBillAPI = (data) => {
+    return axios.post("/api/create-new-bill", data);
+}
+
+const getBillByUserIdAPI = (inputUserId) => {
+    return axios.get("/api/get-bill-by-user-id",
+        {
+            params: {
+                userId: inputUserId
+            }
+        });
+}
+
+
 export {
     //USER
     createNewUserAPI, adminLoginAPI, customerLoginAPI, updateUserAPI,
@@ -226,5 +241,7 @@ export {
     //CART PRODUCT
     addToCartAPI, deleteProductInCartAPI, updateCartAPI,
     //USER ADDRESS
-    createNewAddressAPI
+    createNewAddressAPI,
+    //BILL
+    createNewBillAPI, getBillByUserIdAPI
 };

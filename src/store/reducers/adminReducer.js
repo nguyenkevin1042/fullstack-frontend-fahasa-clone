@@ -325,6 +325,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.CREATE_NEW_BILL_SUCCESS:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.CREATE_NEW_BILL_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
         case actionTypes.ADMIN_PROCESS_LOGOUT:
             return {
                 ...state,

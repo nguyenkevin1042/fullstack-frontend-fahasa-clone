@@ -150,6 +150,11 @@
             "back-to-cart": "Back to cart",
             "confirmation": "Order Confirmation",
             "shipping-fee": "Shipping & Handling"
+        },
+        "make-order-success": {
+            "title": "Successful!",
+            "to-homepage": "Homepage",
+            "check-order": "Check order"
         }
     },
     "common": {

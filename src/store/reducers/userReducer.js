@@ -6,7 +6,8 @@ const initialState = {
     actionResponse: '',
     product: '',
     cartData: '',
-    selectedProducts: ''
+    selectedProducts: '',
+    billData: []
 
 }
 
@@ -81,13 +82,6 @@ const appReducer = (state = initialState, action) => {
                 cartData: ''
             }
 
-        case actionTypes.USER_PROCESS_LOGOUT:
-            return {
-                ...state,
-                isLoggedIn: false,
-                userInfo: null
-            }
-
         case actionTypes.CREATE_NEW_USER_ADDRESS_SUCCESS:
             return {
                 ...state,
@@ -97,6 +91,24 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 actionResponse: action.response
+            }
+
+        case actionTypes.GET_BILL_BY_USER_ID_SUCCESS:
+            return {
+                ...state,
+                billData: action.response.data
+            }
+        case actionTypes.GET_BILL_BY_USER_ID_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
+        case actionTypes.USER_PROCESS_LOGOUT:
+            return {
+                ...state,
+                isLoggedIn: false,
+                userInfo: null
             }
 
         default:

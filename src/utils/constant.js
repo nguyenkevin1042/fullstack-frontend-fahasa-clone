@@ -10,7 +10,8 @@ export const path = {
     PRODUCT_DETAIL: '/product/:keyName',
     SEARCH_RESULT: '/search/result/:q',
     CART: '/cart',
-    ONE_STEP_CHECKOUT: '/onestepcheckout'
+    ONE_STEP_CHECKOUT: '/onestepcheckout',
+    ORDER_COMPLETED: '/make-order-success'
 };
 
 export const languages = {

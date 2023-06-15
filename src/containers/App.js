@@ -28,6 +28,7 @@ import CustomerAccount from './customerView/CustomerAccount/CustomerAccount';
 import ProductList from './customerView/ProductList/ProductList';
 import Cart from './customerView/Cart/Cart';
 import OneStepCheckout from './customerView/OneStepCheckout/OneStepCheckout';
+import MakeOrderSuccess from './customerView/OneStepCheckout/MakeOrderSuccess';
 
 class App extends Component {
 
@@ -74,6 +75,7 @@ class App extends Component {
                                     <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
                                     <Route path={path.CART} exact component={(Cart)} />
                                     <Route path={path.ONE_STEP_CHECKOUT} exact component={(OneStepCheckout)} />
+                                    <Route path={path.ORDER_COMPLETED} exact component={(MakeOrderSuccess)} />
                                     {/* <Route path={path.SEARCH_RESULT} exact component={(SeacrchResult)} /> */}
                                 </Switch>
                             </span>
