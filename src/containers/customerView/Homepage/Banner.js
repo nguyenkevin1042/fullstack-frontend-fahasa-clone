@@ -77,42 +77,44 @@ class Banner extends Component {
             <>
                 <div className='banner-container'>
                     {/* <div className='row'> */}
-                    <div className='banner-content-up row'>
-                        <div className='banner-content-up-left col-sm-12 col-lg-8'>
-                            <Slider {...settings}>
-                                <div className='b-c-u-l-item banner-content-up-left-1 banner-border'></div>
-                                <div className='b-c-u-l-item banner-content-up-left-2 banner-borde'></div>
-                                <div className='b-c-u-l-item banner-content-up-left-3 banner-border'></div>
-                                <div className='b-c-u-l-item banner-content-up-left-4 banner-border'></div>
-                                <div className='b-c-u-l-item banner-content-up-left-5 banner-border'></div>
-                                <div className='b-c-u-l-item banner-content-up-left-6 banner-border'></div>
-                            </Slider>
-                        </div>
-                        <div className='banner-content-up-right col-lg-4'>
-                            <div className='up banner-border img-fluid'>
-
+                    <div className='banner-content-up '>
+                        <div className='row'>
+                            <div className='banner-content-up-left col-sm-12 col-lg-8'>
+                                <Slider {...settings}>
+                                    <div className='b-c-u-l-item banner-content-up-left-1 banner-border'></div>
+                                    <div className='b-c-u-l-item banner-content-up-left-2 banner-border'></div>
+                                    <div className='b-c-u-l-item banner-content-up-left-3 banner-border'></div>
+                                    <div className='b-c-u-l-item banner-content-up-left-4 banner-border'></div>
+                                    <div className='b-c-u-l-item banner-content-up-left-5 banner-border'></div>
+                                    <div className='b-c-u-l-item banner-content-up-left-6 banner-border'></div>
+                                </Slider>
                             </div>
-                            <div className='down banner-border img-fluid'>
+                            <div className='banner-content-up-right col-lg-4'>
+                                <div className='up banner-border img-fluid'>
 
+                                </div>
+                                <div className='down banner-border img-fluid'>
+
+                                </div>
                             </div>
                         </div>
                     </div>{/*End .banner-content-up*/}
                     {/* </div> */}
 
-                    <div className='banner-content-down row'>
-                        <div className='banner-content-down-item banner-content-down-1 banner-border col-3 img-fluid'>
+                    <div className='banner-content-down'>
+                        <div className='banner-content-down-item banner-content-down-1 banner-border col-3'>
 
                         </div>
 
-                        <div className='banner-content-down-item banner-content-down-2 banner-border col-3 img-fluid'>
+                        <div className='banner-content-down-item banner-content-down-2 banner-border col-3'>
 
                         </div>
 
-                        <div className='banner-content-down-item banner-content-down-3 banner-border col-3 img-fluid'>
+                        <div className='banner-content-down-item banner-content-down-3 banner-border col-3'>
 
                         </div>
 
-                        <div className='banner-content-down-item banner-content-down-4 banner-border col-3 img-fluid'>
+                        <div className='banner-content-down-item banner-content-down-4 banner-border col-3'>
 
                         </div>
 

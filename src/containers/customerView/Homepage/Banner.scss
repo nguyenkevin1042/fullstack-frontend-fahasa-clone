@@ -5,51 +5,43 @@ $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
 .banner-container{
-    margin-top: 20px;
     // padding: 20px 40px;
 
     // @media (max-width: $small) {
         // padding: 0 30px;
-        // border: 1px solid red;
     // }
     @media (max-width: $medium) {
         // padding: 0 30px;
-        padding: 0;
-        // border: 1px solid red;
+        // padding: 0;
     }
     // @media (max-width: $medium) {
-        // border: 1px solid red;
         // padding: 0 30px;
     // }
     @media (min-width: $large) {
-        padding: 0 40px;
+        margin: 20px 40px 20px 40px;
+        padding: 0;
     }
     @media (min-width: $ex-large) {
         // padding: 0 70px;
     }
 
     .banner-border {
-        border-radius: 8px;
+        border-radius: 10px;
         cursor: pointer;
     }
 
     .banner-content-up{
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        // padding: 0;
-
-        @media (min-width: $ex-large) {
-            
-        }
-        
+        // display: flex;
+        // justify-content: center;
+        // margin-bottom: 10px;
+        margin: 0;        
 
         .banner-content-up-left{
             // padding: 0;
 
             @media (min-width: $ex-large) {
                 padding: 0;
-                border: 1px solid red;
+
             }
             // @media (max-width: $medium) {
             //     width: 100%;
@@ -64,13 +56,11 @@ $ex-large: 1200px;// Extra large >= 1200
             .b-c-u-l-item{                
 
                 @media (max-width: $small) {
-                    // border: 1px solid red; 
                     width: $small; 
                     height:210px;
                     padding: 0;                 
                 }
                 @media (min-width: $small) {
-                    // border: 1px solid black; 
                     // width: 400px; 
                     // height:150px;
                     // padding: 10px;                 
@@ -79,10 +69,9 @@ $ex-large: 1200px;// Extra large >= 1200
                 @media (max-width: $large) {
                     width: 400px;
                     height: 185px;
-                    border: 1px solid black;                  
+                 
                 }
                 @media (min-width: $large) {
-                    width: 840px;
                     height: 320px;
                 }
             }
@@ -115,7 +104,7 @@ $ex-large: 1200px;// Extra large >= 1200
         }
 
         .banner-content-up-right{
-            // padding: 0;
+            // padding: auto;
             // margin: auto;
             @media (max-width: $medium) {
                 // padding: 0 30px;
@@ -130,7 +119,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 background: url('./../../../assets/banner/PoticoT5_FAHASA\ 392x156\ .png') no-repeat center center;
                 width: 392px;
                 height: 156px;
-                margin-bottom: 5px;
+                margin-bottom: 7px;
             }
             .down{
                 background: url('./../../../assets/banner/Gift_subbanner_392x156.jpg') no-repeat center center;
@@ -142,50 +131,46 @@ $ex-large: 1200px;// Extra large >= 1200
 
     .banner-content-down{
         display: flex;
+
         @media (max-width: $medium) {
-            // padding: 0 30px;
             display: none;
         }
         
         .banner-content-down-item{
-            @media (max-width: $large) {
-                padding: 10px;
-                // border: 1px solid red;
+            @media (min-width: $large) {
+                padding: 0px;
+                height: 220px;
             }
         }
         
         .banner-content-down-1{
             background: url('./../../../assets/banner/Fahasa_salethu3_w2_coupon_Smallbanner_310x210.png') no-repeat center center;
             background-size: contain;
-            width: 310px;
-            height: 210px;
         }
         .banner-content-down-2{
             background: url('./../../../assets/banner/TT_T4_Smallbanenr_310x210.png') no-repeat center center;
             background-size: contain;
-            width: 310px;
-            height: 210px;
         }
         .banner-content-down-3{
             background: url('./../../../assets/banner/Tamlinh_mainbanner_T5_Smallbanner_310x210_1.png') no-repeat center center;
             background-size: contain;
-            width: 310px;
-            height: 210px;
         }
         .banner-content-down-4{
             background: url('./../../../assets/banner/TrangDoChoiT523_Banner_SmallBanner_310x210.png') no-repeat center center;
             background-size: contain;
-            width: 310px;
-            height: 210px;
         }
     }
 
     // Select slick
+    .slick-slider{
+        margin-left: 15px;
+    }
     .slick-prev{     
         left: -20px !important;
         width: 44px !important;
         height: 48px !important;
         opacity: 1;
+        z-index: 10;
 
         &:hover:before{
             font-size: 35px !important;
