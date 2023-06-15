@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { addToCartAPI, customerLoginAPI, deleteProductInCartAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, createNewAddressAPI, customerLoginAPI, deleteProductInCartAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -213,6 +213,39 @@ export const updateCartFail = (response) => ({
     type: actionTypes.UPDATE_CART_FAIL,
     response: response
 })
+
+// CREATE NEW ADDRESS
+
+export const createNewAddress = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await createNewAddressAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(createNewAddressSuccess(res));
+            } else {
+                dispatch(createNewAddressFail(res));
+            }
+        } catch (error) {
+            dispatch(createNewAddressFail(res));
+            console.log("createNewAddress Error: ", error)
+        }
+    }
+}
+
+export const createNewAddressSuccess = (response) => ({
+    type: actionTypes.CREATE_NEW_USER_ADDRESS_SUCCESS,
+    response: response
+})
+
+export const createNewAddressFail = (response) => ({
+    type: actionTypes.CREATE_NEW_USER_ADDRESS_FAIL,
+    response: response
+})
+
+
 
 export const toOneTimeCheckout = (inputSelectedProducts) => {
     return async (dispatch, getState) => {

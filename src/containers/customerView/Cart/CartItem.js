@@ -36,6 +36,7 @@ class CartItem extends Component {
             totalPrice: calTotal,
             productData: productInCart.Product
         })
+
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -55,9 +56,6 @@ class CartItem extends Component {
                 }
             })
         }
-
-        // if (prevState.quantity !== this.state.quantity) {
-
     }
 
     handleDeleteItem = async (item) => {
@@ -98,7 +96,7 @@ class CartItem extends Component {
             totalPrice: this.state.totalPrice,
             productData: this.state.productData
         }
-        // let data = this.props.productInCart
+
         if (event.target.checked === true) {
             addItemToSelectedProducts(this.state)
         }
@@ -143,7 +141,7 @@ class CartItem extends Component {
     }
 
     render() {
-        let { productInCart, handleCheckProduct } = this.props
+        let { productInCart, checkAll } = this.props
         let { totalPrice } = this.state
         let imageBase64 = '';
         let product = productInCart.Product;
@@ -155,8 +153,16 @@ class CartItem extends Component {
             <React.Fragment>
                 <tr className='cart-item row'>
                     <td className='col-xl-1'>
-                        <input type="checkbox" id="choose" name="choose"
-                            onClick={(event) => this.handleCheckThisProduct(event)} />
+                        {checkAll == true ?
+                            <input type="checkbox" id="choose" name="choose"
+                                onClick={(event) => this.handleCheckThisProduct(event)}
+                                checked />
+                            :
+                            <input type="checkbox" id="choose" name="choose"
+                                onClick={(event) => this.handleCheckThisProduct(event)} />}
+                        {/* <input type="checkbox" id="choose" name="choose"
+                            onClick={(event) => this.handleCheckThisProduct(event)}
+                        /> */}
                     </td>
                     <td className='product-section col-xl-6'>
                         <div className='product-img col-xl-3'

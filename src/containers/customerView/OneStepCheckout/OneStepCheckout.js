@@ -8,6 +8,7 @@ import AddNewAddressModal from './AddNewAddressModal';
 import NumericFormat from 'react-number-format';
 import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
+import secureLocalStorage from "react-secure-storage";
 
 class OneStepCheckout extends Component {
     constructor(props) {
@@ -16,14 +17,21 @@ class OneStepCheckout extends Component {
             isOpenAddNewAddress: false,
             listProduct: [],
             listPayment: [],
-            selectedPayment: ''
+            listUserAddress: [],
+            selectedPayment: '',
+            selectedAddress: ''
         };
     }
 
     async componentDidMount() {
         await this.props.fetchAllCodesByType('payment')
+        secureLocalStorage.setItem("number", 12);
+        secureLocalStorage.setItem("string", "12");
+        secureLocalStorage.setItem("boolean", true);
+
 
         this.setState({
+            listUserAddress: this.props.userInfo.UserAddresses,
             listProduct: JSON.parse(localStorage.getItem('selectedProducts'))
         })
     }
@@ -32,28 +40,47 @@ class OneStepCheckout extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
+        if (prevProps.userInfo !== this.props.userInfo) {
+            let dataUserAddress = this.buildDataInputSelect(this.props.userInfo.UserAddresses, 'address');
+            this.setState({
+                listUserAddress: this.props.userInfo.UserAddresses
+            })
+        }
+
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
-            let dataPayment = this.buildDataInputSelect(this.props.allCodesArr);
+            let dataPayment = this.buildDataInputSelect(this.props.allCodesArr, 'payment');
             this.setState({
                 listPayment: dataPayment
             })
         }
     }
 
-    buildDataInputSelect = (inputData) => {
+    buildDataInputSelect = (inputData, type) => {
         let result = [];
         let language = this.props.lang;
 
         if (inputData && inputData.length > 0) {
-            inputData.map((item, index) => {
-                let obj = {};
-                let labelVI = item.valueVI;
-                let labelEN = item.valueEN;
+            if (type === 'payment') {
+                inputData.map((item, index) => {
+                    let obj = {};
+                    let labelVI = item.valueVI;
+                    let labelEN = item.valueEN;
 
-                obj.keyMap = item.keyMap;
-                obj.label = language === languages.VI ? labelVI : labelEN;
-                result.push(obj);
-            });
+                    obj.keyMap = item.keyMap;
+                    obj.label = language === languages.VI ? labelVI : labelEN;
+                    result.push(obj);
+                });
+            }
+            if (type === 'address') {
+                inputData.map((item, index) => {
+                    let obj = {};
+
+                    obj.id = item.id;
+
+                    result.push(obj);
+                });
+            }
+
 
         }
 
@@ -73,15 +100,25 @@ class OneStepCheckout extends Component {
     }
 
     onChangeRadioValue = (event) => {
-        this.setState({
-            selectedPayment: event.target.value
-        })
+        let key = event.target.name;
+        let data = event.target.value;
+        let copyState = { ...this.state };
+        copyState[key] = data;
+        this.setState({ ...copyState });
+        // this.setState({
+        //     selectedPayment: event.target.value
+        // })
     }
 
     handleBackToCart = () => {
         if (this.props.history) {
             this.props.history.push("/cart");
         }
+    }
+
+    handleConfirm = () => {
+        let value = secureLocalStorage.getItem("boolean");
+        console.log(value)
     }
 
     countTotalPrice = () => {
@@ -127,6 +164,33 @@ class OneStepCheckout extends Component {
         )
     }
 
+    renderUserAddress = () => {
+        let { listUserAddress } = this.state
+        return (
+            <>
+                {listUserAddress.length > 0 ?
+                    listUserAddress.map((item, index) => (
+                        <div key={index} className='user-address-item'>
+                            <div className='address-text'>
+                                < input
+                                    type="radio"
+                                    value={item.id}
+                                    name="selectedAddress"
+                                    onChange={(event) => this.onChangeRadioValue(event)} />
+                                <span>
+                                    {item.fullName} | {item.addressDetail}, {item.ward},
+                                    {item.district}, {item.province}, {item.country} | {item.phoneNumber}
+                                </span>
+                            </div>
+                            <div className='edit-address-text'>
+                                Edit
+                            </div>
+                        </div >
+                    )) : <></>}
+            </>
+        )
+    }
+
     renderPaymentMethod = () => {
         let { listPayment } = this.state
 
@@ -138,7 +202,7 @@ class OneStepCheckout extends Component {
                             < input
                                 type="radio"
                                 value={item.keyMap}
-                                name="productType"
+                                name="selectedPayment"
                                 onChange={(event) => this.onChangeRadioValue(event)} />
                             < div className={'payment-img payment-img-' + index} ></div >
                             <div className='payment-text'>{item.label}</div>
@@ -196,8 +260,8 @@ class OneStepCheckout extends Component {
     render() {
         let { isOpenAddNewAddress, listProduct, selectedPayment } = this.state
         let { selectedProducts } = this.props
-
-        console.log(selectedPayment)
+        // console.log('listUserAddress: ', this.state.listUserAddress)
+        // console.log(this.props.userInfo.UserAddresses)
         return (
             <React.Fragment>
                 <Header />
@@ -207,6 +271,10 @@ class OneStepCheckout extends Component {
                         <div className='shipping-address-title sharing-title'>
                             <FormattedMessage id="customer.one-time-checkout.shipping-address" />
                         </div>
+                        <div className='shipping-address-list'>
+                            {this.renderUserAddress()}
+                        </div>
+
                         <div className='shipping-address-text'
                             onClick={() => this.handleOpenAddNewAddress()}>
                             <label>
@@ -295,7 +363,7 @@ class OneStepCheckout extends Component {
                             </span>
                         </div>
                         <div className='process-checkout-btn'>
-                            <button>
+                            <button onClick={() => this.handleConfirm()}>
                                 <FormattedMessage id="customer.one-time-checkout.confirmation" />
                             </button>
                         </div>
@@ -316,6 +384,7 @@ class OneStepCheckout extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
+        userInfo: state.user.userInfo,
         selectedProducts: state.user.selectedProducts,
         allCodesArr: state.admin.allCodesArr,
 

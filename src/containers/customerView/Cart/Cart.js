@@ -19,6 +19,7 @@ class Cart extends Component {
             listProductInCart: '',
             selectedProducts: [],
             listProductWillBuy: [],
+            checkAll: false
         };
     }
 
@@ -30,6 +31,29 @@ class Cart extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.checkAll !== this.state.checkAll) {
+            if (this.state.checkAll == true) {
+                let copyState = { ...this.state };
+                copyState.listProductInCart.map(
+                    item => copyState.selectedProducts.push(item));
+                this.setState({ ...copyState });
+                console.log('prevState.selectedProducts: ', prevState.selectedProducts)
+                console.log('this.state.selectedProducts: ', this.state.selectedProducts)
+            } else {
+                this.setState({
+                    selectedProducts: []
+                })
+            }
+
+
+        }
+
+        if (prevProps.cartData !== this.props.cartData) {
+            this.setState({
+                listProductInCart: this.props.cartData
+            })
+        }
+
         if (prevProps.userInfo !== this.props.userInfo
             || prevProps.lang !== this.props.lang) {
             await this.props.getCartByUserId(this.props.userInfo.id)
@@ -42,8 +66,13 @@ class Cart extends Component {
         }
 
         if (prevState.selectedProducts !== this.state.selectedProducts) {
-            console.log('prevState.selectedProducts: ', prevState.selectedProducts)
-            console.log('this.state.selectedProducts: ', this.state.selectedProducts)
+            // if (this.state.selectedProducts.length == this.props.cartData.length) {
+            //     this.setState({
+            //         checkAll: true
+            //     })
+            // }
+            // console.log('prevState.selectedProducts: ', prevState.selectedProducts)
+            // console.log('this.state.selectedProducts: ', this.state.selectedProducts)
         }
     }
 
@@ -56,7 +85,7 @@ class Cart extends Component {
     }
 
     eventhandler = (data) => {
-        console.log(data)
+        // console.log(data)
         let copyState = { ...this.state };
         // copyState.selectedProducts = copyState.selectedProducts.filter(item => item.id !== data.id);
         // copyState.selectedProducts.push(data);
@@ -72,7 +101,9 @@ class Cart extends Component {
     }
 
     handleCheckAllProducts = (event) => {
-        // console.log(event.target.checked)
+        this.setState({
+            checkAll: event.target.checked
+        })
     }
 
     handleToOneStepCheckout = () => {
@@ -95,7 +126,7 @@ class Cart extends Component {
     }
 
     renderLeftContent = () => {
-        let { listProductInCart } = this.state
+        let { listProductInCart, checkAll } = this.state
 
         return (
             <>
@@ -131,7 +162,8 @@ class Cart extends Component {
                             (<CartItem key={index} productInCart={item}
                                 onChange={this.eventhandler}
                                 addItemToSelectedProducts={this.handleAddSelectedProduct}
-                                deleteItemSelectedProducts={this.handleDeleteSelectedProduct} />)
+                                deleteItemSelectedProducts={this.handleDeleteSelectedProduct}
+                                checkAll={checkAll} />)
 
                             )
                         }
@@ -177,51 +209,61 @@ class Cart extends Component {
 
 
     renderIfHavingProduct = () => {
+        let { selectedProducts } = this.state
+
         return (
-            <div className='row'>
-                <div className='cart-left-content col-xl-8'>
-                    {this.renderLeftContent()}
+            <div className='have-products-content container-fluid'>
+                <div className='row'>
+                    <div className='cart-left-content col-xl-8'>
+                        {this.renderLeftContent()}
 
-                </div>
+                    </div>
 
-                <div className='cart-right-content col-xl-4'>
-                    <div className='sharing-right-content border-bottom'>
-                        <div className='total-price-label'>
-                            <FormattedMessage id="customer.cart.subtotal" />
+                    <div className='cart-right-content col-xl-4'>
+                        <div className='sharing-right-content border-bottom'>
+                            <div className='total-price-label'>
+                                <FormattedMessage id="customer.cart.subtotal" />
+                            </div>
+                            <div className='total-price-text'>
+                                <NumericFormat value={this.countTotalPrice()}
+                                    displayType={'text'}
+                                    thousandSeparator={'.'}
+                                    decimalSeparator={','}
+                                    suffix={'đ'} />
+                            </div>
                         </div>
-                        <div className='total-price-text'>
-                            <NumericFormat value={this.countTotalPrice()}
-                                displayType={'text'}
-                                thousandSeparator={'.'}
-                                decimalSeparator={','}
-                                suffix={'đ'} />
+                        <div className='sharing-right-content'>
+                            <div className='total-price-vat-label'>
+                                <FormattedMessage id="customer.cart.grand-total" />
+                            </div>
+                            <div className='total-price-vat-text'>
+                                <NumericFormat value={this.countTotalPrice()}
+                                    displayType={'text'}
+                                    thousandSeparator={'.'}
+                                    decimalSeparator={','}
+                                    suffix={'đ'} />
+                            </div>
+                        </div>
+                        <div className='pay-check-btn'>
+                            {selectedProducts.length > 0 ?
+                                < button className='click-allowed'
+                                    onClick={() => this.handleToOneStepCheckout()}>
+                                    <FormattedMessage id="customer.cart.checkout" />
+                                </button>
+                                :
+                                <button className='click-not-allowed' disabled>
+                                    <FormattedMessage id="customer.cart.checkout" />
+                                </button>}
                         </div>
                     </div>
-                    <div className='sharing-right-content'>
-                        <div className='total-price-vat-label'>
-                            <FormattedMessage id="customer.cart.grand-total" />
-                        </div>
-                        <div className='total-price-vat-text'>
-                            <NumericFormat value={this.countTotalPrice()}
-                                displayType={'text'}
-                                thousandSeparator={'.'}
-                                decimalSeparator={','}
-                                suffix={'đ'} />
-                        </div>
-                    </div>
-                    <div className='pay-check-btn'>
-                        <button onClick={() => this.handleToOneStepCheckout()}>
-                            <FormattedMessage id="customer.cart.checkout" />
-                        </button>
-                    </div>
-                </div>
+                </div >
             </div>
         )
     }
 
     renderIfNotHavingProduct = () => {
         return (
-            <div className='no-products-content'>
+            <div className='no-products-content container-fluid'>
                 <div className='no-products-img'>
                 </div>
                 <div className='no-products-text'>
@@ -245,6 +287,7 @@ class Cart extends Component {
 
                 <Header />
 
+                {/* <div className='container-fluid'> */}
                 <div className='cart-container'>
                     {userInfo && listProductInCart && listProductInCart.length > 0 &&
                         this.renderIfHavingProduct()}
@@ -253,6 +296,7 @@ class Cart extends Component {
                     {/* {userInfo && listProductInCart && listProductInCart.length > 0 ?
                         this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
                 </div >
+                {/* </div> */}
 
                 <SignUpNewletter />
                 <Footer />

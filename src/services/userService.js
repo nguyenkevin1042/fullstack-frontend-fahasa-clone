@@ -200,6 +200,10 @@ const updateCartAPI = (data) => {
     return axios.post("/api/update-cart", data);
 }
 
+//USER ADDRESS
+const createNewAddressAPI = (data) => {
+    return axios.post("/api/create-new-address", data);
+}
 
 export {
     //USER
@@ -220,5 +224,7 @@ export {
     //CART
     getCartByUserIdAPI,
     //CART PRODUCT
-    addToCartAPI, deleteProductInCartAPI, updateCartAPI
+    addToCartAPI, deleteProductInCartAPI, updateCartAPI,
+    //USER ADDRESS
+    createNewAddressAPI
 };

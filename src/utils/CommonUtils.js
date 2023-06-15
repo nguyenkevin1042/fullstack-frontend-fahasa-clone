@@ -3,6 +3,10 @@ class CommonUtils {
         return price - ((price * discount) / 100);
     }
 
+    static getName(firstName, lastName) {
+
+    }
+
     static getBase64(file) {
         return new Promise(resolve => {
             let reader = new FileReader();

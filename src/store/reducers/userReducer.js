@@ -88,11 +88,15 @@ const appReducer = (state = initialState, action) => {
                 userInfo: null
             }
 
-        case "STATE_FROM_CART":
-            console.log(action.selectedProducts)
+        case actionTypes.CREATE_NEW_USER_ADDRESS_SUCCESS:
             return {
                 ...state,
-                selectedProducts: action.selectedProducts
+                actionResponse: action.response
+            }
+        case actionTypes.CREATE_NEW_USER_ADDRESS_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
             }
 
         default:

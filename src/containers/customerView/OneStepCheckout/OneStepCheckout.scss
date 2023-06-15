@@ -1,7 +1,46 @@
 .shipping-address-container{
     .shipping-address-content{
+
+        .shipping-address-list{
+            
+            .user-address-item{
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .address-text{
+                    display: flex;
+                    align-items: center;
+                    border: 1px solid red;
+
+                    input{
+                        cursor: pointer;
+                        height: 17px;
+                        width: 17px;
+                        // background-color: #C92127 !important;
+    
+                        // &:checked{
+                        //     background-color: #C92127 !important;
+                        // }
+                    }
+
+                    span{
+                        margin-left: 10px;
+                    }
+                    
+                }
+
+                .edit-address-text{
+                    margin-right: 10%;
+                    cursor: pointer;
+                }
+            }
+        }
+
         .shipping-address-text{
             width: fit-content;
+            margin-top: 10px;
             
             label{
                 cursor: pointer;
@@ -26,8 +65,8 @@
 
                 input{
                     cursor: pointer;
-                    height: 20px;
-                    width: 20px;
+                    height: 17px;
+                    width: 17px;
                     // background-color: #C92127 !important;
 
                     // &:checked{
