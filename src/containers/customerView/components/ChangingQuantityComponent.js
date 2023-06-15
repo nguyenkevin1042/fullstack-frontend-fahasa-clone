@@ -40,8 +40,8 @@ class ChangingQuantityComponent extends Component {
             if (this.props.onChange) {
                 this.props.onChange(this.state);
             }
-            if (this.props.handleUpdateCartproduct) {
-                this.props.handleUpdateCartproduct(this.state.value);
+            if (this.props.handleUpdateCartProduct) {
+                this.props.handleUpdateCartProduct(this.state.value);
             }
         });
     }
@@ -53,8 +53,8 @@ class ChangingQuantityComponent extends Component {
             if (this.props.onChange) {
                 this.props.onChange(this.state);
             }
-            if (this.props.handleUpdateCartproduct) {
-                this.props.handleUpdateCartproduct(this.state.value);
+            if (this.props.handleUpdateCartProduct) {
+                this.props.handleUpdateCartProduct(this.state.value);
             }
 
         })
@@ -69,8 +69,8 @@ class ChangingQuantityComponent extends Component {
             if (this.props.onChange) {
                 this.props.onChange(this.state);
             }
-            if (this.props.handleUpdateCartproduct) {
-                this.props.handleUpdateCartproduct(this.state.value);
+            if (this.props.handleUpdateCartProduct) {
+                this.props.handleUpdateCartProduct(this.state.value);
             }
         })
     }

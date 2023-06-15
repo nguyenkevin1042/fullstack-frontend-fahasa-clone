@@ -56,7 +56,11 @@ class Cart extends Component {
     }
 
     eventhandler = (data) => {
-        // console.log(data)
+        console.log(data)
+        let copyState = { ...this.state };
+        // copyState.selectedProducts = copyState.selectedProducts.filter(item => item.id !== data.id);
+        // copyState.selectedProducts.push(data);
+        this.setState({ ...copyState });
         // this.setState({
         //     quantityValue: data.value
         // })
@@ -68,7 +72,7 @@ class Cart extends Component {
     }
 
     handleCheckAllProducts = (event) => {
-        console.log(event.target.checked)
+        // console.log(event.target.checked)
     }
 
     handleToOneStepCheckout = () => {
@@ -234,18 +238,20 @@ class Cart extends Component {
 
     render() {
         let { listProductInCart } = this.state
+        let { userInfo } = this.props
 
-        console.log(listProductInCart)
         return (
             <React.Fragment>
 
                 <Header />
 
                 <div className='cart-container'>
-                    {listProductInCart && listProductInCart.length > 0 &&
+                    {userInfo && listProductInCart && listProductInCart.length > 0 &&
                         this.renderIfHavingProduct()}
-                    {listProductInCart && listProductInCart.length === 0 &&
+                    {userInfo && listProductInCart && listProductInCart.length == 0 &&
                         this.renderIfNotHavingProduct()}
+                    {/* {userInfo && listProductInCart && listProductInCart.length > 0 ?
+                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
                 </div >
 
                 <SignUpNewletter />

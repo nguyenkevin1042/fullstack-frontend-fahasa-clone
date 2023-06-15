@@ -135,22 +135,60 @@ class OneStepCheckout extends Component {
                 {listPayment && listPayment.length > 0 && (
                     listPayment.map((item, index) => (
                         <div key={index} className='payment-method-item'>
-                            <div>
-                                <div>
-                                    <input
-                                        type="radio"
-                                        value={item.keyMap}
-                                        name="productType"
-                                        onChange={(event) => this.onChangeRadioValue(event)}
-                                    />
-                                </div>
-                                <div className={'payment-img payment-img-' + index}></div>
-                                <div>{item.label}</div>
-
-                            </div>
-                        </div>
+                            < input
+                                type="radio"
+                                value={item.keyMap}
+                                name="productType"
+                                onChange={(event) => this.onChangeRadioValue(event)} />
+                            < div className={'payment-img payment-img-' + index} ></div >
+                            <div className='payment-text'>{item.label}</div>
+                        </div >
                     ))
-                )}
+                )
+                }
+            </>
+        )
+    }
+
+    renderProductList = () => {
+        let { listProduct } = this.state
+        return (
+            <>
+                {listProduct && listProduct.length > 0 &&
+                    listProduct.map((item, index) => {
+                        let imageBase64 = '';
+                        let productData = item.productData;
+                        if (productData.image) {
+                            imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
+                        }
+
+                        return (
+                            <div key={index} className={index == 0 ? 'product-item border-top-none' : 'product-item'}>
+                                <div className='product-img'
+                                    style={{
+                                        backgroundImage: "url(" + imageBase64 + ")"
+                                    }}></div>
+                                <div className='product-name'>
+                                    {productData.name}
+                                </div>
+                                <div className='product-price'>
+                                    {this.renderProductPrice(productData.price, productData.discount)}
+                                </div>
+                                <div className='product-quantity'>
+                                    {item.quantity}
+                                </div>
+                                <div className='product-total-price'>
+                                    <NumericFormat value={item.totalPrice}
+                                        displayType={'text'}
+                                        thousandSeparator={'.'}
+                                        decimalSeparator={','}
+                                        suffix={'đ'} />
+                                </div>
+                            </div>
+                        )
+                    })
+
+                }
             </>
         )
     }
@@ -208,44 +246,7 @@ class OneStepCheckout extends Component {
                         </div>
 
                         <div className='check-order-again-list'>
-                            {listProduct && listProduct.length > 0 &&
-                                listProduct.map((item, index) => {
-                                    let imageBase64 = '';
-                                    let productData = item.Product;
-                                    if (productData.image) {
-                                        imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
-                                    }
-
-                                    return (
-                                        <div key={index} className={index == 0 ? 'product-item border-top-none' : 'product-item'}>
-                                            <div className='product-img'
-                                                style={{
-                                                    backgroundImage: "url(" + imageBase64 + ")"
-                                                }}></div>
-                                            <div className='product-name'>
-                                                {productData.name}
-                                            </div>
-                                            <div className='product-price'>
-                                                {this.renderProductPrice(productData.price, productData.discount)}
-                                            </div>
-                                            <div className='product-quantity'>
-                                                {item.quantity}
-                                            </div>
-                                            <div className='product-total-price'>
-                                                <NumericFormat value={item.totalPrice}
-                                                    displayType={'text'}
-                                                    thousandSeparator={'.'}
-                                                    decimalSeparator={','}
-                                                    suffix={'đ'} />
-                                            </div>
-                                        </div>
-                                    )
-                                })
-
-                            }
-
-
-
+                            {this.renderProductList()}
                         </div>
                     </div>
                 </div>

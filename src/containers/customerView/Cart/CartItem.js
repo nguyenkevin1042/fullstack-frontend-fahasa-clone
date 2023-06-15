@@ -15,7 +15,8 @@ class CartItem extends Component {
             productId: '',
             quantity: '',
             productPrice: '',
-            totalPrice: ''
+            totalPrice: '',
+            productData: ''
         };
     }
 
@@ -32,7 +33,8 @@ class CartItem extends Component {
             productId: productInCart.productId,
             quantity: productInCart.quantity,
             productPrice: discount ? salePrice : price,
-            totalPrice: calTotal
+            totalPrice: calTotal,
+            productData: productInCart.Product
         })
     }
 
@@ -45,18 +47,16 @@ class CartItem extends Component {
             let calTotal = discount ?
                 ((price - ((price * discount) / 100)) * quantity) : (price * quantity);
             this.setState({
+                quantity: this.state.quantity,
                 totalPrice: calTotal
             }, () => {
                 if (this.props.onChange) {
                     this.props.onChange(this.state);
                 }
             })
-
-            this.setState({
-                totalPrice: calTotal
-            })
-
         }
+
+        // if (prevState.quantity !== this.state.quantity) {
 
     }
 
@@ -89,16 +89,18 @@ class CartItem extends Component {
 
     handleCheckThisProduct = (event) => {
         let { getTotalPriceAllProduct, addItemToSelectedProducts, deleteItemSelectedProducts } = this.props
-        // let data = {
-        //     id: this.state.id,
-        //     cartId: this.state.cartId,
-        //     productId: this.state.productId,
-        //     quantity: this.state.quantity,
-        //     totalPrice: this.state.totalPrice
-        // }
-        let data = this.props.productInCart
+        let data = {
+            id: this.state.id,
+            cartId: this.state.cartId,
+            productId: this.state.productId,
+            quantity: this.state.quantity,
+            productPrice: this.state.productPrice,
+            totalPrice: this.state.totalPrice,
+            productData: this.state.productData
+        }
+        // let data = this.props.productInCart
         if (event.target.checked === true) {
-            addItemToSelectedProducts(data)
+            addItemToSelectedProducts(this.state)
         }
 
         if (event.target.checked === false) {

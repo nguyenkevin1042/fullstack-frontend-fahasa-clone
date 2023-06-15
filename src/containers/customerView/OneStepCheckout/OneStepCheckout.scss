@@ -20,14 +20,52 @@
     .payment-method-content{
         .payment-method{
             .payment-method-item{
-                .payment-img{
+                margin-top: 20px;
+                display: flex;
+                cursor: pointer;
 
+                input{
+                    cursor: pointer;
+                    height: 20px;
+                    width: 20px;
+                    // background-color: #C92127 !important;
+
+                    // &:checked{
+                    //     background-color: #C92127 !important;
+                    // }
+                }
+                
+                .payment-img{
+                    width: 40px;
+                    height: 24px;
+                    margin: 0 10px;
                 }
 
                 .payment-img-0{
                     background: url('../../../assets/payments/ico_zalopayapp.svg') center center no-repeat;
-                    width: 40px;
                 }
+                .payment-img-1{
+                    background: url('../../../assets/payments/ico_mocapay.svg') center center no-repeat;
+                }
+                .payment-img-2{
+                    background: url('../../../assets/payments/ico_vnpay.svg') center center no-repeat;
+                }
+                .payment-img-3{
+                    background: url('../../../assets/payments/ico_airpay.svg') center center no-repeat;
+                }
+                .payment-img-4{
+                    background: url('../../../assets/payments/ico_momopay.svg') center center no-repeat;
+                }
+                .payment-img-5{
+                    background: url('../../../assets/payments/ico_zalopayatm.svg') center center no-repeat;
+                }
+                .payment-img-6{
+                    background: url('../../../assets/payments/ico_zalopaycc.svg') center center no-repeat;
+                }
+                .payment-img-7{
+                    background: url('../../../assets/payments/ico_cashondelivery.svg') center center no-repeat;
+                }
+
             }
         }
     }
@@ -54,7 +92,6 @@
                     background-position: center;
                     background-repeat: no-repeat;
                     height: 150px;
-                    // width: 25%;
                 }
 
                 .product-price{
@@ -98,7 +135,6 @@
             label{
                 text-align: right;
                 width: 250px;
-                border: 1px solid red;
             }
             .total-price-vat-label{
                 font-weight: 600;
