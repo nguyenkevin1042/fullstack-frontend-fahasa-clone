@@ -219,6 +219,10 @@ const getBillByUserIdAPI = (inputUserId) => {
         });
 }
 
+const getAllBillAPI = () => {
+    return axios.get("/api/get-all-bill");
+}
+
 
 export {
     //USER
@@ -243,5 +247,5 @@ export {
     //USER ADDRESS
     createNewAddressAPI,
     //BILL
-    createNewBillAPI, getBillByUserIdAPI
+    createNewBillAPI, getBillByUserIdAPI, getAllBillAPI
 };

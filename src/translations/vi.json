@@ -104,7 +104,21 @@
         },
         "account": {
             "title": "Tài khoản",
-            "dashboard": "Bảng điều khiển tài khoản",
+            "dashboard": {
+                "title": "Bảng điều khiển tài khoản",
+                "full-name": "Họ và tên",
+                "email": "Email",
+                "member-level": "Cấp độ thành viên",
+                "recent-orders": "Đơn hàng gần đây",
+                "view-all": "Xem tất cả",
+                "order-id": "Mã Đơn Hàng#",
+                "ordered-date": "Ngày Đặt",
+                "ship-to": "Người Nhận",
+                "total": "Tổng",
+                "status": "Trạng Thái",
+                "view-order": "Xem",
+                "reorder": "Đặt hàng lại"
+            },
             "account-information": {
                 "title": "Thông tin tài khoản",
                 "first-name": "Tên*",
@@ -199,6 +213,17 @@
                 "child-category": "Danh mục con"
             },
             "manage-product": "Sản phẩm"
+        },
+        "product": {
+            "header": "Sản phẩm",
+            "set-discount": "Thiết lập giảm giá"
+        },
+        "user": {
+            "header": "Người dùng"
+        },
+        "orders": {
+            "header": "Đơn hàng",
+            "manage-orders": "Quản lý đơn hàng"
         }
     }
 }

@@ -30,12 +30,15 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.UPDATE_USER_SUCCESS:
             return {
                 ...state,
-                actionResponse: action.response
+                actionResponse: action.response,
+                isLoggedIn: true,
+                userInfo: action.response.resUser
             }
         case actionTypes.UPDATE_USER_FAIL:
             return {
                 ...state,
-                actionResponse: action.response
+                actionResponse: action.response,
+                userInfo: null,
             }
 
         case actionTypes.FETCH_PRODUCT_BY_KEY_NAME_SUCCESS:

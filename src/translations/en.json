@@ -100,7 +100,21 @@
         },
         "account": {
             "title": "Account",
-            "dashboard": "Dashboard",
+            "dashboard": {
+                "title": "Dashboard",
+                "full-name": "Full name",
+                "email": "Email",
+                "member-level": "Member level",
+                "recent-orders": "Rencent orders",
+                "view-all": "View all",
+                "order-id": "Order#",
+                "ordered-date": "Ordered Date",
+                "ship-to": "Ship To",
+                "total": "Total Price",
+                "status": "Status",
+                "view-order": "View order",
+                "reorder": "Reorder"
+            },
             "account-information": {
                 "title": "Account information",
                 "first-name": "First name*",
@@ -190,6 +204,9 @@
             "manage-all-codes": "Mã Code",
             "manage-category": "Danh mục",
             "manage-product": "Sản phẩm"
+        },
+        "user": {
+            "header": "User"
         }
     }
 }

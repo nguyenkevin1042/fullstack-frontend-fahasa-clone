@@ -12,7 +12,8 @@ import {
     getProductByCategoryAPI, getAllSubCategoryByKeyNameAPI,
     getProductBySubCategoryAPI,
     getProductByChildCategoryAPI,
-    createNewBillAPI
+    createNewBillAPI,
+    getAllBillAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -848,5 +849,34 @@ export const createNewBillSuccess = (response) => ({
 
 export const createNewBillFail = (response) => ({
     type: actionTypes.CREATE_NEW_BILL_FAIL,
+    response: response
+})
+
+//GET ALL BILL
+export const getAllBill = () => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllBillAPI();
+
+            if (res && res.errCode === 0) {
+                dispatch(getAllBillSuccess(res));
+            } else {
+                dispatch(getAllBillFail(res));
+            }
+        } catch (error) {
+            dispatch(getAllBillFail(res));
+            console.log("getAllBill Error: ", error)
+        }
+    }
+}
+
+export const getAllBillSuccess = (response) => ({
+    type: actionTypes.GET_ALL_BILL_SUCCESS,
+    response: response
+})
+
+export const getAllBillFail = (response) => ({
+    type: actionTypes.GET_ALL_BILL_FAIL,
     response: response
 })

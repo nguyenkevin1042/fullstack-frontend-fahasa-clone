@@ -8,8 +8,6 @@ import AddNewAddressModal from './Modal/AddNewAddressModal';
 import NumericFormat from 'react-number-format';
 import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
-import secureLocalStorage from "react-secure-storage";
-import AddressConfirmationModal from './Modal/AddressConfirmationModal';
 
 class OneStepCheckout extends Component {
     constructor(props) {
@@ -284,7 +282,9 @@ class OneStepCheckout extends Component {
     }
 
     render() {
-        let { isOpenAddNewAddress, isOpenConfirmAddress, listProduct, selectedPayment, selectedAddress } = this.state
+        let { isOpenAddNewAddress } = this.state
+
+        console.log(this.props.userInfo.UserAddresses)
 
         return (
             <React.Fragment>
@@ -398,10 +398,6 @@ class OneStepCheckout extends Component {
                 <AddNewAddressModal isOpenAddNewAddress={isOpenAddNewAddress}
                     closeAddNewAddress={this.handleCloseAddNewAddress} />
 
-                <AddressConfirmationModal isOpenConfirmAddress={isOpenConfirmAddress}
-                    closeConfirmAddress={this.handleCloseConfirmAddress}
-                    completedOrder={this.handleConfirm}
-                    addressData={selectedAddress} />
 
             </React.Fragment >
 

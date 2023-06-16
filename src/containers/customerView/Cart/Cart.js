@@ -64,16 +64,6 @@ class Cart extends Component {
                 listProductInCart: this.props.cartData
             })
         }
-
-        if (prevState.selectedProducts !== this.state.selectedProducts) {
-            // if (this.state.selectedProducts.length == this.props.cartData.length) {
-            //     this.setState({
-            //         checkAll: true
-            //     })
-            // }
-            // console.log('prevState.selectedProducts: ', prevState.selectedProducts)
-            // console.log('this.state.selectedProducts: ', this.state.selectedProducts)
-        }
     }
 
     countTotalPrice = () => {
@@ -287,16 +277,10 @@ class Cart extends Component {
 
                 <Header />
 
-                {/* <div className='container-fluid'> */}
                 <div className='cart-container'>
-                    {userInfo && listProductInCart && listProductInCart.length > 0 &&
-                        this.renderIfHavingProduct()}
-                    {userInfo && listProductInCart && listProductInCart.length == 0 &&
-                        this.renderIfNotHavingProduct()}
-                    {/* {userInfo && listProductInCart && listProductInCart.length > 0 ?
-                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
+                    {userInfo && listProductInCart && listProductInCart.length > 0 ?
+                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()}
                 </div >
-                {/* </div> */}
 
                 <SignUpNewletter />
                 <Footer />

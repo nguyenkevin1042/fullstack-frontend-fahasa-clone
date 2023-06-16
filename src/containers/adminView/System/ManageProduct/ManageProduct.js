@@ -218,46 +218,6 @@ class ManageProduct extends Component {
         )
     }
 
-    // renderProductsTableData = () => {
-    //     let { listProduct } = this.state
-
-    //     return (
-    //         <>
-    //             {listProduct && listProduct.length > 0 &&
-    //                 listProduct.map((item, index) => {
-    //                     let imageBase64 = '';
-    //                     if (item.image) {
-    //                         imageBase64 = new Buffer(item.image, 'base64').toString('binary');
-    //                     }
-    //                     return (
-    //                         <tr key={index}>
-    //                             <td>{item.id}</td>
-    //                             <td className='product-img'>
-    //                                 <div className='img'
-    //                                     style={{
-    //                                         backgroundImage: "url(" + imageBase64 + ")"
-    //                                     }} /></td>
-    //                             <td>{this.renderCategoryOfProduct(item)}</td>
-    //                             <td>{item.name}</td>
-    //                             <td>{item.price}</td>
-
-    //                             <td>
-    //                                 <button className='btn-edit'
-    //                                     onClick={() => this.handleEdit(item)}
-    //                                 > <i className="fas fa-pencil-alt"></i></button>
-    //                                 <button className='btn-delete'
-    //                                     onClick={() => this.handleDelete(item)}
-    //                                 ><i className="fas fa-trash"></i></button>
-    //                             </td>
-    //                         </tr>
-    //                     )
-    //                 })
-
-    //             }
-    //         </>
-    //     )
-    // }
-
     renderProductsTableData = (products) => {
 
         return (

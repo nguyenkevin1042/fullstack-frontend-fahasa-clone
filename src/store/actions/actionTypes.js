@@ -131,6 +131,9 @@ const actionTypes = Object.freeze({
 
     GET_BILL_BY_USER_ID_SUCCESS: 'GET_BILL_BY_USER_ID_SUCCESS',
     GET_BILL_BY_USER_ID_FAIL: 'GET_BILL_BY_USER_ID_FAIL',
+
+    GET_ALL_BILL_SUCCESS: 'GET_ALL_BILL_SUCCESS',
+    GET_ALL_BILL_FAIL: 'GET_ALL_BILL_FAIL',
 })
 
 export default actionTypes;

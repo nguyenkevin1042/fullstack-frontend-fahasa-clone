@@ -43,6 +43,40 @@ export const adminMenu = [
             // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
         ]
     },
+    //Sản phẩm
+    {
+        name: 'menu.product.header',
+        menus: [
+            {
+                name: 'menu.product.set-discount',
+                link: '/system/product/set-discount'
+            },
+        ]
 
+    }
+    ,
+    //Người dùng
+    {
+        name: 'menu.user.header',
+        menus: [
+            {
+                name: 'menu.system.manage-all-codes',
+                link: '/system/user-manage'
+            },
+        ]
+
+    }
+    ,
+    //Đơn hàng
+    {
+        name: 'menu.orders.header',
+        menus: [
+            {
+                name: 'menu.orders.manage-orders',
+                link: '/system/manage-orders'
+            },
+        ]
+
+    }
 
 ];

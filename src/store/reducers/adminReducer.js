@@ -12,6 +12,7 @@ const initialState = {
     allSubCategoryArr: [],
     allChildCategoryArr: [],
     allProductArr: [],
+    allBillArr: [],
     errResponse: '',
     selectedCategory: '',
     subCategory: '',
@@ -334,6 +335,17 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 actionResponse: action.response
+            }
+
+        case actionTypes.GET_ALL_BILL_SUCCESS:
+            return {
+                ...state,
+                allBillArr: action.response.data
+            }
+        case actionTypes.GET_ALL_BILL_FAIL:
+            return {
+                ...state,
+                allBillArr: []
             }
 
         case actionTypes.ADMIN_PROCESS_LOGOUT:

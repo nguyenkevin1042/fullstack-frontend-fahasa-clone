@@ -79,27 +79,33 @@ class CustomerAccount extends Component {
                                         <li className={selectedSection === 'dashboard' ? 'active' : ''}
                                             id='dashboard'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.dashboard' />                                        </li>
+                                            <FormattedMessage id='customer.account.dashboard.title' />
+                                        </li>
                                         <li className={selectedSection === 'account-information' ? 'active' : ''}
                                             id='account-information'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.account-information.title' />                                        </li>
+                                            <FormattedMessage id='customer.account.account-information.title' />
+                                        </li>
                                         <li className={selectedSection === 'address' ? 'active' : ''}
                                             id='address'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.address' />                                        </li>
+                                            <FormattedMessage id='customer.account.address' />
+                                        </li>
                                         <li className={selectedSection === 'my-orders' ? 'active' : ''}
                                             id='my-orders'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.my-orders' />                                        </li>
+                                            <FormattedMessage id='customer.account.my-orders' />
+                                        </li>
                                         <li className={selectedSection === 'voucher' ? 'active' : ''}
                                             id='voucher'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.voucher' />                                        </li>
+                                            <FormattedMessage id='customer.account.voucher' />
+                                        </li>
                                         <li className={selectedSection === 'f-point' ? 'active' : ''}
                                             id='f-point'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.f-point' />                                        </li>
+                                            <FormattedMessage id='customer.account.f-point' />
+                                        </li>
                                         <li className={selectedSection === 'my-reviews' ? 'active' : ''}
                                             id='my-reviews'
                                             onClick={(event) => this.handleChooseMenu(event)}>
