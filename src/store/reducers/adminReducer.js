@@ -359,6 +359,19 @@ const appReducer = (state = initialState, action) => {
                 allBillArr: []
             }
 
+        case actionTypes.FETCH_PRODUCT_BY_NAME_SUCCESS:
+            state.actionResponse = action.response
+            state.allProductArr = action.response.data
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_PRODUCT_BY_NAME_FAIL:
+            state.allProductArr = []
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
         case actionTypes.ADMIN_PROCESS_LOGOUT:
             return {
                 ...state,

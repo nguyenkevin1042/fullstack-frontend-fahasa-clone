@@ -14,7 +14,8 @@ import {
     getProductByChildCategoryAPI,
     createNewBillAPI,
     getAllBillAPI,
-    updateBillStatusAPI
+    updateBillStatusAPI,
+    getProductByNameAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -821,6 +822,37 @@ export const updateProductSuccess = (response) => ({
 
 export const updateProductFail = (response) => ({
     type: actionTypes.UPDATE_PRODUCT_FAIL,
+    response: response
+})
+
+//GET PRODUCT BY NAME
+export const getProductByName = (inputName) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        let res;
+        try {
+
+            res = await getProductByNameAPI(inputName);
+            if (res && res.errCode === 0) {
+                dispatch(getProductByNameSuccess(res));
+            } else {
+                dispatch(getProductByNameFail(res));
+            }
+        } catch (error) {
+            dispatch(getProductByNameFail(res));
+            console.log("getProductByName Error: ", error)
+        }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+    }
+}
+
+export const getProductByNameSuccess = (response) => ({
+    type: actionTypes.FETCH_PRODUCT_BY_NAME_SUCCESS,
+    response: response
+})
+
+export const getProductByNameFail = (response) => ({
+    type: actionTypes.FETCH_PRODUCT_BY_NAME_FAIL,
     response: response
 })
 

@@ -169,6 +169,9 @@
             "title": "Successful!",
             "to-homepage": "Homepage",
             "check-order": "Check order"
+        },
+        "search-result": {
+            "title": "Search result for"
         }
     },
     "common": {

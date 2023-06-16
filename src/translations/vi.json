@@ -173,6 +173,9 @@
             "title": "Đặt hàng thành công!",
             "to-homepage": "Trang chủ",
             "check-order": "Kiểm tra đơn hàng"
+        },
+        "search-result": {
+            "title": "Kết quả tìm kiếm với"
         }
     },
     "common": {

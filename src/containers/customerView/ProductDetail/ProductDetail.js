@@ -75,7 +75,7 @@ class ProductDetail extends Component {
             })
         }
 
-        if (prevProps.keyName !== this.props.keyName) {
+        if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
 
             await this.props.fetchProductByKeyName(this.props.match.params.keyName);
 

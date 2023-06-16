@@ -8,7 +8,8 @@ export const path = {
     CUSTOMER_ACCOUNT: '/customer/account',
     PRODUCT_LIST: '/category/:category?/:subCategory?/:childCategory?',
     PRODUCT_DETAIL: '/product/:keyName',
-    SEARCH_RESULT: '/search/result/:q',
+    // SEARCH_RESULT: '/search-result/:query?',
+    SEARCH_RESULT: '/search-result',
     CART: '/cart',
     ONE_STEP_CHECKOUT: '/onestepcheckout',
     ORDER_COMPLETED: '/make-order-success'

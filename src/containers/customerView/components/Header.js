@@ -50,7 +50,8 @@ class Header extends Component {
             visible: false,
 
             productName: '',
-            productInCartLength: ''
+            productInCartLength: '',
+            searchQuery: ''
         };
     }
 
@@ -111,12 +112,29 @@ class Header extends Component {
         return result;
     }
 
-    handleOnChangeInput = (event) => {
+    hanleOnChangeInput = (event) => {
         let key = event.target.id;
         let data = event.target.value;
         let copyState = { ...this.state };
         copyState[key] = data;
         this.setState({ ...copyState });
+    }
+
+    handleSearchProduct = () => {
+        let { searchQuery } = this.state
+        if (this.props.history) {
+            this.props.history.push({
+                pathname: '/search-result',
+                state: searchQuery,
+                search: '?' + new URLSearchParams({ query: searchQuery }).toString()
+            })
+        }
+    }
+
+    handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            this.handleSearchProduct();
+        }
     }
 
     handleChangeLanguage = (selectedLanguage) => {
@@ -191,40 +209,6 @@ class Header extends Component {
         let language = this.props.lang
         let { cartData, userInfo } = this.props
         let cartDataLength = cartData.length
-        let customStyles = {
-            control: (baseStyles, state) => ({
-                ...baseStyles,
-                width: 75,
-                borderRadius: 8,
-                boxShadow: "none",
-                cursor: "pointer",
-                "&:hover": {
-                    borderColor: state.isFocused ? "none" : "none"
-                }
-            }),
-            dropdownIndicator: base => ({
-                ...base,
-                padding: 0,
-
-            }),
-            option: (baseStyles, state) => ({
-                ...baseStyles,
-                padding: 0,
-                paddingTop: 10,
-                borderRadius: 8,
-                width: 80,
-                cursor: "pointer"
-            }),
-            menu: (baseStyles, state) => ({
-                ...baseStyles,
-                padding: 10,
-                // margin: 'auto',
-                width: 100,
-                right: 5,
-                borderRadius: 8,
-                cursor: "pointer"
-            })
-        };
 
         const menu = (<DropdownMenu />);
         const searchDropdown = (<SearchDropdown />)
@@ -251,15 +235,16 @@ class Header extends Component {
                         <div className='home-header-search-bar col-8 col-md-9 col-lg-5'>
                             {/* <Dropdown overlay={searchDropdown}> */}
                             <input type='text'
-                                id='productName'
-                                onChange={(event) => this.handleOnChangeInput(event)}
+                                id='searchQuery'
+                                onChange={(event) => this.hanleOnChangeInput(event)}
+                                onKeyDown={(event) => { this.handleKeyDown(event) }}
                                 className='form-control search-bar'
                                 placeholder={
                                     language === languages.VI ?
                                         "Tìm kiếm sản phẩm mong muốn" :
                                         "Search entire store here"
                                 } />
-                            <button><i className="fa fa-search"></i></button>
+                            <button onClick={() => this.handleSearchProduct()}><i className="fa fa-search"></i></button>
                             {/* </Dropdown> */}
                         </div >
                         {/* OPTIONS */}
@@ -286,7 +271,6 @@ class Header extends Component {
                                     <div className='user-options-change-language option col-md-3'>
                                         <Select
                                             className={'select-language-option'}
-                                            // styles={customStyles}
                                             classNamePrefix="react-select"
                                             value={selectedLanguage}
                                             onChange={this.handleChangeLanguage}
@@ -319,6 +303,7 @@ const mapDispatchToProps = dispatch => {
         changeLanguageApp: (language) => dispatch(actions.changeLanguageApp(language)),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
+        getProductByName: (inputName) => dispatch(actions.getProductByName(inputName)),
     };
 };
 

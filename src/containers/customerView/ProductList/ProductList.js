@@ -35,13 +35,13 @@ class ProductList extends Component {
             currentPage: "",
             startIndex: "",
             endIndex: "",
+
             selectedPageLimit: '',
             numberOfProductsArr: []
         };
     }
 
     async componentDidMount() {
-        window.scroll(0, 0)
         let { category, subCategory, childCategory } = this.props.match.params
 
         if (category && subCategory && childCategory) {
@@ -292,7 +292,6 @@ class ProductList extends Component {
             prevProps.lang !== this.props.lang) {
             this.setState({
                 listProduct: this.props.allProductArr,
-
             })
         }
     }

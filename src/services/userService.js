@@ -171,6 +171,12 @@ const deleteProductAPI = (inputId) => {
     );
 }
 
+const getProductByNameAPI = (inputName) => {
+    return axios.get("/api/get-product-by-name",
+        { params: { name: inputName } }
+    );
+}
+
 //CART
 const getCartByUserIdAPI = (inputUserId) => {
     return axios.get("/api/get-cart-by-user-id",
@@ -243,7 +249,7 @@ export {
     //PRODUCT
     addNewProductAPI, updateProductAPI, getAllProductAPI, deleteProductAPI,
     getProductByKeyNameAPI, getProductByCategoryAPI, getProductBySubCategoryAPI,
-    getProductByChildCategoryAPI,
+    getProductByChildCategoryAPI, getProductByNameAPI,
     //CART
     getCartByUserIdAPI,
     //CART PRODUCT
