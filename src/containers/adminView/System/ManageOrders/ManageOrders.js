@@ -10,11 +10,13 @@ import moment from 'moment';
 import NumericFormat from 'react-number-format';
 
 import LoadingOverlay from 'react-loading-overlay'
+import UpdateOrderStatusModal from './UpdateOrderStatusModal';
 
 class ManageOrders extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isOpenUpdateStatusModal: false,
             listOrders: [],
             selectedOrder: '',
 
@@ -59,6 +61,22 @@ class ManageOrders extends Component {
         });
     };
 
+    handleEdit = (item) => {
+        this.setState({
+            isOpenUpdateStatusModal: true,
+            selectedOrder: item
+        })
+    }
+
+
+    handleCloseUpdateStatusModal = async () => {
+        this.setState({
+            isOpenUpdateStatusModal: false
+        })
+        await this.props.getAllBill();
+
+    }
+
 
     renderOrderTableData = (orders) => {
         let { lang } = this.props
@@ -92,7 +110,7 @@ class ManageOrders extends Component {
                                         onClick={() => this.handleEdit(item)}
                                     > <i className="fas fa-pencil-alt"></i></button>
                                     <button className='btn-delete'
-                                        onClick={() => this.handleDelete(item)}
+                                    // onClick={() => this.handleDelete(item)}
                                     ><i className="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -107,7 +125,7 @@ class ManageOrders extends Component {
 
     render() {
         let { totalPages, currentPage, pageLimit,
-            startIndex, endIndex, listOrders } = this.state;
+            startIndex, endIndex, listOrders, selectedOrder, isOpenUpdateStatusModal } = this.state;
         let rowsPerPage = [];
 
 
@@ -147,6 +165,11 @@ class ManageOrders extends Component {
                         />
                     </div>
                 </div>
+
+                <UpdateOrderStatusModal
+                    isOpenUpdateStatusModal={isOpenUpdateStatusModal}
+                    closeModal={this.handleCloseUpdateStatusModal}
+                    selectedOrder={selectedOrder} />
 
             </React.Fragment >
 

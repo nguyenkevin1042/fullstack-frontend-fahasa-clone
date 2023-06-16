@@ -210,6 +210,10 @@ const createNewBillAPI = (data) => {
     return axios.post("/api/create-new-bill", data);
 }
 
+const updateBillStatusAPI = (data) => {
+    return axios.post("/api/update-bill-status", data);
+}
+
 const getBillByUserIdAPI = (inputUserId) => {
     return axios.get("/api/get-bill-by-user-id",
         {
@@ -247,5 +251,5 @@ export {
     //USER ADDRESS
     createNewAddressAPI,
     //BILL
-    createNewBillAPI, getBillByUserIdAPI, getAllBillAPI
+    createNewBillAPI, getBillByUserIdAPI, getAllBillAPI, updateBillStatusAPI
 };

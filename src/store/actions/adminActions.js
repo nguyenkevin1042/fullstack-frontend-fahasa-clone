@@ -13,7 +13,8 @@ import {
     getProductBySubCategoryAPI,
     getProductByChildCategoryAPI,
     createNewBillAPI,
-    getAllBillAPI
+    getAllBillAPI,
+    updateBillStatusAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -878,5 +879,34 @@ export const getAllBillSuccess = (response) => ({
 
 export const getAllBillFail = (response) => ({
     type: actionTypes.GET_ALL_BILL_FAIL,
+    response: response
+})
+
+//UPDATE BILL STATUS
+export const updateBillStatus = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await updateBillStatusAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(updateBillStatusSuccess(res));
+            } else {
+                dispatch(updateBillStatusFail(res));
+            }
+        } catch (error) {
+            dispatch(updateBillStatusFail(res));
+            console.log("updateBillStatus Error: ", error)
+        }
+    }
+}
+
+export const updateBillStatusSuccess = (response) => ({
+    type: actionTypes.UPDATE_BILL_STATUS_SUCCESS,
+    response: response
+})
+
+export const updateBillStatusFail = (response) => ({
+    type: actionTypes.UPDATE_BILL_STATUS_FAIL,
     response: response
 })

@@ -337,6 +337,17 @@ const appReducer = (state = initialState, action) => {
                 actionResponse: action.response
             }
 
+        case actionTypes.UPDATE_BILL_STATUS_SUCCESS:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.UPDATE_BILL_STATUS_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
         case actionTypes.GET_ALL_BILL_SUCCESS:
             return {
                 ...state,
