@@ -67,8 +67,7 @@ class Header extends Component {
 
         }
 
-        if (prevProps.userInfo !== this.props.userInfo
-            || prevProps.lang !== this.props.lang) {
+        if (prevProps.userInfo !== this.props.userInfo) {
             // await this.props.getCartByUserId(this.props.userInfo.id)
         }
 
@@ -82,6 +81,7 @@ class Header extends Component {
         }
 
         if (prevProps.cartData !== this.props.cartData) {
+            console.log(this.props.cartData.length)
             this.setState({
                 productInCartLength: this.props.cartData.length
             })

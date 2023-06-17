@@ -31,7 +31,6 @@ import OneStepCheckout from './customerView/OneStepCheckout/OneStepCheckout';
 import MakeOrderSuccess from './customerView/OneStepCheckout/MakeOrderSuccess';
 import SearchResult from './customerView/SearchResult/SearchResult';
 
-
 class App extends Component {
 
 
@@ -58,7 +57,6 @@ class App extends Component {
 
         return (
             <Fragment>
-
                 <Router history={history}>
                     <div className="main-container">
                         <ConfirmModal />
@@ -99,8 +97,7 @@ class App extends Component {
 
                     </div>
                 </Router>
-
-            </Fragment>
+            </Fragment >
         )
     }
 }

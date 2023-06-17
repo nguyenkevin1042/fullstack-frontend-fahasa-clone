@@ -37,12 +37,14 @@ class SearchResult extends Component {
 
     async componentDidMount() {
         await this.props.getProductByName(this.props.location.state)
-
-        if (this.props.location) {
-            this.setState({
-                searchQuery: this.props.location.state
-            })
-        }
+        this.setState({
+            searchQuery: this.props.location.state
+        })
+        // if (this.props.location) {
+        //     this.setState({
+        //         searchQuery: this.props.location.state
+        //     })
+        // }
         // if (this.props.allProductArr) {
         //     this.setState({
         //         totalRecords: this.props.allProductArr.length

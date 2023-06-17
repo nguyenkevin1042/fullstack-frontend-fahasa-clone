@@ -412,7 +412,6 @@ class ProductList extends Component {
             startIndex: data.startIndex,
             endIndex: data.endIndex
         });
-
     };
 
     handleChangeNumberOfProducts = (event) => {

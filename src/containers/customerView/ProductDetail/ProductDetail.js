@@ -16,7 +16,6 @@ import AddToCartSuccessModal from './AddToCartSuccessModal';
 import { languages } from '../../../utils';
 import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
 
-
 class ProductDetail extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +34,6 @@ class ProductDetail extends Component {
     }
 
     async componentDidMount() {
-
         await this.props.fetchProductByKeyName(this.props.match.params.keyName);
     }
 
@@ -76,15 +74,7 @@ class ProductDetail extends Component {
         }
 
         if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
-
             await this.props.fetchProductByKeyName(this.props.match.params.keyName);
-
-        }
-
-        if (prevProps.history !== this.props.history) {
-            console.log(this.props.match.params.keyName)
-            await this.props.fetchProductByKeyName(this.props.match.params.keyName);
-
         }
     }
 
@@ -104,7 +94,7 @@ class ProductDetail extends Component {
     }
 
     handleAddToCart = async () => {
-        let { userInfo, product, actionResponse } = this.props
+        let { userInfo, product } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
 
         await this.props.addToCart({
@@ -121,7 +111,7 @@ class ProductDetail extends Component {
     }
 
     handleBuyNow = async () => {
-        let { userInfo, product, actionResponse } = this.props
+        let { userInfo, product } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
 
         await this.props.addToCart({
@@ -288,10 +278,6 @@ class ProductDetail extends Component {
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
-
-        // console.log(this.props.match.params.keyName)
-        // console.log(product)
-        // console.log(this.props.history)
 
         return (
             <>

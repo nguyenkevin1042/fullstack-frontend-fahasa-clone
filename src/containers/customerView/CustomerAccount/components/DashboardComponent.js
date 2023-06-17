@@ -13,7 +13,8 @@ class DashboardComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listUserOrders: []
+            listUserOrders: [],
+            message: ''
         };
     }
 
@@ -21,6 +22,8 @@ class DashboardComponent extends Component {
         if (this.props.userInfo) {
             await this.props.getBillByUserId(this.props.userInfo.id)
         }
+
+
 
     }
 
@@ -34,11 +37,17 @@ class DashboardComponent extends Component {
                 listUserOrders: this.props.billData
             })
         }
+
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            this.setState({
+                message: this.props.lang === languages.VI ?
+                    this.props.actionResponse.messageVI : this.props.actionResponse.messageEN
+            })
+        }
     }
 
     renderOrderData = () => {
         let { billData, lang } = this.props
-        console.log(billData)
 
         return (
             <>
@@ -93,9 +102,11 @@ class DashboardComponent extends Component {
 
 
     render() {
-        let { userInfo, lang, billData } = this.props
+        let { message } = this.state
+        let { userInfo, lang, actionResponse } = this.props
 
-        // console.log(billData)
+        console.log(actionResponse)
+
         return (
             <React.Fragment>
                 <div className='right-content-header'>
@@ -132,24 +143,40 @@ class DashboardComponent extends Component {
                         <p className='title-text'>
                             <FormattedMessage id='customer.account.dashboard.recent-orders' />
                         </p>
-                        <p className='view-all-text'>
-                            <FormattedMessage id='customer.account.dashboard.view-all' />
-                        </p>
+                        {actionResponse.errCode === 0 ?
+                            <p className='view-all-text'>
+                                <FormattedMessage id='customer.account.dashboard.view-all' />
+                            </p> : <></>}
+                        {/* // <p className='view-all-text'>
+                        //     <FormattedMessage id='customer.account.dashboard.view-all' />
+                        // </p> */}
                     </div>
                     <div className='recent-order-table'>
-                        <table>
+                        {actionResponse.errCode === 0 ?
+                            <table>
+                                <tr>
+                                    <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.total' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.status' /></th>
+                                    {/* <th>Actions</th> */}
+                                </tr>
+                                {this.renderOrderData()}
+                            </table> : <div>{message}</div>}
+                        {/* <table>
                             <tr>
                                 <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
                                 <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
                                 <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
                                 <th><FormattedMessage id='customer.account.dashboard.total' /></th>
                                 <th><FormattedMessage id='customer.account.dashboard.status' /></th>
-                                {/* <th>Actions</th> */}
-                            </tr>
-                            {this.renderOrderData()}
-                        </table>
+                                {/* <th>Actions</th> 
+                    </tr>
+                    {this.renderOrderData()}
+                </table> */}
                     </div>
-                </div>
+                </div >
 
             </React.Fragment >
 

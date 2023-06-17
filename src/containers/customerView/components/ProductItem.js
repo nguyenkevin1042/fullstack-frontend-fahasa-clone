@@ -35,8 +35,7 @@ class ProductItem extends Component {
     }
 
     renderProductPrice = (price, discount) => {
-        let productData = this.props.productData
-        let salePrice = productData.price - ((productData.price * productData.discount) / 100);
+        let salePrice = price - ((price * discount) / 100);
         return (
             <>
                 {discount != 0 ?
@@ -49,7 +48,7 @@ class ProductItem extends Component {
                                 suffix={'đ'} />
                         </div>
                         <div className='item-price'>
-                            <NumericFormat value={parseFloat(productData.price)}
+                            <NumericFormat value={parseFloat(price)}
                                 displayType={'text'}
                                 thousandSeparator={'.'}
                                 decimalSeparator={','} />
@@ -57,7 +56,7 @@ class ProductItem extends Component {
                     :
                     <>
                         <div className='item-discount-price'>
-                            <NumericFormat value={parseFloat(productData.price)}
+                            <NumericFormat value={parseFloat(price)}
                                 displayType={'text'}
                                 thousandSeparator={'.'}
                                 decimalSeparator={','}
@@ -77,7 +76,6 @@ class ProductItem extends Component {
 
         return (
             <React.Fragment>
-                {/* <Link to={"/product/" + productData.keyName}> */}
                 <div className='sharing-product-item'
                     title={productData.name}
                     onClick={() => this.handleRedirectToProductDetail(productData.keyName)}
@@ -107,7 +105,6 @@ class ProductItem extends Component {
                         </div>
                     </div>
                 </div >
-                {/* </Link> */}
             </React.Fragment >
 
         );
