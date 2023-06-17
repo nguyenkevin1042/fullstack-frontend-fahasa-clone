@@ -10,6 +10,7 @@ import ManageChildCategory from '../containers/adminView/System/ManageCategory/M
 import Header from '../containers/adminView/Header/Header';
 import ManageProduct from '../containers/adminView/System/ManageProduct/ManageProduct';
 import ManageOrders from '../containers/adminView/System/ManageOrders/ManageOrders';
+import ManageDiscount from '../containers/adminView/System/ManageDiscount/ManageDiscount';
 
 class System extends Component {
     render() {
@@ -26,7 +27,7 @@ class System extends Component {
                             <Route path="/system/manage-sub-category" component={ManageSubCategory} />
                             <Route path="/system/manage-child-category" component={ManageChildCategory} />
                             <Route path="/system/manage-product" component={ManageProduct} />
-                            <Route path="/system/product/set-discount" component={UserManage} />
+                            <Route path="/system/product/manage-discount" component={ManageDiscount} />
                             <Route path="/system/manage-orders" component={ManageOrders} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />

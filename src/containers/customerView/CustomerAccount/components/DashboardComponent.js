@@ -160,21 +160,12 @@ class DashboardComponent extends Component {
                                     <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
                                     <th><FormattedMessage id='customer.account.dashboard.total' /></th>
                                     <th><FormattedMessage id='customer.account.dashboard.status' /></th>
-                                    {/* <th>Actions</th> */}
+
                                 </tr>
                                 {this.renderOrderData()}
-                            </table> : <div>{message}</div>}
-                        {/* <table>
-                            <tr>
-                                <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.total' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.status' /></th>
-                                {/* <th>Actions</th> 
-                    </tr>
-                    {this.renderOrderData()}
-                </table> */}
+                            </table> :
+                            <div className='no-order-text'>{message}</div>}
+
                     </div>
                 </div >
 

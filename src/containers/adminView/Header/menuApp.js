@@ -49,7 +49,7 @@ export const adminMenu = [
         menus: [
             {
                 name: 'menu.product.set-discount',
-                link: '/system/product/set-discount'
+                link: '/system/product/manage-discount'
             },
         ]
 

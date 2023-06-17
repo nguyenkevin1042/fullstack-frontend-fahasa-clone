@@ -43,7 +43,7 @@ class Homepage extends Component {
                 <Header />
                 <Banner />
                 <QuickAccess />
-                <FlashSale />
+                {/* <FlashSale /> */}
                 {/* <Trending /> */}
                 <ProductCategory />
 

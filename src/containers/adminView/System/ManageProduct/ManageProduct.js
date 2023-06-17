@@ -9,6 +9,7 @@ import { languages } from '../../../../utils';
 import Select from 'react-select';
 import CustomPagination from '../../../../components/CustomPagination';
 
+import NumericFormat from 'react-number-format';
 import LoadingOverlay from 'react-loading-overlay'
 
 class ManageProduct extends Component {
@@ -238,7 +239,12 @@ class ManageProduct extends Component {
                                         }} /></td>
                                 <td>{this.renderCategoryOfProduct(item)}</td>
                                 <td>{item.name}</td>
-                                <td>{item.price}</td>
+                                <td>
+                                    <NumericFormat value={item.price}
+                                        displayType={'text'}
+                                        thousandSeparator={'.'}
+                                        decimalSeparator={','}
+                                        suffix={'đ'} /></td>
 
                                 <td>
                                     <button className='btn-edit'

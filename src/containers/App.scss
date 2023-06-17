@@ -144,7 +144,7 @@ body{
 
 
  ._loading_overlay_wrapper{
-
+// z-index: 1000;
     ._loading_overlay_overlay{
       position: relative;
       background-color: transparent;
@@ -172,6 +172,10 @@ body{
           border-top: 10px solid #F7941E; 
           border-radius: 50%;
           -webkit-animation: spinner 1s linear infinite;
+
+          svg{
+            display: none;
+          }
         }
      }
    }
