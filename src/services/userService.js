@@ -131,6 +131,10 @@ const updateProductAPI = (data) => {
     return axios.post("/api/update-product", data);
 }
 
+const updateProductDiscountAPI = (data) => {
+    return axios.post("/api/update-product-discount", data);
+}
+
 const getAllProductAPI = () => {
     return axios.get("/api/get-all-product");
 }
@@ -249,7 +253,7 @@ export {
     //PRODUCT
     addNewProductAPI, updateProductAPI, getAllProductAPI, deleteProductAPI,
     getProductByKeyNameAPI, getProductByCategoryAPI, getProductBySubCategoryAPI,
-    getProductByChildCategoryAPI, getProductByNameAPI,
+    getProductByChildCategoryAPI, getProductByNameAPI, updateProductDiscountAPI,
     //CART
     getCartByUserIdAPI,
     //CART PRODUCT

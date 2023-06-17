@@ -16,4 +16,4 @@ const ScrollToTop = () => {
     return null;
 }
 
-export default withRouter(ScrollToTop);
+export default ScrollToTop;

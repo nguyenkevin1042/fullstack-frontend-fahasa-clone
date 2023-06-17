@@ -6,6 +6,7 @@ import './ManageDiscount.scss';
 import * as actions from "../../../../store/actions";
 import { languages } from '../../../../utils';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import CustomPagination from '../../../../components/CustomPagination';
 
 import NumericFormat from 'react-number-format';
@@ -16,33 +17,37 @@ class ManageDiscount extends Component {
         super(props);
         this.state = {
             listProduct: [],
-            listSelectedProducts: [],
+            listSelectedProductsId: [],
+            discountNumber: '',
+            checkAll: false,
+
+            searchKey: '',
+
             isLoading: false,
             totalRecords: "",
             totalPages: "",
             pageLimit: "",
             currentPage: "",
             startIndex: "",
-            endIndex: ""
+            endIndex: "",
+
         };
     }
 
     async componentDidMount() {
         await this.props.fetchAllProduct();
+
         if (this.props.allProductArr) {
             this.setState({
-                totalRecords: this.props.allProductArr.length
+                totalRecords: this.props.allProductArr.length,
+                searchKey: '',
             });
         }
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
-        }
-
-        if (prevState.currentPage !== this.state.currentPage) {
-            console.log(prevState)
         }
 
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
@@ -54,8 +59,23 @@ class ManageDiscount extends Component {
         if (prevProps.allProductArr !== this.props.allProductArr) {
             let dataProduct = this.buildDataInputSelect(this.props.allProductArr);
             this.setState({
-                listProduct: dataProduct
+                listProduct: dataProduct,
+                totalRecords: this.props.allProductArr.length
             })
+        }
+
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            let message = this.props.lang === languages.VI ?
+                this.props.actionResponse.messageVI : this.props.actionResponse.messageEN;
+
+            if (this.props.actionResponse.errCode === 0) {
+                toast.success(message)
+                this.setState({
+                    checkAll: false,
+                })
+            } else {
+                toast.error(message)
+            }
         }
     }
 
@@ -76,46 +96,120 @@ class ManageDiscount extends Component {
         return result;
     }
 
-    handleCheckThisProduct = (event) => {
-        // let selectedProduct = Object.values(event.target)[2].initialValue
-        let selectedProduct = Object.values(event.target)[2].initialValue
+    hanleOnChangeInput = (event) => {
+        let key = event.target.id;
+        let data = event.target.value;
+        let copyState = { ...this.state };
+        copyState[key] = data;
+        this.setState({ ...copyState });
+    }
 
-        console.log(event.target.checked, selectedProduct)
+    handleKeyUp = (event) => {
+        let query = event.target.value;
+        let dataProduct = this.buildDataInputSelect(this.props.allProductArr);
+        let tempList = dataProduct;
+        tempList = tempList.filter((item) => {
+            return item.product.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+        });
 
-        // let copyState = { ...this.state };
+        this.setState({
+            searchKey: query,
+            listProduct: tempList
+        })
+    }
 
-        // if (event.target.checked === true) {
-        //     copyState.listSelectedProducts.push(selectedProduct);
-        // }
+    handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            this.handleApplyDiscount();
+        }
+    }
 
-        // if (event.target.checked === false) {
-        //     copyState.listSelectedProducts = copyState.listSelectedProducts.filter(item => item.id !== selectedProduct.id);
-        // }
+    handleApplyDiscount = async () => {
+        let { discountNumber, listSelectedProductsId } = this.state
+        await this.props.updateProductDiscount({ discountNumber, listSelectedProductsId })
+    }
 
-        // this.setState({ ...copyState });
+    handleCheckAll = (event) => {
+        let tempList = this.state.listProduct;
+        tempList.map((item) => item.selected = event.target.checked);
+
+        let finalListSelectedProducts = this.state.listProduct.map(item => item.product.id)
+
+        this.setState({
+            checkAll: event.target.checked,
+            listProduct: tempList,
+            listSelectedProductsId: finalListSelectedProducts
+        });
+    }
+
+
+    handleClickProductRow = (item) => {
+        item.selected = !item.selected
+        let tempList = this.state.listProduct;
+        tempList.map((product) => {
+            if (product.id === item.product.id) {
+                product.selected = item.selected;
+            }
+            return product;
+        });
+
+
+        let finalListSelectedProducts = this.state.listProduct.filter((item) => item.selected)
+
+        finalListSelectedProducts = finalListSelectedProducts.map(item => item.product.id)
+
+        this.setState({
+            listProduct: tempList,
+            listSelectedProductsId: finalListSelectedProducts
+        });
+    }
+
+    handleCheckThisProduct = (event, item) => {
+        // item.selected = event.target.checked
+
+        // let tempList = this.state.listProduct;
+        // tempList.map((product) => {
+        //     if (product.id === item.product.id) {
+        //         product.selected = event.target.checked;
+        //     }
+        //     return product;
+        // });
+
+
+        // let finalListSelectedProducts = this.state.listProduct.filter((item) => item.selected)
+
+        // finalListSelectedProducts = finalListSelectedProducts.map(item => item.product.id)
+
+        // this.setState({
+        //     listProduct: tempList,
+        //     listSelectedProductsId: finalListSelectedProducts
+        // });
+
     }
 
     renderProductsTableData = (products) => {
-
         return (
             <>
                 {products && products.length > 0 &&
                     products.map((item, index) => {
                         let productData = item.product
                         let imageBase64 = '';
+
                         if (productData.image) {
                             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
                         }
+
                         let salePrice = productData.price - ((productData.price * productData.discount) / 100);
+
                         return (
                             <>
-                                <tr key={index} className='product-discount-item'>
-                                    <th scope="row">
-                                        <input type="checkbox" id="product${}" value={item}
-                                            checked={item.selected}
-                                            onClick={(event) => this.handleCheckThisProduct(event)}
-                                        />
-                                    </th>
+                                <tr key={index} className={item.selected ? 'product-discount-item selected' : 'product-discount-item'}
+                                    onClick={() => this.handleClickProductRow(item)}>
+                                    <td scope="row">
+                                        <input type="checkbox" id={`product${item.id}`} value={item}
+                                            checked={item.selected} />
+                                    </td>
+                                    <td>{index + 1}</td>
                                     <td>{productData.id}</td>
                                     <td className='product-img'>
                                         <div className='img'
@@ -186,14 +280,12 @@ class ManageDiscount extends Component {
 
     render() {
         let { listProduct, isLoading, totalPages, currentPage, pageLimit,
-            startIndex, endIndex } = this.state;
+            startIndex, endIndex, checkAll, searchKey } = this.state;
         let rowsPerPage = [];
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
-        console.log(rowsPerPage)
-        // console.log(this.state.listSelectedProducts)
-
+        console.log(this.state.listSelectedProductsId)
         return (
             <>
                 <LoadingOverlay
@@ -205,48 +297,46 @@ class ManageDiscount extends Component {
                             Quản lý giảm giá sản phẩm
                         </div>
 
+                        <div className='manage-discount-actions'>
 
-                        {/* <div className='sharing-manage-sort'>
-                            <div className='sharing-manage-sort-title'>
-                                Tìm kiếm sản phẩm
-                            </div>
+                            <label>Nhập discount:</label>
+                            <input type='number'
+                                min={0} max={100}
+                                id='discountNumber'
+                                onChange={(event) => this.hanleOnChangeInput(event)}
+                                onKeyDown={(event) => { this.handleKeyDown(event) }}
+                                className='form-control'
+                            />
+                            <button className=' btn-primary' onClick={() => this.handleApplyDiscount()}
+                            >Áp dụng giảm giá</button>
 
-                            <div className='sharing-sort-section'>
-                                <label className='col-3 form-group'>Tìm theo danh mục:</label>
-                                <div className='col-3 form-group'>
-                                    <Select
-                                        value={selectedCategory}
-                                        onChange={this.handleChangeCategory}
-                                        options={listCategory}
-                                        placeholder={'Danh mục chính'}
-                                        name="selectedCategory" />
-                                </div>
-                                <div className='col-3 form-group'>
-                                    <Select
-                                        value={selectedSubCategory}
-                                        onChange={this.handleChangeSubCategory}
-                                        options={listSubCategory}
-                                        placeholder={'Danh mục phụ'}
-                                        name="selectedSubCategory" />
-                                </div>
-                                <div className='col-3 form-group'>
-                                    <Select
-                                        value={selectedChildCategory}
-                                        onChange={this.handleChangeChildCategory}
-                                        options={listChildCategory}
-                                        placeholder={'Danh mục con'}
-                                        name="selectedChildCategory" />
-                                </div>
-                            </div>
+                        </div>
 
+                        <div className='manage-discount-actions'>
+                            <label>Tìm sản phẩm theo tên:</label>
+                            <input type='text'
+                                id='searchKey'
+                                value={searchKey}
+                                onChange={(event) => this.hanleOnChangeInput(event)}
+                                onKeyUp={(event) => { this.handleKeyUp(event) }}
+                                className='form-control'
+                            />
+                        </div>
 
-                        </div> */}
                         <div className='manage-sharing-table'>
                             <table className='sharing-table'>
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>ID</th>
+                                        <th scope="col">
+                                            <input
+                                                type="checkbox"
+                                                checked={checkAll}
+                                                id="checkAll"
+                                                onChange={(event) => this.handleCheckAll(event)}
+                                            />
+                                        </th>
+                                        <th>STT</th>
+                                        <th>Mã sản phẩm</th>
                                         <th>Ảnh sản phẩm</th>
                                         <th>Danh mục sản phẩm</th>
                                         <th>Tên sản phẩm</th>
@@ -262,7 +352,7 @@ class ManageDiscount extends Component {
 
                             <CustomPagination
                                 totalRecords={listProduct.length}
-                                pageLimit={pageLimit || 5}
+                                pageLimit={pageLimit || 10}
                                 initialPage={1}
                                 pagesToShow={5}
                                 onChangePage={this.onChangePage}
@@ -281,6 +371,7 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         allProductArr: state.admin.allProductArr,
+        actionResponse: state.admin.actionResponse,
         isFetchingData: state.admin.isFetchingData,
     };
 };
@@ -288,7 +379,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
-
+        updateProductDiscount: (inputData) => dispatch(actions.updateProductDiscount(inputData)),
     };
 };
 

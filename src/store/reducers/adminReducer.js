@@ -372,6 +372,18 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.UPDATE_PRODUCT_DISCOUNT_SUCCESS:
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+        case actionTypes.UPDATE_PRODUCT_DISCOUNT_FAIL:
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
+
         case actionTypes.ADMIN_PROCESS_LOGOUT:
             return {
                 ...state,

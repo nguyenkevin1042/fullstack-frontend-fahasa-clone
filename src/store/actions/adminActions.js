@@ -15,7 +15,8 @@ import {
     createNewBillAPI,
     getAllBillAPI,
     updateBillStatusAPI,
-    getProductByNameAPI
+    getProductByNameAPI,
+    updateProductDiscountAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -822,6 +823,40 @@ export const updateProductSuccess = (response) => ({
 
 export const updateProductFail = (response) => ({
     type: actionTypes.UPDATE_PRODUCT_FAIL,
+    response: response
+})
+
+//UPDATE PPRODUCT DISCOUNT
+export const updateProductDiscount = (inputData) => {
+    return async (dispatch, getState) => {
+        // dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        let res;
+        try {
+            res = await updateProductDiscountAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+                dispatch(updateProductDiscountSuccess(res));
+                dispatch(fetchAllProduct());
+                dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+            } else {
+                dispatch(updateProductDiscountFail(res));
+            }
+        } catch (error) {
+            dispatch(updateProductDiscountFail(res));
+            console.log("updateProductDiscount Error: ", error)
+        }
+        // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+    }
+}
+
+export const updateProductDiscountSuccess = (response) => ({
+    type: actionTypes.UPDATE_PRODUCT_DISCOUNT_SUCCESS,
+    response: response
+})
+
+export const updateProductDiscountFail = (response) => ({
+    type: actionTypes.UPDATE_PRODUCT_DISCOUNT_FAIL,
     response: response
 })
 

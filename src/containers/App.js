@@ -30,6 +30,7 @@ import Cart from './customerView/Cart/Cart';
 import OneStepCheckout from './customerView/OneStepCheckout/OneStepCheckout';
 import MakeOrderSuccess from './customerView/OneStepCheckout/MakeOrderSuccess';
 import SearchResult from './customerView/SearchResult/SearchResult';
+import ScrollToTop from '../components/ScrollToTop';
 
 class App extends Component {
 
@@ -57,8 +58,10 @@ class App extends Component {
 
         return (
             <Fragment>
+                {/* <ScrollToTop /> */}
                 <Router history={history}>
                     <div className="main-container">
+
                         <ConfirmModal />
                         <CustomScrollbars style={{ height: '100vh' }}>
 

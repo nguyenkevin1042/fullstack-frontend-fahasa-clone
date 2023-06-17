@@ -74,6 +74,9 @@ class ProductDetail extends Component {
         }
 
         if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
+            console.log('prevProps.match.params.keyName: ', prevProps.match.params.keyName)
+            console.log('this.props.match.params.keyName: ', this.props.match.params.keyName)
+
             await this.props.fetchProductByKeyName(this.props.match.params.keyName);
         }
     }
