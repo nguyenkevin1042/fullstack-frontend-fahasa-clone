@@ -76,8 +76,9 @@ $ex-large: 1200px;// Extra large >= 1200
             cursor: pointer;
 
             .product-image{
-                background: url('../../../assets/product/3300000027418.jpg') center center no-repeat;
                 background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
                 margin: 10px 10px 0 10px ;
 
                 @media (max-width: $medium) {
@@ -97,6 +98,11 @@ $ex-large: 1200px;// Extra large >= 1200
                 overflow: hidden;
                 color: #333333;
                 margin: 3px 6px;
+                line-height: 1.45em;
+                    max-height: 2.8em;
+                    min-height: 2.8em;
+                    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 
                 @media (max-width: $medium) {
                     line-height: 1.2em;

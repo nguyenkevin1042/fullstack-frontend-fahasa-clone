@@ -1,11 +1,7 @@
 .sharing-product-item{
-    // padding-top: 30px;
-    // padding: 0px;
-    // margin-right: 5px;
-// margin:0;
     background-color: white;
     cursor: pointer;
-    height: 300px;
+    height: 320px;
     padding: 10px 5px;
 
     &:hover{
@@ -51,7 +47,7 @@
         
             min-height: 3.3em;
             max-height: 3.3em;
-            font-size: 0.7em;
+            font-size: 1.1em;
             color: #333333;
             text-overflow: ellipsis;
             display: -webkit-box;

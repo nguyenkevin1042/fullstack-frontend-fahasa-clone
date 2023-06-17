@@ -16,7 +16,9 @@ import {
     getAllBillAPI,
     updateBillStatusAPI,
     getProductByNameAPI,
-    updateProductDiscountAPI
+    updateProductDiscountAPI,
+    getTagByTypeAPI,
+    getProductByTagKeyNameAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -975,5 +977,69 @@ export const updateBillStatusSuccess = (response) => ({
 
 export const updateBillStatusFail = (response) => ({
     type: actionTypes.UPDATE_BILL_STATUS_FAIL,
+    response: response
+})
+
+
+//GET PRODUCT BY TAG KEY NAME
+export const getProductByTagKeyName = (inputKeyName) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        let res;
+        try {
+
+            res = await getProductByTagKeyNameAPI(inputKeyName);
+
+            if (res && res.errCode === 0) {
+                dispatch(getProductByTagKeyNameSuccess(res));
+            } else {
+                dispatch(getProductByTagKeyNameFail(res));
+            }
+        } catch (error) {
+            dispatch(getProductByTagKeyNameFail(res));
+            console.log("getProductByTagKeyName Error: ", error)
+        }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+    }
+}
+
+export const getProductByTagKeyNameSuccess = (response) => ({
+    type: actionTypes.GET_PRODUCT_BY_TAG_KEY_NAME_SUCCESS,
+    response: response
+})
+
+export const getProductByTagKeyNameFail = (response) => ({
+    type: actionTypes.GET_PRODUCT_BY_TAG_KEY_NAME_FAIL,
+    response: response
+})
+
+
+//GET TAG BY TYPE
+export const getTagByType = (inputType) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await getTagByTypeAPI(inputType);
+
+            if (res && res.errCode === 0) {
+                dispatch(getTagByTypeSuccess(res));
+            } else {
+                dispatch(getTagByTypeFail(res));
+            }
+        } catch (error) {
+            dispatch(getTagByTypeFail(res));
+            console.log("getTagByTypeError: ", error)
+        }
+    }
+}
+
+export const getTagByTypeSuccess = (response) => ({
+    type: actionTypes.GET_TAG_SUCCESS,
+    response: response
+})
+
+export const getTagByTypeFail = (response) => ({
+    type: actionTypes.GET_TAG_FAIL,
     response: response
 })

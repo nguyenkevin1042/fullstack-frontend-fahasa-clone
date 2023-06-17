@@ -237,6 +237,17 @@ const getAllBillAPI = () => {
     return axios.get("/api/get-all-bill");
 }
 
+//TAG
+const getProductByTagKeyNameAPI = (inputKeyName) => {
+    return axios.get("/api/get-product-by-tag-key-name",
+        { params: { keyName: inputKeyName } });
+}
+
+const getTagByTypeAPI = (inputType) => {
+    return axios.get("/api/get-tag-by-type",
+        { params: { type: inputType } });
+}
+
 
 export {
     //USER
@@ -261,5 +272,8 @@ export {
     //USER ADDRESS
     createNewAddressAPI,
     //BILL
-    createNewBillAPI, getBillByUserIdAPI, getAllBillAPI, updateBillStatusAPI
+    createNewBillAPI, getBillByUserIdAPI, getAllBillAPI, updateBillStatusAPI,
+    //TAG
+    getProductByTagKeyNameAPI, getTagByTypeAPI
+
 };

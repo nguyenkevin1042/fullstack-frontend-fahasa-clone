@@ -16,6 +16,7 @@ class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            notebookTag: ['campus'],
             stationaryArr: ['Dụng Cụ Học Sinh - VPP Giá Sốc',
                 'Bộ Dụng Cụ Học Tập', 'Combo Tiết Kiệm', 'Cặp - Balo'],
             itemArr: ['Đồ Điện Gia Dụng', 'Đồ Dùng Cá Nhân',
@@ -37,7 +38,7 @@ class Homepage extends Component {
 
 
     render() {
-        let { stationaryArr, itemArr } = this.state;
+        let { stationaryArr, itemArr, notebookTag } = this.state;
         return (
             <React.Fragment>
                 <Header />
@@ -47,8 +48,9 @@ class Homepage extends Component {
                 {/* <Trending /> */}
                 <ProductCategory />
 
-                <Products headerArr={stationaryArr} />
-                <Products headerArr={itemArr} />
+                <Products tagType={'notebook'} />
+                {/* <Products headerArr={stationaryArr} />
+                <Products headerArr={itemArr} /> */}
 
                 <SignUpNewletter />
                 <Footer />

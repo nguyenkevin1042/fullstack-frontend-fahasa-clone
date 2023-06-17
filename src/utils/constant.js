@@ -12,7 +12,8 @@ export const path = {
     SEARCH_RESULT: '/search-result',
     CART: '/cart',
     ONE_STEP_CHECKOUT: '/onestepcheckout',
-    ORDER_COMPLETED: '/make-order-success'
+    ORDER_COMPLETED: '/make-order-success',
+    PRODUCT_TAG: '/:tagKeyName?',
 };
 
 export const languages = {

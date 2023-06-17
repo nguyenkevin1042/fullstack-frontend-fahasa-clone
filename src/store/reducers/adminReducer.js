@@ -13,6 +13,7 @@ const initialState = {
     allChildCategoryArr: [],
     allProductArr: [],
     allBillArr: [],
+    allTagArr: [],
     errResponse: '',
     selectedCategory: '',
     subCategory: '',
@@ -379,6 +380,28 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.UPDATE_PRODUCT_DISCOUNT_FAIL:
             state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
+        case actionTypes.GET_TAG_SUCCESS:
+            state.allTagArr = action.response.tags
+            return {
+                ...state,
+            }
+        case actionTypes.GET_TAG_FAIL:
+            state.allTagArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.GET_PRODUCT_BY_TAG_KEY_NAME_SUCCESS:
+            state.allProductArr = action.response.products
+            return {
+                ...state,
+            }
+        case actionTypes.GET_PRODUCT_BY_TAG_KEY_NAME_FAIL:
+            state.allProductArr = []
             return {
                 ...state,
             }
