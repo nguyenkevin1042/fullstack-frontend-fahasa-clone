@@ -35,14 +35,7 @@ class Products extends Component {
         }
 
         if (prevState.selectedTag !== this.state.selectedTag) {
-            // await this.props.getProductByTagKeyName(this.state.selectedTag.keyName)
 
-            // this.setState({
-            //     selectedTag: this.state.selectedTag,
-            //     listProducts: this.state.selectedTag.ProductTags.map(item => item.Product)
-            // })
-            // console.log(prevState.selectedTag)
-            // console.log(this.state.selectedTag.ProductTags.map(item => item.Product))
         }
 
         if (prevState.listProducts !== this.state.listProducts) {
@@ -87,19 +80,11 @@ class Products extends Component {
     }
 
     renderProductHeader = () => {
-        let { selectedTag, listTags } = this.state
+        let { selectedTag } = this.state
         let { tagData, lang } = this.props
         return (
             <>
                 <div className='header-item-list'>
-                    {/* {listTags && listTags.length > 0 &&
-                        listTags.map((item, index) => (
-                            <div className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
-                                onClick={() => this.handleOnClickTag(item)}>
-                                {item.label}
-                            </div>
-                        ))
-                    } */}
                     {tagData && tagData.length > 0 &&
                         tagData.map((item, index) => (
                             <div className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
@@ -144,14 +129,13 @@ class Products extends Component {
                                 thousandSeparator={'.'}
                                 decimalSeparator={','} />
                         </div>
-                        s</>}
+                    </>}
             </>
         )
     }
 
     renderProductList = () => {
-        let { allProductArr } = this.props
-        let { selectedTag, listProducts } = this.state
+        let { listProducts } = this.state
         let settings = {
             className: "products-list",
             dots: false,
@@ -248,11 +232,6 @@ class Products extends Component {
     }
 
     render() {
-
-        let tempList = this.state.listTags
-        // tempList = tempList.slice(0, 10)
-        // console.log(this.state.listProducts)
-
         return (
             <div className='products-container'>
                 <div className='products-header'>
@@ -267,7 +246,6 @@ class Products extends Component {
                     <button>Xem Thêm</button>
                 </div>
             </div>
-
         );
     }
 }
