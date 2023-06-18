@@ -18,7 +18,8 @@ import {
     getProductByNameAPI,
     updateProductDiscountAPI,
     getTagByTypeAPI,
-    getProductByTagKeyNameAPI
+    getProductByTagKeyNameAPI,
+    getAllTagAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -1041,5 +1042,35 @@ export const getTagByTypeSuccess = (response) => ({
 
 export const getTagByTypeFail = (response) => ({
     type: actionTypes.GET_TAG_FAIL,
+    response: response
+})
+
+//GET ALL TAG
+export const getAllTag = () => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await getAllTagAPI();
+
+            if (res && res.errCode === 0) {
+                dispatch(getAllTagSuccess(res));
+            } else {
+                dispatch(getAllTagFail(res));
+            }
+        } catch (error) {
+            dispatch(getAllTagFail(res));
+            console.log("getAllTag: ", error)
+        }
+    }
+}
+
+export const getAllTagSuccess = (response) => ({
+    type: actionTypes.GET_ALL_TAG_SUCCESS,
+    response: response
+})
+
+export const getAllTagFail = (response) => ({
+    type: actionTypes.GET_ALL_TAG_FAIL,
     response: response
 })

@@ -7,8 +7,8 @@ import Slider from "react-slick";
 import { languages } from '../../../utils';
 import NumericFormat from 'react-number-format';
 
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 class Products extends Component {
     constructor(props) {
@@ -21,31 +21,46 @@ class Products extends Component {
     }
 
     async componentDidMount() {
-        let { headerArr, tagType } = this.props
+        let { tagData } = this.props
 
-        await this.props.getTagByType(tagType)
-        await this.props.getProductByTagKeyName(this.state.selectedTag.keyName)
-        // this.setState({
-        //     selectedTag: headerArr ? headerArr[0] : ''
-        // })
+        this.setState({
+            selectedTag: tagData[0],
+            listProducts: tagData[0].ProductTags.map(item => item.Product)
+        })
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
         }
 
+        if (prevState.selectedTag !== this.state.selectedTag) {
+            // await this.props.getProductByTagKeyName(this.state.selectedTag.keyName)
+
+            // this.setState({
+            //     selectedTag: this.state.selectedTag,
+            //     listProducts: this.state.selectedTag.ProductTags.map(item => item.Product)
+            // })
+            // console.log(prevState.selectedTag)
+            // console.log(this.state.selectedTag.ProductTags.map(item => item.Product))
+        }
+
+        if (prevState.listProducts !== this.state.listProducts) {
+            this.setState({
+                listProducts: this.state.listProducts
+            })
+        }
+
         if (prevProps.allTagArr !== this.props.allTagArr ||
             prevProps.lang !== this.props.lang) {
-            let dataTag = this.buildDataInputSelect(this.props.allTagArr);
+            let dataTag = this.buildDataInputSelect(this.props.tagData);
             this.setState({
                 listTags: dataTag,
                 selectedTag: dataTag[0]
             })
         }
 
-        if (prevProps.allProductArr !== this.props.allProductArr ||
-            prevProps.lang !== this.props.lang) {
+        if (prevProps.allProductArr !== this.props.allProductArr) {
             this.setState({
                 listProducts: this.props.allProductArr
             })
@@ -72,16 +87,24 @@ class Products extends Component {
     }
 
     renderProductHeader = () => {
-        let { headerArr } = this.props
         let { selectedTag, listTags } = this.state
+        let { tagData, lang } = this.props
         return (
             <>
                 <div className='header-item-list'>
-                    {listTags && listTags.length > 0 &&
+                    {/* {listTags && listTags.length > 0 &&
                         listTags.map((item, index) => (
                             <div className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
                                 onClick={() => this.handleOnClickTag(item)}>
                                 {item.label}
+                            </div>
+                        ))
+                    } */}
+                    {tagData && tagData.length > 0 &&
+                        tagData.map((item, index) => (
+                            <div className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
+                                onClick={() => this.handleOnClickTag(item)}>
+                                {lang === languages.VI ? item.valueVI : item.valueEN}
                             </div>
                         ))
                     }
@@ -112,12 +135,6 @@ class Products extends Component {
                                 thousandSeparator={'.'}
                                 decimalSeparator={','} />
                         </div>
-                        {/* <div className='item-discount-price'>
-                            
-                        </div>
-                        <div className='item-price'>
-                            
-                        </div> */}
                     </>
                     :
                     <>
@@ -133,7 +150,7 @@ class Products extends Component {
     }
 
     renderProductList = () => {
-        let { headerArr } = this.props
+        let { allProductArr } = this.props
         let { selectedTag, listProducts } = this.state
         let settings = {
             className: "products-list",
@@ -166,9 +183,6 @@ class Products extends Component {
         return (
             <>
                 <Slider {...settings} >
-                    {/* {Array(7).fill(
-                        this.renderAProduct())
-                    } */}
                     {listProducts && listProducts.length > 0 &&
                         listProducts.map((item, index) => {
 
@@ -178,7 +192,7 @@ class Products extends Component {
                             }
 
                             return (
-                                <div className='product-item' title={item.name}>
+                                <div className='product-item' title={item.name} key={index}>
                                     <div className='product-image'
                                         style={{
                                             backgroundImage: "url(" + imageBase64 + ")"
@@ -189,15 +203,6 @@ class Products extends Component {
                                     </div>
                                     <div className='product-price-text'>
                                         {this.renderProductPrice(item.price, item.discount)}
-                                        {/* <div className='product-discount-price'>
-                                            15.000d
-                                            <span className='product-discount'>
-                                                -61%
-                                            </span>
-                                        </div>
-                                        <div className='product-price'>
-                                            35.000d
-                                        </div> */}
 
                                     </div>
                                 </div >
@@ -233,16 +238,20 @@ class Products extends Component {
         )
     }
 
-    handleOnClickTag = (item) => {
+    handleOnClickTag = async (item) => {
+        console.log(item)
         this.setState({
-            selectedTag: item
+            selectedTag: item,
+            listProducts: item.ProductTags.map(item => item.Product)
+
         })
     }
 
     render() {
 
-        console.log(this.props.allProductArr)
-        console.log(this.state.listProducts)
+        let tempList = this.state.listTags
+        // tempList = tempList.slice(0, 10)
+        // console.log(this.state.listProducts)
 
         return (
             <div className='products-container'>

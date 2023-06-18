@@ -219,4 +219,14 @@ $ex-large: 1200px;// Extra large >= 1200
         display: none !important;
     }
 
+    .slick-list{
+        // border: 1px solid red;
+        // transform: translate3d(0px, 0px, 0px) !important;
+        .slick-track{
+            // width: 100% !important;
+            // transform: translate3d(-1rem, 0, 1rem) !important;
+            // transform: translate3d(0px, 0px, 0px) !important;
+        }
+    }
+
 }

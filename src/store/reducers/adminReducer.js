@@ -395,6 +395,17 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.GET_ALL_TAG_SUCCESS:
+            state.allTagArr = action.response.finalTagData
+            return {
+                ...state,
+            }
+        case actionTypes.GET_ALL_TAG_FAIL:
+            state.allTagArr = []
+            return {
+                ...state,
+            }
+
         case actionTypes.GET_PRODUCT_BY_TAG_KEY_NAME_SUCCESS:
             state.allProductArr = action.response.products
             return {

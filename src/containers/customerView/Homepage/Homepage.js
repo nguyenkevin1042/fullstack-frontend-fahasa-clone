@@ -11,12 +11,13 @@ import SignUpNewletter from './SignUpNewletter';
 import ProductCategory from './ProductCategory';
 import FlashSale from './FlashSale';
 import Products from './Products';
+import _ from 'lodash';
 
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notebookTag: ['campus'],
+            tagArr: ['notebook', 'textbook'],
             stationaryArr: ['Dụng Cụ Học Sinh - VPP Giá Sốc',
                 'Bộ Dụng Cụ Học Tập', 'Combo Tiết Kiệm', 'Cặp - Balo'],
             itemArr: ['Đồ Điện Gia Dụng', 'Đồ Dùng Cá Nhân',
@@ -24,8 +25,8 @@ class Homepage extends Component {
         };
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
+        await this.props.getAllTag()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -38,7 +39,14 @@ class Homepage extends Component {
 
 
     render() {
-        let { stationaryArr, itemArr, notebookTag } = this.state;
+        let { tagArr } = this.state;
+
+        let { allTagArr } = this.props;
+
+        console.log(allTagArr)
+
+
+
         return (
             <React.Fragment>
                 <Header />
@@ -46,9 +54,21 @@ class Homepage extends Component {
                 <QuickAccess />
                 {/* <FlashSale /> */}
                 {/* <Trending /> */}
+
                 <ProductCategory />
 
-                <Products tagType={'notebook'} />
+                {allTagArr.map((item, index) => (
+                    <Products tagData={item} />
+                ))}
+
+                {/* {tagArr.map((item, index) => (
+                    <Products tagType={item} index={index} />
+                ))} */}
+
+
+                {/* <Products tagType={'notebook'} />
+                <Products tagType={'textbook'} /> */}
+
                 {/* <Products headerArr={stationaryArr} />
                 <Products headerArr={itemArr} /> */}
 
@@ -63,13 +83,14 @@ class Homepage extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        allTagArr: state.admin.allTagArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        getAllTag: () => dispatch(actions.getAllTag()),
     };
 };
 

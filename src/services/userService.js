@@ -248,6 +248,10 @@ const getTagByTypeAPI = (inputType) => {
         { params: { type: inputType } });
 }
 
+const getAllTagAPI = () => {
+    return axios.get("/api/get-all-tag");
+}
+
 
 export {
     //USER
@@ -274,6 +278,6 @@ export {
     //BILL
     createNewBillAPI, getBillByUserIdAPI, getAllBillAPI, updateBillStatusAPI,
     //TAG
-    getProductByTagKeyNameAPI, getTagByTypeAPI
+    getProductByTagKeyNameAPI, getTagByTypeAPI, getAllTagAPI
 
 };
