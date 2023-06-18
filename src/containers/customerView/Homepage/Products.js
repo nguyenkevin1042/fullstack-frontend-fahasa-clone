@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 import './Products.scss';
 import * as actions from "../../../store/actions";
 import Slider from "react-slick";
@@ -34,8 +35,13 @@ class Products extends Component {
 
         }
 
-        if (prevState.selectedTag !== this.state.selectedTag) {
+        if (prevProps.history !== this.props.history) {
+            // let { tagData } = this.props
 
+            // this.setState({
+            //     selectedTag: tagData[0],
+            //     listProducts: tagData[0].ProductTags.map(item => item.Product)
+            // })
         }
 
         if (prevState.listProducts !== this.state.listProducts) {
@@ -77,6 +83,12 @@ class Products extends Component {
         }
 
         return result;
+    }
+
+    handleRedirectToProductDetail = (productKeyName) => {
+        if (this.props.history) {
+            this.props.history.push("/product/" + productKeyName);
+        }
     }
 
     renderProductHeader = () => {
@@ -176,7 +188,8 @@ class Products extends Component {
                             }
 
                             return (
-                                <div className='product-item' title={item.name} key={index}>
+                                <div className='product-item' title={item.name} key={index}
+                                    onClick={() => this.handleRedirectToProductDetail(item.keyName)} >
                                     <div className='product-image'
                                         style={{
                                             backgroundImage: "url(" + imageBase64 + ")"
@@ -192,7 +205,7 @@ class Products extends Component {
                                 </div >
                             )
                         })}
-                </Slider>
+                </Slider >
             </>
         )
     }
@@ -223,15 +236,22 @@ class Products extends Component {
     }
 
     handleOnClickTag = async (item) => {
-        console.log(item)
         this.setState({
             selectedTag: item,
             listProducts: item.ProductTags.map(item => item.Product)
-
         })
     }
 
+    handleViewMoreProductWithTag = (keyName) => {
+        console.log(keyName)
+        if (this.props.history) {
+            this.props.history.push("/" + keyName);
+        }
+    }
+
     render() {
+        let { selectedTag } = this.state
+
         return (
             <div className='products-container'>
                 <div className='products-header'>
@@ -243,7 +263,8 @@ class Products extends Component {
                 </div>
 
                 <div className='more-product-btn col-12'>
-                    <button>Xem Thêm</button>
+                    <button onClick={() => this.handleViewMoreProductWithTag(selectedTag.keyName)}>
+                        Xem Thêm</button>
                 </div>
             </div>
         );
@@ -254,16 +275,15 @@ class Products extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        allTagArr: state.admin.allTagArr,
-        allProductArr: state.admin.allProductArr,
+        // allTagArr: state.admin.allTagArr,
+        // allProductArr: state.admin.allProductArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getProductByTagKeyName: (keyName) => dispatch(actions.getProductByTagKeyName(keyName)),
-        getTagByType: (type) => dispatch(actions.getTagByType(type)),
+        // getTagByType: (type) => dispatch(actions.getTagByType(type)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products));

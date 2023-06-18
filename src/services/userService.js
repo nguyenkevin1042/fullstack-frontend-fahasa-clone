@@ -252,6 +252,15 @@ const getAllTagAPI = () => {
     return axios.get("/api/get-all-tag");
 }
 
+const getAllTagWithoutProductAPI = () => {
+    return axios.get("/api/get-all-tag-without-product");
+}
+
+//PRODUCT TAG
+const createProductTagAPI = (data) => {
+    return axios.post("/api/create-product-tag", data);
+}
+
 
 export {
     //USER
@@ -278,6 +287,9 @@ export {
     //BILL
     createNewBillAPI, getBillByUserIdAPI, getAllBillAPI, updateBillStatusAPI,
     //TAG
-    getProductByTagKeyNameAPI, getTagByTypeAPI, getAllTagAPI
+    getProductByTagKeyNameAPI, getTagByTypeAPI, getAllTagAPI,
+    getAllTagWithoutProductAPI,
+    //PRODUCT TAG
+    createProductTagAPI
 
 };

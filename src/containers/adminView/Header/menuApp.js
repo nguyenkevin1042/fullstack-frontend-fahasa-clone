@@ -51,6 +51,10 @@ export const adminMenu = [
                 name: 'menu.product.set-discount',
                 link: '/system/product/manage-discount'
             },
+            {
+                name: 'menu.product.set-product-tag',
+                link: '/system/product/manage-product-tag'
+            },
         ]
 
     }

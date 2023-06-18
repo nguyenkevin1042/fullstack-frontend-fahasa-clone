@@ -19,7 +19,9 @@ import {
     updateProductDiscountAPI,
     getTagByTypeAPI,
     getProductByTagKeyNameAPI,
-    getAllTagAPI
+    getAllTagAPI,
+    getAllTagWithoutProductAPI,
+    createProductTagAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -1072,5 +1074,65 @@ export const getAllTagSuccess = (response) => ({
 
 export const getAllTagFail = (response) => ({
     type: actionTypes.GET_ALL_TAG_FAIL,
+    response: response
+})
+
+//GET ALL TAG
+export const getAllTagWithoutProduct = () => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await getAllTagWithoutProductAPI();
+
+            if (res && res.errCode === 0) {
+                dispatch(getAllTagWithoutProductSuccess(res));
+            } else {
+                dispatch(getAllTagWithoutProductFail(res));
+            }
+        } catch (error) {
+            dispatch(getAllTagWithoutProductFail(res));
+            console.log("getAllTagWithoutProduct: ", error)
+        }
+    }
+}
+
+export const getAllTagWithoutProductSuccess = (response) => ({
+    type: actionTypes.GET_ALL_TAG_WITHOUT_PRODUCT_SUCCESS,
+    response: response
+})
+
+export const getAllTagWithoutProductFail = (response) => ({
+    type: actionTypes.GET_ALL_TA_WITHOUT_PRODUCTG_FAIL,
+    response: response
+})
+
+//CREATE PRODUCT TAG
+export const createProductTag = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await createProductTagAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(createProductTagSuccess(res));
+                dispatch(fetchAllProduct());
+            } else {
+                dispatch(createProductTagFail(res));
+            }
+        } catch (error) {
+            dispatch(createProductTagFail(res));
+            console.log("createProductTag Error: ", error)
+        }
+    }
+}
+
+export const createProductTagSuccess = (response) => ({
+    type: actionTypes.CREATE_PRODUCT_TAG_SUCCESS,
+    response: response
+})
+
+export const createProductTagFail = (response) => ({
+    type: actionTypes.CREATE_PRODUCT_TAG_FAIL,
     response: response
 })

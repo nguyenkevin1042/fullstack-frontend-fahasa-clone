@@ -219,7 +219,8 @@
         },
         "product": {
             "header": "Sản phẩm",
-            "set-discount": "Thiết lập giảm giá"
+            "set-discount": "Thiết lập giảm giá",
+            "set-product-tag": "Thiết lập thẻ sản phẩm"
         },
         "user": {
             "header": "Người dùng"

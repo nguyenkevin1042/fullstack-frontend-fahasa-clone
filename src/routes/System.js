@@ -11,6 +11,7 @@ import Header from '../containers/adminView/Header/Header';
 import ManageProduct from '../containers/adminView/System/ManageProduct/ManageProduct';
 import ManageOrders from '../containers/adminView/System/ManageOrders/ManageOrders';
 import ManageDiscount from '../containers/adminView/System/ManageDiscount/ManageDiscount';
+import ManageProductTag from '../containers/adminView/System/ManageProductTag/ManageProductTag';
 
 class System extends Component {
     render() {
@@ -29,6 +30,7 @@ class System extends Component {
                             <Route path="/system/manage-product" component={ManageProduct} />
                             <Route path="/system/product/manage-discount" component={ManageDiscount} />
                             <Route path="/system/manage-orders" component={ManageOrders} />
+                            <Route path="/system/product/manage-product-tag" component={ManageProductTag} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
