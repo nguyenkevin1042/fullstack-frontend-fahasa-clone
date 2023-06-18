@@ -37,6 +37,13 @@ class DropdownAccount extends Component {
             isModalOpened: false
         })
     }
+
+    handleToMyOrder = () => {
+        if (this.props.history) {
+            this.props.history.push("/customer/account");
+        }
+    }
+
     handleSignOut = () => {
         this.props.userProcessLogout();
         if (this.props.history) {
@@ -73,8 +80,18 @@ class DropdownAccount extends Component {
                     </Link>
                 </div>
 
+                <div className='col-12 signed-in-action signed-in-item' onClick={() => this.handleToMyOrder()}>
+                    <div className='bill-icon icon'></div>
+                    <span><FormattedMessage id="customer.homepage.header.account.my-order" /></span>
+                </div>
+
+                <div className='col-12 signed-in-action signed-in-item'>
+                    <div className='wishlist-icon icon'></div>
+                    <span><FormattedMessage id="customer.homepage.header.account.wishlist" /></span>
+                </div>
+
                 <div className='col-12 signed-in-action signed-in-item' onClick={() => this.handleSignOut()}>
-                    <i className="fas fa-sign-out-alt"></i>
+                    <div className='sign-out-icon icon'></div>
                     <span><FormattedMessage id="customer.homepage.header.account.signout" /></span>
                 </div>
             </>

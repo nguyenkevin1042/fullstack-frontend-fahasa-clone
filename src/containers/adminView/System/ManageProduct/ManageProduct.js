@@ -196,27 +196,27 @@ class ManageProduct extends Component {
     }
 
     renderCategoryOfProduct = (item) => {
-        // let language = this.props.lang
+        let language = this.props.lang
 
-        // let category = item.ChildCategory.SubCategory.AllCode
-        // let subCategory = item.ChildCategory.SubCategory
-        // let childCategory = item.ChildCategory
+        let category = item.ChildCategory.SubCategory.AllCode
+        let subCategory = item.ChildCategory.SubCategory
+        let childCategory = item.ChildCategory
 
-        // let categoryVI = category.valueVI
-        // let subCategoryVI = subCategory.valueVI
-        // let childCategoryVI = childCategory.valueVI
+        let categoryVI = category.valueVI
+        let subCategoryVI = subCategory.valueVI
+        let childCategoryVI = childCategory.valueVI
 
-        // let categoryEN = category.valueEN
-        // let subCategoryEN = subCategory.valueEN
-        // let childCategoryEN = childCategory.valueEN
-        // let rightArrow = String.fromCodePoint(parseInt(2192, 16))
+        let categoryEN = category.valueEN
+        let subCategoryEN = subCategory.valueEN
+        let childCategoryEN = childCategory.valueEN
+        let rightArrow = String.fromCodePoint(parseInt(2192, 16))
 
-        // let result = language === languages.VI ?
-        //     categoryVI + rightArrow + subCategoryVI + rightArrow + childCategoryVI :
-        //     categoryEN + rightArrow + subCategoryEN + rightArrow + childCategoryEN
-        // return (
-        //     <>{result}</>
-        // )
+        let result = language === languages.VI ?
+            categoryVI + rightArrow + subCategoryVI + rightArrow + childCategoryVI :
+            categoryEN + rightArrow + subCategoryEN + rightArrow + childCategoryEN
+        return (
+            <>{result}</>
+        )
     }
 
     renderProductsTableData = (products) => {

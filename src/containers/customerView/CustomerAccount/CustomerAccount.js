@@ -10,6 +10,7 @@ import Footer from '../components/Footer';
 import DashboardComponent from './components/DashboardComponent';
 import AccountInformationComponent from './components/AccountInformationComponent';
 import AddressComponent from './components/AddressComponent';
+import MyOrderComponent from './components/MyOrderComponent';
 
 class CustomerAccount extends Component {
     constructor(props) {
@@ -50,7 +51,7 @@ class CustomerAccount extends Component {
                 {selectedSection === 'dashboard' && (<DashboardComponent />)}
                 {selectedSection === 'account-information' && (<AccountInformationComponent />)}
                 {selectedSection === 'address' && (<AddressComponent />)}
-                {selectedSection === 'my-orders' && (<DashboardComponent />)}
+                {selectedSection === 'my-orders' && (<MyOrderComponent />)}
                 {selectedSection === 'voucher' && (<DashboardComponent />)}
                 {selectedSection === 'f-point' && (<DashboardComponent />)}
                 {selectedSection === 'my-reviews' && (<DashboardComponent />)}
@@ -89,12 +90,12 @@ class CustomerAccount extends Component {
                                         <li className={selectedSection === 'address' ? 'active' : ''}
                                             id='address'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.address' />
+                                            <FormattedMessage id='customer.account.address.title' />
                                         </li>
                                         <li className={selectedSection === 'my-orders' ? 'active' : ''}
                                             id='my-orders'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.my-orders' />
+                                            <FormattedMessage id='customer.account.my-orders.title' />
                                         </li>
                                         <li className={selectedSection === 'voucher' ? 'active' : ''}
                                             id='voucher'

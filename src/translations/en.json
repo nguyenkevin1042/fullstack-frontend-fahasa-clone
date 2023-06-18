@@ -10,6 +10,8 @@
                 "cart": "My cart",
                 "account": {
                     "title": "Account",
+                    "my-order": "My Orders",
+                    "wishlist": "Wishlist",
                     "signout": "Sign out"
                 }
             },
@@ -127,8 +129,12 @@
                 "birthday": "Birthday*",
                 "save-changes-text": "Save changes"
             },
-            "address": "Address",
-            "my-orders": "My orders",
+            "address": {
+                "title": "Address"
+            },
+            "my-orders": {
+                "title": "My orders"
+            },
             "voucher": "Voucher wallet",
             "book-set": "Book set",
             "f-point": "F-point/Freeship",

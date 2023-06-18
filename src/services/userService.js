@@ -261,6 +261,14 @@ const createProductTagAPI = (data) => {
     return axios.post("/api/create-product-tag", data);
 }
 
+const updateProductTagAPI = (data) => {
+    return axios.post("/api/update-product-tag", data);
+}
+
+const deleteProductTagAPI = (data) => {
+    return axios.delete("/api/delete-product-tag", data);
+}
+
 
 export {
     //USER
@@ -290,6 +298,6 @@ export {
     getProductByTagKeyNameAPI, getTagByTypeAPI, getAllTagAPI,
     getAllTagWithoutProductAPI,
     //PRODUCT TAG
-    createProductTagAPI
+    createProductTagAPI, deleteProductTagAPI, updateProductTagAPI
 
 };

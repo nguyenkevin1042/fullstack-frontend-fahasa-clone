@@ -541,12 +541,14 @@ class ProductList extends Component {
     }
 
     render() {
-        let { isLoading, listProduct } = this.state
+        let { isLoading, listProduct, keyName, selectedCategory, selectedSubCategory } = this.state
         let { totalPages, currentPage, pageLimit,
             startIndex, endIndex, selectedPageLimit, numberOfProductsArr } = this.state;
         let rowsPerPage = [];
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
+
+        console.log(this.props.allCodesArr)
 
         return (
             <React.Fragment>

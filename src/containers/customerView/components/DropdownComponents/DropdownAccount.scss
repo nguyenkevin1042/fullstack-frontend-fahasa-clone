@@ -50,6 +50,26 @@
 
     //SIGNED IN
     .signed-in-item{
+        display: flex;
+        align-items: center;
+        
+        .icon{
+            width: 24px;
+            height: 24px;
+        }
+        .bill-icon{
+            background: url('../../../../assets/header/account-dropdown/ico_bill_gray.svg') no-repeat center center;
+            background-size: contain; 
+        }
+        .wishlist-icon{
+            background: url('../../../../assets/header/account-dropdown/ico-heart-gray.svg') no-repeat center center;
+            background-size: contain; 
+        }
+        .sign-out-icon{
+            background: url('../../../../assets/header/account-dropdown/ico_logout_gray.svg') no-repeat center center;
+            background-size: contain; 
+        }
+
         &:hover {
             background-color: #F2F4F5 !important;
         }

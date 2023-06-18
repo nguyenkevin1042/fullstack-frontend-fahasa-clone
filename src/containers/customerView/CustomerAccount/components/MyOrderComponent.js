@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
+import './MyOrderComponent.scss';
 
 import { languages } from '../../../../utils'
-import './DashboardComponent.scss';
 import * as actions from "../../../../store/actions";
 import moment from 'moment';
 import NumericFormat from 'react-number-format';
 
-class DashboardComponent extends Component {
+class MyOrderComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,13 +22,13 @@ class DashboardComponent extends Component {
         if (this.props.userInfo) {
             await this.props.getBillByUserId(this.props.userInfo.id)
         }
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
         }
+
 
         if (prevProps.billData !== this.props.billData) {
             this.setState({
@@ -45,8 +45,8 @@ class DashboardComponent extends Component {
     }
 
     renderOrderData = () => {
-        let { billData, lang, userInfo, actionResponse } = this.props
-        let { listUserOrders, message } = this.state
+        let { billData, lang } = this.props
+        let { message } = this.state
 
         return (
             <>
@@ -92,74 +92,45 @@ class DashboardComponent extends Component {
                             </tr>
                         )
                     }) :
-                    <></>}
-
-                <div className='no-order-text'>{message}</div>
+                    <div className='no-order-text'>{message}</div>
+                }
             </>
         )
 
     }
 
-
     render() {
-        let { message, listUserOrders } = this.state
+        let { message } = this.state
         let { userInfo, lang, actionResponse } = this.props
 
+        console.log(userInfo)
+
         return (
-            <React.Fragment>
+            <div className='right-content-my-order'>
                 <div className='right-content-header'>
-                    <FormattedMessage id='customer.account.dashboard.title' />
-                </div>
-                <div className='dashboard-customer'>
-                    <div className='col-12'>
-                        <label><FormattedMessage id='customer.account.dashboard.full-name' />:</label>
-                        {userInfo ?
-                            <>
-                                {lang === languages.VI ?
-                                    <b className='mx-3'>{userInfo.firstName} {userInfo.lastName}</b> :
-                                    <b className='mx-3'>{userInfo.lastName} {userInfo.firstName}</b>
-                                }
-                            </>
-                            :
-                            <p><FormattedMessage id="customer.homepage.header.account.title" /></p>
-                        }
-
-                        {/* <b className='mx-3'>{ userInfo.firstName } {userInfo.lastName}</b> */}
-                    </div>
-                    <div className='col-12'>
-                        <label><FormattedMessage id='customer.account.dashboard.email' />:</label>
-                        <b className='mx-3'>{userInfo && <>{userInfo.email}</>}</b>
-                    </div>
-                    <div className='col-12'>
-                        <label><FormattedMessage id='customer.account.dashboard.member-level' />:</label>
-                        <b className='mx-3'>Member</b>
-                    </div>
+                    <FormattedMessage id='customer.account.my-orders.title' />
                 </div>
 
-                <div className='recent-order'>
-                    <div className='recent-order-title'>
-                        <p className='title-text'>
-                            <FormattedMessage id='customer.account.dashboard.recent-orders' />
-                        </p>
-                        {actionResponse.errCode === 0 ?
-                            <p className='view-all-text'>
-                                <FormattedMessage id='customer.account.dashboard.view-all' />
-                            </p> : <></>}
-                    </div>
-                    <div className='recent-order-table'>
-                        <table>
-                            <tr>
-                                <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.total' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.status' /></th>
-                            </tr>
-                            {this.renderOrderData()}
-                        </table>
-                    </div>
-                </div >
-            </React.Fragment >
+                <div>
+                    <div className='recent-order'>
+
+                        <div className='recent-order-table'>
+
+                            <table>
+                                <tr>
+                                    <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.total' /></th>
+                                    <th><FormattedMessage id='customer.account.dashboard.status' /></th>
+
+                                </tr>
+                                {this.renderOrderData()}
+                            </table>
+                        </div>
+                    </div >
+                </div>
+            </div>
         );
     }
 }
@@ -180,4 +151,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DashboardComponent));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyOrderComponent));

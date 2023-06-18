@@ -21,7 +21,9 @@ import {
     getProductByTagKeyNameAPI,
     getAllTagAPI,
     getAllTagWithoutProductAPI,
-    createProductTagAPI
+    createProductTagAPI,
+    updateProductTagAPI,
+    deleteProductTagAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -1134,5 +1136,65 @@ export const createProductTagSuccess = (response) => ({
 
 export const createProductTagFail = (response) => ({
     type: actionTypes.CREATE_PRODUCT_TAG_FAIL,
+    response: response
+})
+
+//UPDATE PRODUCT TAG
+export const updateProductTag = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await updateProductTagAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(updateProductTagSuccess(res));
+                dispatch(fetchAllProduct());
+            } else {
+                dispatch(updateProductTagFail(res));
+            }
+        } catch (error) {
+            dispatch(updateProductTagFail(res));
+            console.log("updateProductTag Error: ", error)
+        }
+    }
+}
+
+export const updateProductTagSuccess = (response) => ({
+    type: actionTypes.UPDATE_PRODUCT_TAG_SUCCESS,
+    response: response
+})
+
+export const updateProductTagFail = (response) => ({
+    type: actionTypes.UPDATE_PRODUCT_TAG_FAIL,
+    response: response
+})
+
+//DELETE PRODUCT TAG
+export const deleteProductTag = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await deleteProductTagAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(deleteProductTagSuccess(res));
+                dispatch(fetchAllProduct());
+            } else {
+                dispatch(deleteProductTagFail(res));
+            }
+        } catch (error) {
+            dispatch(deleteProductTagFail(res));
+            console.log("deleteProductTag Error: ", error)
+        }
+    }
+}
+
+export const deleteProductTagSuccess = (response) => ({
+    type: actionTypes.DELETE_PRODUCT_TAG_SUCCESS,
+    response: response
+})
+
+export const deleteProductTagFail = (response) => ({
+    type: actionTypes.DELETE_PRODUCT_TAG_FAIL,
     response: response
 })

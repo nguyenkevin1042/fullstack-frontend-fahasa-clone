@@ -8,7 +8,6 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 import CustomPagination from '../../../../components/CustomPagination';
 
-import NumericFormat from 'react-number-format';
 import LoadingOverlay from 'react-loading-overlay'
 
 class ManageProductTag extends Component {
@@ -202,6 +201,14 @@ class ManageProductTag extends Component {
         });
     }
 
+    handleEdit = (item) => {
+        console.log(item)
+    }
+
+    handleDelete = (item) => {
+        console.log(item)
+    }
+
     renderProductsTableData = (products) => {
         return (
             <>
@@ -237,6 +244,14 @@ class ManageProductTag extends Component {
                                     <td>
                                         {productData.ProductTags && productData.ProductTags[0] ?
                                             productData.ProductTags[0].Tag.valueVI : ''}
+                                    </td>
+                                    <td>
+                                        <button className='btn-edit'
+                                            onClick={() => this.handleEdit(item)}
+                                        > <i className="fas fa-pencil-alt"></i></button>
+                                        <button className='btn-delete'
+                                            onClick={() => this.handleDelete(item)}
+                                        ><i className="fas fa-trash"></i></button>
                                     </td>
                                 </tr >
                             </>
@@ -290,7 +305,6 @@ class ManageProductTag extends Component {
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
-        console.log(this.props.allProductArr)
         return (
             <>
                 <LoadingOverlay
@@ -346,7 +360,7 @@ class ManageProductTag extends Component {
                                         <th>Danh mục sản phẩm</th>
                                         <th>Tên sản phẩm</th>
                                         <th>Thẻ sản phấm</th>
-
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -386,6 +400,8 @@ const mapDispatchToProps = dispatch => {
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
         getAllTagWithoutProduct: () => dispatch(actions.getAllTagWithoutProduct()),
         createProductTag: (inputData) => dispatch(actions.createProductTag(inputData)),
+        updateProductTag: (inputData) => dispatch(actions.updateProductTag(inputData)),
+        deleteProductTag: (inputData) => dispatch(actions.deleteProductTag(inputData)),
     };
 };
 

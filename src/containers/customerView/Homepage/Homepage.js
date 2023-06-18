@@ -18,10 +18,7 @@ class Homepage extends Component {
         super(props);
         this.state = {
             tagArr: ['notebook', 'textbook'],
-            stationaryArr: ['Dụng Cụ Học Sinh - VPP Giá Sốc',
-                'Bộ Dụng Cụ Học Tập', 'Combo Tiết Kiệm', 'Cặp - Balo'],
-            itemArr: ['Đồ Điện Gia Dụng', 'Đồ Dùng Cá Nhân',
-                'Nhà Cửa Đời Sống', 'Thiết Bị Số - Phụ Kiện Số']
+
         };
     }
 
@@ -33,19 +30,12 @@ class Homepage extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
-
-
     }
 
 
     render() {
         let { tagArr } = this.state;
-
         let { allTagArr } = this.props;
-
-        console.log(allTagArr)
-
-
 
         return (
             <React.Fragment>

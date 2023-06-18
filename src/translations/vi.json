@@ -10,6 +10,8 @@
                 "cart": "Giỏ hàng",
                 "account": {
                     "title": "Tài khoản",
+                    "my-order": "Đơn hàng của tôi",
+                    "wishlist": "Danh sách yêu thích",
                     "signout": "Thoát tài khoản"
                 }
             },
@@ -131,8 +133,12 @@
                 "birthday": "Ngày sinh*",
                 "save-changes-text": "Lưu thay đổi"
             },
-            "address": "Sổ địa chỉ",
-            "my-orders": "Đơn hàng của tôi",
+            "address": {
+                "title": "Sổ địa chỉ"
+            },
+            "my-orders": {
+                "title": "Đơn hàng của tôi"
+            },
             "voucher": "Ví voucher",
             "book-set": "Sách theo bộ",
             "f-point": "Tài khoản F-point/Freeship",

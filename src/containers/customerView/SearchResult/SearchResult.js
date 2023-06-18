@@ -14,6 +14,8 @@ import Select from 'react-select';
 import CustomPagination from '../../../components/CustomPagination';
 import LoadingOverlay from 'react-loading-overlay'
 
+import Breadcrumb from 'rsuite/Breadcrumb';
+
 class SearchResult extends Component {
     constructor(props) {
         super(props);
@@ -196,6 +198,16 @@ class SearchResult extends Component {
         return (
             <React.Fragment>
                 <Header />
+
+                <Breadcrumb separator={'>'}>
+                    <Breadcrumb.Item href="/">
+                        Home
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item href="/components/overview">
+                        Components
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item active>Breadcrumb</Breadcrumb.Item>
+                </Breadcrumb>
 
                 <div className='search-result-container'>
                     <div className='search-result-content'>
