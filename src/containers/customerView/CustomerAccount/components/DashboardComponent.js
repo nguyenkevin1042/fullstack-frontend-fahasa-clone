@@ -53,12 +53,14 @@ class DashboardComponent extends Component {
                 {billData && billData.length > 0 ?
                     billData.map((item, index) => {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
+
                         return (
                             <tr>
                                 <td>{item.id}</td>
                                 <td>{orderedDate}</td>
                                 <td>
-                                    {item.UserAddress.fullName}
+                                    {item.UserAddress && item.UserAddress.fullName &&
+                                        item.UserAddress.fullName}
                                 </td>
                                 <td>
                                     <NumericFormat value={item.totalPrice}

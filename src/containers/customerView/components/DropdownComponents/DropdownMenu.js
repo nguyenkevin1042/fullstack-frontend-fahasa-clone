@@ -114,7 +114,7 @@ class DropdownMenu extends Component {
         if (this.props.history) {
             this.props.history.push("/category/" + item.keyName);
         }
-        this.props.closeMenu()
+        // this.props.closeMenu()
     }
 
     hanldeRedirectToSubCategoryProductList = (event, item) => {

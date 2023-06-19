@@ -18,6 +18,11 @@ class SignInComponent extends Component {
     }
 
     componentDidMount() {
+        if (this.props.userInfo) {
+            if (this.props.history) {
+                this.props.history.push("/customer/account");
+            }
+        }
         this.setState({
             message: ''
         })
@@ -30,6 +35,23 @@ class SignInComponent extends Component {
                     this.props.actionResponse.messageVI :
                     this.props.actionResponse.messageEN
             })
+
+            if (this.props.actionResponse.errCode === 0) {
+                if (this.props.history.location.pathname === '/customer/account/login') {
+                    this.props.history.push("/customer/account");
+                }
+
+                if (this.props.closeAccountModal) {
+                    this.props.closeAccountModal();
+                }
+            }
+        }
+
+        if (prevProps.userInfo !== this.props.userInfo) {
+            if (this.props.history) {
+                this.props.history.push("/customer/account");
+            }
+            // this.props.history.push("/customer/account");
         }
 
     }
@@ -42,23 +64,10 @@ class SignInComponent extends Component {
     }
 
     handleLogin = async () => {
-        let { actionResponse } = this.props
-
         this.setState({
             message: ''
         })
         await this.props.userLogin(this.state.email, this.state.password)
-
-        if (actionResponse && actionResponse.errCode === 0) {
-            if (this.props.history) {
-                this.props.history.push("/home");
-            }
-
-            if (this.props.closeAccountModal) {
-                await this.props.closeAccountModal();
-            }
-        }
-
     }
 
 

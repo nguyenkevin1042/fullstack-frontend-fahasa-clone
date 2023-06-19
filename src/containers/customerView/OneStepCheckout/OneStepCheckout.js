@@ -26,11 +26,16 @@ class OneStepCheckout extends Component {
 
     async componentDidMount() {
         document.title = "One Step Checkout | Nguyenkevin1042's Fahasa Clone"
-        await this.props.fetchAllCodesByType('payment')
-        this.setState({
-            listUserAddress: this.props.userInfo.UserAddresses,
-            listProduct: JSON.parse(localStorage.getItem('selectedProducts'))
-        })
+        if (this.props.userInfo) {
+            await this.props.fetchAllCodesByType('payment')
+            this.setState({
+                listUserAddress: this.props.userInfo.UserAddresses,
+                listProduct: JSON.parse(localStorage.getItem('selectedProducts'))
+            })
+        } else {
+            // this.props.history.push("/home");
+
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -39,10 +44,13 @@ class OneStepCheckout extends Component {
         }
 
         if (prevProps.userInfo !== this.props.userInfo) {
-            let dataUserAddress = this.buildDataInputSelect(this.props.userInfo.UserAddresses, 'address');
-            this.setState({
-                listUserAddress: dataUserAddress
-            })
+            // let dataUserAddress = this.buildDataInputSelect(this.props.userInfo.UserAddresses, 'address');
+            // this.setState({
+            //     listUserAddress: dataUserAddress
+            // })
+            // if (!this.props.userInfo) {
+            //     this.props.history.push("/home");
+            // }
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -283,10 +291,10 @@ class OneStepCheckout extends Component {
     }
 
     render() {
-        let { isOpenAddNewAddress } = this.state
+        let { isOpenAddNewAddress, listProduct } = this.state
 
-        console.log(this.props.userInfo.UserAddresses)
-
+        // console.log(JSON.parse(localStorage.getItem('selectedProducts')))
+        console.log(this.props.userInfo)
         return (
             <React.Fragment>
                 <Header />
@@ -311,15 +319,17 @@ class OneStepCheckout extends Component {
                         </div>
                     </div>
                 </div>
+
                 {/* SHIPPING METHOD */}
-                <div className='shipping-method-container sharing-container'>
+                {/* <div className='shipping-method-container sharing-container'>
                     <div className='shipping-method-content sharing-content'>
                         <div className='shipping-method-title sharing-title'>
                             <FormattedMessage id="customer.one-time-checkout.shipping-method" />
                         </div>
 
                     </div>
-                </div>
+                </div> */}
+
                 {/* PAYMENT METHOD */}
                 <div className='payment-method-container sharing-container'>
                     <div className='payment-method-content sharing-content'>
@@ -358,14 +368,14 @@ class OneStepCheckout extends Component {
                                     suffix={'đ'} />
                             </div>
                         </div>
-                        <div className='sharing-up-content'>
+                        {/* <div className='sharing-up-content'>
                             <label className='total-price-label'>
                                 <FormattedMessage id="customer.one-time-checkout.shipping-fee" />
                             </label>
                             <div className='total-price-text'>
                                 31.000d
                             </div>
-                        </div>
+                        </div> */}
                         <div className='sharing-up-content'>
                             <label className='total-price-vat-label'>
                                 <FormattedMessage id="customer.cart.grand-total" />

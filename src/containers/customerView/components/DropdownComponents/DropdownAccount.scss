@@ -52,10 +52,12 @@
     .signed-in-item{
         display: flex;
         align-items: center;
+        justify-content: left;
         
         .icon{
             width: 24px;
             height: 24px;
+            margin: 0;
         }
         .bill-icon{
             background: url('../../../../assets/header/account-dropdown/ico_bill_gray.svg') no-repeat center center;

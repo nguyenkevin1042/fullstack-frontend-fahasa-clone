@@ -16,7 +16,7 @@ class Cart extends Component {
         super(props);
         this.state = {
             allProductTotalPrice: '',
-            listProductInCart: '',
+            listProductInCart: [],
             selectedProducts: [],
             listProductWillBuy: [],
             checkAll: false
@@ -27,6 +27,9 @@ class Cart extends Component {
         document.title = "Cart | Nguyenkevin1042's Fahasa Clone"
         if (this.props.userInfo) {
             await this.props.getCartByUserId(this.props.userInfo.id)
+            this.setState({
+                listProductInCart: this.props.cartData
+            })
         }
 
     }
@@ -38,15 +41,11 @@ class Cart extends Component {
                 copyState.listProductInCart.map(
                     item => copyState.selectedProducts.push(item));
                 this.setState({ ...copyState });
-                console.log('prevState.selectedProducts: ', prevState.selectedProducts)
-                console.log('this.state.selectedProducts: ', this.state.selectedProducts)
             } else {
                 this.setState({
                     selectedProducts: []
                 })
             }
-
-
         }
 
         if (prevProps.cartData !== this.props.cartData) {
@@ -60,11 +59,11 @@ class Cart extends Component {
             await this.props.getCartByUserId(this.props.userInfo.id)
         }
 
-        if (prevProps.cartData !== this.props.cartData) {
-            this.setState({
-                listProductInCart: this.props.cartData
-            })
-        }
+        // if (prevProps.cartData !== this.props.cartData) {
+        //     this.setState({
+        //         listProductInCart: this.props.cartData
+        //     })
+        // }
     }
 
     countTotalPrice = () => {
@@ -124,26 +123,26 @@ class Cart extends Component {
                 <table>
                     <div className='left-content-up'>
                         <tr className='row'>
-                            <th className='col-xl-1'>
+                            <th className='col-1'>
                                 <input type="checkbox" id="check-all" name="check-all"
                                     onClick={(event) => this.handleCheckAllProducts(event)} />
                             </th>
-                            <th className='col-xl-6'>
+                            <th className='col-6'>
                                 <label for="choose-all">
                                     <FormattedMessage id="customer.cart.choose-all" />
                                 </label>
                             </th>
-                            <th className='col-xl-2'>
+                            <th className='col-2 d-none d-lg-block'>
                                 <label>
                                     <FormattedMessage id="customer.cart.quantity" />
                                 </label>
                             </th>
-                            <th className='col-xl-2'>
+                            <th className='col-2 d-none d-lg-block'>
                                 <label>
                                     <FormattedMessage id="customer.cart.subtotal" />
                                 </label>
                             </th>
-                            <th className='col-xl-1'></th>
+                            <th className='col-1'></th>
                         </tr>
                     </div>
 
@@ -155,7 +154,6 @@ class Cart extends Component {
                                 addItemToSelectedProducts={this.handleAddSelectedProduct}
                                 deleteItemSelectedProducts={this.handleDeleteSelectedProduct}
                                 checkAll={checkAll} />)
-
                             )
                         }
                     </div>
@@ -236,7 +234,7 @@ class Cart extends Component {
                             </div>
                         </div>
                         <div className='pay-check-btn'>
-                            {selectedProducts.length > 0 ?
+                            {selectedProducts && selectedProducts.length > 0 ?
                                 < button className='click-allowed'
                                     onClick={() => this.handleToOneStepCheckout()}>
                                     <FormattedMessage id="customer.cart.checkout" />

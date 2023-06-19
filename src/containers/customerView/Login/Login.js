@@ -29,9 +29,9 @@ class Login extends Component {
 
         }
         if (prevProps.userInfo !== this.props.userInfo) {
-            if (this.props.history) {
-                this.props.history.push("/customer/account");
-            }
+            // if (this.props.history) {
+            //     this.props.history.push("/customer/account");
+            // }
         }
     }
 

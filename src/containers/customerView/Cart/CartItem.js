@@ -152,7 +152,7 @@ class CartItem extends Component {
         return (
             <React.Fragment>
                 <tr className='cart-item row'>
-                    <td className='col-xl-1'>
+                    <td className='col-1 col-xl-1'>
                         {checkAll == true ?
                             <input type="checkbox" id="choose" name="choose"
                                 onClick={(event) => this.handleCheckThisProduct(event)}
@@ -164,7 +164,7 @@ class CartItem extends Component {
                             onClick={(event) => this.handleCheckThisProduct(event)}
                         /> */}
                     </td>
-                    <td className='product-section col-xl-6'>
+                    <td className='product-section col-5 col-xl-6'>
                         <div className='product-img col-xl-3'
                             style={{
                                 backgroundImage: "url(" + imageBase64 + ")"
@@ -182,20 +182,20 @@ class CartItem extends Component {
                             </div>
                         </div>
                     </td>
-                    <td className='col-xl-2'>
+                    <td className='col-3 col-xl-2'>
                         <ChangingQuantityComponent
                             quantityValue={productInCart.quantity}
                             onChange={this.eventhandler}
                             handleUpdateCartProduct={this.handleUpdateCartProduct} />
                     </td>
-                    <td className='total-price-text col-xl-2'>
+                    <td className='total-price-text col-2 col-xl-2'>
                         <NumericFormat value={totalPrice}
                             displayType={'text'}
                             thousandSeparator={'.'}
                             decimalSeparator={','}
                             suffix={'đ'} />
                     </td>
-                    <td className='delete-action col-xl-1'>
+                    <td className='delete-action col-1 col-xl-1'>
                         <i className="fas fa-trash"
                             onClick={() => this.handleDeleteItem(productInCart)}></i>
                     </td>

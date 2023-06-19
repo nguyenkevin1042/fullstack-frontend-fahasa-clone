@@ -96,6 +96,7 @@ class AccountInformationComponent extends Component {
     }
 
     onChangeRadioValue = (event) => {
+        console.log()
         this.setState({
             gender: event.target.value
         })
@@ -117,7 +118,6 @@ class AccountInformationComponent extends Component {
         let { firstName, lastName, phoneNumber, email, gender, birthday,
             oldPassword, newPassword, retypeNewPassword, message, listGender } = this.state
 
-        console.log(this.props.actionResponse)
         return (
             <React.Fragment>
                 <div className='right-content-header'>
@@ -162,7 +162,8 @@ class AccountInformationComponent extends Component {
                         <input className='form-control col-xl-7'
                             value={email}
                             id='email'
-                            onChange={(event) => this.handleOnChangeInput(event)} />
+                            // onChange={(event) => this.handleOnChangeInput(event)}
+                            readOnly />
                     </div>
 
                     <div className='row mt-3'>
@@ -179,6 +180,7 @@ class AccountInformationComponent extends Component {
                                                 value={item.keyMap}
                                                 name="gender"
                                                 onChange={(event) => this.onChangeRadioValue(event)}
+                                                checked={gender === item.keyMap ? true : false}
                                             />
                                             {item.label}
                                         </label>
@@ -190,11 +192,11 @@ class AccountInformationComponent extends Component {
 
                     </div>
 
-                    <div className='row mt-3'>
+                    {/* <div className='row mt-3'>
                         <label className='col-xl-3'>
                             <FormattedMessage id='customer.account.account-information.birthday' />
                         </label>
-                    </div>
+                    </div> */}
 
                     <div className=' error-message mt-4'>
                         {message}

@@ -1,6 +1,71 @@
-.cart-container{
-    padding: 20px 40px;
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
 
+@media (max-width: $medium) {
+    .cart-container{
+        margin: 20px 0;
+        
+        .no-products-content{
+
+            .no-products-img{
+                height: 30vw;
+            }
+            .shopping-now-btn{
+
+                button{
+                    width: 50%;
+                    font-weight: 500;
+                }
+               
+            }
+        }
+    }
+}
+
+@media (min-width: $medium) {
+    .cart-container{
+        margin: 20px;
+        .no-products-content{
+            .no-products-img{
+                height: 20vw;
+            }
+            .shopping-now-btn{
+
+                button{
+                    width: 50%;
+                    font-weight: 500;
+                }
+               
+            }
+        }
+    }
+}
+
+@media (min-width: $large) {
+    .cart-container{
+        margin: 20px 30px;
+
+        .no-products-content{
+            border-radius: 10px;
+
+            .no-products-img{
+                height: 10vw;
+            }
+
+            .shopping-now-btn{
+                button{
+                     width: 20%;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+.cart-container{
     table{
         width: 100%;
 
@@ -208,13 +273,11 @@
     .no-products-content{
         padding: 30px 0;
         background-color: white;
-        border-radius: 10px;
         display: block;
 
         .no-products-img{
             background: url('./../../../assets/ico_emptycart.svg') no-repeat center center;
             background-size: contain;
-            height: 10vw;
             margin-bottom: 15px;
         }
         .no-products-text{
@@ -223,12 +286,12 @@
         }
         .shopping-now-btn{
             text-align: center;
+
             button{
                 background-color: #C92127;
                 color: white;
                 border: none;
                 border-radius: 8px;
-                 width: 20%;
                 text-transform: uppercase;
                 padding: 10px 0;
                 font-weight: 600;

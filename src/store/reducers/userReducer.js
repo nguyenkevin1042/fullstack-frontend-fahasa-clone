@@ -32,7 +32,7 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 actionResponse: action.response,
                 isLoggedIn: true,
-                userInfo: action.response.resUser
+                userInfo: action.response.user
             }
         case actionTypes.UPDATE_USER_FAIL:
             return {
@@ -88,7 +88,9 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.CREATE_NEW_USER_ADDRESS_SUCCESS:
             return {
                 ...state,
-                actionResponse: action.response
+                actionResponse: action.response,
+                isLoggedIn: true,
+                userInfo: action.response.user
             }
         case actionTypes.CREATE_NEW_USER_ADDRESS_FAIL:
             return {

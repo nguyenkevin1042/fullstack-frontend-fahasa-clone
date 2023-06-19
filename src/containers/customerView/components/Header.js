@@ -146,12 +146,6 @@ class Header extends Component {
         this.props.changeLanguageApp(selectedLanguage.value);
     }
 
-    handleCloseDropdownMenu = () => {
-        this.setState({
-            isOpened: false
-        })
-    }
-
     handleRedirectToLoginPage = () => {
         if (this.props.history) {
             this.props.history.push("/customer/account/login");

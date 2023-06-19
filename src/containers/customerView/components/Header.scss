@@ -99,8 +99,9 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (min-width: $large) {
     .home-header-container{
+        border: 1px solid red;
         background-color: white;
-        padding: 25px 30px 10px 55px;
+        padding: 25px 30px 10px 45px;
 
         .home-header-logo{
             background: url('./../../../assets/fahasa_logo.png') no-repeat center center;

@@ -27,6 +27,12 @@ class MakeOrderSuccess extends Component {
 
     }
 
+    handleToHomepage = () => {
+        if (this.props.history) {
+            this.props.history.push("/home");
+        }
+    }
+
 
     render() {
         return (
@@ -40,7 +46,8 @@ class MakeOrderSuccess extends Component {
                         </div>
                         <div className='completed-ordering-icon'></div>
                         <div className='completed-ordering-button'>
-                            <button className='to-homepage-btn'>
+                            <button className='to-homepage-btn'
+                                onClick={() => this.handleToHomepage()}>
                                 <FormattedMessage id="customer.make-order-success.to-homepage" />
                             </button>
                             <button className='check-order-btn'>

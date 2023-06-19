@@ -86,12 +86,12 @@ export const updateUser = (inputData) => {
 }
 
 export const updateUserSuccess = (response) => ({
-    type: actionTypes.USER_LOGIN_SUCCESS,
+    type: actionTypes.UPDATE_USER_SUCCESS,
     response: response
 })
 
 export const updateUserFail = (response) => ({
-    type: actionTypes.USER_LOGIN_FAIL,
+    type: actionTypes.UPDATE_USER_FAIL,
     response: response
 })
 

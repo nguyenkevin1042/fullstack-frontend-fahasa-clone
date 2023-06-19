@@ -25,6 +25,12 @@ class DropdownAccount extends Component {
 
         }
 
+        if (this.props.userInfo && prevProps.userInfo !== this.props.userInfo) {
+            // if (this.props.history.location.pathname === '/customer/account') {
+            //     this.props.history.push("/home");
+            // }
+        }
+
     }
 
     handleOpenAccountModal = () => {
@@ -46,9 +52,11 @@ class DropdownAccount extends Component {
 
     handleSignOut = () => {
         this.props.userProcessLogout();
-        if (this.props.history) {
+        if (this.props.history.location.pathname === '/customer/account' ||
+            this.props.history.location.pathname === '/onestepcheckout') {
             this.props.history.push("/home");
         }
+
     }
 
     renderIfNotSignIn = () => {

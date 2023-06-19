@@ -46,7 +46,6 @@ class Homepage extends Component {
         let { tagArr, isLoading } = this.state;
         let { allTagArr } = this.props;
 
-        console.log(allTagArr)
         return (
             <React.Fragment>
                 <Header />
