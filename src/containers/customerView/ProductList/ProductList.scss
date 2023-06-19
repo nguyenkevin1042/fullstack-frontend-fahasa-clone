@@ -1,5 +1,33 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (max-width: $small){
+    .product-list-container{
+        .left-menu-content{
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media (max-width: $large){
+    .product-list-container{
+        .left-menu-content{
+            margin-bottom: 10px;
+        }
+    }
+}
+@media (min-width: $large){
+    .product-list-container{
+        margin: 20px 65px 0 45px;
+    }
+}
+
+
 .product-list-container{
-    margin: 20px 55px 0 40px;
+    padding: 0;
 
     .left-menu-content{
         .left-content{
@@ -62,7 +90,6 @@
 
     .right-list-container{
         background-color: white;
-        padding: 0;
         height: fit-content;
 
         .sort-actions{

@@ -95,7 +95,7 @@ class Login extends Component {
         return (
             <>
                 <Header />
-                <div className='log-in-container'>
+                <div className='log-in-container container-fluid'>
                     <div className='log-in-content'>
                         <div className='log-in-form'>
                             <div className='log-in-header'>

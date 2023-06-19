@@ -532,7 +532,7 @@ class ProductList extends Component {
                 {products && products.length > 0 &&
                     products.map((item, index) => (
                         <div key={index}
-                            className='sharing-product-item-container col-xl-3'>
+                            className='sharing-product-item-container col-3'>
                             <ProductItem productData={item} />
                         </div>
                     ))
@@ -555,12 +555,12 @@ class ProductList extends Component {
 
                 <div className='product-list-container' >
                     <div className='row'>
-                        <div className='left-menu-content col-xl-3'>
+                        <div className='left-menu-content col-12 col-lg-3'>
                             <div className='left-content'>
                                 {this.renderCategoryList()}
                             </div>
                         </div>
-                        <div className='right-list-container col-xl-9'>
+                        <div className='right-list-container col-12 col-lg-9'>
 
                             {/* SORT PRODUCT ACTION */}
                             <div className='sort-actions'>
@@ -592,6 +592,7 @@ class ProductList extends Component {
                                     <div className='row'>
 
                                         {this.renderProductList(rowsPerPage)}
+
                                         {isLoading === false && listProduct.length === 0 && (
                                             <div className='no-products-text'>
                                                 <FormattedMessage id="customer.product-list.no-product" />

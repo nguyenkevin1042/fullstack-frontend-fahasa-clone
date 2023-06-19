@@ -14,6 +14,7 @@ import Products from './Products';
 import LoadingOverlay from 'react-loading-overlay'
 
 import _ from 'lodash';
+import NotificationModal from './modal/NotificationModal';
 
 class Homepage extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class Homepage extends Component {
         this.state = {
             tagArr: ['notebook', 'textbook'],
             isLoading: false,
+            isModalOpened: true
         };
     }
 
@@ -41,9 +43,15 @@ class Homepage extends Component {
         }
     }
 
+    handleCloseModal = () => {
+        this.setState({
+            isModalOpened: false
+        })
+    }
+
 
     render() {
-        let { tagArr, isLoading } = this.state;
+        let { tagArr, isLoading, isModalOpened } = this.state;
         let { allTagArr } = this.props;
 
         return (
@@ -51,7 +59,6 @@ class Homepage extends Component {
                 <Header />
                 <Banner />
                 <QuickAccess />
-
 
                 <ProductCategory />
 
@@ -69,6 +76,9 @@ class Homepage extends Component {
 
                 <SignUpNewletter />
                 <Footer />
+
+                {/* <NotificationModal isModalOpened={isModalOpened}
+                    closeModal={this.handleCloseModal} /> */}
             </React.Fragment >
 
         );

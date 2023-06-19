@@ -46,7 +46,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (min-width: $large) {
     .cart-container{
-        margin: 20px 30px;
+        margin: 20px 50px;
 
         .no-products-content{
             border-radius: 10px;
@@ -86,47 +86,7 @@ $ex-large: 1200px;// Extra large >= 1200
                 padding: 5px 5px 0px 10px;
                 border-radius: 10px;
 
-    //                 input[type=checkbox] {
-    //                     position: relative;
-    //                       cursor: pointer;
-    //                }
-    //                input[type=checkbox]:before {
-    //                     content: "";
-    //                     display: block;
-    //                     position: absolute;
-    //                     width: 20px;
-    //                     height: 20px;
-    //                     top: 0;
-    //                     left: 0;
-    //                     // border: 2px solid #555555;
-    //                     border-radius: 3px;
-    //                     // background-color: #C92127;
-    //            }
-    //            input[type=checkbox]:checked:before {
-    //             content: "";
-    //             display: block;
-    //             position: absolute;
-    //             width: 20px;
-    //             height: 20px;
-    //             top: 0;
-    //             left: 0;
-    //             background-color:#1E80EF;
-    //    }
-    //                input[type=checkbox]:checked:after {
-    //                     content: "";
-    //                     display: block;
-    //                     width: 20px;
-    //                     height: 20px;
-    //                     // background-color: #C92127;
-    //                     // color: white;
-    //                     // border-width: 0 2px 2px 0;
-    //                     // -webkit-transform: rotate(45deg);
-    //                     // -ms-transform: rotate(45deg);
-    //                     // transform: rotate(45deg);
-    //                     // position: absolute;
-    //                     // top: 2px;
-    //                     // left: 6px;
-    //            }
+   
             }
 
             .left-content-down{

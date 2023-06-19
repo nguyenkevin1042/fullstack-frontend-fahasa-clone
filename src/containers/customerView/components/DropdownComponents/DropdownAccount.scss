@@ -1,11 +1,24 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (max-width: $large){
+    .dropdown-account-container{
+        display: none;
+    }
+
+}
+
 .dropdown-account-container{
     background-color:  white;
     border-radius: 10px;
-    width: 20vw;
+    width: 18vw;
     padding: 10px 0;
     box-shadow: 0px 0px 2px 2px rgba(200, 200, 200, 0.42);
     position: absolute;
-    right: 130px;
+    right: 140px;
 
     //NOT SIGN IN
     .sign-in-btn{
@@ -53,6 +66,7 @@
         display: flex;
         align-items: center;
         justify-content: left;
+        cursor: pointer;
         
         .icon{
             width: 24px;
@@ -79,7 +93,6 @@
 
     .signed-in-action{
         border-top: 1px solid #F2F4F5;
-        cursor: pointer;
         color: #7A7E7F;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -96,8 +109,8 @@
             font-size: 16px;
         }
 
-        &:hover {
-            background-color: #F2F4F5 !important;
+        &:hover{
+            background-color: white !important;
         }
     }
 

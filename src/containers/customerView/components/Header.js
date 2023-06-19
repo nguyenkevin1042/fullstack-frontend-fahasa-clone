@@ -26,7 +26,7 @@ class Header extends Component {
                     value: 'vi', label: (
                         <div className='langugage-option'>
                             <img src={viFlag}
-                                className='language-icon'
+                                className='language-icon img-fluid'
                                 alt="Vietnamese Logo" />
                             <span>VI</span>
                         </div>
@@ -36,7 +36,7 @@ class Header extends Component {
                     value: 'en', label: (
                         <div className='langugage-option'>
                             <img src={enFlag}
-                                className='language-icon '
+                                className='language-icon img-fluid'
                                 alt="English Logo" />
                             <span>EN</span>
                         </div>
@@ -180,8 +180,7 @@ class Header extends Component {
 
             <Dropdown overlay={accountMenu}>
                 <div className='user-options-information option col-6 col-md-3'
-                    onClick={userInfo ? this.handleRedirectToAccountPage : this.handleRedirectToLoginPage}
-                >
+                    onClick={userInfo ? this.handleRedirectToAccountPage : this.handleRedirectToLoginPage}>
                     <i className="fa fa-user"></i>
                     {userInfo ?
                         <>
@@ -215,74 +214,76 @@ class Header extends Component {
         const searchDropdown = (<SearchDropdown />)
         return (
             <>
-                <div className='home-header-container container-fluid'>
-                    {/* <div className='home-header-container container'> */}
-                    <div className='home-header-content row'>
-                        {/* LOGO */}
-                        <div className='home-header-logo col-12 col-lg-2'
-                            onClick={() => this.handleToHomepage()}>
+                <div className='home-header-container '>
+                    <div className='container-fluid'>
+                        <div className='home-header-content row'>
+                            {/* LOGO */}
+                            <div className='home-header-logo col-12 col-md-12 col-lg-2'
+                                onClick={() => this.handleToHomepage()}>
 
-                        </div >
-                        {/* MENU */}
-                        <div className='home-header-menu col-1 col-lg-1 px-1'>
-                            <Dropdown overlay={menu}>
-                                <div className='home-header-menu-toggle'>
-                                    <div className='home-header-menu-toggle-icon img-fluid'></div>
-                                    <div><i className="fa fa-angle-down"></i></div>
-                                </div>
-                            </Dropdown>
-                        </div >
-                        {/* SEARCH BAR */}
-                        <div className='home-header-search-bar col-8 col-md-9 col-lg-5'>
-                            {/* <Dropdown overlay={searchDropdown}> */}
-                            <input type='text'
-                                id='searchQuery'
-                                onChange={(event) => this.hanleOnChangeInput(event)}
-                                onKeyDown={(event) => { this.handleKeyDown(event) }}
-                                className='form-control search-bar'
-                                placeholder={
-                                    language === languages.VI ?
-                                        "Tìm kiếm sản phẩm mong muốn" :
-                                        "Search entire store here"
-                                } />
-                            <button onClick={() => this.handleSearchProduct()}><i className="fa fa-search"></i></button>
-                            {/* </Dropdown> */}
-                        </div >
-                        {/* OPTIONS */}
-                        <div className='home-header-user-options col-3 col-md-2 col-lg-4'>
-                            <div className='container'>
-                                <div className='row'>
-                                    <div className='user-options-notifications option col-md-3'>
-                                        <i className="fa fa-bell"></i>
-                                        <p>
-                                            <FormattedMessage id="customer.homepage.header.notifications" />
-                                        </p>
-                                    </div>
-
-                                    <div className='user-options-cart option col-6 col-md-3'
-                                        onClick={() => this.handleRedirectToCart()}>
-                                        <i className="fa fa-shopping-cart"></i>
-                                        <p><FormattedMessage id="customer.homepage.header.cart" /></p>
-                                        {userInfo && cartData && cartDataLength > 0 ?
-                                            <span className='sum-products-in-cart'>{cartDataLength}</span> : <></>}
-                                    </div>
-
-                                    {this.renderCustomerOption()}
-
-                                    <div className='user-options-change-language option col-md-3'>
-                                        <Select
-                                            className={'select-language-option'}
-                                            classNamePrefix="react-select"
-                                            value={selectedLanguage}
-                                            onChange={this.handleChangeLanguage}
-                                            options={listLanguage}
-                                            name="selectedLanguage" />
-                                    </div>
-                                </div>
                             </div >
+                            {/* MENU */}
+                            <div className='home-header-menu col-1 col-md-1 col-lg-1 px-1'>
+                                <Dropdown overlay={menu}>
+                                    <div className='home-header-menu-toggle'>
+                                        <div className='home-header-menu-toggle-icon img-fluid'></div>
+                                        <div><i className="fa fa-angle-down"></i></div>
+                                    </div>
+                                </Dropdown>
+                            </div >
+                            {/* SEARCH BAR */}
+                            <div className='home-header-search-bar col-9 col-md-9 col-lg-6'>
+                                {/* <Dropdown overlay={searchDropdown}> */}
+                                <input type='text'
+                                    id='searchQuery'
+                                    onChange={(event) => this.hanleOnChangeInput(event)}
+                                    onKeyDown={(event) => { this.handleKeyDown(event) }}
+                                    className='form-control search-bar'
+                                    placeholder={
+                                        language === languages.VI ?
+                                            "Tìm kiếm sản phẩm mong muốn" :
+                                            "Search entire store here"
+                                    } />
+                                <button onClick={() => this.handleSearchProduct()}><i className="fa fa-search"></i></button>
+                                {/* </Dropdown> */}
+                            </div >
+                            {/* OPTIONS */}
+                            <div className='home-header-user-options col-2 col-md-2 col-lg-3'>
+                                <div className='container'>
+                                    <div className='row'>
+                                        <div className='user-options-notifications option col-md-3'>
+                                            <i className="fa fa-bell"></i>
+                                            <p>
+                                                <FormattedMessage id="customer.homepage.header.notifications" />
+                                            </p>
+                                        </div>
+
+                                        <div className='user-options-cart option col-6 col-md-3'
+                                            onClick={() => this.handleRedirectToCart()}>
+                                            <i className="fa fa-shopping-cart"></i>
+                                            <p><FormattedMessage id="customer.homepage.header.cart" /></p>
+                                            {userInfo && cartData && cartDataLength > 0 ?
+                                                <span className='sum-products-in-cart'>{cartDataLength}</span> : <></>}
+                                        </div>
+
+                                        {this.renderCustomerOption()}
+
+                                        <div className='user-options-change-language option col-md-3'>
+                                            <Select
+                                                className={'select-language-option'}
+                                                classNamePrefix="react-select"
+                                                value={selectedLanguage}
+                                                onChange={this.handleChangeLanguage}
+                                                options={listLanguage}
+                                                name="selectedLanguage" />
+                                        </div>
+                                    </div>
+                                </div >
+                            </div>
                         </div>
-                    </div>
+                    </div >
                 </div >
+
             </>
 
         );

@@ -4,23 +4,6 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
-
-
-@media (max-width: $medium) {
-    .home-header-container{
-
-        .home-header-menu{
-        
-            .home-header-menu-toggle{
-
-                i{
-                    display: none;
-                }
-            }
-        }
-    }
-}
-
 @media (max-width: $large) {
     .home-header-container{
         background-color: #C92127;
@@ -78,6 +61,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
     
                 .fa{
+                    font-size: 20px;
                     color: white;
                 }
     
@@ -99,9 +83,8 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (min-width: $large) {
     .home-header-container{
-        border: 1px solid red;
         background-color: white;
-        padding: 25px 30px 10px 45px;
+        padding: 20px 50px 0 50px;
 
         .home-header-logo{
             background: url('./../../../assets/fahasa_logo.png') no-repeat center center;
@@ -149,18 +132,71 @@ $ex-large: 1200px;// Extra large >= 1200
         }
 
         .home-header-user-options{
-            padding: 0;
-            padding-left: 20px;
+            .option{
+                padding: 5px;
+
+                .fa{
+                    font-size: 20px;
+                }
+    
+                p{
+                    font-size: 1em;
+                }
+            }
+
+            .user-options-change-language{
+                .select-language-option{
+                    .react-select__control{ 
+                        width: 70px;     
+                        .react-select__indicators{
+                            
+                        }
+                        .react-select__dropdown-indicator{
+                            
+                        }
+                        .react-select__indicator-separator{
+                            
+                        }
+                        .react-select__value-container{
+                            // padding-left: 3px;
+                            min-width: 45px;
+                            max-width: 45px;
+                        }
+                    }
+
+                    .react-select__menu{
+                        width: fit-content;
+    
+                        .react-select__menu-list{
+                            width: 82px;
+                        }
+                        .react-select__option{      
+
+                        }
+                        .react-select__option--is-selected{
+    
+                        }
+                    }
+
+                    .langugage-option{
+                        .language-icon{
+                            width: 33px;
+                            height: 23px;
+                        }
+                        span{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
 .home-header-container{  
-    
     .home-header-menu{
-
         .home-header-menu-toggle{
-            
+
             .home-header-menu-toggle-icon{
                 width: 36px;
                 height: 36px;
@@ -196,40 +232,41 @@ $ex-large: 1200px;// Extra large >= 1200
 
     .home-header-user-options{
         display: flex;
+        padding: 0;
+        padding-left: 5px;
 
         .option{
-
             height: fit-content;
             display: grid;
             cursor: pointer;
-            padding: 0;
             justify-content: center;
             position: relative;
+            padding: 0;
 
             .fa{
                 text-align: center;
-                font-size: 20px;
             }
 
             p{
                 color: #7A7E7F;
                 text-align: center;
-                // font-size: 1em;
+                overflow: hidden;
+                max-width: 8em;
+                text-overflow: ellipsis;
             }
+
             .customer-name{
                 color: #7A7E7F !important;
-                text-align: center;
                 white-space: nowrap;
                 overflow: hidden;
-                max-width: 8.3em;
-
-                color: #333333;
+                max-width: 7.5em;
                 text-overflow: ellipsis;
             }
 
             span{
                 font-size: inherit !important;
             }
+
             .sum-products-in-cart{
                 display: flex;
                 align-items: center;
@@ -247,12 +284,11 @@ $ex-large: 1200px;// Extra large >= 1200
         }
 
         .user-options-change-language{
+            display: flex;
+            justify-content: center;
 
             .select-language-option{
-                width: 110px;
-
                 .react-select__control{
-                    width: 80px;
                     border-radius: 8px;
                     box-shadow: none;
                     cursor: pointer;
@@ -262,28 +298,24 @@ $ex-large: 1200px;// Extra large >= 1200
                     }
                     .react-select__dropdown-indicator{
                         padding: 0;
-                        margin-right: 5px;
                     }
                     .react-select__indicator-separator{
                         display: none;
                     }
                     .react-select__value-container{
-                        min-width: 50px;
-                        max-width: 42px;
+   
                     }
                 }
                 
                 .react-select__menu{
                     border-radius: 8px;
                     position: absolute;
-                    right: 30px;
+                    right: 0;
 
                     .react-select__menu-list{
-                        width: 90px;
-                        margin: auto;
+                        
                     }
                     .react-select__option{      
-                        width: 90px;
                         cursor: pointer;
 
                         &:hover{
@@ -299,31 +331,22 @@ $ex-large: 1200px;// Extra large >= 1200
 
                 .langugage-option{
                     .language-icon{
-                        width: 37px;
-                        height: 27px;
                         background-size: contain;
                     }
                     span{
-                        margin-left: 5px;
-                        font-weight: bold;
+                        font-weight: 600;
                         color: #7A7E7F;
                     }
                 }
                 
             }
-           
-
-            
-        }
-
-        
-    }
-    
+                   
+        }   
+    } 
 }
 
 :where(.css-dev-only-do-not-override-w8mnev).ant-dropdown{
     width: 100vw !important;    
     left: 0 !important;
     top: 70px!important;
-    // padding: 0 !important;
 }

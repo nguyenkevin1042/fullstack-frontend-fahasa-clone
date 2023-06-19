@@ -35,7 +35,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (min-width: $large) {
     .sign-up-newletter-container{
-        margin: 0 45px 0 40px;
+        margin: 0 65px;
 
         .sign-up-newletter-content{
             padding: 20px 100px;
@@ -47,11 +47,11 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 }
 
-@media (min-width: $ex-large) {
-    .sign-up-newletter-container{
-        margin: 0 55px;
-    }
-}
+// @media (min-width: $ex-large) {
+//     .sign-up-newletter-container{
+//         margin: 0 55px;
+//     }
+// }
 
 .sign-up-newletter-container{
     height: fit-content;

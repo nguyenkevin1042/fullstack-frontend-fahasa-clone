@@ -78,8 +78,7 @@ class ProductItem extends Component {
             <React.Fragment>
                 <div className='sharing-product-item'
                     title={productData.name}
-                    onClick={() => this.handleRedirectToProductDetail(productData.keyName)}
-                >
+                    onClick={() => this.handleRedirectToProductDetail(productData.keyName)}>
                     <div className='sharing-product-item-image'
                         style={{
                             backgroundImage: "url(" + imageBase64 + ")"

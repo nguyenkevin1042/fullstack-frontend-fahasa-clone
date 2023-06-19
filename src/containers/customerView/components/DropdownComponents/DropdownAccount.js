@@ -82,8 +82,8 @@ class DropdownAccount extends Component {
         let customerName = lang === languages.VI ? labelVI : labelEN
         return (
             <>
-                <div className='col-12 ' >
-                    <Link to='/customer/account' className='sharing-link-content signed-in-item'>
+                <div className='col-12 sharing-link-content signed-in-item' >
+                    <Link to='/customer/account' className=''>
                         <p>{customerName}</p>
                     </Link>
                 </div>
