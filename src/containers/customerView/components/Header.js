@@ -45,9 +45,10 @@ class Header extends Component {
             ],
             selectedLanguage: '',
             hoverMenu: false,
+            isOpened: true,
+
             listCategory: [],
             selectedCategory: '',
-            visible: false,
 
             productName: '',
             productInCartLength: '',
@@ -145,6 +146,12 @@ class Header extends Component {
         this.props.changeLanguageApp(selectedLanguage.value);
     }
 
+    handleCloseDropdownMenu = () => {
+        this.setState({
+            isOpened: false
+        })
+    }
+
     handleRedirectToLoginPage = () => {
         if (this.props.history) {
             this.props.history.push("/customer/account/login");
@@ -205,7 +212,7 @@ class Header extends Component {
 
 
     render() {
-        let { listLanguage, selectedLanguage, productInCartLength } = this.state
+        let { listLanguage, selectedLanguage, productInCartLength, isOpened } = this.state
         let language = this.props.lang
         let { cartData, userInfo } = this.props
         let cartDataLength = cartData.length

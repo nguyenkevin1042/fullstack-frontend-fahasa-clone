@@ -4,26 +4,17 @@ import {
     createNewUserAPI, addNewCodeAPI, getAllCodesAPI, adminLoginAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,
     getAllSubCategoryByCategoryAPI, addNewSubCategoryAPI, deleteSubCategoryAPI,
-    getAllSubCategoryAPI,
-    getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI, getAllChildCategoryAPI, deleteChildCategoryAPI,
+    getAllSubCategoryAPI, getAllChildCategoryBySubCategoryAPI, addNewChildCategoryAPI,
+    getAllChildCategoryAPI, deleteChildCategoryAPI,
     addNewProductAPI, getAllProductAPI, editSubCategoryAPI,
     deleteProductAPI, getChildCategoryByKeyNameAPI,
     updateProductAPI, getAllCodesByKeyMapAPI,
     getProductByCategoryAPI, getAllSubCategoryByKeyNameAPI,
-    getProductBySubCategoryAPI,
-    getProductByChildCategoryAPI,
-    createNewBillAPI,
-    getAllBillAPI,
-    updateBillStatusAPI,
-    getProductByNameAPI,
-    updateProductDiscountAPI,
-    getTagByTypeAPI,
-    getProductByTagKeyNameAPI,
-    getAllTagAPI,
-    getAllTagWithoutProductAPI,
-    createProductTagAPI,
-    updateProductTagAPI,
-    deleteProductTagAPI
+    getProductBySubCategoryAPI, getProductByChildCategoryAPI,
+    createNewBillAPI, getAllBillAPI, updateBillStatusAPI,
+    getProductByNameAPI, updateProductDiscountAPI, getTagByTypeAPI,
+    getProductByTagKeyNameAPI, getAllTagAPI, getAllTagWithoutProductAPI,
+    createProductTagAPI, updateProductTagAPI, deleteProductTagAPI, getAllUserAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -87,6 +78,8 @@ export const createUserFail = (response) => ({
     type: actionTypes.CREATE_NEW_USER_FAIL,
     response: response
 })
+
+
 
 //ADD NEW CODE
 export const addNewCode = (codeData) => {
@@ -1052,6 +1045,7 @@ export const getTagByTypeFail = (response) => ({
 //GET ALL TAG
 export const getAllTag = () => {
     return async (dispatch, getState) => {
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
 
@@ -1066,6 +1060,8 @@ export const getAllTag = () => {
             dispatch(getAllTagFail(res));
             console.log("getAllTag: ", error)
         }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+
     }
 }
 
@@ -1196,5 +1192,34 @@ export const deleteProductTagSuccess = (response) => ({
 
 export const deleteProductTagFail = (response) => ({
     type: actionTypes.DELETE_PRODUCT_TAG_FAIL,
+    response: response
+})
+
+//GET ALL USER
+export const getAllUser = () => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getAllUserAPI();
+
+            if (res && res.errCode === 0) {
+                dispatch(getAllUserSuccess(res));
+            } else {
+                dispatch(getAllUserFail(res));
+            }
+        } catch (error) {
+            dispatch(getAllUserFail(res));
+            console.log("getAllUser Error: ", error)
+        }
+    }
+}
+
+export const getAllUserSuccess = (response) => ({
+    type: actionTypes.GET_ALL_USER_SUCCESS,
+    response: response
+})
+
+export const getAllUserFail = (response) => ({
+    type: actionTypes.GET_ALL_USER_FAIL,
     response: response
 })

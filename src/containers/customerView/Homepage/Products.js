@@ -7,6 +7,7 @@ import * as actions from "../../../store/actions";
 import Slider from "react-slick";
 import { languages } from '../../../utils';
 import NumericFormat from 'react-number-format';
+import LoadingOverlay from 'react-loading-overlay'
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,7 +18,8 @@ class Products extends Component {
         this.state = {
             selectedTag: '',
             listTags: [],
-            listProducts: []
+            listProducts: [],
+            isLoading: false,
         };
     }
 
@@ -35,13 +37,10 @@ class Products extends Component {
 
         }
 
-        if (prevProps.history !== this.props.history) {
-            // let { tagData } = this.props
-
-            // this.setState({
-            //     selectedTag: tagData[0],
-            //     listProducts: tagData[0].ProductTags.map(item => item.Product)
-            // })
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
         }
 
         if (prevState.listProducts !== this.state.listProducts) {
@@ -135,7 +134,7 @@ class Products extends Component {
                     </>
                     :
                     <>
-                        <div className='product-price'>
+                        <div className='product-discount-price'>
                             <NumericFormat value={parseFloat(price)}
                                 displayType={'text'}
                                 thousandSeparator={'.'}
@@ -243,7 +242,6 @@ class Products extends Component {
     }
 
     handleViewMoreProductWithTag = (keyName) => {
-        console.log(keyName)
         if (this.props.history) {
             this.props.history.push("/" + keyName);
         }
@@ -275,6 +273,7 @@ class Products extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
+        isFetchingData: state.admin.isFetchingData,
         // allTagArr: state.admin.allTagArr,
         // allProductArr: state.admin.allProductArr,
     };

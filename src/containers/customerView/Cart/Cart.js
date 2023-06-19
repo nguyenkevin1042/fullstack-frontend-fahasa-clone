@@ -24,6 +24,7 @@ class Cart extends Component {
     }
 
     async componentDidMount() {
+        document.title = "Cart | Nguyenkevin1042's Fahasa Clone"
         if (this.props.userInfo) {
             await this.props.getCartByUserId(this.props.userInfo.id)
         }

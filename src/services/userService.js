@@ -1,6 +1,10 @@
 import axios from "../axios";
 
 //USER
+const getAllUserAPI = () => {
+    return axios.get("/api/get-all-users");
+}
+
 const createNewUserAPI = (data) => {
     return axios.post("/api/create-new-user", data);
 }
@@ -272,7 +276,8 @@ const deleteProductTagAPI = (data) => {
 
 export {
     //USER
-    createNewUserAPI, adminLoginAPI, customerLoginAPI, updateUserAPI,
+    getAllUserAPI, createNewUserAPI, adminLoginAPI,
+    customerLoginAPI, updateUserAPI,
     //ALLCODES
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, getAllCodesByKeyMapAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,

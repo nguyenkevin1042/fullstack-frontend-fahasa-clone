@@ -57,6 +57,21 @@ class ManageProductTag extends Component {
 
         }
 
+        if (prevState.searchKey !== this.state.searchKey) {
+            let dataProduct = this.buildDataInputSelect(this.props.allProductArr, 'product');
+            let tempList = dataProduct;
+            let query = this.state.searchKey;
+
+            tempList = tempList.filter((item) => {
+                return item.product.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+            });
+
+            this.setState({
+                listProduct: tempList,
+                listSelectedProductsId: prevState.listSelectedProductsId
+            })
+        }
+
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
             this.setState({
                 isLoading: this.props.isFetchingData,
@@ -130,20 +145,6 @@ class ManageProductTag extends Component {
         let copyState = { ...this.state };
         copyState[key] = data;
         this.setState({ ...copyState });
-    }
-
-    handleKeyUp = (event) => {
-        let query = event.target.value;
-        let dataProduct = this.buildDataInputSelect(this.props.allProductArr, 'product');
-        let tempList = dataProduct;
-        tempList = tempList.filter((item) => {
-            return item.product.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-        });
-
-        this.setState({
-            searchKey: query,
-            listProduct: tempList
-        })
     }
 
     handleKeyDown = (event) => {
@@ -220,8 +221,6 @@ class ManageProductTag extends Component {
                         if (productData.image) {
                             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
                         }
-
-                        let salePrice = productData.price - ((productData.price * productData.discount) / 100);
 
                         return (
                             <>
@@ -337,9 +336,7 @@ class ManageProductTag extends Component {
                                 id='searchKey'
                                 value={searchKey}
                                 onChange={(event) => this.hanleOnChangeInput(event)}
-                                onKeyUp={(event) => { this.handleKeyUp(event) }}
-                                className='form-control'
-                            />
+                                className='form-control' />
                         </div>
 
                         <div className='manage-sharing-table'>

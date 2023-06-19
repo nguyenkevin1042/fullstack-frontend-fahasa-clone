@@ -38,20 +38,12 @@ class SearchResult extends Component {
     }
 
     async componentDidMount() {
+        document.title = "Search Result | Nguyenkevin1042's Fahasa Clone"
         await this.props.getProductByName(this.props.location.state)
         this.setState({
             searchQuery: this.props.location.state
         })
-        // if (this.props.location) {
-        //     this.setState({
-        //         searchQuery: this.props.location.state
-        //     })
-        // }
-        // if (this.props.allProductArr) {
-        //     this.setState({
-        //         totalRecords: this.props.allProductArr.length
-        //     });
-        // }
+
         this.setState({
             numberOfProductsArr: [
                 { value: 12, label: (<FormattedMessage id="customer.product-list.sort.12-products" />) },
@@ -199,7 +191,7 @@ class SearchResult extends Component {
             <React.Fragment>
                 <Header />
 
-                <Breadcrumb separator={'>'}>
+                {/* <Breadcrumb separator={'>'}>
                     <Breadcrumb.Item href="/">
                         Home
                     </Breadcrumb.Item>
@@ -207,7 +199,7 @@ class SearchResult extends Component {
                         Components
                     </Breadcrumb.Item>
                     <Breadcrumb.Item active>Breadcrumb</Breadcrumb.Item>
-                </Breadcrumb>
+                </Breadcrumb> */}
 
                 <div className='search-result-container'>
                     <div className='search-result-content'>

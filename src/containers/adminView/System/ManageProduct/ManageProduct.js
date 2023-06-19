@@ -316,7 +316,7 @@ class ManageProduct extends Component {
                                 onClick={() => this.handleOpenAddProductModal()}>Thêm sản phẩm mới</button>
                         </div>
 
-                        <div className='sharing-manage-sort'>
+                        {/* <div className='sharing-manage-sort'>
                             <div className='sharing-manage-sort-title'>
                                 Tìm kiếm sản phẩm
                             </div>
@@ -350,7 +350,7 @@ class ManageProduct extends Component {
                             </div>
 
 
-                        </div>
+                        </div> */}
 
                         <div className='manage-sharing-table'>
                             <table className='sharing-table'>

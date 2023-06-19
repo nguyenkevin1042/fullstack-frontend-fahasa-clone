@@ -25,6 +25,7 @@ class OneStepCheckout extends Component {
     }
 
     async componentDidMount() {
+        document.title = "One Step Checkout | Nguyenkevin1042's Fahasa Clone"
         await this.props.fetchAllCodesByType('payment')
         this.setState({
             listUserAddress: this.props.userInfo.UserAddresses,

@@ -229,7 +229,8 @@
             "set-product-tag": "Thiết lập thẻ sản phẩm"
         },
         "user": {
-            "header": "Người dùng"
+            "header": "Người dùng",
+            "all": "Danh sách người dùng"
         },
         "orders": {
             "header": "Đơn hàng",

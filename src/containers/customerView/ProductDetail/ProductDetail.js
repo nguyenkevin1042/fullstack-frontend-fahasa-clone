@@ -318,8 +318,8 @@ class ProductDetail extends Component {
                                 {productType === 'stationary' && this.renderStationaryDescription(descriptionData)}
                                 {productType === 'toy' && this.renderToyDescription(descriptionData)}
 
-                                <div className='review col-xl-12'>Đánh giá</div>
-                                <div className='flash-sale col-xl-12'>Flash Sale</div>
+                                {/* <div className='review col-xl-12'>Đánh giá</div>
+                                <div className='flash-sale col-xl-12'>Flash Sale</div> */}
 
                                 <div className='product-price-text col-xl-12'>
                                     {this.renderProductPrice(product.price, product.discount)}

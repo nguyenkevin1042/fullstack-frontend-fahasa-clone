@@ -14,6 +14,7 @@ const initialState = {
     allProductArr: [],
     allBillArr: [],
     allTagArr: [],
+    allUserArr: [],
     errResponse: '',
     selectedCategory: '',
     subCategory: '',
@@ -424,6 +425,17 @@ const appReducer = (state = initialState, action) => {
             }
         case actionTypes.GET_PRODUCT_BY_TAG_KEY_NAME_FAIL:
             state.allProductArr = []
+            return {
+                ...state,
+            }
+
+        case actionTypes.GET_ALL_USER_SUCCESS:
+            state.allUserArr = action.response.data
+            return {
+                ...state,
+            }
+        case actionTypes.GET_ALL_USER_FAIL:
+            state.allUserArr = []
             return {
                 ...state,
             }

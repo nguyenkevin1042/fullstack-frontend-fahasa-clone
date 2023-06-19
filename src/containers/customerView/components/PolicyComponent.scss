@@ -7,7 +7,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (min-width: $ex-large){
     .policy-container{
-        margin: 0 60px;
+        margin: 0 40px;
     }
 }  
 .policy-container{
@@ -20,7 +20,6 @@ $ex-large: 1200px;// Extra large >= 1200
         border-radius: 10px;
 
         .policy-item{
-            border: 1px solid red;
             display: flex;
             justify-content: center;
             align-items: center;

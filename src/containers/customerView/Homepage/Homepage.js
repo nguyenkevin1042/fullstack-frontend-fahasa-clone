@@ -11,6 +11,8 @@ import SignUpNewletter from './SignUpNewletter';
 import ProductCategory from './ProductCategory';
 import FlashSale from './FlashSale';
 import Products from './Products';
+import LoadingOverlay from 'react-loading-overlay'
+
 import _ from 'lodash';
 
 class Homepage extends Component {
@@ -18,11 +20,12 @@ class Homepage extends Component {
         super(props);
         this.state = {
             tagArr: ['notebook', 'textbook'],
-
+            isLoading: false,
         };
     }
 
     async componentDidMount() {
+        document.title = "HomePage | Nguyenkevin1042's Fahasa Clone"
         await this.props.getAllTag()
     }
 
@@ -30,37 +33,40 @@ class Homepage extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
+
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
+        }
     }
 
 
     render() {
-        let { tagArr } = this.state;
+        let { tagArr, isLoading } = this.state;
         let { allTagArr } = this.props;
 
+        console.log(allTagArr)
         return (
             <React.Fragment>
                 <Header />
                 <Banner />
                 <QuickAccess />
-                {/* <FlashSale /> */}
-                {/* <Trending /> */}
+
 
                 <ProductCategory />
 
-                {allTagArr.map((item, index) => (
-                    <Products tagData={item} />
-                ))}
+                <LoadingOverlay
+                    active={isLoading}
+                    spinner={true}
+                    text='Please wait...'>
+                    {allTagArr.map((item, index) => (
 
-                {/* {tagArr.map((item, index) => (
-                    <Products tagType={item} index={index} />
-                ))} */}
+                        <Products tagData={item} />
 
+                    ))}
+                </LoadingOverlay>
 
-                {/* <Products tagType={'notebook'} />
-                <Products tagType={'textbook'} /> */}
-
-                {/* <Products headerArr={stationaryArr} />
-                <Products headerArr={itemArr} /> */}
 
                 <SignUpNewletter />
                 <Footer />
@@ -75,6 +81,7 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         allTagArr: state.admin.allTagArr,
+        isFetchingData: state.admin.isFetchingData,
     };
 };
 

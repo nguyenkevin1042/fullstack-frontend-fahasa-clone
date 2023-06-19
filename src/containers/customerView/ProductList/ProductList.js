@@ -42,6 +42,7 @@ class ProductList extends Component {
     }
 
     async componentDidMount() {
+        document.title = "Product List | Nguyenkevin1042's Fahasa Clone"
         let { category, subCategory, childCategory } = this.props.match.params
 
         if (category && subCategory && childCategory) {
@@ -548,8 +549,6 @@ class ProductList extends Component {
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
-        console.log(this.props.allCodesArr)
-
         return (
             <React.Fragment>
                 <Header />
@@ -567,13 +566,13 @@ class ProductList extends Component {
                             <div className='sort-actions'>
                                 <label>Săp xếp theo:</label>
 
-                                <Select
+                                {/* <Select
                                     className={"sort-actions-select"}
                                     // value={selectedCategory}
                                     // onChange={this.handleChangeCategory}
                                     // options={listCategory}
                                     // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
-                                    name="selectedCategory" />
+                                    name="selectedCategory" /> */}
 
                                 <Select
                                     className={"sort-actions-select"}
@@ -586,24 +585,12 @@ class ProductList extends Component {
                             <LoadingOverlay
                                 active={isLoading}
                                 spinner={true}
-                                styles={{
-                                    overlay: (base) => ({
-                                        ...base,
-                                        border: '2px solid #F7941E'
-                                    }),
-                                    spinner: (base) => ({
-                                        ...base,
-                                        width: '50px',
-                                        '& svg circle': {
-                                            stroke: '#F7941E'
-                                        }
-                                    })
-                                }}
                                 text='Please wait...'>
                                 <div className={isLoading === true ?
                                     'list-product-items hide container' :
                                     'list-product-items container'}>
                                     <div className='row'>
+
                                         {this.renderProductList(rowsPerPage)}
                                         {isLoading === false && listProduct.length === 0 && (
                                             <div className='no-products-text'>
