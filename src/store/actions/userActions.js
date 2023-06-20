@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { addToCartAPI, createNewAddressAPI, customerLoginAPI, deleteProductInCartAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -278,13 +278,39 @@ export const toOneTimeCheckout = (inputSelectedProducts) => {
     return async (dispatch, getState) => {
         try {
             localStorage.setItem('selectedProducts', JSON.stringify(inputSelectedProducts))
-            // dispatch({
-            //     type: 'STATE_FROM_CART',
-            //     selectedProducts: inputSelectedProducts
-            // })
 
         } catch (error) {
             console.log("toOneTimeCheckout Error: ", error)
         }
     }
 }
+
+//CREATE NEW BILL
+export const createNewBill = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await createNewBillAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(createNewBillSuccess(res));
+                localStorage.removeItem("selectedProducts");
+            } else {
+                dispatch(createNewBillFail(res));
+            }
+        } catch (error) {
+            dispatch(createNewBillFail(res));
+            console.log("createNewBill Error: ", error)
+        }
+    }
+}
+
+export const createNewBillSuccess = (response) => ({
+    type: actionTypes.CREATE_NEW_BILL_SUCCESS,
+    response: response
+})
+
+export const createNewBillFail = (response) => ({
+    type: actionTypes.CREATE_NEW_BILL_FAIL,
+    response: response
+})

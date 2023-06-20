@@ -891,34 +891,6 @@ export const getProductByNameFail = (response) => ({
     response: response
 })
 
-//CREATE NEW BILL
-export const createNewBill = (inputData) => {
-    return async (dispatch, getState) => {
-        let res;
-        try {
-            res = await createNewBillAPI(inputData);
-
-            if (res && res.errCode === 0) {
-                dispatch(createNewBillSuccess(res));
-            } else {
-                dispatch(createNewBillFail(res));
-            }
-        } catch (error) {
-            dispatch(createNewBillFail(res));
-            console.log("createNewBill Error: ", error)
-        }
-    }
-}
-
-export const createNewBillSuccess = (response) => ({
-    type: actionTypes.CREATE_NEW_BILL_SUCCESS,
-    response: response
-})
-
-export const createNewBillFail = (response) => ({
-    type: actionTypes.CREATE_NEW_BILL_FAIL,
-    response: response
-})
 
 //GET ALL BILL
 export const getAllBill = () => {

@@ -14,6 +14,7 @@ class MyOrderComponent extends Component {
         super(props);
         this.state = {
             listUserOrders: [],
+            selectedOrder: '',
             message: ''
         };
     }
@@ -22,6 +23,9 @@ class MyOrderComponent extends Component {
         if (this.props.userInfo) {
             await this.props.getBillByUserId(this.props.userInfo.id)
         }
+        this.setState({
+            listUserOrders: this.props.billData
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -44,14 +48,20 @@ class MyOrderComponent extends Component {
         }
     }
 
+    hanldeViewOrderDetail = (item) => {
+        this.setState({
+            selectedOrder: item
+        })
+    }
+
     renderOrderData = () => {
         let { billData, lang } = this.props
-        let { message } = this.state
+        let { message, listUserOrders } = this.state
 
         return (
             <>
-                {billData && billData.length > 0 ?
-                    billData.map((item, index) => {
+                {listUserOrders && listUserOrders.length > 0 ?
+                    listUserOrders.map((item, index) => {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
                         return (
                             <tr>
@@ -75,7 +85,7 @@ class MyOrderComponent extends Component {
                                 <td className='actions'>
                                     {item.status === 'S4' || item.status === 'S5' ?
                                         <>
-                                            <p>
+                                            <p onClick={() => this.hanldeViewOrderDetail(item)}>
                                                 <FormattedMessage id='customer.account.dashboard.view-order' />
                                             </p>
                                             <span>|</span>
@@ -84,12 +94,12 @@ class MyOrderComponent extends Component {
                                             </p>
                                         </> :
                                         <>
-                                            <p>
+                                            <p onClick={() => this.hanldeViewOrderDetail(item)} >
                                                 <FormattedMessage id='customer.account.dashboard.view-order' />
                                             </p>
                                         </>}
                                 </td>
-                            </tr>
+                            </tr >
                         )
                     }) :
                     <div className='no-order-text'>{message}</div>
@@ -99,23 +109,50 @@ class MyOrderComponent extends Component {
 
     }
 
+    renderDefault = () => {
+        return (
+            <>
+                <div className='recent-order-table'>
+                    <table>
+                        <tr>
+                            <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
+                            <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
+                            <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
+                            <th><FormattedMessage id='customer.account.dashboard.total' /></th>
+                            <th><FormattedMessage id='customer.account.dashboard.status' /></th>
+
+                        </tr>
+                        {this.renderOrderData()}
+                    </table>
+                </div>
+            </>
+        )
+    }
+
     render() {
-        let { message } = this.state
+        let { message, selectedOrder } = this.state
         let { userInfo, lang, actionResponse } = this.props
 
-        console.log(userInfo)
+        console.log(selectedOrder)
 
         return (
             <div className='right-content-my-order'>
+                {/* {selectedOrder ?
+                            <></> :} */}
                 <div className='right-content-header'>
-                    <FormattedMessage id='customer.account.my-orders.title' />
+                    {selectedOrder ?
+                        <>Chi tiet don hang</> : <FormattedMessage id='customer.account.my-orders.title' />
+                    }
                 </div>
 
                 <div>
                     <div className='recent-order'>
+                        {selectedOrder ?
+                            <></> :
+                            this.renderDefault()}
 
-                        <div className='recent-order-table'>
 
+                        {/* <div className='recent-order-table'>
                             <table>
                                 <tr>
                                     <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
@@ -127,7 +164,7 @@ class MyOrderComponent extends Component {
                                 </tr>
                                 {this.renderOrderData()}
                             </table>
-                        </div>
+                        </div> */}
                     </div >
                 </div>
             </div>

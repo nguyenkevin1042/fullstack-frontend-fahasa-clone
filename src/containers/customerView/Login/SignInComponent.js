@@ -20,7 +20,7 @@ class SignInComponent extends Component {
     componentDidMount() {
         if (this.props.userInfo) {
             if (this.props.history) {
-                this.props.history.push("/customer/account");
+                this.props.history.push("/customer/account/dashboard");
             }
         }
         this.setState({
@@ -38,7 +38,7 @@ class SignInComponent extends Component {
 
             if (this.props.actionResponse.errCode === 0) {
                 if (this.props.history.location.pathname === '/customer/account/login') {
-                    this.props.history.push("/customer/account");
+                    this.props.history.push("/customer/account/dashboard");
                 }
 
                 if (this.props.closeAccountModal) {
@@ -49,7 +49,7 @@ class SignInComponent extends Component {
 
         if (prevProps.userInfo !== this.props.userInfo) {
             if (this.props.history) {
-                this.props.history.push("/customer/account");
+                this.props.history.push("/customer/account/dashboard");
             }
             // this.props.history.push("/customer/account");
         }

@@ -26,15 +26,18 @@ class OneStepCheckout extends Component {
 
     async componentDidMount() {
         document.title = "One Step Checkout | Nguyenkevin1042's Fahasa Clone"
-        if (this.props.userInfo) {
-            await this.props.fetchAllCodesByType('payment')
-            this.setState({
-                listUserAddress: this.props.userInfo.UserAddresses,
-                listProduct: JSON.parse(localStorage.getItem('selectedProducts'))
-            })
-        } else {
-            // this.props.history.push("/home");
 
+        let listSelectedProducts = JSON.parse(localStorage.getItem('selectedProducts'))
+        if (this.props.userInfo) {
+            if (listSelectedProducts) {
+                await this.props.fetchAllCodesByType('payment')
+                this.setState({
+                    listUserAddress: this.props.userInfo.UserAddresses,
+                    listProduct: listSelectedProducts
+                })
+            }
+        } else {
+            this.props.history.push("/home");
         }
     }
 
@@ -44,13 +47,9 @@ class OneStepCheckout extends Component {
         }
 
         if (prevProps.userInfo !== this.props.userInfo) {
-            // let dataUserAddress = this.buildDataInputSelect(this.props.userInfo.UserAddresses, 'address');
-            // this.setState({
-            //     listUserAddress: dataUserAddress
-            // })
-            // if (!this.props.userInfo) {
-            //     this.props.history.push("/home");
-            // }
+            this.setState({
+                listUserAddress: this.props.userInfo.UserAddresses,
+            })
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -142,6 +141,7 @@ class OneStepCheckout extends Component {
 
     handleConfirm = async () => {
         let orderedDate = Date.now();
+
         if (this.props.userInfo) {
             await this.props.createNewBill({
                 orderedDate: orderedDate,
@@ -152,7 +152,6 @@ class OneStepCheckout extends Component {
                 listProduct: this.state.listProduct
             })
         }
-
     }
 
     countTotalPrice = () => {
@@ -293,8 +292,6 @@ class OneStepCheckout extends Component {
     render() {
         let { isOpenAddNewAddress, listProduct } = this.state
 
-        // console.log(JSON.parse(localStorage.getItem('selectedProducts')))
-        console.log(this.props.userInfo)
         return (
             <React.Fragment>
                 <Header />

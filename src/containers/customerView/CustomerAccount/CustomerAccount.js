@@ -16,17 +16,25 @@ class CustomerAccount extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedSection: 'dashboard'
+            selectedSection: ''
         };
     }
 
     componentDidMount() {
+
         document.title = "Account | Nguyenkevin1042's Fahasa Clone"
         if (!this.props.userInfo) {
             if (this.props.history) {
                 this.props.history.push("/customer/account/login");
             }
         }
+        if (this.props.match.params.section) {
+            this.setState({
+                selectedSection: this.props.match.params.section
+            })
+        }
+
+
 
     }
 
@@ -35,7 +43,11 @@ class CustomerAccount extends Component {
 
         }
 
-
+        if (prevProps.match.params.section !== this.props.match.params.section) {
+            this.setState({
+                selectedSection: this.props.match.params.section
+            })
+        }
     }
 
     handleChooseMenu = (event) => {
@@ -43,6 +55,9 @@ class CustomerAccount extends Component {
         let copyState = { ...this.state };
         copyState.selectedSection = data;
         this.setState({ ...copyState });
+        if (this.props.history) {
+            this.props.history.push("/customer/account/" + event.target.id);
+        }
     }
 
     renderRightContent = () => {

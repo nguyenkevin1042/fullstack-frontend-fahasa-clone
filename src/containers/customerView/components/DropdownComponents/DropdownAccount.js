@@ -46,13 +46,13 @@ class DropdownAccount extends Component {
 
     handleToMyOrder = () => {
         if (this.props.history) {
-            this.props.history.push("/customer/account");
+            this.props.history.push("/customer/account/my-orders");
         }
     }
 
     handleSignOut = () => {
         this.props.userProcessLogout();
-        if (this.props.history.location.pathname === '/customer/account' ||
+        if (this.props.history.location.pathname === '/customer/account/dashboard' ||
             this.props.history.location.pathname === '/onestepcheckout') {
             this.props.history.push("/home");
         }
@@ -83,7 +83,7 @@ class DropdownAccount extends Component {
         return (
             <>
                 <div className='col-12 sharing-link-content signed-in-item' >
-                    <Link to='/customer/account' className=''>
+                    <Link to='/customer/account/dashboard' className=''>
                         <p>{customerName}</p>
                     </Link>
                 </div>
