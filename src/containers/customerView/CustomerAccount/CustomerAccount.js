@@ -21,8 +21,11 @@ class CustomerAccount extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            selectedSection: this.props.match.params.section
+        })
 
-        document.title = "Account | Nguyenkevin1042's Fahasa Clone"
+        // document.title = "Account | Nguyenkevin1042's Fahasa Clone"
         if (!this.props.userInfo) {
             if (this.props.history) {
                 this.props.history.push("/customer/account/login");
@@ -44,6 +47,8 @@ class CustomerAccount extends Component {
         }
 
         if (prevProps.match.params.section !== this.props.match.params.section) {
+            console.log(prevProps.match.params.section)
+            console.log(this.props.match.params.section)
             this.setState({
                 selectedSection: this.props.match.params.section
             })
@@ -86,7 +91,7 @@ class CustomerAccount extends Component {
                 <Header />
                 <div className='account-container'>
                     <div className='row'>
-                        <div className='account-left-container col-12 col-xl-3'>
+                        <div className='account-left-container col-12 col-lg-3'>
                             <div className='left-content'>
                                 <div className='left-content-header'>
                                     <FormattedMessage id='customer.account.title' />
@@ -142,7 +147,7 @@ class CustomerAccount extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='account-right-container col-12  col-xl-9'>
+                        <div className='account-right-container col-12 col-lg-9'>
                             <div className='right-content'>
                                 {this.renderRightContent()}
                             </div>

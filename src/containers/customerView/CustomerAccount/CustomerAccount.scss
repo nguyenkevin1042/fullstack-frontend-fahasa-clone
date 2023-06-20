@@ -1,6 +1,51 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (max-width: $medium) {
+    .account-container{
+        // margin: 0;
+        .account-left-container{
+
+            margin-bottom: 10px;
+            .left-content{
+                // padding: 0 40px;
+                .left-content-header{
+                    padding: 10px 20px;
+                }
+                .left-content-options{
+                    // margin-top: 10px;
+                    padding: 10px 30px;
+                }
+            }
+        }
+    }
+}
+@media (min-width: $medium) {
+    .account-container{
+        margin: 10px 25px;
+        .account-left-container{
+            margin-bottom: 10px;
+
+            .left-content{
+                .left-content-header{
+                    padding: 20px 15px;
+                }
+                .left-content-options{
+                    margin-top: 15px;
+                    padding: 5px 20px;
+                }
+            }
+        }
+    }
+}
+
+
 .account-container{
     padding: 0;
-    margin: 10px 40px;
+    // margin: 10px 40px;
 
     .account-left-container{
 
@@ -14,12 +59,12 @@
                 font-weight: 700;
                 font-size: 1.5em;
                 border-bottom: 2px solid #f6f6f6;
-                padding: 20px 15px;
+                
             }
 
             .left-content-options{
-                margin-top: 30px;
-                padding: 0 10px 10px 10px;
+                // margin-top: 30px;
+                // padding: 0 10px 10px 10px;
 
                 ul{
                     list-style: none;

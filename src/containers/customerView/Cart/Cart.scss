@@ -6,12 +6,12 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (max-width: $medium) {
     .cart-container{
-        margin: 20px 0;
+        margin: 15px 0;
         
         .no-products-content{
 
             .no-products-img{
-                height: 30vw;
+                height: 25vw;
             }
             .shopping-now-btn{
 
@@ -27,7 +27,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (min-width: $medium) {
     .cart-container{
-        margin: 20px;
+        margin: 10px 25px;
         .no-products-content{
             .no-products-img{
                 height: 20vw;

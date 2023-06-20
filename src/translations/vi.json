@@ -139,6 +139,19 @@
             "my-orders": {
                 "title": "Đơn hàng của tôi"
             },
+            "order-detail": {
+                "title": "Chi tiết đơn hàng",
+                "order-id": "Mã đơn hàng",
+                "ordered-date": "Ngày đặt",
+                "total": "Tổng tiền",
+                "quantity": "Số Lượng",
+                "product-image": "Hình ảnh",
+                "product-name": "Tên sản phẩm",
+                "product-id": "Mã sản phẩm",
+                "product-price": "Giá bán",
+                "quantity-ordered": "SL",
+                "product-total": "Thành tiền"
+            },
             "voucher": "Ví voucher",
             "book-set": "Sách theo bộ",
             "f-point": "Tài khoản F-point/Freeship",

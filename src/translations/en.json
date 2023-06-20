@@ -135,6 +135,19 @@
             "my-orders": {
                 "title": "My orders"
             },
+            "order-detail": {
+                "title": "Order detail",
+                "order-id": "Order ID",
+                "ordered-date": "Ordered date",
+                "total": "Total price",
+                "quantity": "Quantity",
+                "product-image": "Image",
+                "product-name": "Name",
+                "product-id": "ID",
+                "product-price": "Price",
+                "quantity-ordered": "Quantity",
+                "product-total": "Total"
+            },
             "voucher": "Voucher wallet",
             "book-set": "Book set",
             "f-point": "F-point/Freeship",

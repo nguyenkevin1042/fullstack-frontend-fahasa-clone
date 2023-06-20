@@ -4,38 +4,28 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
+@media (max-width: $medium) {
+    .footer-container{
+        margin-top: 30px;
+        padding: 0;
+    }
+}
+
+@media (min-width: $medium) {
+    .footer-container{
+        margin: 0 25px;
+    }
+}
+
+@media (min-width: $large) {
+    .footer-container{
+        margin: 0 50px;
+    }
+}
+
+
 .footer-container{
     height: fit-content;
-
-    
-    @media (max-width: $ex-small){
-        padding: 0; 
-        margin-bottom:150px;
-        margin-top: 70px;
-    }
-    @media (min-width: $ex-small){
-        // margin-bottom:150px;
-        margin-top: 70px;
-        // padding: 0 30px;
-    }
-    // @media (min-width: $small){
-    //     margin-bottom:150px;
-    //     padding: 0;
-    //     // border: 1px solid red;
-    // }
-    // @media (max-width: $medium){
-    //     margin-bottom:250px;
-    //    padding: 0 25px;
-    // }
-    @media (min-width: $medium) {
-        // margin-bottom:150px;
-        margin-top: 0;
-        padding: 0 25px;
-    }
-    @media (min-width: $large){
-        padding: 0 50px;
-        // margin-bottom:150px;
-    }  
 
 
     .footer-content{
@@ -52,7 +42,6 @@ $ex-large: 1200px;// Extra large >= 1200
         }
         @media (min-width: $medium){
             padding: 0 10px;
-            // border: 1px solid red;
         }
 
         .footer-information{
@@ -67,10 +56,6 @@ $ex-large: 1200px;// Extra large >= 1200
                 @media (min-width: $large){
                     border-right: 1px solid #cecece;
                     padding-left: 30px;
-                    // padding: 0 60px;
-                    // margin-bottom:240px;
-                    // margin-top: 10px;
-                    // border: 1px solid red;
                 }
                 
                 height: fit-content;

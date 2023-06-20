@@ -8,6 +8,7 @@ import { languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import moment from 'moment';
 import NumericFormat from 'react-number-format';
+import MyOrderDetailComponent from './MyOrderDetailComponent';
 
 class MyOrderComponent extends Component {
     constructor(props) {
@@ -64,7 +65,7 @@ class MyOrderComponent extends Component {
                     listUserOrders.map((item, index) => {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
                         return (
-                            <tr>
+                            <tr key={index}>
                                 <td>{item.id}</td>
                                 <td>{orderedDate}</td>
                                 <td>
@@ -141,14 +142,15 @@ class MyOrderComponent extends Component {
                             <></> :} */}
                 <div className='right-content-header'>
                     {selectedOrder ?
-                        <>Chi tiet don hang</> : <FormattedMessage id='customer.account.my-orders.title' />
+                        <FormattedMessage id='customer.account.order-detail.title' /> :
+                        <FormattedMessage id='customer.account.my-orders.title' />
                     }
                 </div>
 
                 <div>
                     <div className='recent-order'>
                         {selectedOrder ?
-                            <></> :
+                            <MyOrderDetailComponent selectedOrder={selectedOrder} /> :
                             this.renderDefault()}
 
 

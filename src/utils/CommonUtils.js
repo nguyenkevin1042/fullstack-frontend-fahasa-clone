@@ -1,4 +1,10 @@
 class CommonUtils {
+    static checkChosenAddress(target) {
+        if (target) {
+            return true;
+        }
+        return false
+    }
     static getSalePrice(price, discount) {
         return price - ((price * discount) / 100);
     }

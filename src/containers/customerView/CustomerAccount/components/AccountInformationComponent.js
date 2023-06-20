@@ -173,18 +173,16 @@ class AccountInformationComponent extends Component {
                         <div className='select-gender-option'>
                             {listGender && listGender.length > 0 && (
                                 listGender.map((item, index) => (
-                                    <div>
-                                        <label key={index}>
-                                            <input
-                                                type="radio"
-                                                value={item.keyMap}
-                                                name="gender"
-                                                onChange={(event) => this.onChangeRadioValue(event)}
-                                                checked={gender === item.keyMap ? true : false}
-                                            />
-                                            {item.label}
-                                        </label>
-                                    </div>
+                                    <label key={index}>
+                                        <input
+                                            type="radio"
+                                            value={item.keyMap}
+                                            name="gender"
+                                            onChange={(event) => this.onChangeRadioValue(event)}
+                                            checked={gender === item.keyMap ? true : false}
+                                        />
+                                        {item.label}
+                                    </label>
                                 ))
                             )}
 

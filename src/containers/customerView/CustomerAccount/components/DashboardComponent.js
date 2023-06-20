@@ -19,6 +19,8 @@ class DashboardComponent extends Component {
     }
 
     async componentDidMount() {
+        document.title = "Account | Nguyenkevin1042's Fahasa Clone"
+
         if (this.props.userInfo) {
             await this.props.getBillByUserId(this.props.userInfo.id)
         }
@@ -55,7 +57,7 @@ class DashboardComponent extends Component {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
 
                         return (
-                            <tr>
+                            <tr key={index}>
                                 <td>{item.id}</td>
                                 <td>{orderedDate}</td>
                                 <td>
@@ -151,11 +153,12 @@ class DashboardComponent extends Component {
                     <div className='recent-order-table'>
                         <table>
                             <tr>
-                                <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.total' /></th>
-                                <th><FormattedMessage id='customer.account.dashboard.status' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.order-id' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.total' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.status' /></th>
+                                <th className='col-2'></th>
                             </tr>
                             {this.renderOrderData()}
                         </table>

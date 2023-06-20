@@ -6,7 +6,7 @@ import './OneStepCheckout.scss';
 import Header from '../components/Header';
 import AddNewAddressModal from './Modal/AddNewAddressModal';
 import NumericFormat from 'react-number-format';
-import { languages } from '../../../utils';
+import { CommonUtils, languages } from '../../../utils';
 import * as actions from "../../../store/actions";
 
 class OneStepCheckout extends Component {
