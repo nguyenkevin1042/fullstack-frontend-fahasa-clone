@@ -21,6 +21,8 @@ class MyOrderComponent extends Component {
     }
 
     async componentDidMount() {
+        document.title = "My Orders | Nguyenkevin1042's Fahasa Clone"
+
         if (this.props.userInfo) {
             await this.props.getBillByUserId(this.props.userInfo.id)
         }
@@ -55,6 +57,13 @@ class MyOrderComponent extends Component {
         })
     }
 
+    handleBackToOrderLists = async () => {
+        this.setState({
+            selectedOrder: ''
+        })
+        await this.props.getBillByUserId(this.props.userInfo.id)
+    }
+
     renderOrderData = () => {
         let { billData, lang } = this.props
         let { message, listUserOrders } = this.state
@@ -65,25 +74,25 @@ class MyOrderComponent extends Component {
                     listUserOrders.map((item, index) => {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
                         return (
-                            <tr key={index}>
-                                <td>{item.id}</td>
-                                <td>{orderedDate}</td>
-                                <td>
+                            <tr key={index} className='row'>
+                                <td className='col-2 text-center'>{item.id}</td>
+                                <td className='col-2'>{orderedDate}</td>
+                                <td className='col-2'>
                                     {item.UserAddress.fullName}
                                 </td>
-                                <td>
+                                <td className='col-2'>
                                     <NumericFormat value={item.totalPrice}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}
                                         suffix={'đ'} />
                                 </td>
-                                <td>
+                                <td className='col-2'>
                                     {lang === languages.VI ?
                                         item.AllCode.valueVI : item.AllCode.valueEN
                                     }
                                 </td>
-                                <td className='actions'>
+                                <td className='actions col-2'>
                                     {item.status === 'S4' || item.status === 'S5' ?
                                         <>
                                             <p onClick={() => this.hanldeViewOrderDetail(item)}>
@@ -114,14 +123,14 @@ class MyOrderComponent extends Component {
         return (
             <>
                 <div className='recent-order-table'>
-                    <table>
-                        <tr>
-                            <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
-                            <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
-                            <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
-                            <th><FormattedMessage id='customer.account.dashboard.total' /></th>
-                            <th><FormattedMessage id='customer.account.dashboard.status' /></th>
-
+                    <table >
+                        <tr className='row'>
+                            <th className='col-2 text-center'><FormattedMessage id='customer.account.dashboard.order-id' /></th>
+                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
+                            <th className='col-2 '><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
+                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.total' /></th>
+                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.status' /></th>
+                            <th className='col-2'></th>
                         </tr>
                         {this.renderOrderData()}
                     </table>
@@ -133,8 +142,6 @@ class MyOrderComponent extends Component {
     render() {
         let { message, selectedOrder } = this.state
         let { userInfo, lang, actionResponse } = this.props
-
-        console.log(selectedOrder)
 
         return (
             <div className='right-content-my-order'>
@@ -150,23 +157,9 @@ class MyOrderComponent extends Component {
                 <div>
                     <div className='recent-order'>
                         {selectedOrder ?
-                            <MyOrderDetailComponent selectedOrder={selectedOrder} /> :
+                            <MyOrderDetailComponent selectedOrder={selectedOrder}
+                                backToOrderList={this.handleBackToOrderLists} /> :
                             this.renderDefault()}
-
-
-                        {/* <div className='recent-order-table'>
-                            <table>
-                                <tr>
-                                    <th><FormattedMessage id='customer.account.dashboard.order-id' /></th>
-                                    <th><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
-                                    <th><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
-                                    <th><FormattedMessage id='customer.account.dashboard.total' /></th>
-                                    <th><FormattedMessage id='customer.account.dashboard.status' /></th>
-
-                                </tr>
-                                {this.renderOrderData()}
-                            </table>
-                        </div> */}
                     </div >
                 </div>
             </div>

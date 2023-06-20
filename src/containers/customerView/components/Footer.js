@@ -31,9 +31,7 @@ class Footer extends Component {
                 <div className='footer-content'>
                     <div className='footer-information row'>
                         <div className='left col-12  col-lg-4'>
-                            <div className='logo img-fluid'>
-
-                            </div>
+                            <div className='logo img-fluid'> </div>
 
                             <div className='address'>
                                 <p>Lầu 5, 387-389 Hai Bà Trưng Quận 3 TP HCM<br />
@@ -46,27 +44,17 @@ class Footer extends Component {
                             </div>
 
                             <div className='social-list'>
-                                <div className='facebook icon'>
-                                </div>
-                                <div className='instagram icon'>
-                                </div>
-                                <div className='youtube icon'>
-                                </div>
-                                <div className='tumblr icon'>
-                                </div>
-                                <div className='twitter icon'>
-                                </div>
-                                <div className='pinterest icon'>
-                                </div>
+                                <span className='facebook icon'></span>
+                                <span className='instagram icon'></span>
+                                <span className='youtube icon'></span>
+                                <span className='tumblr icon'></span>
+                                <span className='twitter icon'></span>
+                                <span className='pinterest icon'></span>
                             </div>
 
                             <div className='download'>
-                                <div className='android'>
-
-                                </div>
-                                <div className='ios'>
-
-                                </div>
+                                <span className='android'></span>
+                                <span className='ios'></span>
                             </div>
                         </div>
 
@@ -132,36 +120,18 @@ class Footer extends Component {
 
                             <div className='payments-method d-none d-md-block d-lg-block'>
                                 <div className='payments-up'>
-                                    <div className='payment-icon'>
-                                        <div className='payment-1'></div>
-                                    </div>
-                                    <div className='payment-icon'>
-                                        <div className='payment-2'></div>
-                                    </div>
-                                    <div className='payment-icon'>
-                                        <div className='payment-3'></div>
-                                    </div>
-                                    <div className='payment-icon'>
-                                        <div className='payment-4'></div>
-                                    </div>
-
+                                    <div className='payment-1 payment-icon'></div>
+                                    <div className='payment-2 payment-icon'></div>
+                                    <div className='payment-3 payment-icon'></div>
+                                    <div className='payment-4 payment-icon'></div>
+                                    <div className='payment-5 payment-icon'></div>
                                 </div>
                                 <div className='payments-down'>
-                                    <div className='payment-icon'>
-                                        <div className='payment-5'></div>
-                                    </div>
-                                    <div className='payment-icon'>
-                                        <div className='payment-6'></div>
-                                    </div>
-                                    <div className='payment-icon'>
-                                        <div className='payment-7'></div>
-                                    </div>
-                                    <div className='payment-icon'>
-                                        <div className='payment-8'></div>
-                                    </div>
-                                    <div className='payment-icon'>
-                                        <div className='payment-9'></div>
-                                    </div>
+                                    <div className='payment-6 payment-icon'></div>
+                                    <div className='payment-7 payment-icon'></div>
+                                    <div className='payment-8 payment-icon'></div>
+                                    <div className='payment-9 payment-icon'></div>
+                                    <div className='payment-10 payment-icon'></div>
                                 </div>
 
                             </div>

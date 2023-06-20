@@ -150,7 +150,10 @@
                 "product-id": "Mã sản phẩm",
                 "product-price": "Giá bán",
                 "quantity-ordered": "SL",
-                "product-total": "Thành tiền"
+                "product-total": "Thành tiền",
+                "cancel-order": "Hủy đơn hàng",
+                "reorder": "Đặt hàng lại",
+                "back": "Quay về"
             },
             "voucher": "Ví voucher",
             "book-set": "Sách theo bộ",

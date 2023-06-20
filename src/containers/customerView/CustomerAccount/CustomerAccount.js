@@ -21,21 +21,17 @@ class CustomerAccount extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            selectedSection: this.props.match.params.section
-        })
-
         // document.title = "Account | Nguyenkevin1042's Fahasa Clone"
         if (!this.props.userInfo) {
             if (this.props.history) {
                 this.props.history.push("/customer/account/login");
             }
         }
-        if (this.props.match.params.section) {
-            this.setState({
-                selectedSection: this.props.match.params.section
-            })
-        }
+        // if (this.props.match.params.section) {
+        this.setState({
+            selectedSection: this.props.match.params.section
+        })
+        // }
 
 
 
@@ -47,11 +43,9 @@ class CustomerAccount extends Component {
         }
 
         if (prevProps.match.params.section !== this.props.match.params.section) {
-            console.log(prevProps.match.params.section)
-            console.log(this.props.match.params.section)
-            this.setState({
-                selectedSection: this.props.match.params.section
-            })
+            // this.setState({
+            //     selectedSection: this.props.match.params.section
+            // })
         }
     }
 

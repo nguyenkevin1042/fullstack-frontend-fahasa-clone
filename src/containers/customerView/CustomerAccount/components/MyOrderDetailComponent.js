@@ -8,7 +8,6 @@ import moment from 'moment';
 import NumericFormat from 'react-number-format';
 import { languages } from '../../../../utils';
 
-
 class MyOrderDetailComponent extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +18,7 @@ class MyOrderDetailComponent extends Component {
     }
 
     componentDidMount() {
-        document.title = "Order Detail | Nguyenkevin1042's Fahasa Clone"
+        document.title = "Order #" + this.props.selectedOrder.id + " | Nguyenkevin1042's Fahasa Clone"
         let labelVI = this.props.selectedOrder.AllCode.valueVI
         let labelEN = this.props.selectedOrder.AllCode.valueEN
 
@@ -39,6 +38,40 @@ class MyOrderDetailComponent extends Component {
                 orderStatus: this.props.lang === languages.VI ? labelVI : labelEN
             })
         }
+
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode === 0) {
+                if (this.props.backToOrderList) {
+                    this.props.backToOrderList()
+                }
+                if (this.props.backToDashboard) {
+                    this.props.backToDashboard()
+                }
+            }
+        }
+    }
+
+    handleCancelOrder = async () => {
+        let { selectedOrder } = this.props
+
+        await this.props.updateBillStatus({
+            billId: selectedOrder.id,
+            statusKeyMap: 'S5'
+        })
+    }
+
+    handleGoBack = () => {
+        let { backToDashboard, backToOrderList } = this.props
+        if (backToDashboard) {
+            backToDashboard()
+        }
+        if (backToOrderList) {
+            backToOrderList()
+        }
+    }
+
+    handleReOrder = () => {
+
     }
 
     getOrderStatusColor = () => {
@@ -73,7 +106,7 @@ class MyOrderDetailComponent extends Component {
                         }
                         return (
                             <tr key={index} className='product-item row'>
-                                <td className='col-2 col-xl-2'>
+                                <td className='col-2'>
                                     <div className='product-img'
                                         style={{
                                             backgroundImage: "url(" + imageBase64 + ")"
@@ -106,7 +139,7 @@ class MyOrderDetailComponent extends Component {
     }
 
     render() {
-        let { selectedOrder } = this.props
+        let { selectedOrder, backToOrderList } = this.props
         let { orderStatus, orderStatusColor } = this.state
         let orderedDate = moment(selectedOrder.orderedDate).format('DD/MM/YYYY')
 
@@ -114,9 +147,7 @@ class MyOrderDetailComponent extends Component {
             <React.Fragment>
                 <div className='order-detail-container'>
                     <div className='order-detail-content-up row'>
-                        {/* <div className='back-to-order-list col-12 '>
-                            <a href='/customer/account/my-orders'>Back</a>
-                        </div> */}
+
                         <div className='order-detail-text col-12 col-lg-7'>
                             <div className='order-status'>
                                 <span className={orderStatusColor}>{orderStatus}</span>
@@ -146,14 +177,21 @@ class MyOrderDetailComponent extends Component {
                         </div>
 
                         <div className='review-order col-12 col-lg-5'>
-
                             {selectedOrder.status === 'S1' || selectedOrder.status === 'S2' ?
-                                <button className='cancel-btn'>
-                                    Hủy
+                                <button className='cancel-btn'
+                                    onClick={() => this.handleCancelOrder()}>
+                                    <FormattedMessage id='customer.account.order-detail.cancel-order' />
                                 </button> :
                                 <></>
                             }
 
+                            {selectedOrder.status === 'S4' || selectedOrder.status === 'S5' ?
+                                <button className='cancel-btn'
+                                    onClick={() => this.handleReOrder()}>
+                                    <FormattedMessage id='customer.account.order-detail.reorder' />
+                                </button> :
+                                <></>
+                            }
                         </div>
                     </div>
 
@@ -170,12 +208,12 @@ class MyOrderDetailComponent extends Component {
                             {this.renderProductData()}
                         </table>
                     </div>
-                    <div className='back-to-orders'>
 
+                    <div className='back-to-orders'>
+                        <p onClick={() => this.handleGoBack()}> &#60;&#60; <FormattedMessage id='customer.account.order-detail.back' /></p>
                     </div>
                 </div>
             </React.Fragment >
-
         );
     }
 }
@@ -183,13 +221,14 @@ class MyOrderDetailComponent extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        lang: state.app.language,
+        actionResponse: state.admin.actionResponse,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        updateBillStatus: (inputData) => dispatch(actions.updateBillStatus(inputData)),
     };
 };
 
