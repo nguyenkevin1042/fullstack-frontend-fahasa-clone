@@ -82,7 +82,6 @@ class Header extends Component {
         }
 
         if (prevProps.cartData !== this.props.cartData) {
-            console.log(this.props.cartData.length)
             this.setState({
                 productInCartLength: this.props.cartData.length
             })

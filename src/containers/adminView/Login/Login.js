@@ -15,7 +15,7 @@ class Login extends Component {
             password: '',
             message: '',
             isModalOpened: false,
-
+            isShowed: false,
         };
     }
 
@@ -63,9 +63,15 @@ class Login extends Component {
         this.setState({ ...copyState });
     }
 
+    handleShowHidePassword = () => {
+        this.setState({
+            isShowed: !this.state.isShowed
+        });
+    }
+
 
     render() {
-        let { isModalOpened, email, password, message } = this.state;
+        let { isModalOpened, email, password, message, isShowed } = this.state;
 
         return (
             <>
@@ -82,12 +88,16 @@ class Login extends Component {
                                     onChange={(event) => this.handleOnChangeInput(event, 'email')}
                                     required />
                             </div>
-                            <div className="col-12 form-group">
+                            <div className="col-12 form-group custom-input-password">
                                 <input className='form-control'
+                                    type={isShowed ? 'text' : 'password'}
                                     placeholder='Password'
                                     value={password}
                                     onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                     required />
+                                <span onClick={() => this.handleShowHidePassword()}>
+                                    <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
+                                </span>
                             </div>
                             <div className='col-12 error-message mt-4'>
                                 {message}

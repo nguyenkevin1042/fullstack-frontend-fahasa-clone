@@ -96,7 +96,6 @@ class AccountInformationComponent extends Component {
     }
 
     onChangeRadioValue = (event) => {
-        console.log()
         this.setState({
             gender: event.target.value
         })

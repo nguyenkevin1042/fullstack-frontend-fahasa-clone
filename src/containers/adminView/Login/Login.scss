@@ -16,6 +16,18 @@
         }
 
         .login-form-input-field{
+            .custom-input-password {
+                position: relative;
+
+                i.show-hide-icon {
+                    position: absolute;
+                    color: white;
+                    right: 20px;
+                    top: 20px;
+                    cursor: pointer;
+                }
+            }
+
             input{
                 margin: 10px 0;
                 background-color: transparent;

@@ -285,33 +285,33 @@ class ProductDetail extends Component {
                 <Header />
 
                 <div className='product-detail-container'>
-
                     <div className='product-detail-section row'>
-                        <div className='product-detail-left col-xl-5'>
+                        <div className='product-detail-left col-md-5'>
                             <div className='row'>
-                                <div className='col-xl-2'></div>
-                                <div className='product-img col-xl-10'
-                                    style={{
-                                        backgroundImage: "url(" + imageBase64 + ")"
-                                    }}>
-
+                                <div className='col-md-12 text-center'>
+                                    <img src={imageBase64}
+                                        className='product-img img-fluid' />
                                 </div>
-                                <div className='product-action col-xl-12'>
-                                    <button className='add-to-cart-btn'
-                                        onClick={() => this.handleAddToCart()}>
-                                        <FormattedMessage id="customer.product-detail.add-to-cart" />
-                                    </button>
-                                    <button className='buy-now-btn'
-                                        onClick={() => this.handleBuyNow()}>
-                                        <FormattedMessage id="customer.product-detail.buy-now" />
-                                    </button>
+                                <div className='product-action col-lg-12 d-none d-md-flex'>
+                                    <div className='col-6'>
+                                        <button className='add-to-cart-btn'
+                                            onClick={() => this.handleAddToCart()}>
+                                            <FormattedMessage id="customer.product-detail.add-to-cart" />
+                                        </button>
+                                    </div>
+                                    <div className='col-6'>
+                                        <button className='buy-now-btn'
+                                            onClick={() => this.handleBuyNow()}>
+                                            <FormattedMessage id="customer.product-detail.buy-now" />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className='product-detail-right col-xl-7'>
+                        <div className='product-detail-right col-md-7'>
                             <div className='row'>
-                                <div className='product-name col-xl-12'>{product.name}</div>
+                                <div className='product-name col-lg-12'>{product.name}</div>
                                 {productType === 'book' && this.renderBookDescription(descriptionData)}
                                 {productType === 'stationary' && this.renderStationaryDescription(descriptionData)}
                                 {productType === 'toy' && this.renderToyDescription(descriptionData)}
@@ -319,7 +319,7 @@ class ProductDetail extends Component {
                                 {/* <div className='review col-xl-12'>Đánh giá</div>
                                 <div className='flash-sale col-xl-12'>Flash Sale</div> */}
 
-                                <div className='product-price-text col-xl-12'>
+                                <div className='product-price-text col-lg-12'>
                                     {this.renderProductPrice(product.price, product.discount)}
                                 </div>
 
@@ -339,8 +339,8 @@ class ProductDetail extends Component {
                                     </div>
                                 </div> */}
 
-                                <div className='sharing-content col-xl-12'>
-                                    <label className='quantity-label col-xl-3'><FormattedMessage id="customer.product-detail.quantity" />:</label>
+                                <div className='sharing-content col-lg-12 d-none d-lg-flex'>
+                                    <label className='quantity-label col-lg-3'><FormattedMessage id="customer.product-detail.quantity" />:</label>
                                     <div className='col-xl-9'>
                                         <ChangingQuantityComponent quantityValue={quantityValue}
                                             onChange={this.eventhandler} />
@@ -373,6 +373,26 @@ class ProductDetail extends Component {
                 <SignUpNewletter />
                 <Footer />
 
+                <div className='sticky-actions d-flex d-md-none'>
+                    {/* <div className='row'> */}
+                    <div className='col-4 sticky-action'>
+                        <ChangingQuantityComponent quantityValue={quantityValue}
+                            onChange={this.eventhandler} />
+                    </div>
+                    <div className='col-4 sticky-action'>
+                        <button className='add-to-cart-btn'
+                            onClick={() => this.handleAddToCart()}>
+                            <FormattedMessage id="customer.product-detail.add-to-cart" />
+                        </button>
+                    </div>
+                    <div className='col-4 sticky-action'>
+                        <button className='buy-now-btn'
+                            onClick={() => this.handleBuyNow()}>
+                            <FormattedMessage id="customer.product-detail.buy-now" />
+                        </button>
+                    </div>
+                    {/* </div> */}
+                </div>
             </>
 
         );

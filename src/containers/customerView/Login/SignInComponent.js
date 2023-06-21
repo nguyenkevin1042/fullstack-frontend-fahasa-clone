@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import './SignInComponent.scss';
 import * as actions from "../../../store/actions";
 
-import { languages } from '../../../utils';
+import { CommonUtils, languages } from '../../../utils';
 
 class SignInComponent extends Component {
     constructor(props) {
@@ -13,7 +13,8 @@ class SignInComponent extends Component {
         this.state = {
             email: '',
             password: '',
-            message: ''
+            message: '',
+            isShowed: false,
         };
     }
 
@@ -51,7 +52,10 @@ class SignInComponent extends Component {
             if (this.props.history) {
                 this.props.history.push("/customer/account/dashboard");
             }
-            // this.props.history.push("/customer/account");
+        }
+
+        if (prevState.message !== this.state.message) {
+
         }
 
     }
@@ -67,16 +71,20 @@ class SignInComponent extends Component {
         this.setState({
             message: ''
         })
+
         await this.props.userLogin(this.state.email, this.state.password)
+    }
+
+    handleShowHidePassword = () => {
+        this.setState({
+            isShowed: !this.state.isShowed
+        });
     }
 
 
     render() {
-        let { email, password, message } = this.state;
-
-        let { isOpenSignInForm, handleOpenForgotPasswordForm, actionResponse } = this.props;
-
-        let language = this.props.lang
+        let { email, password, message, isShowed } = this.state;
+        let { isOpenSignInForm, handleOpenForgotPasswordForm } = this.props;
 
         return (
             <>
@@ -90,13 +98,17 @@ class SignInComponent extends Component {
                                 onChange={(event) => this.handleOnChangeInput(event, 'email')}
                                 required />
                         </div>
-                        <div className="col-12 form-group">
+                        <div className="col-12 form-group custom-input-password">
                             <label><FormattedMessage id="customer.login.password" /></label>
-                            <input type='password' className='form-control'
+                            <input className='form-control'
+                                type={isShowed ? 'text' : 'password'}
                                 placeholder='Password'
                                 value={password}
                                 onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                 required />
+                            <span onClick={() => this.handleShowHidePassword()}>
+                                <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
+                            </span>
                         </div>
 
                         <div className="col-12 forgot-password"

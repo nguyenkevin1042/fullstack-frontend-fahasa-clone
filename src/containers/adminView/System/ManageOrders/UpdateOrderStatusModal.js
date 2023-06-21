@@ -109,7 +109,6 @@ class UpdateOrderStatusModal extends Component {
         let { selectedOrder, isOpenUpdateStatusModal, closeModal, lang } = this.props
         let orderedDate = moment(selectedOrder.orderedDate).format('DD/MM/YYYY')
 
-        console.log(this.state.selectedStatus)
         return (
             <>
                 <Modal isOpen={isOpenUpdateStatusModal}

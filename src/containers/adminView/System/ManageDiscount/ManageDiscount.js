@@ -285,7 +285,6 @@ class ManageDiscount extends Component {
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
-        console.log(this.state.listSelectedProductsId)
         return (
             <>
                 <LoadingOverlay

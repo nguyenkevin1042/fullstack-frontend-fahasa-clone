@@ -1,4 +1,27 @@
+import passwordValidator from 'password-validator'
+const schema = new passwordValidator();
+
+schema.is().min(8)
+    .is().max(16)
+    .has().uppercase()
+    .has().lowercase()
+    .has().digits(1)
+
 class CommonUtils {
+    static validatePassword(password) {
+        let isValid = schema.validate(password)
+        let response = {}
+
+        if (isValid) {
+            response.errCode = 0;
+        } else {
+            response.errCode = 1;
+            response.messageVI = 'Mặt khẩu phải từ 8 đến 16 kí tự, 1 kí tự in hoa và 1 kí tự số'
+            response.messageEN = 'Password must have 8 to 16 characters, including an uppercase and a number'
+        }
+        return response;
+    }
+
     static checkChosenAddress(target) {
         if (target) {
             return true;

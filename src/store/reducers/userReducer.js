@@ -27,6 +27,19 @@ const appReducer = (state = initialState, action) => {
                 actionResponse: action.response
             }
 
+        case actionTypes.CREATE_NEW_USER_SUCCESS:
+            return {
+                ...state,
+                userInfo: action.response.newUser,
+                actionResponse: action.response
+            }
+        case actionTypes.CREATE_NEW_USER_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+
+            }
+
         case actionTypes.UPDATE_USER_SUCCESS:
             return {
                 ...state,

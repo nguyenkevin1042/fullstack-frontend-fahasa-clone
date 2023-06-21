@@ -36,7 +36,6 @@ class ManageUser extends Component {
                         let lastName = item.lastName && item.lastName !== null ?
                             item.lastName : ''
                         let gender = item.AllCode && item.AllCode.valueVI ? item.AllCode.valueVI : '';
-                        console.log(gender)
 
                         return (
                             <>
@@ -58,8 +57,6 @@ class ManageUser extends Component {
     };
 
     render() {
-        console.log(this.props.allUserArr)
-
         return (
             <React.Fragment>
                 <div className='sharing-manage-container'>

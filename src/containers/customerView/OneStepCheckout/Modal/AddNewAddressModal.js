@@ -66,7 +66,6 @@ class AddNewAddressModal extends Component {
         let { fullName, phoneNumber, country, province, district, ward, addressDetail } = this.state
         let { isOpenAddNewAddress, closeAddNewAddress } = this.props
 
-        // console.log(this.props.actionResponse)
         return (
             <Modal isOpen={isOpenAddNewAddress}
                 toggle={closeAddNewAddress}

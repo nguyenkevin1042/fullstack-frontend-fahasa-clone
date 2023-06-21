@@ -6,7 +6,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (max-width: $medium){
     .product-list-container{
-        margin: 0;
+        margin-bottom: 20px;
         .left-menu-content{
             margin-bottom: 10px;
         }

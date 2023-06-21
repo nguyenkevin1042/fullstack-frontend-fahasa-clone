@@ -27,14 +27,11 @@ class CustomerAccount extends Component {
                 this.props.history.push("/customer/account/login");
             }
         }
-        // if (this.props.match.params.section) {
-        this.setState({
-            selectedSection: this.props.match.params.section
-        })
-        // }
-
-
-
+        if (this.props.match.params.section) {
+            this.setState({
+                selectedSection: this.props.match.params.section
+            })
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -43,9 +40,9 @@ class CustomerAccount extends Component {
         }
 
         if (prevProps.match.params.section !== this.props.match.params.section) {
-            // this.setState({
-            //     selectedSection: this.props.match.params.section
-            // })
+            this.setState({
+                selectedSection: this.props.match.params.section
+            })
         }
     }
 

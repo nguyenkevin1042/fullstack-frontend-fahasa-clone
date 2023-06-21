@@ -39,7 +39,6 @@ class DashboardComponent extends Component {
                 document.title = "Order #" + this.state.selectedOrder.id + " | Nguyenkevin1042's Fahasa Clone"
             } else {
                 document.title = "Dashboard | Nguyenkevin1042's Fahasa Clone"
-
             }
         }
 
@@ -94,8 +93,8 @@ class DashboardComponent extends Component {
     }
 
     renderOrderData = () => {
-        let { billData, lang, userInfo, actionResponse } = this.props
-        let { listUserOrders, message } = this.state
+        let { billData, lang } = this.props
+
 
         let billDataLimit7 = billData.slice(0, 7);
 
@@ -146,8 +145,6 @@ class DashboardComponent extends Component {
                         )
                     }) :
                     <></>}
-
-                <div className='no-order-text'>{message}</div>
             </>
         )
 
@@ -155,6 +152,8 @@ class DashboardComponent extends Component {
 
     renderDefault = () => {
         let { actionResponse } = this.props
+        let { message } = this.state
+
         return (
             <>
                 <div className='recent-order-title'>
@@ -178,6 +177,8 @@ class DashboardComponent extends Component {
                         </tr>
                         {this.renderOrderData()}
                     </table>
+
+                    <div className='no-order-text'>{message}</div>
                 </div>
             </>
         )

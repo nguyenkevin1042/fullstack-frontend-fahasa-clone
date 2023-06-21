@@ -310,7 +310,7 @@ class ProductList extends Component {
 
                     obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
-                    // obj.subCategories = item.SubCategories;
+                    obj.subCategories = item.SubCategories;
                     result.push(obj);
                 });
             }
@@ -358,7 +358,6 @@ class ProductList extends Component {
     }
 
     handleOnClickCategory = async (item) => {
-
         if (item && this.props.history) {
             this.setState({
                 keyName: item.keyName,

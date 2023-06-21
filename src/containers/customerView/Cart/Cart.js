@@ -69,7 +69,6 @@ class Cart extends Component {
     }
 
     eventhandler = (data) => {
-        // console.log(data)
         let copyState = { ...this.state };
         // copyState.selectedProducts = copyState.selectedProducts.filter(item => item.id !== data.id);
         // copyState.selectedProducts.push(data);
