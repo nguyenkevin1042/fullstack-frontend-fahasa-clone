@@ -102,7 +102,7 @@ class ProductsOfTag extends Component {
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => (
                         <div key={index}
-                            className='sharing-product-item-container col-xl-3'>
+                            className='sharing-product-item-container col-4 col-md-3'>
                             <ProductItem productData={item} />
                         </div>
                     ))

@@ -532,7 +532,7 @@ class ProductList extends Component {
                 {products && products.length > 0 &&
                     products.map((item, index) => (
                         <div key={index}
-                            className='sharing-product-item-container col-3'>
+                            className='sharing-product-item-container col-4 col-md-3'>
                             <ProductItem productData={item} />
                         </div>
                     ))
@@ -553,7 +553,7 @@ class ProductList extends Component {
             <React.Fragment>
                 <Header />
 
-                <div className='product-list-container' >
+                <div className='product-list-container'>
                     <div className='row'>
                         <div className='left-menu-content col-12 col-lg-3'>
                             <div className='left-content'>
