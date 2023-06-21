@@ -164,6 +164,12 @@ class Header extends Component {
         }
     }
 
+    hanldeRedirectToAllCategoryProductList = () => {
+        if (this.props.history) {
+            this.props.history.push("/category/all-category");
+        }
+    }
+
     handleRedirectToCart = () => {
         if (this.props.history) {
             this.props.history.push("/cart");
@@ -225,7 +231,8 @@ class Header extends Component {
                             {/* MENU */}
                             <div className='home-header-menu col-1 col-md-1 col-lg-1 px-1'>
                                 <Dropdown overlay={menu}>
-                                    <div className='home-header-menu-toggle'>
+                                    <div className='home-header-menu-toggle'
+                                        onClick={() => this.hanldeRedirectToAllCategoryProductList()}>
                                         <div className='home-header-menu-toggle-icon img-fluid'></div>
                                         <div><i className="fa fa-angle-down"></i></div>
                                     </div>

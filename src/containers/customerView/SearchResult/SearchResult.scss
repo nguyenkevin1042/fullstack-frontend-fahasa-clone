@@ -1,5 +1,29 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (max-width: $medium){
+    .search-result-container{
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: $medium){
+    .search-result-container{
+        margin: 10px 25px;
+        
+    }
+}
+@media (min-width: $large){
+    .search-result-container{
+        margin: 20px 50px;
+    }
+}
+
 .search-result-container{
-    margin: 20px 40px;
+    // margin: 20px 40px;
     height: max-content;
 
     .search-result-content{

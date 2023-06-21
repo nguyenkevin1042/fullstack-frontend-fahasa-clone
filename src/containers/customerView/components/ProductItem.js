@@ -88,6 +88,7 @@ class ProductItem extends Component {
                             : <></>}
 
                     </div>
+
                     <div className='sharing-product-item-text'>
                         <div className='item-name'>
                             {productData.name}

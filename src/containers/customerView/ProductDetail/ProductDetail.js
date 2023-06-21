@@ -323,7 +323,7 @@ class ProductDetail extends Component {
                                     {this.renderProductPrice(product.price, product.discount)}
                                 </div>
 
-                                <div className='col-xl-12'>
+                                {/* <div className='col-xl-12'>
                                     <div className='row'>
                                         <label className='col-xl-3'>Thời gian giao hàng</label>
                                         <p className='col-xl-9 ml-0'>Giao hàng đến</p>
@@ -337,7 +337,7 @@ class ProductDetail extends Component {
                                             Đổi trả sản phẩm trong 30 ngày
                                         </p>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className='sharing-content col-xl-12'>
                                     <label className='quantity-label col-xl-3'><FormattedMessage id="customer.product-detail.quantity" />:</label>

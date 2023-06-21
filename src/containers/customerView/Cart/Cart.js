@@ -119,7 +119,8 @@ class Cart extends Component {
                         <tr className='row'>
                             <th className='col-1'>
                                 <input type="checkbox" id="check-all" name="check-all"
-                                    onClick={(event) => this.handleCheckAllProducts(event)} />
+                                // onClick={(event) => this.handleCheckAllProducts(event)} 
+                                />
                             </th>
                             <th className='col-6'>
                                 <label for="choose-all">
@@ -197,12 +198,12 @@ class Cart extends Component {
         return (
             <div className='have-products-content container-fluid'>
                 <div className='row'>
-                    <div className='cart-left-content col-xl-8'>
+                    <div className='cart-left-content col-lg-8'>
                         {this.renderLeftContent()}
 
                     </div>
 
-                    <div className='cart-right-content col-xl-4'>
+                    <div className='cart-right-content col-lg-4'>
                         <div className='sharing-right-content border-bottom'>
                             <div className='total-price-label'>
                                 <FormattedMessage id="customer.cart.subtotal" />

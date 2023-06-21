@@ -4,36 +4,96 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
-
-@media (min-width: $ex-large){
+@media (max-width: $medium){
     .policy-container{
-        margin: 0 40px;
+        margin: 20px 0;
+        .policy-content{
+            padding: 15px;
+            .policy-item{
+                display: grid;
+                justify-content: center;
+
+                i{
+                    font-size: 1.4em;
+                    text-align: center;
+                }
+                span{
+                    text-align: center;
+                    font-size: 1em;
+                    padding: 0 20px;
+                }
+            }
+        }
     }
 }  
+@media (min-width: $medium){
+    .policy-container{
+        margin: 20px 25px;
+
+        .policy-content{
+            padding: 20px;
+            border-radius: 10px;
+            .policy-item{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                i{
+                    font-size: 1.8em; 
+                }
+                span{
+
+                    margin-left: 10px;
+                    font-size: 1.1em;
+                }
+            }
+        }
+    }
+}  
+
+@media (min-width: $large){
+    .policy-container{
+        margin: 0 50px;
+        .policy-content{
+            border-radius: 10px;
+            .policy-item{
+                i{
+                    font-size: 2em; 
+                }
+                span{
+
+                    margin-left: 10px;
+                    font-size: 1.2em;
+                }
+            }
+        }
+    }
+}  
+
 .policy-container{
     margin-top: 20px;
 
     .policy-content{
         background-color: white;
-        padding: 20px 0;
-        margin: auto;
-        border-radius: 10px;
+        // padding: 20px 0;
+        // margin: auto;
+       
 
         .policy-item{
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
             cursor: pointer;
             
             i{
-                font-size: 2em;
+                // font-size: 2em;
                 cursor: pointer;
             }
             span{
-                margin-left: 10px;
+                // margin-left: 10px;
                 color: #646464;
                 font-weight: bold;
-                font-size: 1.2em;
+                // font-size: 1.2em;
                 transition: all 300ms ease-in 0s;
                 cursor: pointer;
 

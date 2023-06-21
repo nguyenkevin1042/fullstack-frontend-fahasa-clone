@@ -28,7 +28,7 @@ class ProductDescriptionComponent extends Component {
         let { lang } = this.props
         return (
             <>
-                <tr >
+                <tr>
                     <th><FormattedMessage id="customer.product-detail.product-id" /></th>
                     <td>{product.id}</td>
                 </tr>
@@ -226,13 +226,11 @@ class ProductDescriptionComponent extends Component {
                     <div className='description-header'>
                         <FormattedMessage id="customer.product-detail.product-detail" />
                     </div>
-                    {/* {this.renderBookDescription()} */}
                     <div>
                         <table>
                             {productType === 'book' && this.renderBookDescription(product, descriptionData)}
                             {productType === 'stationary' && this.renderStationaryDescription(product, descriptionData)}
                             {productType === 'toy' && this.renderToyDescription(product, descriptionData)}
-
                         </table>
 
                         <div className='about-product-price'>

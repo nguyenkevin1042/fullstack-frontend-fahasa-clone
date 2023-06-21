@@ -39,10 +39,12 @@ class SearchResult extends Component {
 
     async componentDidMount() {
         document.title = "Search Result | Nguyenkevin1042's Fahasa Clone"
-        await this.props.getProductByName(this.props.location.state)
+
         this.setState({
             searchQuery: this.props.location.state
         })
+
+        await this.props.getProductByName(this.props.location.state)
 
         this.setState({
             numberOfProductsArr: [
@@ -122,7 +124,7 @@ class SearchResult extends Component {
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => (
                         <div key={index}
-                            className='sharing-product-item-container col-xl-3'>
+                            className='sharing-product-item-container col-3'>
                             <ProductItem productData={item} />
                         </div>
                     ))

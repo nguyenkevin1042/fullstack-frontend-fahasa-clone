@@ -1,5 +1,30 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (max-width: $medium) {
+    .other-products-container{ 
+        margin: 20px 0px;
+    }
+}
+
+@media (min-width: $medium) {
+    .other-products-container{ 
+        margin: 0 25px;
+    }
+}
+
+@media (min-width: $large) {
+    .other-products-container{ 
+        margin: 0 50px;
+    }
+}
+
+
 .other-products-container{
-    margin: 20px 40px;
+    // margin: 20px 40px;
     
     .other-products-content{
         border-radius: 10px;

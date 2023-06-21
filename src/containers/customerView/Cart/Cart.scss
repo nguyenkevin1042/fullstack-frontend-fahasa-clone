@@ -7,6 +7,21 @@ $ex-large: 1200px;// Extra large >= 1200
 @media (max-width: $medium) {
     .cart-container{
         margin: 15px 0;
+
+        .have-products-content{
+        
+            .cart-left-content{
+                padding: 0;
+                
+                .left-content-down{
+                    border-radius: 0px;
+                }
+            }
+            .cart-right-content{
+                margin-top: 10px;
+                border-radius: 0px;
+            }
+        }
         
         .no-products-content{
 
@@ -28,6 +43,21 @@ $ex-large: 1200px;// Extra large >= 1200
 @media (min-width: $medium) {
     .cart-container{
         margin: 10px 25px;
+
+        .have-products-content{
+        
+            .cart-left-content{
+                padding: 0;
+                border-radius:0px;
+                // padding-right: 10px;
+            }
+            .cart-right-content{
+                margin-top: 10px;
+                border-radius: 0px;
+            }
+            
+        }
+
         .no-products-content{
             .no-products-img{
                 height: 20vw;
@@ -47,6 +77,24 @@ $ex-large: 1200px;// Extra large >= 1200
 @media (min-width: $large) {
     .cart-container{
         margin: 20px 50px;
+
+        .have-products-content{
+        
+            .cart-left-content{
+                padding: 0;
+                padding-right: 10px;
+                .left-content-up{
+                    border-radius: 10px;
+                }
+                .left-content-down{
+                    border-radius: 10px;
+                }
+            }
+            .cart-right-content{
+                margin: 0;
+                border-radius: 10px;
+            }
+        }
 
         .no-products-content{
             border-radius: 10px;
@@ -77,16 +125,12 @@ $ex-large: 1200px;// Extra large >= 1200
     .have-products-content{
         
         .cart-left-content{
-            padding: 0;
-            padding-right: 10px;
+            // padding: 0;
 
             .left-content-up{
                 background-color: white;
                 height: fit-content;
                 padding: 5px 5px 0px 10px;
-                border-radius: 10px;
-
-   
             }
 
             .left-content-down{
@@ -94,7 +138,6 @@ $ex-large: 1200px;// Extra large >= 1200
                 background-color: white;
                 height: fit-content;
                 padding: 5px 5px 0px 10px;
-                border-radius: 10px;
 
                 .cart-item{
                     justify-content: left;
@@ -120,7 +163,17 @@ $ex-large: 1200px;// Extra large >= 1200
                             .product-name{
                                 cursor: pointer;
                                 color: #333333;
-                                font-family: 'Nunito Sans' !important;
+                                line-height: 1.4em;
+                min-height: 4.1em;
+                max-height: 4.1em;
+                font-size: 1em;
+                word-break: break-word;
+            white-space: normal;
+            overflow: hidden;
+text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
                             }
 
                             .product-price{
@@ -180,7 +233,6 @@ $ex-large: 1200px;// Extra large >= 1200
             background-color: white;
             height: fit-content;
             padding: 10px 15px;
-            border-radius: 10px;
                 
             .sharing-right-content{
                 display: flex;

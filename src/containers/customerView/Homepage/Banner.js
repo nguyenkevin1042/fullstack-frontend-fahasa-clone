@@ -63,7 +63,7 @@ class Banner extends Component {
                 <div className='banner-container'>
                     <div className='banner-content-up'>
                         <div className='row'>
-                            <div className='banner-content-up-left col-md-12 col-lg-8'>
+                            <div className='banner-content-up-left col-md-12 col-lg-8 my-1'>
                                 <Slider {...settings}>
                                     <img src={bannerUp1} className='img-fluid banner-border' />
                                     <img src={bannerUp2} className='img-fluid banner-border' />
@@ -74,7 +74,7 @@ class Banner extends Component {
                             </div>
                             <div className='banner-content-up-right col-lg-4 d-none d-lg-block'>
                                 <img src={bannerUp6} className='img-fluid banner-border' />
-                                <img src={bannerUp7} className='img-fluid banner-border' />
+                                <img src={bannerUp7} className='img-fluid banner-border my-2' />
                             </div>
                         </div>
                     </div>{/*End .banner-content-up*/}
@@ -95,8 +95,6 @@ class Banner extends Component {
                         <div className='banner-content-down-item banner-content-down-4 banner-border col-3'>
 
                         </div>
-
-
                     </div>{/*End .banner-content-down*/}
                 </div > {/*End .row*/}
 

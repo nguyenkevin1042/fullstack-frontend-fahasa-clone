@@ -12,7 +12,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
 @media (min-width: $medium) {
     .banner-container{
-        padding: 0;
+        margin: 10px 25px;
     }
 }
 
@@ -54,7 +54,7 @@ $ex-large: 1200px;// Extra large >= 1200
 
     .banner-content-down{
         margin: 0;
-        margin-top: 5px;
+        padding: 0;
         
         .banner-content-down-item{
             @media (min-width: $large) {
@@ -118,7 +118,7 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 
     .slick-disabled{
-        display: none !important;
+        // display: none !important;
     }
 
     .slick-dots li {

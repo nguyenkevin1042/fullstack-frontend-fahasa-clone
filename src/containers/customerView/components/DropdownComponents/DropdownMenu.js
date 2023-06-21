@@ -114,12 +114,10 @@ class DropdownMenu extends Component {
         if (this.props.history) {
             this.props.history.push("/category/" + item.keyName);
         }
-        // this.props.closeMenu()
     }
 
     hanldeRedirectToSubCategoryProductList = (event, item) => {
         let { selectedCategory } = this.state
-        // event.preventDefault();
         if (this.props.history) {
             this.props.history.push("/category/" + selectedCategory.keyName + "/" + item.keyName);
         }
@@ -127,7 +125,6 @@ class DropdownMenu extends Component {
 
     hanldeRedirectToChildCategoryProductList = (event, subCategoryItem, item) => {
         let { selectedCategory } = this.state
-        // event.preventDefault();
         if (this.props.history) {
             this.props.history.push("/category/" + selectedCategory.keyName
                 + "/" + subCategoryItem.keyName + "/" + item.keyName);
@@ -205,10 +202,12 @@ class DropdownMenu extends Component {
     }
 
     render() {
+        let { onHovering } = this.state
         return (
-            <div className='dropdown-menu-container'>
+            // <div className='dropdown-menu-container d-none d-lg-block'
+            <div className='dropdown-menu-container d-none d-lg-block'>
                 <div className='row'>
-                    <div className='left-menu col-xl-3'>
+                    <div className='left-menu col-md-3'>
                         <div className='left-menu-title'>
                             <FormattedMessage id="customer.homepage.header.menu.title" />
                         </div>
@@ -216,7 +215,7 @@ class DropdownMenu extends Component {
                             {this.renderCategoryList()}
                         </div>
                     </div>
-                    <div className='right-menu col-xl-9'>
+                    <div className='right-menu col-md-9'>
                         {this.renderSubCategoryList()}
                     </div>
                 </div>
