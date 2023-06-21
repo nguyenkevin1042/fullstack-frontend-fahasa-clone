@@ -11,8 +11,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import reduxStore, { persistor } from './redux';
 
-
-
 const renderApp = () => {
     ReactDOM.render(
         <Provider store={reduxStore}>

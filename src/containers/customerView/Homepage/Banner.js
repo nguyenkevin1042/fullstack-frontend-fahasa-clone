@@ -79,21 +79,24 @@ class Banner extends Component {
                         </div>
                     </div>{/*End .banner-content-up*/}
 
-                    <div className='banner-content-down row'>
-                        <div className='banner-content-down-item banner-content-down-1 banner-border col-3'>
+                    {/* d-none d-md-block */}
+                    <div className='banner-content-down container-fluid d-none d-md-block'>
+                        <div className='row'>
+                            <div className='banner-content-down-item banner-content-down-1 banner-border col-3'>
 
-                        </div>
+                            </div>
 
-                        <div className='banner-content-down-item banner-content-down-2 banner-border col-3'>
+                            <div className='banner-content-down-item banner-content-down-2 banner-border col-3'>
 
-                        </div>
+                            </div>
 
-                        <div className='banner-content-down-item banner-content-down-3 banner-border col-3'>
+                            <div className='banner-content-down-item banner-content-down-3 banner-border col-3'>
 
-                        </div>
+                            </div>
 
-                        <div className='banner-content-down-item banner-content-down-4 banner-border col-3'>
+                            <div className='banner-content-down-item banner-content-down-4 banner-border col-3'>
 
+                            </div>
                         </div>
                     </div>{/*End .banner-content-down*/}
                 </div > {/*End .row*/}

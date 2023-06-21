@@ -32,6 +32,8 @@ import MakeOrderSuccess from './customerView/OneStepCheckout/MakeOrderSuccess';
 import SearchResult from './customerView/SearchResult/SearchResult';
 import ProductsOfTag from './customerView/ProductsOfTag/ProductsOfTag';
 import MyOrderComponent from './customerView/CustomerAccount/components/MyOrderComponent';
+import ScrollToTop from '../components/ScrollToTop';
+
 
 class App extends Component {
 
@@ -60,46 +62,47 @@ class App extends Component {
         return (
             <Fragment>
                 <Router history={history}>
-                    <div className="main-container">
-                        <ConfirmModal />
-                        <CustomScrollbars style={{ height: '100vh' }}>
+                    <ScrollToTop>
+                        <div className="main-container">
+                            <ConfirmModal />
+                            <CustomScrollbars style={{ height: '100vh' }}>
+                                <span className="content-container">
+                                    <Switch>
+                                        <Route path={path.HOME} exact component={(Home)} />
+                                        <Route path={path.LOGIN} component={adminIsNotAuthenticated(Login)} />
+                                        <Route path={path.SYSTEM} component={adminIsAuthenticated(System)} />
 
-                            <span className="content-container">
-                                <Switch>
-                                    <Route path={path.HOME} exact component={(Home)} />
-                                    <Route path={path.LOGIN} component={adminIsNotAuthenticated(Login)} />
-                                    <Route path={path.SYSTEM} component={adminIsAuthenticated(System)} />
+                                        <Route path={path.HOMEPAGE} exact component={(Homepage)} />
+                                        <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
+                                        <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
+                                        {/* <Route path={path.CUSTOMER_ORDERS} exact component={(MyOrderComponent)} /> */}
+                                        <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
+                                        <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
+                                        <Route path={path.CART} exact component={(Cart)} />
+                                        <Route path={path.ONE_STEP_CHECKOUT} exact component={(OneStepCheckout)} />
+                                        <Route path={path.ORDER_COMPLETED} exact component={(MakeOrderSuccess)} />
+                                        <Route path={path.SEARCH_RESULT} exact component={(SearchResult)} />
 
-                                    <Route path={path.HOMEPAGE} exact component={(Homepage)} />
-                                    <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
-                                    <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
-                                    {/* <Route path={path.CUSTOMER_ORDERS} exact component={(MyOrderComponent)} /> */}
-                                    <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
-                                    <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
-                                    <Route path={path.CART} exact component={(Cart)} />
-                                    <Route path={path.ONE_STEP_CHECKOUT} exact component={(OneStepCheckout)} />
-                                    <Route path={path.ORDER_COMPLETED} exact component={(MakeOrderSuccess)} />
-                                    <Route path={path.SEARCH_RESULT} exact component={(SearchResult)} />
+                                        <Route path={path.PRODUCT_TAG} exact component={(ProductsOfTag)} />
+                                    </Switch>
+                                </span>
 
-                                    <Route path={path.PRODUCT_TAG} exact component={(ProductsOfTag)} />
-                                </Switch>
-                            </span>
+                            </CustomScrollbars>
 
-                        </CustomScrollbars>
-
-                        <ToastContainer
-                            position="bottom-right"
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                            theme="colored"
-                        />
-                    </div>
+                            <ToastContainer
+                                position="bottom-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="colored"
+                            />
+                        </div>
+                    </ScrollToTop>
                 </Router>
             </Fragment >
         )

@@ -13,6 +13,14 @@ $ex-large: 1200px;// Extra large >= 1200
 @media (min-width: $medium) {
     .banner-container{
         margin: 10px 25px;
+
+        .banner-content-down{
+            margin: 0;
+            
+            .banner-content-down-item{
+                height: 150px;
+            }
+        }
     }
 }
 
@@ -29,6 +37,14 @@ $ex-large: 1200px;// Extra large >= 1200
 
             }
              
+        }
+
+        .banner-content-down{
+            margin: 0;
+            
+            .banner-content-down-item{
+                height: 220px;
+            }
         }
     }
 }
@@ -53,15 +69,6 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 
     .banner-content-down{
-        margin: 0;
-        padding: 0;
-        
-        .banner-content-down-item{
-            @media (min-width: $large) {
-                padding: 0px;
-                height: 220px;
-            }
-        }
         
         .banner-content-down-1{
             background: url('./../../../assets/banner/Fahasa_salethu3_w2_coupon_Smallbanner_310x210.png') no-repeat center center;
