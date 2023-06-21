@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 
-import { languages } from '../../../../utils'
+import { CommonUtils, languages } from '../../../../utils'
 import './DashboardComponent.scss';
 import * as actions from "../../../../store/actions";
 import moment from 'moment';
@@ -21,7 +21,7 @@ class DashboardComponent extends Component {
     }
 
     async componentDidMount() {
-        document.title = "Account | Nguyenkevin1042's Fahasa Clone"
+        document.title = "Dashboard | Nguyenkevin1042's Fahasa Clone"
 
         if (this.props.userInfo) {
             await this.props.getBillByUserId(this.props.userInfo.id)
@@ -32,6 +32,15 @@ class DashboardComponent extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
+        }
+
+        if (prevState.selectedOrder !== this.state.selectedOrder) {
+            if (this.state.selectedOrder) {
+                document.title = "Order #" + this.state.selectedOrder.id + " | Nguyenkevin1042's Fahasa Clone"
+            } else {
+                document.title = "Dashboard | Nguyenkevin1042's Fahasa Clone"
+
+            }
         }
 
         if (prevProps.billData !== this.props.billData) {
@@ -45,12 +54,35 @@ class DashboardComponent extends Component {
                 message: this.props.lang === languages.VI ?
                     this.props.actionResponse.messageVI : this.props.actionResponse.messageEN
             })
+            if (this.props.actionResponse.errCode === 0) {
+                if (this.props.history) {
+                    this.props.history.push("/cart");
+                }
+            }
         }
     }
 
     hanldeViewOrderDetail = (item) => {
         this.setState({
             selectedOrder: item
+        })
+    }
+
+    handleReOrder = (selectedItem) => {
+        let billProducts = selectedItem.BillProducts
+        let { userInfo, actionResponse } = this.props
+        actionResponse = ''
+
+        billProducts.map(async (item) => {
+            let productItem = item.Product
+            let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
+
+            await this.props.addToCart({
+                cartId: userInfo ? userInfo.Cart.id : '',
+                productId: productItem.id,
+                quantity: item.quantity,
+                productPrice: productItem.discount ? salePrice : productItem.price
+            })
         })
     }
 
@@ -100,7 +132,7 @@ class DashboardComponent extends Component {
                                                 <FormattedMessage id='customer.account.dashboard.view-order' />
                                             </p>
                                             <span>|</span>
-                                            <p>
+                                            <p onClick={() => this.handleReOrder(item)}>
                                                 <FormattedMessage id='customer.account.dashboard.reorder' />
                                             </p>
                                         </> :
@@ -153,8 +185,8 @@ class DashboardComponent extends Component {
 
 
     render() {
-        let { message, selectedOrder } = this.state
-        let { userInfo, lang, actionResponse } = this.props
+        let { selectedOrder } = this.state
+        let { userInfo, lang } = this.props
 
         return (
             <React.Fragment>
@@ -199,28 +231,6 @@ class DashboardComponent extends Component {
                         <MyOrderDetailComponent selectedOrder={selectedOrder}
                             backToDashboard={this.handleBackToDashboard} /> :
                         this.renderDefault()}
-                    {/* <div className='recent-order-title'>
-                        <p className='title-text'>
-                            <FormattedMessage id='customer.account.dashboard.recent-orders' />
-                        </p>
-                        {actionResponse.errCode === 0 ?
-                            <p className='view-all-text'>
-                                <FormattedMessage id='customer.account.dashboard.view-all' />
-                            </p> : <></>}
-                    </div>
-                    <div className='recent-order-table'>
-                        <table>
-                            <tr>
-                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.order-id' /></th>
-                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
-                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
-                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.total' /></th>
-                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.status' /></th>
-                                <th className='col-2'></th>
-                            </tr>
-                            {this.renderOrderData()}
-                        </table>
-                    </div> */}
                 </div >
             </React.Fragment >
         );
@@ -240,6 +250,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getBillByUserId: (inputUserId) => dispatch(actions.getBillByUserId(inputUserId)),
+        addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
+
     };
 };
 

@@ -27,9 +27,9 @@ class Cart extends Component {
         document.title = "Cart | Nguyenkevin1042's Fahasa Clone"
         if (this.props.userInfo) {
             await this.props.getCartByUserId(this.props.userInfo.id)
-            this.setState({
-                listProductInCart: this.props.cartData
-            })
+            // this.setState({
+            //     listProductInCart: this.props.cartData
+            // })
         }
 
     }
@@ -58,12 +58,6 @@ class Cart extends Component {
             || prevProps.lang !== this.props.lang) {
             await this.props.getCartByUserId(this.props.userInfo.id)
         }
-
-        // if (prevProps.cartData !== this.props.cartData) {
-        //     this.setState({
-        //         listProductInCart: this.props.cartData
-        //     })
-        // }
     }
 
     countTotalPrice = () => {

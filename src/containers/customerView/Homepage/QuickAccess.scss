@@ -20,18 +20,17 @@ $ex-large: 1200px;// Extra large >= 1200
 @media (min-width: $medium) {
     .quick-access-container{
         margin: 0 25px;
+        .quick-access-menu{
+            .quick-access-item{
+                padding: 0;
+            }
+        }
     }
 }
 
 @media (min-width: $large) {
     .quick-access-container{
-        // margin: 20px 40px 0 40px;
-    }
-}
-
-@media (min-width: $ex-large) {
-    .quick-access-container{
-        margin: 20px 40px 0 40px;
+        margin: 20px 50px;
     }
 }
 

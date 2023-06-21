@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './MyOrderComponent.scss';
 
-import { languages } from '../../../../utils'
+import { CommonUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
 import moment from 'moment';
 import NumericFormat from 'react-number-format';
@@ -36,6 +36,14 @@ class MyOrderComponent extends Component {
 
         }
 
+        if (prevState.selectedOrder !== this.state.selectedOrder) {
+            if (this.state.selectedOrder) {
+                document.title = "Order #" + this.state.selectedOrder.id + " | Nguyenkevin1042's Fahasa Clone"
+            } else {
+                document.title = "My Orders | Nguyenkevin1042's Fahasa Clone"
+            }
+        }
+
 
         if (prevProps.billData !== this.props.billData) {
             this.setState({
@@ -48,12 +56,35 @@ class MyOrderComponent extends Component {
                 message: this.props.lang === languages.VI ?
                     this.props.actionResponse.messageVI : this.props.actionResponse.messageEN
             })
+            if (this.props.actionResponse.errCode === 0) {
+                if (this.props.history) {
+                    this.props.history.push("/cart");
+                }
+            }
         }
     }
 
     hanldeViewOrderDetail = (item) => {
         this.setState({
             selectedOrder: item
+        })
+    }
+
+    handleReOrder = (selectedItem) => {
+        let billProducts = selectedItem.BillProducts
+        let { userInfo, actionResponse } = this.props
+        actionResponse = ''
+
+        billProducts.map(async (item) => {
+            let productItem = item.Product
+            let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
+
+            await this.props.addToCart({
+                cartId: userInfo ? userInfo.Cart.id : '',
+                productId: productItem.id,
+                quantity: item.quantity,
+                productPrice: productItem.discount ? salePrice : productItem.price
+            })
         })
     }
 
@@ -65,7 +96,7 @@ class MyOrderComponent extends Component {
     }
 
     renderOrderData = () => {
-        let { billData, lang } = this.props
+        let { lang } = this.props
         let { message, listUserOrders } = this.state
 
         return (
@@ -99,7 +130,7 @@ class MyOrderComponent extends Component {
                                                 <FormattedMessage id='customer.account.dashboard.view-order' />
                                             </p>
                                             <span>|</span>
-                                            <p>
+                                            <p onClick={() => this.handleReOrder(item)}>
                                                 <FormattedMessage id='customer.account.dashboard.reorder' />
                                             </p>
                                         </> :
@@ -180,6 +211,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getBillByUserId: (inputUserId) => dispatch(actions.getBillByUserId(inputUserId)),
+        addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
+
     };
 };
 

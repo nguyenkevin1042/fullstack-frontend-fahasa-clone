@@ -6,7 +6,7 @@ import './MyOrderDetailComponent.scss';
 import * as actions from "../../../../store/actions";
 import moment from 'moment';
 import NumericFormat from 'react-number-format';
-import { languages } from '../../../../utils';
+import { CommonUtils, languages } from '../../../../utils';
 
 class MyOrderDetailComponent extends Component {
     constructor(props) {
@@ -18,7 +18,6 @@ class MyOrderDetailComponent extends Component {
     }
 
     componentDidMount() {
-        document.title = "Order #" + this.props.selectedOrder.id + " | Nguyenkevin1042's Fahasa Clone"
         let labelVI = this.props.selectedOrder.AllCode.valueVI
         let labelEN = this.props.selectedOrder.AllCode.valueEN
 
@@ -41,12 +40,9 @@ class MyOrderDetailComponent extends Component {
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
             if (this.props.actionResponse.errCode === 0) {
-                if (this.props.backToOrderList) {
-                    this.props.backToOrderList()
-                }
-                if (this.props.backToDashboard) {
-                    this.props.backToDashboard()
-                }
+                // if (this.props.history) {
+                //     this.props.history.push("/cart");
+                // }
             }
         }
     }
@@ -71,7 +67,24 @@ class MyOrderDetailComponent extends Component {
     }
 
     handleReOrder = () => {
+        let billProducts = this.props.selectedOrder.BillProducts
+        let { userInfo } = this.props
 
+        billProducts.map(async (item) => {
+            let productItem = item.Product
+            let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
+
+            await this.props.addToCart({
+                cartId: userInfo ? userInfo.Cart.id : '',
+                productId: productItem.id,
+                quantity: item.quantity,
+                productPrice: productItem.discount ? salePrice : productItem.price
+            })
+        })
+
+        if (this.props.history) {
+            this.props.history.push("/cart");
+        }
     }
 
     getOrderStatusColor = () => {
@@ -94,7 +107,6 @@ class MyOrderDetailComponent extends Component {
 
     renderProductData = () => {
         let billProducts = this.props.selectedOrder.BillProducts
-        console.log(billProducts)
         return (
             <>
                 {billProducts && billProducts.length > 0 &&
@@ -222,6 +234,7 @@ class MyOrderDetailComponent extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
+        userInfo: state.user.userInfo,
         actionResponse: state.admin.actionResponse,
     };
 };
@@ -229,6 +242,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         updateBillStatus: (inputData) => dispatch(actions.updateBillStatus(inputData)),
+        addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
     };
 };
 

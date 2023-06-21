@@ -3,32 +3,19 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './Banner.scss';
 
+import bannerUp1 from '../../../assets/banner/Fahasa_salethu3_w2_mainbanner_Slide_840x320.jpg';
+import bannerUp2 from '../../../assets/banner/Slide_V1_840x320.jpg';
+import bannerUp3 from '../../../assets/banner/ZaloPayT523_840x320_SlideBanner.jpg';
+import bannerUp4 from '../../../assets/banner/TuSachThieuNhi_T423_Banner_Slide_840x320_1.jpg';
+import bannerUp5 from '../../../assets/banner/Back2School_T523_mainbanner_840x320.png';
+import bannerUp6 from '../../../assets/banner/PoticoT5_FAHASA\ 392x156\ .png';
+import bannerUp7 from '../../../assets/banner/Gift_subbanner_392x156.jpg';
+
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", background: "red" }}
-            onClick={onClick}
-        />
-    );
-}
-
-function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", background: "green" }}
-            onClick={onClick}
-        />
-    );
-}
 
 class Banner extends Component {
     constructor(props) {
@@ -46,8 +33,6 @@ class Banner extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
-
-
     }
 
 
@@ -76,32 +61,25 @@ class Banner extends Component {
         return (
             <>
                 <div className='banner-container'>
-                    {/* <div className='row'> */}
-                    <div className='banner-content-up '>
+                    <div className='banner-content-up'>
                         <div className='row'>
-                            <div className='banner-content-up-left col-sm-12 col-lg-8'>
+                            <div className='banner-content-up-left col-md-12 col-lg-8'>
                                 <Slider {...settings}>
-                                    <div className='b-c-u-l-item banner-content-up-left-1 banner-border'></div>
-                                    <div className='b-c-u-l-item banner-content-up-left-2 banner-border'></div>
-                                    <div className='b-c-u-l-item banner-content-up-left-3 banner-border'></div>
-                                    <div className='b-c-u-l-item banner-content-up-left-4 banner-border'></div>
-                                    <div className='b-c-u-l-item banner-content-up-left-5 banner-border'></div>
-                                    <div className='b-c-u-l-item banner-content-up-left-6 banner-border'></div>
+                                    <img src={bannerUp1} className='img-fluid banner-border' />
+                                    <img src={bannerUp2} className='img-fluid banner-border' />
+                                    <img src={bannerUp3} className='img-fluid banner-border' />
+                                    <img src={bannerUp4} className='img-fluid banner-border' />
+                                    <img src={bannerUp5} className='img-fluid banner-border' />
                                 </Slider>
                             </div>
-                            <div className='banner-content-up-right col-lg-4'>
-                                <div className='up banner-border img-fluid'>
-
-                                </div>
-                                <div className='down banner-border img-fluid'>
-
-                                </div>
+                            <div className='banner-content-up-right col-lg-4 d-none d-lg-block'>
+                                <img src={bannerUp6} className='img-fluid banner-border' />
+                                <img src={bannerUp7} className='img-fluid banner-border' />
                             </div>
                         </div>
                     </div>{/*End .banner-content-up*/}
-                    {/* </div> */}
 
-                    <div className='banner-content-down'>
+                    <div className='banner-content-down row'>
                         <div className='banner-content-down-item banner-content-down-1 banner-border col-3'>
 
                         </div>

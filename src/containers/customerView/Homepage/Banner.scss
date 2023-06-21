@@ -4,137 +4,57 @@ $medium: 768px; // Medium >= 768
 $large: 992px;// Large >= 768
 $ex-large: 1200px;// Extra large >= 1200
 
-.banner-container{
-    // padding: 20px 40px;
-
-    // @media (max-width: $small) {
-        // padding: 0 30px;
-    // }
-    @media (max-width: $medium) {
-        // padding: 0 30px;
-        // padding: 0;
+@media (max-width: $medium) {
+    .banner-container{
+        margin: 10px 0;
     }
-    // @media (max-width: $medium) {
-        // padding: 0 30px;
-    // }
-    @media (min-width: $large) {
-        margin: 20px 40px 20px 40px;
+}
+
+@media (min-width: $medium) {
+    .banner-container{
         padding: 0;
     }
-    @media (min-width: $ex-large) {
-        // padding: 0 70px;
-    }
+}
 
+@media (min-width: $large) {
+    .banner-container{      
+        margin: 10px 50px;
+ 
+        .banner-content-up{   
+            .banner-content-up-left{
+
+            }
+    
+            .banner-content-up-right{
+
+            }
+             
+        }
+    }
+}
+
+
+.banner-container{
     .banner-border {
         border-radius: 10px;
         cursor: pointer;
     }
 
-    .banner-content-up{
-        // display: flex;
-        // justify-content: center;
-        // margin-bottom: 10px;
-        margin: 0;        
+    .banner-content-up{   
 
         .banner-content-up-left{
-            // padding: 0;
 
-            @media (min-width: $ex-large) {
-                padding: 0;
-
-            }
-            // @media (max-width: $medium) {
-            //     width: 100%;
-            //     height: 185px;
-                
-            // }
-            // @media (min-width: $large) {
-            //     width: 840px;
-            //     height: 320px;
-            // }
-
-            .b-c-u-l-item{                
-
-                @media (max-width: $small) {
-                    width: $small; 
-                    height:210px;
-                    padding: 0;                 
-                }
-                @media (min-width: $small) {
-                    // width: 400px; 
-                    // height:150px;
-                    // padding: 10px;                 
-                }
-
-                @media (max-width: $large) {
-                    width: 400px;
-                    height: 185px;
-                 
-                }
-                @media (min-width: $large) {
-                    height: 320px;
-                }
-            }
-            
-            .banner-content-up-left-1{
-                background: url('./../../../assets/banner/Fahasa_salethu3_w2_mainbanner_Slide_840x320.jpg') no-repeat center center;
-                background-size: contain;
-            }
-            .banner-content-up-left-2{
-                background: url('./../../../assets/banner/Slide_V1_840x320.jpg') no-repeat center center;
-                background-size: contain;
-            }
-            .banner-content-up-left-3{
-                background: url('./../../../assets/banner/ZaloPayT523_840x320_SlideBanner.jpg') no-repeat center center;
-                background-size: contain;
-
-            }
-            .banner-content-up-left-4{
-                background: url('./../../../assets/banner/TuSachThieuNhi_T423_Banner_Slide_840x320_1.jpg') no-repeat center center;
-                background-size: contain;
-            }
-            .banner-content-up-left-5{
-                background: url('./../../../assets/banner/Back2School_T523_mainbanner_840x320.png') no-repeat center center;
-                background-size: contain;
-            }
-            .banner-content-up-left-6{
-                background: url('./../../../assets/banner/HoaCu_840x320_T523.jpg') no-repeat center center;
-                background-size: contain;
-            }
         }
 
         .banner-content-up-right{
-            // padding: auto;
-            // margin: auto;
-            @media (max-width: $medium) {
-                // padding: 0 30px;
-                display: none;
-            }
-            @media (max-width: $medium) {
-                // padding: 0 30px;
-                display: none;
-            }
 
-            .up{
-                background: url('./../../../assets/banner/PoticoT5_FAHASA\ 392x156\ .png') no-repeat center center;
-                width: 392px;
-                height: 156px;
-                margin-bottom: 7px;
-            }
-            .down{
-                background: url('./../../../assets/banner/Gift_subbanner_392x156.jpg') no-repeat center center;
-                width: 392px;
-                height: 156px;
-            }
         }
+         
     }
 
     .banner-content-down{
-        display: flex;
-
-        @media (max-width: $medium) {
-            display: none;
-        }
+        margin: 0;
+        margin-top: 5px;
         
         .banner-content-down-item{
             @media (min-width: $large) {
@@ -163,12 +83,13 @@ $ex-large: 1200px;// Extra large >= 1200
 
     // Select slick
     .slick-slider{
-        margin-left: 15px;
+        border-radius: 10px;
     }
+
     .slick-prev{     
         left: -20px !important;
-        width: 44px !important;
-        height: 48px !important;
+        width: 50px !important;
+        height: 55px !important;
         opacity: 1;
         z-index: 10;
 
@@ -179,8 +100,8 @@ $ex-large: 1200px;// Extra large >= 1200
 
     .slick-next{
         right: -20px !important;
-        width: 44px !important;
-        height: 48px !important;
+        width: 50px !important;
+        height: 55px !important;
         opacity: 1;
 
         &:hover:before{
@@ -189,6 +110,9 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 
     .slick-prev:before, .slick-next:before{
+        @media (max-width: $large) {
+            display: none;
+         }
         color: rgb(148, 141, 141) !important;
         font-size: 25px !important;
     }
@@ -203,7 +127,6 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 
     .slick-dots{
-
         button:before{
             opacity: 1 !important;
             background-color: white !important;
@@ -215,11 +138,9 @@ $ex-large: 1200px;// Extra large >= 1200
     }
 
     .slick-active{
-        
         button:before{
             opacity: 1 !important;
             background-color: #C92127 !important;
-
         }
     }
 
