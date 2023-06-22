@@ -310,7 +310,7 @@ class ProductList extends Component {
 
                     obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
-                    obj.subCategories = item.SubCategories;
+                    // obj.subCategories = item.SubCategories;
                     result.push(obj);
                 });
             }

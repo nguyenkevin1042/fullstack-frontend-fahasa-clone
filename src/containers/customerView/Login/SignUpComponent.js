@@ -97,6 +97,7 @@ class SignUpComponent extends Component {
                             <label><FormattedMessage id="customer.login.password" /></label>
                             <input className='form-control'
                                 type={isShowed ? 'text' : 'password'}
+                                placeholder='Password'
                                 value={password}
                                 onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                 required />
