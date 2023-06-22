@@ -90,8 +90,6 @@ class ManageProduct extends Component {
                 listChildCategory: dataSelect
             })
         }
-
-
     }
 
     buildDataInputSelect = (inputData, type) => {
@@ -240,7 +238,7 @@ class ManageProduct extends Component {
                                 <td>{this.renderCategoryOfProduct(item)}</td>
                                 <td>{item.name}</td>
                                 <td>
-                                    <NumericFormat value={item.price}
+                                    <NumericFormat value={parseFloat(item.price)}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}

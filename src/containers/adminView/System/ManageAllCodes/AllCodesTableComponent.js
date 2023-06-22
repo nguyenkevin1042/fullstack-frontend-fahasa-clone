@@ -36,21 +36,19 @@ class AllCodesTableComponent extends Component {
                 {allCodes && allCodes.length > 0 &&
                     allCodes.map((item, index) => {
                         return (
-                            <Fragment>
-                                <tr key={index}>
-                                    <td>{item.id}</td>
-                                    <td>{item.type}</td>
-                                    <td>{item.keyMap}</td>
-                                    <td>{item.valueVI}</td>
-                                    <td>{item.valueEN}</td>
-                                    <td>
-                                        <button className='btn-edit'
-                                            onClick={() => this.handleEdit(item)} > <i className="fas fa-pencil-alt"></i></button>
-                                        <button className='btn-delete'
-                                            onClick={() => this.handleDelete(item)}><i className="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </Fragment >
+                            <tr key={index}>
+                                <td>{item.id}</td>
+                                <td>{item.type}</td>
+                                <td>{item.keyMap}</td>
+                                <td>{item.valueVI}</td>
+                                <td>{item.valueEN}</td>
+                                <td>
+                                    <button className='btn-edit'
+                                        onClick={() => this.handleEdit(item)} > <i className="fas fa-pencil-alt"></i></button>
+                                    <button className='btn-delete'
+                                        onClick={() => this.handleDelete(item)}><i className="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
                         )
                     })
 

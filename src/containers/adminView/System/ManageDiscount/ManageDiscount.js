@@ -219,7 +219,7 @@ class ManageDiscount extends Component {
                                     <td>{this.renderCategoryOfProduct(productData)}</td>
                                     <td>{productData.name}</td>
                                     <td>
-                                        <NumericFormat value={productData.price}
+                                        <NumericFormat value={parseFloat(productData.price)}
                                             displayType={'text'}
                                             thousandSeparator={'.'}
                                             decimalSeparator={','}

@@ -86,7 +86,11 @@ export const addNewCode = (codeData) => {
     return async (dispatch, getState) => {
         let res;
         try {
+            // console.log(codeData)
+            // return;
             res = await addNewCodeAPI(codeData);
+            console.log(res)
+            return;
 
             if (res && res.errCode === 0) {
                 toast.success(res.message)
@@ -118,6 +122,7 @@ export const fetchAllCodes = () => {
         let res;
         try {
             res = await getAllCodesAPI();
+
             if (res && res.errCode === 0) {
                 dispatch(fetchAllCodesSuccess(res.allCodes));
             } else {
@@ -125,7 +130,7 @@ export const fetchAllCodes = () => {
             }
         } catch (error) {
             dispatch(fetchAllCodesFail());
-            console.log("addNewCode Error: ", error)
+            console.log("fetchAllCodes Error: ", error)
         }
     }
 }

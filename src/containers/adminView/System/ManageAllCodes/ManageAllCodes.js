@@ -36,8 +36,8 @@ class ManageAllCodes extends Component {
 
     handleSaveNewCode = async () => {
         await this.props.addNewCode(this.state)
-        this.handleClearAllInput();
-        this.props.fetchAllCodes();
+        // this.handleClearAllInput();
+        // this.props.fetchAllCodes();
     }
 
     handleClearAllInput = () => {
