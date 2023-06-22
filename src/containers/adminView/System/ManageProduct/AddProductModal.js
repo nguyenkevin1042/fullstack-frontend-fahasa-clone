@@ -65,9 +65,12 @@ class AddProductModal extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (prevProps.lang !== this.props.lang) {
-
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode === 0) {
+                this.props.closeModal()
+            }
         }
+
         if (prevProps.isOpenedAddModal !== this.props.isOpenedAddModal) {
             if (this.props.isOpenedAddModal === false) {
                 this.setState({
@@ -96,13 +99,6 @@ class AddProductModal extends Component {
             }
 
         }
-
-        // if (prevProps.allCodesArr !== this.props.allCodesArr) {
-        //     let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
-        //     this.setState({
-        //         listCategory: dataSelect
-        //     })
-        // }
 
         if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
             let dataSelect = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
@@ -266,10 +262,6 @@ class AddProductModal extends Component {
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown
         })
-
-        if (this.props.actionResponse.errCode === 0) {
-            this.props.closeModal()
-        }
     }
 
     eventhandler = (data) => {

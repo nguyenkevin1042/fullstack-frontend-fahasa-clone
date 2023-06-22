@@ -62,7 +62,7 @@ class Homepage extends Component {
 
                 <ProductCategory />
 
-                <LoadingOverlay
+                {/* <LoadingOverlay
                     active={isLoading}
                     spinner={true}
                     text='Please wait...'>
@@ -71,7 +71,7 @@ class Homepage extends Component {
                         <Products tagData={item} />
 
                     ))}
-                </LoadingOverlay>
+                </LoadingOverlay> */}
 
 
                 <SignUpNewletter />

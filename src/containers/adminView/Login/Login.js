@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from "../../../store/actions";
 import './Login.scss';
 import SignUpModel from './SignUpModel/SignUpModel';
+import { languages } from '../../../utils';
 
 
 class Login extends Component {
@@ -27,12 +28,15 @@ class Login extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
-        if (prevProps.signInMessage !== this.props.signInMessage) {
-            this.setState({
-                message: this.props.signInMessage
-            })
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode !== 0) {
+                this.setState({
+                    message: this.props.lang === languages.VI ?
+                        this.props.actionResponse.messageVI :
+                        this.props.actionResponse.messageEN
+                })
+            }
         }
-
     }
 
     handleLogin = async () => {
@@ -73,6 +77,7 @@ class Login extends Component {
     render() {
         let { isModalOpened, email, password, message, isShowed } = this.state;
 
+        console.log(this.props.actionResponse)
         return (
             <>
                 <div className='login-form-background'>
@@ -133,7 +138,7 @@ class Login extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        signInMessage: state.admin.signInMessage
+        actionResponse: state.admin.actionResponse
     };
 };
 

@@ -28,10 +28,10 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
-                adminInfo: action.adminInfo
+                adminInfo: action.response.user
             }
         case actionTypes.ADMIN_LOGIN_FAIL:
-            state.signInMessage = action.response.message
+            state.actionResponse = action.response
             return {
                 ...state,
                 isLoggedIn: false,
@@ -301,14 +301,12 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.ADD_NEW_PRODUCT_SUCCESS:
-            state.actionResponse = ''
             state.actionResponse = action.response
             return {
                 ...state,
             }
 
         case actionTypes.ADD_NEW_PRODUCT_FAIL:
-            state.actionResponse = ''
             state.actionResponse = action.response
             return {
                 ...state,

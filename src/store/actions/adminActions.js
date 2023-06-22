@@ -26,7 +26,7 @@ export const adminLogin = (inputEmail, inputPassword) => {
         try {
             res = await adminLoginAPI(inputEmail, inputPassword);
             if (res && res.errCode === 0) {
-                dispatch(adminLoginSuccess(res.user));
+                dispatch(adminLoginSuccess(res));
             } else {
                 dispatch(adminLoginFail(res));
             }
@@ -36,9 +36,9 @@ export const adminLogin = (inputEmail, inputPassword) => {
         }
     }
 }
-export const adminLoginSuccess = (adminInfo) => ({
+export const adminLoginSuccess = (response) => ({
     type: actionTypes.ADMIN_LOGIN_SUCCESS,
-    adminInfo: adminInfo
+    response: response
 })
 
 export const adminLoginFail = (response) => ({

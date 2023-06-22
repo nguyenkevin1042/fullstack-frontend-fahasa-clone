@@ -238,7 +238,7 @@ class ProductDescriptionComponent extends Component {
                         </div>
                         <div className={showLess === true ? 'about-product-text-less' : 'about-product-text-more'}>
                             {product.markdownData && product.markdownData.contentHTML &&
-                                <div dangerouslySetInnerHTML={{ __html: product.markdownData.contentHTML.replace(/\n/g, "<br />") }} />
+                                <div dangerouslySetInnerHTML={{ __html: product.markdownData.contentHTML }} />
 
                             }
                         </div>
