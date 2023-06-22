@@ -113,7 +113,7 @@ class DashboardComponent extends Component {
                                         item.UserAddress.fullName}
                                 </td>
                                 <td>
-                                    <NumericFormat value={item.totalPrice}
+                                    <NumericFormat value={parseFloat(item.totalPrice)}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}

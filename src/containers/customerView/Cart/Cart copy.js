@@ -113,9 +113,8 @@ class Cart extends Component {
 
         return (
             <>
-
-                <div className='left-content-up'>
-                    <table>
+                <table>
+                    <div className='left-content-up'>
                         <tr className='row'>
                             <th className='col-1'>
                                 <input type="checkbox" id="check-all" name="check-all"
@@ -139,11 +138,9 @@ class Cart extends Component {
                             </th>
                             <th className='col-1'></th>
                         </tr>
-                    </table>
-                </div>
+                    </div>
 
-                <div className='left-content-down'>
-                    <table>
+                    <div className='left-content-down'>
                         {listProductInCart && listProductInCart.length > 0 &&
                             listProductInCart.map((item, index) =>
                             (<CartItem key={index} productInCart={item}
@@ -153,10 +150,9 @@ class Cart extends Component {
                                 checkAll={checkAll} />)
                             )
                         }
-                    </table>
-                </div>
+                    </div>
 
-
+                </table>
             </>
         )
     }

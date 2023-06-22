@@ -14,7 +14,7 @@ import {
     createNewBillAPI, getAllBillAPI, updateBillStatusAPI,
     getProductByNameAPI, updateProductDiscountAPI, getTagByTypeAPI,
     getProductByTagKeyNameAPI, getAllTagAPI, getAllTagWithoutProductAPI,
-    createProductTagAPI, updateProductTagAPI, deleteProductTagAPI, getAllUserAPI
+    createProductTagAPI, updateProductTagAPI, deleteProductTagAPI, getAllUserAPI, getProductByIdAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -675,6 +675,38 @@ export const fetchAllProductFail = () => ({
 })
 
 //FETCH ALL PRODUCTS BY CATEGORY
+export const fetchProductById = (inputId) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        let res;
+        try {
+
+            res = await getProductByIdAPI(inputId);
+
+            if (res && res.errCode === 0) {
+                dispatch(fetchProductByIdSuccess(res));
+            } else {
+                dispatch(fetchProductByIdFail(res));
+            }
+        } catch (error) {
+            dispatch(fetchProductByIdFail(res));
+            console.log("fetchProductById Error: ", error)
+        }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+    }
+}
+
+export const fetchProductByIdSuccess = (response) => ({
+    type: actionTypes.FETCH_PRODUCT_BY_ID_SUCCESS,
+    response: response
+})
+
+export const fetchProductByIdFail = (response) => ({
+    type: actionTypes.FETCH_PRODUCT_BY_ID_FAIL,
+    response: response
+})
+
+//FETCH ALL PRODUCTS BY CATEGORY
 export const fetchAllProductByCategory = (inputCategory) => {
     return async (dispatch, getState) => {
         dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
@@ -868,7 +900,7 @@ export const updateProductDiscountFail = (response) => ({
 //GET PRODUCT BY NAME
 export const getProductByName = (inputName) => {
     return async (dispatch, getState) => {
-        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        // dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
 
@@ -882,7 +914,7 @@ export const getProductByName = (inputName) => {
             dispatch(getProductByNameFail(res));
             console.log("getProductByName Error: ", error)
         }
-        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+        // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 

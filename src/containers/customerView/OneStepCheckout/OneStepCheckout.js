@@ -14,13 +14,11 @@ class OneStepCheckout extends Component {
         super(props);
         this.state = {
             isOpenAddNewAddress: false,
-            isOpenConfirmAddress: false,
             listProduct: [],
             listPayment: [],
             listUserAddress: [],
             selectedPayment: '',
             selectedAddress: '',
-
         };
     }
 
@@ -61,10 +59,9 @@ class OneStepCheckout extends Component {
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
             if (this.props.actionResponse.errCode === 0) {
-                if (this.props.history) {
-                    this.props.history.push("/make-order-success");
-                }
-
+                // if (this.props.history) {
+                this.props.history.push("/make-order-success");
+                // }
             }
         }
     }
@@ -141,7 +138,9 @@ class OneStepCheckout extends Component {
 
     handleConfirm = async () => {
         let orderedDate = Date.now();
-
+        // console.log(this.props.userInfo)
+        // console.log(this.props.actionResponse)
+        // console.log(this.state)
         if (this.props.userInfo) {
             await this.props.createNewBill({
                 orderedDate: orderedDate,
@@ -292,6 +291,8 @@ class OneStepCheckout extends Component {
     render() {
         let { isOpenAddNewAddress, listProduct } = this.state
 
+        console.log(this.props.actionResponse)
+
         return (
             <React.Fragment>
                 <Header />
@@ -427,7 +428,6 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         createNewBill: (inputData) => dispatch(actions.createNewBill(inputData)),
-
     };
 };
 

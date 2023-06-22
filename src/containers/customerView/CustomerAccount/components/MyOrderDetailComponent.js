@@ -40,9 +40,7 @@ class MyOrderDetailComponent extends Component {
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
             if (this.props.actionResponse.errCode === 0) {
-                // if (this.props.history) {
-                //     this.props.history.push("/cart");
-                // }
+                this.handleGoBack();
             }
         }
     }
@@ -127,7 +125,7 @@ class MyOrderDetailComponent extends Component {
                                 <td className='col-3'>{productData.name}</td>
                                 <td className='col-2 text-center'>{productData.id}</td>
                                 <td className='col-2 '>
-                                    <NumericFormat value={productData.price}
+                                    <NumericFormat value={parseFloat(productData.price)}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}
@@ -135,7 +133,7 @@ class MyOrderDetailComponent extends Component {
                                 </td>
                                 <td className='col-1'>{item.quantity}</td>
                                 <td className='col-2 text-left'>
-                                    <NumericFormat value={item.totalPrice}
+                                    <NumericFormat value={parseFloat(item.totalPrice)}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}
@@ -175,7 +173,7 @@ class MyOrderDetailComponent extends Component {
                             <div className='sharing-detail-text'>
                                 <label><FormattedMessage id='customer.account.order-detail.total' />:</label>
                                 <b>
-                                    <NumericFormat value={selectedOrder.totalPrice}
+                                    <NumericFormat value={parseFloat(selectedOrder.totalPrice)}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}

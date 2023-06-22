@@ -10,28 +10,15 @@ class ProductItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: ''
         };
     }
 
     async componentDidMount() {
-        this.setState({
-            id: this.props.productData.id
-        })
 
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.productData !== this.props.productData) {
-            // console.log(prevProps.productData)
 
-        }
-
-        if (prevState.id !== this.state.id) {
-            // console.log(this.state.id)
-            // await this.props.fetchProductById(this.state.id)
-
-        }
     }
 
     handleRedirectToProductDetail = (productKeyName) => {
@@ -74,9 +61,6 @@ class ProductItem extends Component {
 
     render() {
         let productData = this.props.productData
-
-        // console.log(this.state.id)
-        // console.log(this.props.singleProduct)
 
         let imageBase64 = '';
         if (productData.image) {
@@ -124,7 +108,7 @@ class ProductItem extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-
+        singleProduct: state.admin.singleProduct
     };
 };
 

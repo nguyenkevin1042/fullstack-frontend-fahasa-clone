@@ -222,7 +222,6 @@ const mapDispatchToProps = dispatch => {
         getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
         deleteProductInCart: (inputCartId, inputProductId) => dispatch(actions.deleteProductInCart(inputCartId, inputProductId)),
         updateCart: (inputData) => dispatch(actions.updateCart(inputData)),
-
     };
 };
 

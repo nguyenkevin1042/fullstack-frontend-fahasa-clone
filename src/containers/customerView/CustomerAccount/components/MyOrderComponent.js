@@ -112,7 +112,7 @@ class MyOrderComponent extends Component {
                                     {item.UserAddress.fullName}
                                 </td>
                                 <td className='col-2'>
-                                    <NumericFormat value={item.totalPrice}
+                                    <NumericFormat value={parseFloat(item.totalPrice)}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}
