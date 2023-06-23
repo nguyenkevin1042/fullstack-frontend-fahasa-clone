@@ -32,7 +32,8 @@ class ManageProduct extends Component {
             pageLimit: "",
             currentPage: "",
             startIndex: "",
-            endIndex: ""
+            endIndex: "",
+            searchKey: '',
         };
     }
 
@@ -42,7 +43,8 @@ class ManageProduct extends Component {
 
         if (this.props.allProductArr) {
             this.setState({
-                totalRecords: this.props.allProductArr.length
+                totalRecords: this.props.allProductArr.length,
+                searchKey: '',
             });
         }
         // let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
@@ -64,7 +66,8 @@ class ManageProduct extends Component {
 
         if (prevProps.allProductArr !== this.props.allProductArr) {
             this.setState({
-                listProduct: this.props.allProductArr
+                listProduct: this.props.allProductArr,
+                totalRecords: this.props.allProductArr.length
             })
         }
 
@@ -134,6 +137,27 @@ class ManageProduct extends Component {
         return result;
     }
 
+    hanleOnChangeInput = (event) => {
+        let key = event.target.id;
+        let data = event.target.value;
+        let copyState = { ...this.state };
+        copyState[key] = data;
+        this.setState({ ...copyState });
+    }
+
+    handleKeyUp = (event) => {
+        let query = event.target.value;
+        let tempList = this.props.allProductArr;
+        tempList = tempList.filter((item) => {
+            return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+        });
+
+        this.setState({
+            searchKey: query,
+            listProduct: tempList
+        })
+    }
+
     handleChangeCategory = async (selectedCategory) => {
         this.setState({
             selectedCategory: selectedCategory,
@@ -187,7 +211,7 @@ class ManageProduct extends Component {
     }
 
     handleDelete = async (item) => {
-        await this.props.deleteProduct(item.id)
+        // await this.props.deleteProduct(item.id)
         // await this.props.fetchAllProduct();
     }
 
@@ -275,7 +299,8 @@ class ManageProduct extends Component {
             listCategory, selectedCategory,
             listSubCategory, selectedSubCategory,
             listProduct,
-            listChildCategory, selectedChildCategory, isLoading } = this.state
+            listChildCategory, selectedChildCategory, isLoading,
+            searchKey } = this.state
 
         let { totalPages, currentPage, pageLimit,
             startIndex, endIndex } = this.state;
@@ -335,6 +360,17 @@ class ManageProduct extends Component {
 
                         </div> */}
 
+                        <div className='manage-discount-actions'>
+                            <label>Tìm sản phẩm theo tên:</label>
+                            <input type='text'
+                                id='searchKey'
+                                value={searchKey}
+                                onChange={(event) => this.hanleOnChangeInput(event)}
+                                onKeyUp={(event) => { this.handleKeyUp(event) }}
+                                className='form-control'
+                            />
+                        </div>
+
                         <div className='manage-sharing-table'>
                             <table className='sharing-table'>
                                 <thead>
@@ -355,7 +391,7 @@ class ManageProduct extends Component {
 
                             <CustomPagination
                                 totalRecords={listProduct.length}
-                                pageLimit={pageLimit || 5}
+                                pageLimit={pageLimit || 10}
                                 initialPage={1}
                                 pagesToShow={5}
                                 onChangePage={this.onChangePage}

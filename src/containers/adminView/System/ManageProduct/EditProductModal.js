@@ -153,9 +153,12 @@ class EditProductModal extends Component {
         }
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
-            this.setState({
-                response: this.props.actionResponse
-            })
+            // this.setState({
+            //     response: this.props.actionResponse
+            // })
+            if (this.props.actionResponse.errCode === 0) {
+                this.props.closeModal()
+            }
         }
 
         if (prevProps.productId !== this.props.productId) {
@@ -421,9 +424,9 @@ class EditProductModal extends Component {
             contentMarkdown: this.state.contentMarkdown,
         })
 
-        if (this.props.actionResponse.errCode === 0) {
-            this.props.closeModal()
-        }
+        // if (this.props.actionResponse.errCode === 0) {
+        //     this.props.closeModal()
+        // }
     }
 
     eventhandler = (data) => {
@@ -465,11 +468,10 @@ class EditProductModal extends Component {
             contentHTML, } = this.state;
         let { isOpenedEditModal, closeModal } = this.props
 
-        console.log(listForm)
-
         return (
             <>
                 <Modal isOpen={isOpenedEditModal}
+                    toggle={closeModal}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
                     size='xl'
                     centered>
