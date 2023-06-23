@@ -31,7 +31,9 @@ class OneStepCheckout extends Component {
                 await this.props.fetchAllCodesByType('payment')
                 this.setState({
                     listUserAddress: this.props.userInfo.UserAddresses,
-                    listProduct: listSelectedProducts
+                    listProduct: listSelectedProducts,
+                    selectedPayment: this.state.listPayment[0],
+                    selectedAddress: this.props.userInfo.UserAddresses[0],
                 })
             }
         } else {
@@ -47,21 +49,23 @@ class OneStepCheckout extends Component {
         if (prevProps.userInfo !== this.props.userInfo) {
             this.setState({
                 listUserAddress: this.props.userInfo.UserAddresses,
+                selectedAddress: this.props.userInfo.UserAddresses[0],
             })
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
             let dataPayment = this.buildDataInputSelect(this.props.allCodesArr, 'payment');
             this.setState({
-                listPayment: dataPayment
+                listPayment: dataPayment,
+                selectedPayment: this.state.listPayment[0],
             })
         }
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
             if (this.props.actionResponse.errCode === 0) {
-                // if (this.props.history) {
-                this.props.history.push("/make-order-success");
-                // }
+                if (this.props.history) {
+                    this.props.history.push("/make-order-success");
+                }
             }
         }
     }
@@ -138,9 +142,7 @@ class OneStepCheckout extends Component {
 
     handleConfirm = async () => {
         let orderedDate = Date.now();
-        // console.log(this.props.userInfo)
-        // console.log(this.props.actionResponse)
-        // console.log(this.state)
+
         if (this.props.userInfo) {
             await this.props.createNewBill({
                 orderedDate: orderedDate,
@@ -196,7 +198,7 @@ class OneStepCheckout extends Component {
     }
 
     renderUserAddress = () => {
-        let { listUserAddress } = this.state
+        let { listUserAddress, selectedAddress } = this.state
         return (
             <>
                 {listUserAddress.length > 0 ?
@@ -207,15 +209,16 @@ class OneStepCheckout extends Component {
                                     type="radio"
                                     value={item}
                                     name="selectedAddress"
-                                    onChange={(event) => this.onChangeRadioValue(event)} />
+                                    onChange={(event) => this.onChangeRadioValue(event)}
+                                    checked={selectedAddress.id === item.id ? true : false} />
                                 <span>
                                     {item.fullName} | {item.addressDetail}, {item.ward},
                                     {item.district}, {item.province}, {item.country} | {item.phoneNumber}
                                 </span>
                             </div>
-                            <div className='edit-address-text'>
+                            {/* <div className='edit-address-text'>
                                 Edit
-                            </div>
+                            </div> */}
                         </div >
                     )) : <></>}
             </>
@@ -223,7 +226,7 @@ class OneStepCheckout extends Component {
     }
 
     renderPaymentMethod = () => {
-        let { listPayment } = this.state
+        let { listPayment, selectedPayment } = this.state
 
         return (
             <>
@@ -234,7 +237,8 @@ class OneStepCheckout extends Component {
                                 type="radio"
                                 value={item}
                                 name="selectedPayment"
-                                onChange={(event) => this.onChangeRadioValue(event)} />
+                                onChange={(event) => this.onChangeRadioValue(event)}
+                                checked={selectedPayment === item ? true : false} />
                             < div className={'payment-img payment-img-' + index} ></div >
                             <div className='payment-text'>{item.label}</div>
                         </div >
@@ -291,7 +295,7 @@ class OneStepCheckout extends Component {
     render() {
         let { isOpenAddNewAddress, listProduct } = this.state
 
-        console.log(this.props.actionResponse)
+        console.log(this.state)
 
         return (
             <React.Fragment>

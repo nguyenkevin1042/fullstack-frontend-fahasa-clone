@@ -36,8 +36,6 @@ class ManageProduct extends Component {
         };
     }
 
-
-
     async componentDidMount() {
         await this.props.fetchAllProduct();
         await this.props.fetchAllCodesByType('category')
@@ -190,7 +188,7 @@ class ManageProduct extends Component {
 
     handleDelete = async (item) => {
         await this.props.deleteProduct(item.id)
-        await this.props.fetchAllProduct();
+        // await this.props.fetchAllProduct();
     }
 
     renderCategoryOfProduct = (item) => {
@@ -290,19 +288,6 @@ class ManageProduct extends Component {
                 <LoadingOverlay
                     active={isLoading}
                     spinner={true}
-                    styles={{
-                        overlay: (base) => ({
-                            ...base,
-                            height: '100vh'
-                        }),
-                        spinner: (base) => ({
-                            ...base,
-                            width: '50px',
-                            '& svg circle': {
-                                stroke: '#F7941E'
-                            }
-                        })
-                    }}
                     text='Please wait...'>
                     <div className='sharing-manage-container'>
                         <div className='sharing-manage-title'>
@@ -380,10 +365,14 @@ class ManageProduct extends Component {
                     <AddProductModal
                         isOpenedAddModal={isOpenedAddModal}
                         closeModal={this.handleCloseAddProductModal} />
+                    {/* <EditProductModal
+                        isOpenedEditModal={isOpenedEditModal}
+                        closeModal={this.handleCloseEditProductModal}
+                        product={selectedProduct} /> */}
                     <EditProductModal
                         isOpenedEditModal={isOpenedEditModal}
                         closeModal={this.handleCloseEditProductModal}
-                        product={selectedProduct} />
+                        productId={selectedProduct.id} />
                 </LoadingOverlay>
             </>
         );
