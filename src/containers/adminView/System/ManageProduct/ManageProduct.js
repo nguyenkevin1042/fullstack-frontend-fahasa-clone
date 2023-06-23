@@ -211,6 +211,7 @@ class ManageProduct extends Component {
     }
 
     handleDelete = async (item) => {
+        // console.log(item)
         // await this.props.deleteProduct(item.id)
         // await this.props.fetchAllProduct();
     }
@@ -307,6 +308,8 @@ class ManageProduct extends Component {
         let rowsPerPage = [];
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
+
+        console.log(this.props.allProductArr)
 
         return (
             <>

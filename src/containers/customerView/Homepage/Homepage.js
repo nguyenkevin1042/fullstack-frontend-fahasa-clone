@@ -22,7 +22,8 @@ class Homepage extends Component {
         this.state = {
             tagArr: ['notebook', 'textbook'],
             isLoading: false,
-            isModalOpened: true
+            isModalOpened: true,
+            listAllTag: []
         };
     }
 
@@ -41,6 +42,12 @@ class Homepage extends Component {
                 isLoading: this.props.isFetchingData,
             })
         }
+
+        if (prevProps.allTagArr !== this.props.allTagArr) {
+            this.setState({
+                listAllTag: this.props.allTagArr,
+            })
+        }
     }
 
     handleCloseModal = () => {
@@ -51,8 +58,10 @@ class Homepage extends Component {
 
 
     render() {
-        let { tagArr, isLoading, isModalOpened } = this.state;
+        let { tagArr, isLoading, isModalOpened, listAllTag } = this.state;
         let { allTagArr } = this.props;
+
+        console.log(allTagArr)
 
         return (
             <React.Fragment>
@@ -62,16 +71,16 @@ class Homepage extends Component {
 
                 <ProductCategory />
 
-                {/* <LoadingOverlay
+                <LoadingOverlay
                     active={isLoading}
                     spinner={true}
                     text='Please wait...'>
-                    {allTagArr.map((item, index) => (
+                    {listAllTag.map((item, index) => (
 
                         <Products tagData={item} />
 
                     ))}
-                </LoadingOverlay> */}
+                </LoadingOverlay>
 
 
                 <SignUpNewletter />

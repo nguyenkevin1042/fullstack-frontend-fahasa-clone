@@ -807,6 +807,8 @@ export const deleteProduct = (inputId) => {
     return async (dispatch, getState) => {
         let res;
         try {
+            console.log(inputId)
+            return;
             res = await deleteProductAPI(inputId);
 
             if (res && res.errCode === 0) {

@@ -52,7 +52,8 @@ class ProductList extends Component {
             })
             await this.props.fetchAllCodesByType('category')
             await this.props.fetchAllProduct()
-        } else {
+        }
+        else {
             if (subCategory) {
                 if (childCategory) {
                     this.setState({
@@ -83,7 +84,6 @@ class ProductList extends Component {
                 await this.props.fetchAllProductByCategory(category)
             }
         }
-
         this.setState({
             numberOfProductsArr: [
                 { value: 12, label: (<FormattedMessage id="customer.product-list.sort.12-products" />) },

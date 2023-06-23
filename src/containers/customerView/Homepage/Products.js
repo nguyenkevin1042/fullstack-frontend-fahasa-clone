@@ -209,31 +209,6 @@ class Products extends Component {
         )
     }
 
-    renderAProduct = () => {
-
-        return (
-            <div className='product-item' title='Sách Giáo Khoa Bộ Lớp 9 - Sách Bài Tập (Bộ 7 Cuốn) (2023)'>
-                <div className='product-image'>
-                </div>
-                <div className='product-name'>
-                    Sách Giáo Khoa Bộ Lớp 9 - Sách Bài Tập (Bộ 7 Cuốn) (2023)
-                </div>
-                <div className='product-price-text'>
-                    <div className='product-discount-price'>
-                        15.000d
-                        <span className='product-discount'>
-                            -61%
-                        </span>
-                    </div>
-                    <div className='product-price'>
-                        35.000d
-                    </div>
-
-                </div>
-            </div >
-        )
-    }
-
     handleOnClickTag = async (item) => {
         this.setState({
             selectedTag: item,
@@ -257,7 +232,7 @@ class Products extends Component {
                 </div>
 
                 <div>
-                    {this.renderProductList()}
+                    {/* {this.renderProductList()} */}
                 </div>
 
                 <div className='more-product-btn col-12'>
