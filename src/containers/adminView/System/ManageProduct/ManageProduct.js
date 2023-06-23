@@ -211,20 +211,20 @@ class ManageProduct extends Component {
     }
 
     handleDelete = async (item) => {
-        console.log(item)
-        // await this.props.deleteProduct(item.id)
-        // await this.props.fetchAllProduct();
+        await this.props.deleteProduct(item.id)
     }
 
     renderProductsTableData = (products) => {
-
+        console.log(products)
         return (
             <>
                 {products && products.length > 0 &&
                     products.map((item, index) => (
-                        <ProductRowItem productId={item.id}
-                            editProduct={this.handleEdit}
-                            deleteProduct={this.handleDelete} />
+                        <tr>
+                            <ProductRowItem productId={item.id}
+                                editProduct={this.handleEdit}
+                                deleteProduct={this.handleDelete} />
+                        </tr>
                     ))
 
                 }
@@ -326,7 +326,7 @@ class ManageProduct extends Component {
                                 <tr>
                                     <th>ID</th>
                                     <th>Ảnh sản phẩm</th>
-                                    {/* <th>Danh mục sản phẩm</th> */}
+                                    <th>Danh mục sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Giá sản phẩm</th>
                                     <th>Actions</th>
@@ -338,7 +338,7 @@ class ManageProduct extends Component {
 
                             <CustomPagination
                                 totalRecords={listProduct.length}
-                                pageLimit={pageLimit || 10}
+                                pageLimit={pageLimit || 5}
                                 initialPage={1}
                                 pagesToShow={5}
                                 onChangePage={this.onChangePage}
@@ -352,10 +352,6 @@ class ManageProduct extends Component {
                         isOpenedEditModal={isOpenedEditModal}
                         closeModal={this.handleCloseEditProductModal}
                         product={selectedProduct} />
-                    {/* <EditProductModal
-                        isOpenedEditModal={isOpenedEditModal}
-                        closeModal={this.handleCloseEditProductModal}
-                        productId={selectedProduct.id} /> */}
                 </LoadingOverlay>
             </>
         );

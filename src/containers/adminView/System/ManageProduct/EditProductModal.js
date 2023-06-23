@@ -108,7 +108,7 @@ class EditProductModal extends Component {
                 selectedCategory: dataSelectedCategory,
                 selectedSubCategory: dataSelectedSubCategory,
                 selectedChildCategory: dataSelectedChildCategory,
-                selectedForm: dataSelectedForm,
+                selectedForm: dataSelectedForm[0],
 
                 isOpenedPreviewImage: false
             })
@@ -386,34 +386,34 @@ class EditProductModal extends Component {
         })
     }
 
-    // handleUpdateProduct = async () => {
-    //     await this.props.updateProduct({
-    //         id: this.state.id,
-    //         name: this.state.name,
-    //         keyName: this.state.keyName,
-    //         price: this.state.price,
-    //         discount: this.state.discount,
-    //         weight: this.state.weight,
-    //         height: this.state.height,
-    //         width: this.state.width,
-    //         length: this.state.length,
-    //         categoryKeyName: this.state.categoryKeyName,
-    //         formId: this.state.selectedForm.keyMap,
-    //         publishYear: this.state.publishYear,
-    //         image: this.state.image,
-    //         productType: this.state.selectedProductType,
-    //         descriptionData: this.state.descriptionData,
-    //         bookDescriptionId: this.state.bookDescriptionId,
-    //         stationaryDescriptionId: this.state.stationaryDescriptionId,
-    //         toyDescriptionId: this.state.toyDescriptionId,
-    //         contentHTML: this.state.contentHTML,
-    //         contentMarkdown: this.state.contentMarkdown,
-    //     })
+    handleUpdateProduct = async () => {
+        await this.props.updateProduct({
+            id: this.state.id,
+            name: this.state.name,
+            keyName: this.state.keyName,
+            price: this.state.price,
+            discount: this.state.discount,
+            weight: this.state.weight,
+            height: this.state.height,
+            width: this.state.width,
+            length: this.state.length,
+            categoryKeyName: this.state.categoryKeyName,
+            formId: this.state.selectedForm.keyMap,
+            publishYear: this.state.publishYear,
+            image: this.state.image,
+            productType: this.state.selectedProductType,
+            descriptionData: this.state.descriptionData,
+            bookDescriptionId: this.state.bookDescriptionId,
+            stationaryDescriptionId: this.state.stationaryDescriptionId,
+            toyDescriptionId: this.state.toyDescriptionId,
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
+        })
 
-    // if (this.props.actionResponse.errCode === 0) {
-    //     this.props.closeModal()
-    // }
-    // }
+        // if (this.props.actionResponse.errCode === 0) {
+        //     this.props.closeModal()
+        // }
+    }
 
     // eventhandler = (data) => {
     //     this.setState({
@@ -454,6 +454,7 @@ class EditProductModal extends Component {
             contentHTML, } = this.state;
         let { isOpenedEditModal, closeModal } = this.props
 
+        console.log(this.state)
         return (
             <>
                 <Modal isOpen={isOpenedEditModal}

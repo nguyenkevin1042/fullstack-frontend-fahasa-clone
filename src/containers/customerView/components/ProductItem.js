@@ -4,33 +4,36 @@ import { withRouter } from 'react-router';
 import './ProductItem.scss';
 import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
+import LoadingOverlay from 'react-loading-overlay'
 
 
 class ProductItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: ''
+            productData: {},
         };
     }
 
     async componentDidMount() {
+        let id = this.props.productId;
+        await this.props.fetchProductById(id);
         this.setState({
-            id: this.props.productData.id
+            productData: this.props.singleProduct
         })
 
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.productData !== this.props.productData) {
-            // console.log(prevProps.productData)
-
-        }
-
-        if (prevState.id !== this.state.id) {
-            // console.log(this.state.id)
-            // await this.props.fetchProductById(this.state.id)
-
+        if (prevProps.productId !== this.props.productId) {
+            this.setState({
+                productData: {}
+            })
+            let id = this.props.productId;
+            await this.props.fetchProductById(id);
+            this.setState({
+                productData: this.props.singleProduct
+            })
         }
     }
 
@@ -73,10 +76,7 @@ class ProductItem extends Component {
     }
 
     render() {
-        let productData = this.props.productData
-
-        // console.log(this.state.id)
-        // console.log(this.props.singleProduct)
+        let { productData, isLoading } = this.state
 
         let imageBase64 = '';
         if (productData.image) {
@@ -110,7 +110,6 @@ class ProductItem extends Component {
                                 <div className='item-chapter'>
                                     Tập {productData.bookDescriptionData.chapter}
                                 </div> : <></>}
-
                         </div>
                     </div>
                 </div >
@@ -124,7 +123,7 @@ class ProductItem extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-
+        singleProduct: state.admin.singleProduct,
     };
 };
 

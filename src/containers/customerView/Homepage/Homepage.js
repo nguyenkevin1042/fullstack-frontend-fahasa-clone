@@ -61,7 +61,6 @@ class Homepage extends Component {
         let { tagArr, isLoading, isModalOpened, listAllTag } = this.state;
         let { allTagArr } = this.props;
 
-        console.log(allTagArr)
 
         return (
             <React.Fragment>
@@ -71,7 +70,16 @@ class Homepage extends Component {
 
                 <ProductCategory />
 
-                <LoadingOverlay
+                <Products tagName={'notebook'} />
+                <Products tagName={'textbook'} />
+
+                {/* {tagArr.map((item, index) => (
+
+                    <Products tagName={item} />
+
+                ))} */}
+
+                {/* <LoadingOverlay
                     active={isLoading}
                     spinner={true}
                     text='Please wait...'>
@@ -80,7 +88,7 @@ class Homepage extends Component {
                         <Products tagData={item} />
 
                     ))}
-                </LoadingOverlay>
+                </LoadingOverlay> */}
 
 
                 <SignUpNewletter />
@@ -106,6 +114,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getAllTag: () => dispatch(actions.getAllTag()),
+        getTagByType: (inputType) => dispatch(actions.getTagByType(inputType)),
     };
 };
 

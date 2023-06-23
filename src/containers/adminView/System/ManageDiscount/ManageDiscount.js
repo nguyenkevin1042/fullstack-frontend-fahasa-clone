@@ -11,6 +11,7 @@ import CustomPagination from '../../../../components/CustomPagination';
 
 import NumericFormat from 'react-number-format';
 import LoadingOverlay from 'react-loading-overlay'
+import ProductRowItem from '../ManageProduct/components/ProductRowItem';
 
 class ManageDiscount extends Component {
     constructor(props) {
@@ -191,81 +192,23 @@ class ManageDiscount extends Component {
         return (
             <>
                 {products && products.length > 0 &&
-                    products.map((item, index) => {
-                        let productData = item.product
-                        let imageBase64 = '';
-
-                        if (productData.image) {
-                            imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
-                        }
-
-                        let salePrice = productData.price - ((productData.price * productData.discount) / 100);
-
-                        return (
-                            <>
-                                <tr key={index} className={item.selected ? 'product-discount-item selected' : 'product-discount-item'}
-                                    onClick={() => this.handleClickProductRow(item)}>
-                                    <td scope="row">
-                                        <input type="checkbox" id={`product${item.id}`} value={item}
-                                            checked={item.selected} />
-                                    </td>
-                                    <td>{index + 1}</td>
-                                    <td>{productData.id}</td>
-                                    <td className='product-img'>
-                                        <div className='img'
-                                            style={{
-                                                backgroundImage: "url(" + imageBase64 + ")"
-                                            }} /></td>
-                                    <td>{this.renderCategoryOfProduct(productData)}</td>
-                                    <td>{productData.name}</td>
-                                    <td>
-                                        <NumericFormat value={parseFloat(productData.price)}
-                                            displayType={'text'}
-                                            thousandSeparator={'.'}
-                                            decimalSeparator={','}
-                                            suffix={'đ'} />
-                                    </td>
-                                    <td>{productData.discount}</td>
-                                    <td>
-                                        <NumericFormat value={salePrice}
-                                            displayType={'text'}
-                                            thousandSeparator={'.'}
-                                            decimalSeparator={','}
-                                            suffix={'đ'} />
-                                    </td>
-                                </tr >
-                            </>
-                        )
-                    })
-
+                    products.map((item, index) => (
+                        <tr key={index} className={item.selected ? 'product-discount-item selected' : 'product-discount-item'}
+                            onClick={() => this.handleClickProductRow(item)}>
+                            <td scope="row">
+                                <input type="checkbox" id={`product${item.id}`} value={item}
+                                    checked={item.selected} />
+                            </td>
+                            <td>{index + 1}</td>
+                            <ProductRowItem productId={item.product.id}
+                                actions={'off'}
+                                discount={'on'} />
+                        </tr>
+                    ))
                 }
             </>
         )
     };
-
-    renderCategoryOfProduct = (item) => {
-        let language = this.props.lang
-
-        let category = item.ChildCategory.SubCategory.AllCode
-        let subCategory = item.ChildCategory.SubCategory
-        let childCategory = item.ChildCategory
-
-        let categoryVI = category.valueVI
-        let subCategoryVI = subCategory.valueVI
-        let childCategoryVI = childCategory.valueVI
-
-        let categoryEN = category.valueEN
-        let subCategoryEN = subCategory.valueEN
-        let childCategoryEN = childCategory.valueEN
-        let rightArrow = String.fromCodePoint(parseInt(2192, 16))
-
-        let result = language === languages.VI ?
-            categoryVI + rightArrow + subCategoryVI + rightArrow + childCategoryVI :
-            categoryEN + rightArrow + subCategoryEN + rightArrow + childCategoryEN
-        return (
-            <>{result}</>
-        )
-    }
 
     onChangePage = (data) => {
         this.setState({
@@ -286,81 +229,77 @@ class ManageDiscount extends Component {
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
         return (
-            <>
-                <LoadingOverlay
-                    active={isLoading}
-                    spinner={true}
-                    text='Please wait...'>
-                    <div className='sharing-manage-container'>
-                        <div className='sharing-manage-title'>
-                            Quản lý giảm giá sản phẩm
-                        </div>
-
-                        <div className='manage-discount-actions'>
-
-                            <label>Nhập discount:</label>
-                            <input type='number'
-                                min={0} max={100}
-                                id='discountNumber'
-                                onChange={(event) => this.hanleOnChangeInput(event)}
-                                onKeyDown={(event) => { this.handleKeyDown(event) }}
-                                className='form-control'
-                            />
-                            <button className=' btn-primary' onClick={() => this.handleApplyDiscount()}
-                            >Áp dụng giảm giá</button>
-
-                        </div>
-
-                        <div className='manage-discount-actions'>
-                            <label>Tìm sản phẩm theo tên:</label>
-                            <input type='text'
-                                id='searchKey'
-                                value={searchKey}
-                                onChange={(event) => this.hanleOnChangeInput(event)}
-                                onKeyUp={(event) => { this.handleKeyUp(event) }}
-                                className='form-control'
-                            />
-                        </div>
-
-                        <div className='manage-sharing-table'>
-                            <table className='sharing-table'>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">
-                                            <input
-                                                type="checkbox"
-                                                checked={checkAll}
-                                                id="checkAll"
-                                                onChange={(event) => this.handleCheckAll(event)}
-                                            />
-                                        </th>
-                                        <th>STT</th>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Ảnh sản phẩm</th>
-                                        <th>Danh mục sản phẩm</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Giá sản phẩm</th>
-                                        <th>Giảm giá (%)</th>
-                                        <th>Giá sản phẩm khi áp dụng giảm giá</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.renderProductsTableData(rowsPerPage)}
-                                </tbody>
-                            </table>
-
-                            <CustomPagination
-                                totalRecords={listProduct.length}
-                                pageLimit={pageLimit || 10}
-                                initialPage={1}
-                                pagesToShow={5}
-                                onChangePage={this.onChangePage}
-                            />
-                        </div>
+            <LoadingOverlay
+                active={isLoading}
+                spinner={true}
+                text='Please wait...'>
+                <div className='sharing-manage-container'>
+                    <div className='sharing-manage-title'>
+                        Quản lý giảm giá sản phẩm
                     </div>
-                </LoadingOverlay>
-            </>
 
+                    <div className='manage-discount-actions'>
+
+                        <label>Nhập discount:</label>
+                        <input type='number'
+                            min={0} max={100}
+                            id='discountNumber'
+                            onChange={(event) => this.hanleOnChangeInput(event)}
+                            onKeyDown={(event) => { this.handleKeyDown(event) }}
+                            className='form-control'
+                        />
+                        <button className=' btn-primary' onClick={() => this.handleApplyDiscount()}
+                        >Áp dụng giảm giá</button>
+
+                    </div>
+
+                    <div className='manage-discount-actions'>
+                        <label>Tìm sản phẩm theo tên:</label>
+                        <input type='text'
+                            id='searchKey'
+                            value={searchKey}
+                            onChange={(event) => this.hanleOnChangeInput(event)}
+                            onKeyUp={(event) => { this.handleKeyUp(event) }}
+                            className='form-control'
+                        />
+                    </div>
+
+                    <div className='manage-sharing-table'>
+                        <table className='sharing-table'>
+
+                            <tr>
+                                <th scope="col">
+                                    <input
+                                        type="checkbox"
+                                        checked={checkAll}
+                                        id="checkAll"
+                                        onChange={(event) => this.handleCheckAll(event)}
+                                    />
+                                </th>
+                                <th>STT</th>
+                                <th>Mã sản phẩm</th>
+                                <th>Ảnh sản phẩm</th>
+                                <th>Danh mục sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá sản phẩm</th>
+                                <th>Giảm giá (%)</th>
+                                <th>Giá sản phẩm khi áp dụng giảm giá</th>
+                            </tr>
+
+                            {this.renderProductsTableData(rowsPerPage)}
+
+                        </table>
+
+                        <CustomPagination
+                            totalRecords={listProduct.length}
+                            pageLimit={pageLimit || 10}
+                            initialPage={1}
+                            pagesToShow={5}
+                            onChangePage={this.onChangePage}
+                        />
+                    </div>
+                </div>
+            </LoadingOverlay>
         );
     }
 }

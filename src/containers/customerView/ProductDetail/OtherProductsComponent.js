@@ -42,35 +42,6 @@ class OtherProductsComponent extends Component {
         }
     }
 
-    renderAFlashSaleProduct = () => {
-        return (
-            <div className='flash-sale-item' title='Shaman King - Tập 30 - Bìa Đôi'>
-                <div className='flash-sale-item-image sold'>
-                    <div className='discount'>50%</div>
-                </div>
-                <div className='flash-sale-item-text'>
-                    <div className='item-name'>
-                        Shaman King - Tập 30 - Bìa Đôi
-                    </div>
-                    <div className='item-price-chapter'>
-                        <div className='item-discount-price'>
-                            17.500
-                        </div>
-                        <div className='item-price'>
-                            35.000
-                        </div>
-                        <div className='item-chapter'>
-                            Tập 30
-                        </div>
-                    </div>
-                    <div className='item-sold-process'>
-                        Đã bán 0
-                    </div>
-                </div>
-            </div >
-        )
-    }
-
     renderTitle = () => {
         let { titleKey } = this.props
 

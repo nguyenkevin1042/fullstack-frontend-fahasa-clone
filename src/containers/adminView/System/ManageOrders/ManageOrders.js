@@ -68,7 +68,6 @@ class ManageOrders extends Component {
         })
     }
 
-
     handleCloseUpdateStatusModal = async () => {
         this.setState({
             isOpenUpdateStatusModal: false
@@ -76,7 +75,6 @@ class ManageOrders extends Component {
         await this.props.getAllBill();
 
     }
-
 
     renderOrderTableData = (orders) => {
         let { lang } = this.props

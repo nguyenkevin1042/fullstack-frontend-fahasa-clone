@@ -24,14 +24,11 @@ class Products extends Component {
     }
 
     async componentDidMount() {
-        let { tagName } = this.props
+        let { tagData } = this.props
 
-        await this.props.getTagByType(tagName)
-
-        let dataTag = this.buildDataInputSelect(this.props.allTagArr);
         this.setState({
-            listTags: dataTag,
-            selectedTag: dataTag[0]
+            selectedTag: tagData[0],
+            listProducts: tagData[0].ProductTags.map(item => item.Product)
         })
     }
 
@@ -40,44 +37,32 @@ class Products extends Component {
 
         }
 
-        if (prevProps.tagName !== this.props.tagName) {
-            await this.props.getTagByType(this.props.tagName)
-            let dataTag = this.buildDataInputSelect(this.props.tagData);
-            this.setState({
-                listTags: dataTag,
-                selectedTag: dataTag[0]
-            })
-            // this.setState({
-            //     listTags: this.props.allTagArr,
-            //     selectedTag: this.props.allTagArr[0],
-            // })
-        }
-
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
             this.setState({
                 isLoading: this.props.isFetchingData,
             })
         }
 
-        // if (prevState.listProducts !== this.state.listProducts) {
-        //     this.setState({
-        //         listProducts: this.state.listProducts
-        //     })
-        // }
-
-        if (prevProps.allTagArr !== this.props.allTagArr) {
-            // let dataTag = this.buildDataInputSelect(this.props.tagData);
-            // this.setState({
-            //     listTags: dataTag,
-            //     selectedTag: dataTag[0]
-            // })
+        if (prevState.listProducts !== this.state.listProducts) {
+            this.setState({
+                listProducts: this.state.listProducts
+            })
         }
 
-        // if (prevProps.allProductArr !== this.props.allProductArr) {
-        //     this.setState({
-        //         listProducts: this.props.allProductArr
-        //     })
-        // }
+        if (prevProps.allTagArr !== this.props.allTagArr ||
+            prevProps.lang !== this.props.lang) {
+            let dataTag = this.buildDataInputSelect(this.props.tagData);
+            this.setState({
+                listTags: dataTag,
+                selectedTag: dataTag[0]
+            })
+        }
+
+        if (prevProps.allProductArr !== this.props.allProductArr) {
+            this.setState({
+                listProducts: this.props.allProductArr
+            })
+        }
     }
 
     buildDataInputSelect = (inputData) => {
@@ -90,7 +75,6 @@ class Products extends Component {
                 let labelVI = item.valueVI;
                 let labelEN = item.valueEN;
 
-                obj.id = item.id;
                 obj.keyName = item.keyName;
                 obj.label = language === languages.VI ? labelVI : labelEN;
                 result.push(obj);
@@ -107,16 +91,16 @@ class Products extends Component {
     }
 
     renderProductHeader = () => {
-        let { selectedTag, listTags } = this.state
+        let { selectedTag } = this.state
         let { tagData, lang } = this.props
         return (
             <>
                 <div className='header-item-list'>
-                    {listTags && listTags.length > 0 &&
-                        listTags.map((item, index) => (
+                    {tagData && tagData.length > 0 &&
+                        tagData.map((item, index) => (
                             <div className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
                                 onClick={() => this.handleOnClickTag(item)}>
-                                {item.label}
+                                {lang === languages.VI ? item.valueVI : item.valueEN}
                             </div>
                         ))
                     }
@@ -226,10 +210,9 @@ class Products extends Component {
     }
 
     handleOnClickTag = async (item) => {
-        console.log(item)
         this.setState({
             selectedTag: item,
-            // listProducts: item.ProductTags.map(item => item.Product)
+            listProducts: item.ProductTags.map(item => item.Product)
         })
     }
 
@@ -240,9 +223,7 @@ class Products extends Component {
     }
 
     render() {
-        let { selectedTag, listTags } = this.state
-
-        console.log(selectedTag, listTags)
+        let { selectedTag } = this.state
 
         return (
             <div className='products-container'>
@@ -268,14 +249,14 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         isFetchingData: state.admin.isFetchingData,
-        allTagArr: state.admin.allTagArr,
-        allProductArr: state.admin.allProductArr,
+        // allTagArr: state.admin.allTagArr,
+        // allProductArr: state.admin.allProductArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getTagByType: (type) => dispatch(actions.getTagByType(type)),
+        // getTagByType: (type) => dispatch(actions.getTagByType(type)),
     };
 };
 

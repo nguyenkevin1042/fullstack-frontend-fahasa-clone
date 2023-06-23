@@ -124,8 +124,8 @@ class SearchResult extends Component {
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => (
                         <div key={index}
-                            className='sharing-product-item-container col-3'>
-                            <ProductItem productData={item} />
+                            className='sharing-product-item-container col-4 col-md-3'>
+                            <ProductItem productId={item.id} />
                         </div>
                     ))
                 }
@@ -140,6 +140,7 @@ class SearchResult extends Component {
         let rowsPerPage = [];
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
+
         return (
             <>
                 <div className='sort-actions'>
@@ -167,8 +168,6 @@ class SearchResult extends Component {
                                 </div>
                             )}
 
-
-
                             <CustomPagination
                                 totalRecords={listProduct.length}
                                 pageLimit={pageLimit || 12}
@@ -176,10 +175,7 @@ class SearchResult extends Component {
                                 pagesToShow={6}
                                 onChangePage={this.handleOnChangePage}
                             />
-
-
                         </div>
-
                     </LoadingOverlay>
                 </div>
             </>
@@ -189,6 +185,7 @@ class SearchResult extends Component {
     render() {
         let { isLoading, listProduct, searchQuery, message } = this.state
 
+        console.log(this.state.listProduct)
         return (
             <React.Fragment>
                 <Header />

@@ -33,7 +33,6 @@ class MakeOrderSuccess extends Component {
         }
     }
 
-
     render() {
         return (
             <React.Fragment>

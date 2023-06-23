@@ -24,20 +24,34 @@ class AddProductModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            keyName: '',
-            price: '',
-            discount: '',
-            weight: '',
-            height: '',
-            width: '',
-            length: '',
-            publishYear: '',
-            categoryKeyName: '',
+            // name: '',
+            // keyName: '',
+            // price: '',
+            // discount: '',
+            // weight: '',
+            // height: '',
+            // width: '',
+            // length: '',
+            // publishYear: '',
+            // categoryKeyName: '',
+            // image: '',
+            // previewImgURL: '',
+            // contentMarkdown: '',
+            // contentHTML: '',
+            name: 'test',
+            keyName: 'test',
+            price: '20000',
+            discount: '10',
+            weight: 'test',
+            height: 'test',
+            width: 'test',
+            length: 'test',
+            publishYear: 'test',
+            categoryKeyName: 'test',
             image: '',
-            previewImgURL: '',
-            contentMarkdown: '',
-            contentHTML: '',
+            previewImgURL: 'test',
+            contentMarkdown: 'test',
+            contentHTML: 'test',
 
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
@@ -65,11 +79,11 @@ class AddProductModal extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (prevProps.actionResponse !== this.props.actionResponse) {
-            if (this.props.actionResponse.errCode === 0) {
-                this.props.closeModal()
-            }
-        }
+        // if (prevProps.actionResponse !== this.props.actionResponse) {
+        //     if (this.props.actionResponse.errCode === 0) {
+        //         this.props.closeModal()
+        //     }
+        // }
 
         if (prevProps.isOpenedAddModal !== this.props.isOpenedAddModal) {
             if (this.props.isOpenedAddModal === false) {
@@ -302,6 +316,7 @@ class AddProductModal extends Component {
         return (
             <>
                 <Modal isOpen={isOpenedAddModal}
+                    toggle={closeModal}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
                     size='xl'
                     centered>
@@ -499,15 +514,6 @@ class AddProductModal extends Component {
                     </div>
 
                 </Modal >
-
-                {/* {isOpenedPreviewImage === true &&
-                    <Lightbox
-                        className={'lightbox-preview-img'}
-                        mainSrc={previewImgURL}
-                        onCloseRequest={() => this.setState({ isOpenedPreviewImage: false })}
-
-                    />
-                } */}
             </>
         );
     }

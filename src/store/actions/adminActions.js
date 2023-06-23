@@ -622,7 +622,7 @@ export const addNewProduct = (inputData) => {
             if (res && res.errCode === 0) {
                 dispatch(addNewProductSuccess(res));
                 toast.success(res.message)
-                dispatch(fetchAllProduct())
+                // dispatch(fetchAllProduct())
             } else {
                 dispatch(addNewProductFail(res));
                 toast.error(res.message)
@@ -677,7 +677,6 @@ export const fetchAllProductFail = () => ({
 //FETCH ALL PRODUCTS BY CATEGORY
 export const fetchProductById = (inputId) => {
     return async (dispatch, getState) => {
-        // dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
 
@@ -692,7 +691,6 @@ export const fetchProductById = (inputId) => {
             dispatch(fetchProductByIdFail(res));
             console.log("fetchProductById Error: ", error)
         }
-        // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 
@@ -807,8 +805,6 @@ export const deleteProduct = (inputId) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            console.log(inputId)
-            return;
             res = await deleteProductAPI(inputId);
 
             if (res && res.errCode === 0) {
@@ -868,7 +864,7 @@ export const updateProductFail = (response) => ({
 //UPDATE PPRODUCT DISCOUNT
 export const updateProductDiscount = (inputData) => {
     return async (dispatch, getState) => {
-        // dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
             res = await updateProductDiscountAPI(inputData);
@@ -885,7 +881,7 @@ export const updateProductDiscount = (inputData) => {
             dispatch(updateProductDiscountFail(res));
             console.log("updateProductDiscount Error: ", error)
         }
-        // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 
