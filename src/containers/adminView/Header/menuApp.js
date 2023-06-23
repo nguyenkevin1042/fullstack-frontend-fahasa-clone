@@ -2,10 +2,10 @@ export const adminMenu = [
     //Hệ thống
     {
         name: 'menu.system.header', menus: [
-            {
-                name: 'menu.system.manage-all-codes',
-                link: '/system/manage-all-codes'
-            },
+            // {
+            //     name: 'menu.system.manage-all-codes',
+            //     link: '/system/manage-all-codes'
+            // },
             {
                 name: 'menu.system.manage-category.title',
                 subMenus: [

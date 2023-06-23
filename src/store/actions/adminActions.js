@@ -677,7 +677,7 @@ export const fetchAllProductFail = () => ({
 //FETCH ALL PRODUCTS BY CATEGORY
 export const fetchProductById = (inputId) => {
     return async (dispatch, getState) => {
-        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+        // dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
 
@@ -692,7 +692,7 @@ export const fetchProductById = (inputId) => {
             dispatch(fetchProductByIdFail(res));
             console.log("fetchProductById Error: ", error)
         }
-        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+        // dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 

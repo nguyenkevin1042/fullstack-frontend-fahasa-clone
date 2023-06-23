@@ -56,6 +56,7 @@ class EditProductModal extends Component {
     }
 
     async componentDidMount() {
+        await this.props.fetchProductById(this.props.productId)
         await this.props.fetchAllCodesByType('category')
         let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
         this.setState({
@@ -67,12 +68,16 @@ class EditProductModal extends Component {
             listForm: dataSelectForm
         })
 
+        // let dataSelectedForm = this.buildDataInputSelect(this.props.product.AllCode[0], "form");
+        // this.setState({
+        //     selectedForm: dataSelectedForm
+        // })
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        let product = this.props.product;
+        let product = this.props.singleProduct;
 
-        if (prevProps.product !== this.props.product) {
+        if (prevProps.singleProduct !== this.props.singleProduct) {
             let dataSelectedCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory.AllCode, "category");
             let dataSelectedSubCategory = this.buildDataInputSelect(product.ChildCategory.SubCategory, "subCategory");
             let dataSelectedChildCategory = this.buildDataInputSelect(product.ChildCategory, "childCategory");
@@ -105,10 +110,10 @@ class EditProductModal extends Component {
                 previewImgURL: imageBase64,
                 selectedProductType: productType,
 
-                selectedCategory: dataSelectedCategory,
-                selectedSubCategory: dataSelectedSubCategory,
-                selectedChildCategory: dataSelectedChildCategory,
-                selectedForm: dataSelectedForm,
+                // selectedCategory: dataSelectedCategory,
+                // selectedSubCategory: dataSelectedSubCategory,
+                // selectedChildCategory: dataSelectedChildCategory,
+                // selectedForm: dataSelectedForm,
 
                 isOpenedPreviewImage: false
             })
@@ -132,6 +137,7 @@ class EditProductModal extends Component {
                 })
             }
 
+            //setState markdown
             if (product.markdownData != null) {
                 this.setState({
                     contentMarkdown: product.markdownData.contentMarkdown,
@@ -145,41 +151,40 @@ class EditProductModal extends Component {
             }
         }
 
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            // this.setState({
+            //     response: this.props.actionResponse
+            // })
+            if (this.props.actionResponse.errCode === 0) {
+                this.props.closeModal()
+            }
+        }
 
-        // if (prevProps.actionResponse !== this.props.actionResponse) {
-        //     // this.setState({
-        //     //     response: this.props.actionResponse
-        //     // })
-        //     if (this.props.actionResponse.errCode === 0) {
-        //         this.props.closeModal()
-        //     }
-        // }
+        if (prevProps.productId !== this.props.productId) {
+            await this.props.fetchProductById(this.props.productId)
+        }
 
-        // if (prevProps.productId !== this.props.productId) {
-        //     await this.props.fetchProductById(this.props.productId)
-        // }
+        if (prevProps.allCodesArr !== this.props.allCodesArr) {
+            let dataOption = this.buildDataInputSelect(this.props.allCodesArr, "category");
 
-        // if (prevProps.allCodesArr !== this.props.allCodesArr) {
-        //     let dataOption = this.buildDataInputSelect(this.props.allCodesArr, "category");
+            this.setState({
+                listCategory: dataOption,
+            })
+        }
 
-        //     this.setState({
-        //         listCategory: dataOption,
-        //     })
-        // }
+        if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
+            let dataOption = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
+            this.setState({
+                listSubCategory: dataOption
+            })
+        }
 
-        // if (prevProps.allSubCategoryArr !== this.props.allSubCategoryArr) {
-        //     let dataOption = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
-        //     this.setState({
-        //         listSubCategory: dataOption
-        //     })
-        // }
-
-        // if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr) {
-        //     let dataOption = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
-        //     this.setState({
-        //         listChildCategory: dataOption
-        //     })
-        // }
+        if (prevProps.allChildCategoryArr !== this.props.allChildCategoryArr) {
+            let dataOption = this.buildDataInputSelect(this.props.allChildCategoryArr, "childCategory");
+            this.setState({
+                listChildCategory: dataOption
+            })
+        }
     }
 
     buildDataInputSelect = (inputData, type) => {
@@ -266,38 +271,38 @@ class EditProductModal extends Component {
         return result;
     }
 
-    // setDefaultField = () => {
-    //     this.setState({
-    //         id: '',
-    //         name: '',
-    //         keyName: '',
-    //         price: '',
-    //         discount: '',
-    //         weight: '',
-    //         height: '',
-    //         width: '',
-    //         length: '',
-    //         publishYear: '',
-    //         categoryKeyName: '',
-    //         image: '',
-    //         previewImgURL: '',
-    //         contentMarkdown: '',
-    //         contentHTML: '',
-    //         bookDescriptionId: '',
-    //         stationaryDescriptionId: '',
-    //         toyDescriptionId: '',
-    //         descriptionData: '',
+    setDefaultField = () => {
+        this.setState({
+            id: '',
+            name: '',
+            keyName: '',
+            price: '',
+            discount: '',
+            weight: '',
+            height: '',
+            width: '',
+            length: '',
+            publishYear: '',
+            categoryKeyName: '',
+            image: '',
+            previewImgURL: '',
+            contentMarkdown: '',
+            contentHTML: '',
+            bookDescriptionId: '',
+            stationaryDescriptionId: '',
+            toyDescriptionId: '',
+            descriptionData: '',
 
-    //         listCategory: [], selectedCategory: '',
-    //         listSubCategory: [], selectedSubCategory: '',
-    //         listChildCategory: [], selectedChildCategory: '',
-    //         listForm: [], selectedForm: '',
+            listCategory: [], selectedCategory: '',
+            listSubCategory: [], selectedSubCategory: '',
+            listChildCategory: [], selectedChildCategory: '',
+            listForm: [], selectedForm: '',
 
-    //         selectedProductType: '',
-    //         stateFromComponent: [],
-    //         response: ''
-    //     })
-    // }
+            selectedProductType: '',
+            stateFromComponent: [],
+            response: ''
+        })
+    }
 
     getProductType = (product) => {
         let bookDescriptionId = product.bookDescriptionId
@@ -362,6 +367,14 @@ class EditProductModal extends Component {
                 image: base64.result
             })
         }
+
+    }
+
+    handleOpenPreviewImage = () => {
+        if (!this.state.previewImgURL) return;
+        this.setState({
+            isOpenedPreviewImage: true
+        })
     }
 
     handleOnChangeInputName = (event) => {
@@ -386,40 +399,40 @@ class EditProductModal extends Component {
         })
     }
 
-    // handleUpdateProduct = async () => {
-    //     await this.props.updateProduct({
-    //         id: this.state.id,
-    //         name: this.state.name,
-    //         keyName: this.state.keyName,
-    //         price: this.state.price,
-    //         discount: this.state.discount,
-    //         weight: this.state.weight,
-    //         height: this.state.height,
-    //         width: this.state.width,
-    //         length: this.state.length,
-    //         categoryKeyName: this.state.categoryKeyName,
-    //         formId: this.state.selectedForm.keyMap,
-    //         publishYear: this.state.publishYear,
-    //         image: this.state.image,
-    //         productType: this.state.selectedProductType,
-    //         descriptionData: this.state.descriptionData,
-    //         bookDescriptionId: this.state.bookDescriptionId,
-    //         stationaryDescriptionId: this.state.stationaryDescriptionId,
-    //         toyDescriptionId: this.state.toyDescriptionId,
-    //         contentHTML: this.state.contentHTML,
-    //         contentMarkdown: this.state.contentMarkdown,
-    //     })
+    handleUpdateProduct = async () => {
+        await this.props.updateProduct({
+            id: this.state.id,
+            name: this.state.name,
+            keyName: this.state.keyName,
+            price: this.state.price,
+            discount: this.state.discount,
+            weight: this.state.weight,
+            height: this.state.height,
+            width: this.state.width,
+            length: this.state.length,
+            categoryKeyName: this.state.categoryKeyName,
+            formId: this.state.selectedForm.keyMap,
+            publishYear: this.state.publishYear,
+            image: this.state.image,
+            productType: this.state.selectedProductType,
+            descriptionData: this.state.descriptionData,
+            bookDescriptionId: this.state.bookDescriptionId,
+            stationaryDescriptionId: this.state.stationaryDescriptionId,
+            toyDescriptionId: this.state.toyDescriptionId,
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
+        })
 
-    // if (this.props.actionResponse.errCode === 0) {
-    //     this.props.closeModal()
-    // }
-    // }
+        // if (this.props.actionResponse.errCode === 0) {
+        //     this.props.closeModal()
+        // }
+    }
 
-    // eventhandler = (data) => {
-    //     this.setState({
-    //         descriptionData: data
-    //     })
-    // }
+    eventhandler = (data) => {
+        this.setState({
+            descriptionData: data
+        })
+    }
 
     renderDescriptionSectionByProductType = (productType) => {
         let { descriptionData } = this.state
@@ -656,13 +669,18 @@ class EditProductModal extends Component {
                             <button className='cancel-btn'
                                 onClick={closeModal}>Cancel</button>
                         </div>
-
-
                     </div>
 
                 </Modal >
 
+                {/* {isOpenedPreviewImage === true &&
+                    <Lightbox
+                        className={'lightbox-preview-img'}
+                        mainSrc={previewImgURL}
+                        onCloseRequest={() => this.setState({ isOpenedPreviewImage: false })}
 
+                    />
+                } */}
             </>
         );
     }

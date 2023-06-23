@@ -11,6 +11,7 @@ import CustomPagination from '../../../../components/CustomPagination';
 
 import NumericFormat from 'react-number-format';
 import LoadingOverlay from 'react-loading-overlay'
+import ProductRowItem from './components/ProductRowItem';
 
 class ManageProduct extends Component {
 
@@ -207,37 +208,12 @@ class ManageProduct extends Component {
             isOpenedEditModal: false
         })
         await this.props.fetchAllProduct();
-
     }
 
     handleDelete = async (item) => {
-        // console.log(item)
+        console.log(item)
         // await this.props.deleteProduct(item.id)
         // await this.props.fetchAllProduct();
-    }
-
-    renderCategoryOfProduct = (item) => {
-        let language = this.props.lang
-
-        let category = item.ChildCategory.SubCategory.AllCode
-        let subCategory = item.ChildCategory.SubCategory
-        let childCategory = item.ChildCategory
-
-        let categoryVI = category.valueVI
-        let subCategoryVI = subCategory.valueVI
-        let childCategoryVI = childCategory.valueVI
-
-        let categoryEN = category.valueEN
-        let subCategoryEN = subCategory.valueEN
-        let childCategoryEN = childCategory.valueEN
-        let rightArrow = String.fromCodePoint(parseInt(2192, 16))
-
-        let result = language === languages.VI ?
-            categoryVI + rightArrow + subCategoryVI + rightArrow + childCategoryVI :
-            categoryEN + rightArrow + subCategoryEN + rightArrow + childCategoryEN
-        return (
-            <>{result}</>
-        )
     }
 
     renderProductsTableData = (products) => {
@@ -245,39 +221,11 @@ class ManageProduct extends Component {
         return (
             <>
                 {products && products.length > 0 &&
-                    products.map((item, index) => {
-                        let imageBase64 = '';
-                        if (item.image) {
-                            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
-                        }
-                        return (
-                            <tr key={index}>
-                                <td>{item.id}</td>
-                                <td className='product-img'>
-                                    <div className='img'
-                                        style={{
-                                            backgroundImage: "url(" + imageBase64 + ")"
-                                        }} /></td>
-                                <td>{this.renderCategoryOfProduct(item)}</td>
-                                <td>{item.name}</td>
-                                <td>
-                                    <NumericFormat value={parseFloat(item.price)}
-                                        displayType={'text'}
-                                        thousandSeparator={'.'}
-                                        decimalSeparator={','}
-                                        suffix={'đ'} /></td>
-
-                                <td>
-                                    <button className='btn-edit'
-                                        onClick={() => this.handleEdit(item)}
-                                    > <i className="fas fa-pencil-alt"></i></button>
-                                    <button className='btn-delete'
-                                        onClick={() => this.handleDelete(item)}
-                                    ><i className="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        )
-                    })
+                    products.map((item, index) => (
+                        <ProductRowItem productId={item.id}
+                            editProduct={this.handleEdit}
+                            deleteProduct={this.handleDelete} />
+                    ))
 
                 }
             </>
@@ -308,8 +256,6 @@ class ManageProduct extends Component {
         let rowsPerPage = [];
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
-
-        console.log(this.props.allProductArr)
 
         return (
             <>
@@ -376,20 +322,18 @@ class ManageProduct extends Component {
 
                         <div className='manage-sharing-table'>
                             <table className='sharing-table'>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Ảnh sản phẩm</th>
-                                        <th>Danh mục sản phẩm</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Giá sản phẩm</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
 
-                                <tbody>
-                                    {this.renderProductsTableData(rowsPerPage)}
-                                </tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Ảnh sản phẩm</th>
+                                    {/* <th>Danh mục sản phẩm</th> */}
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá sản phẩm</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                                {this.renderProductsTableData(rowsPerPage)}
+
                             </table>
 
                             <CustomPagination
@@ -404,14 +348,14 @@ class ManageProduct extends Component {
                     <AddProductModal
                         isOpenedAddModal={isOpenedAddModal}
                         closeModal={this.handleCloseAddProductModal} />
-                    {/* <EditProductModal
-                        isOpenedEditModal={isOpenedEditModal}
-                        closeModal={this.handleCloseEditProductModal}
-                        product={selectedProduct} /> */}
                     <EditProductModal
                         isOpenedEditModal={isOpenedEditModal}
                         closeModal={this.handleCloseEditProductModal}
-                        productId={selectedProduct.id} />
+                        product={selectedProduct} />
+                    {/* <EditProductModal
+                        isOpenedEditModal={isOpenedEditModal}
+                        closeModal={this.handleCloseEditProductModal}
+                        productId={selectedProduct.id} /> */}
                 </LoadingOverlay>
             </>
         );
