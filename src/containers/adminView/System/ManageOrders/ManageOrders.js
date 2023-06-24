@@ -91,7 +91,7 @@ class ManageOrders extends Component {
                                     {item.UserAddress.fullName}
                                 </td>
                                 <td>
-                                    <NumericFormat value={item.totalPrice}
+                                    <NumericFormat value={parseFloat(item.totalPrice)}
                                         displayType={'text'}
                                         thousandSeparator={'.'}
                                         decimalSeparator={','}
@@ -104,6 +104,7 @@ class ManageOrders extends Component {
                                 </td>
 
                                 <td>
+
                                     <button className='btn-edit'
                                         onClick={() => this.handleEdit(item)}
                                     > <i className="fas fa-pencil-alt"></i></button>

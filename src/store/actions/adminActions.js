@@ -14,7 +14,7 @@ import {
     createNewBillAPI, getAllBillAPI, updateBillStatusAPI,
     getProductByNameAPI, updateProductDiscountAPI, getTagByTypeAPI,
     getProductByTagKeyNameAPI, getAllTagAPI, getAllTagWithoutProductAPI,
-    createProductTagAPI, updateProductTagAPI, deleteProductTagAPI, getAllUserAPI, getProductByIdAPI
+    createProductTagAPI, updateProductTagAPI, deleteProductTagAPI, getAllUserAPI, getProductByIdAPI, getProductByTagIdAPI
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -1199,6 +1199,36 @@ export const deleteProductTagSuccess = (response) => ({
 
 export const deleteProductTagFail = (response) => ({
     type: actionTypes.DELETE_PRODUCT_TAG_FAIL,
+    response: response
+})
+
+//GET PRODUCT BY TAG ID
+export const getProductByTagId = (inputTagId) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await getProductByTagIdAPI(inputTagId);
+
+            if (res && res.errCode === 0) {
+                dispatch(getProductByTagIdSuccess(res));
+            } else {
+                dispatch(getProductByTagIdFail(res));
+            }
+        } catch (error) {
+            dispatch(getProductByTagIdFail(res));
+            console.log("getProductByTagId: ", error)
+        }
+    }
+}
+
+export const getProductByTagIdSuccess = (response) => ({
+    type: actionTypes.GET_PRODUCT_BY_TAG_ID_SUCCESS,
+    response: response
+})
+
+export const getProductByTagIdFail = (response) => ({
+    type: actionTypes.GET_PRODUCT_BY_TAG_ID_FAIL,
     response: response
 })
 

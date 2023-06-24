@@ -103,7 +103,7 @@ class ProductsOfTag extends Component {
                     listProduct.map((item, index) => (
                         <div key={index}
                             className='sharing-product-item-container col-4 col-md-3'>
-                            <ProductItem productData={item} />
+                            {item && <ProductItem productId={item.id} />}
                         </div>
                     ))
                 }
@@ -189,40 +189,25 @@ class ProductsOfTag extends Component {
                                 name="selectedPageLimit" />
                         </div>
 
-                        <div className='search-result-list'>
-                            <LoadingOverlay
-                                active={isLoading}
-                                spinner={true}
-                                text='Please wait...'>
-                                <div>
-                                    <div className='row'>
-                                        {this.renderProductList(rowsPerPage)}
-                                    </div>
 
-                                    <CustomPagination
-                                        totalRecords={listProduct.length}
-                                        pageLimit={pageLimit || 12}
-                                        initialPage={1}
-                                        pagesToShow={6}
-                                        onChangePage={this.handleOnChangePage}
-                                    />
-
-
+                        <LoadingOverlay
+                            active={isLoading}
+                            spinner={true}
+                            text='Please wait...'>
+                            <div className='search-result-list'>
+                                <div className='row'>
+                                    {this.renderProductList(rowsPerPage)}
                                 </div>
 
-                            </LoadingOverlay>
-                        </div>
-
-
-
-
-
-                        {/* <div className='search-result-title'>
-                            <FormattedMessage id="customer.search-result.title" /> &lsquo;{searchQuery}&rsquo;
-                        </div> */}
-                        {/* {this.renderIfHavingProducts()} */}
-                        {/* {isLoading === false && listProduct.length === 0 &&
-                            this.renderIfHavingProducts()} */}
+                                <CustomPagination
+                                    totalRecords={listProduct.length}
+                                    pageLimit={pageLimit || 12}
+                                    initialPage={1}
+                                    pagesToShow={6}
+                                    onChangePage={this.handleOnChangePage}
+                                />
+                            </div>
+                        </LoadingOverlay>
                     </div>
                 </div>
 

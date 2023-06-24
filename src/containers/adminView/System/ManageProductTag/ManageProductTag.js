@@ -5,10 +5,10 @@ import { withRouter } from 'react-router';
 import * as actions from "../../../../store/actions";
 import { languages } from '../../../../utils';
 import Select from 'react-select';
-import { toast } from 'react-toastify';
 import CustomPagination from '../../../../components/CustomPagination';
 
 import LoadingOverlay from 'react-loading-overlay'
+import ProductRowItem from '../ManageProduct/components/ProductRowItem';
 
 class ManageProductTag extends Component {
     constructor(props) {
@@ -98,12 +98,12 @@ class ManageProductTag extends Component {
                 this.props.actionResponse.messageVI : this.props.actionResponse.messageEN;
 
             if (this.props.actionResponse.errCode === 0) {
-                toast.success(message)
+                // toast.success(message)
                 this.setState({
                     checkAll: false,
                 })
             } else {
-                toast.error(message)
+                // toast.error(message)
             }
         }
     }
@@ -211,16 +211,23 @@ class ManageProductTag extends Component {
     }
 
     renderProductsTableData = (products) => {
+        let { lang } = this.props
         return (
             <>
                 {products && products.length > 0 &&
                     products.map((item, index) => {
-                        let productData = item.product
-                        let imageBase64 = '';
-
-                        if (productData.image) {
-                            imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
-                        }
+                        // let tagLabelVI = item.product.ProductTags
+                        //     && item.product.ProductTags[0].Tag &&
+                        //     item.product.ProductTags[0].Tag.valueVI ? item.product.ProductTags[0].Tag.valueVI : ''
+                        // let tagLabelEN = item.product.ProductTags
+                        //     && item.product.ProductTags[0].Tag &&
+                        //     item.product.ProductTags[0].Tag.valueEN ? item.product.ProductTags[0].Tag.valueEN : ''
+                        let tagLabelVI = item.product.ProductTags && item.product.ProductTags.length > 0
+                            && item.product.ProductTags[0].Tag &&
+                            item.product.ProductTags[0].Tag.valueVI ? item.product.ProductTags[0].Tag.valueVI : ''
+                        let tagLabelEN = item.product.ProductTags && item.product.ProductTags.length > 0
+                            && item.product.ProductTags[0].Tag &&
+                            item.product.ProductTags[0].Tag.valueEN ? item.product.ProductTags[0].Tag.valueEN : ''
 
                         return (
                             <>
@@ -231,60 +238,20 @@ class ManageProductTag extends Component {
                                             checked={item.selected} />
                                     </td>
                                     <td>{index + 1}</td>
-                                    <td>{productData.id}</td>
-                                    <td className='product-img'>
-                                        <div className='img'
-                                            style={{
-                                                backgroundImage: "url(" + imageBase64 + ")"
-                                            }} /></td>
-                                    <td>{this.renderCategoryOfProduct(productData)}</td>
-                                    <td>{productData.name}</td>
-
-                                    <td>
-                                        {productData.ProductTags && productData.ProductTags[0] ?
-                                            productData.ProductTags[0].Tag.valueVI : ''}
-                                    </td>
-                                    <td>
-                                        <button className='btn-edit'
-                                            onClick={() => this.handleEdit(item)}
-                                        > <i className="fas fa-pencil-alt"></i></button>
-                                        <button className='btn-delete'
-                                            onClick={() => this.handleDelete(item)}
-                                        ><i className="fas fa-trash"></i></button>
-                                    </td>
+                                    <ProductRowItem productId={item.product.id}
+                                        actions={'off'}
+                                        discount={'off'}
+                                        tag={'on'}
+                                        price={'off'} />
+                                    <td>{lang === languages.VI ? tagLabelVI : tagLabelEN}</td>
                                 </tr >
                             </>
                         )
                     })
-
                 }
             </>
         )
     };
-
-    renderCategoryOfProduct = (item) => {
-        let language = this.props.lang
-
-        let category = item.ChildCategory.SubCategory.AllCode
-        let subCategory = item.ChildCategory.SubCategory
-        let childCategory = item.ChildCategory
-
-        let categoryVI = category.valueVI
-        let subCategoryVI = subCategory.valueVI
-        let childCategoryVI = childCategory.valueVI
-
-        let categoryEN = category.valueEN
-        let subCategoryEN = subCategory.valueEN
-        let childCategoryEN = childCategory.valueEN
-        let rightArrow = String.fromCodePoint(parseInt(2192, 16))
-
-        let result = language === languages.VI ?
-            categoryVI + rightArrow + subCategoryVI + rightArrow + childCategoryVI :
-            categoryEN + rightArrow + subCategoryEN + rightArrow + childCategoryEN
-        return (
-            <>{result}</>
-        )
-    }
 
     onChangePage = (data) => {
         this.setState({
@@ -357,7 +324,6 @@ class ManageProductTag extends Component {
                                         <th>Danh mục sản phẩm</th>
                                         <th>Tên sản phẩm</th>
                                         <th>Thẻ sản phấm</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

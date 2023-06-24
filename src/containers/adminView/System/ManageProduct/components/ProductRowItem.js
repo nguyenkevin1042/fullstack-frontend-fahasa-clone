@@ -82,14 +82,13 @@ class ProductRowItem extends Component {
 
     render() {
         let { productData } = this.state
-        let { actions, discount } = this.props
+        let { actions, discount, tag, price } = this.props
         let imageBase64 = '';
         if (productData.image) {
             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
         }
 
         let salePrice = productData.price - ((productData.price * productData.discount) / 100);
-
 
         return (
             <>
@@ -101,13 +100,16 @@ class ProductRowItem extends Component {
                         }} /></td>
                 <td>{this.renderCategoryOfProduct(productData.ChildCategory)}</td>
                 <td>{productData.name}</td>
-                <td>
-                    <NumericFormat value={parseFloat(productData.price)}
-                        displayType={'text'}
-                        thousandSeparator={'.'}
-                        decimalSeparator={','}
-                        suffix={'đ'} />
-                </td>
+                {price === 'on' ?
+                    <td>
+                        <NumericFormat value={parseFloat(productData.price)}
+                            displayType={'text'}
+                            thousandSeparator={'.'}
+                            decimalSeparator={','}
+                            suffix={'đ'} />
+                    </td> : <></>}
+
+
                 {discount === 'on' ?
                     <>
                         <td>{productData.discount}</td>
@@ -120,6 +122,10 @@ class ProductRowItem extends Component {
                         </td>
                     </>
                     : <></>}
+                {/* {tag === 'on' ?
+                        <td>{productData.discount}</td>
+                    : <></>} */}
+
                 {actions === 'off' ?
                     <></> :
                     <td>
@@ -131,6 +137,7 @@ class ProductRowItem extends Component {
                         ><i className="fas fa-trash"></i></button>
                     </td>
                 }
+
 
             </>
         );

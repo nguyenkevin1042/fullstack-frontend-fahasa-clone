@@ -24,7 +24,8 @@ $ex-large: 1200px;// Extra large >= 1200
 
 .search-result-container{
     // margin: 20px 40px;
-    height: max-content;
+    height: fit-content;
+    // border: 1px solid red;
 
     .search-result-content{
         background-color: white;
@@ -66,7 +67,7 @@ $ex-large: 1200px;// Extra large >= 1200
             margin-top: 20px;
             padding-top: 10px;
             border-top: 2px solid #f6f6f6;
-
+            height: 100%;
 
             .pagination{
                 margin-top: 30px;

@@ -161,24 +161,13 @@ class UpdateOrderStatusModal extends Component {
                                 </div>
                                 <div className='col-6 form-group'>
                                     <p>
-                                        <NumericFormat value={selectedOrder.totalPrice}
+                                        <NumericFormat value={parseFloat(selectedOrder.totalPrice)}
                                             displayType={'text'}
                                             thousandSeparator={'.'}
                                             decimalSeparator={','}
                                             suffix={'đ'} /></p>
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className='col-6 form-group'>
-                                    <label>Trạng thái đơn hàng hiện tại</label>
-                                </div>
-                                <div className='col-6 form-group'>
-                                    <p>
-                                        {selectedStatus.label}
-                                    </p>
-                                </div>
-                            </div>
-
                         </div>
 
 
@@ -198,6 +187,7 @@ class UpdateOrderStatusModal extends Component {
 
 
                         <div className='sharing-modal-buttons'>
+
                             <button className='add-btn'
                                 onClick={() => this.handleUpdateBillStatus()}
                             >Save</button>

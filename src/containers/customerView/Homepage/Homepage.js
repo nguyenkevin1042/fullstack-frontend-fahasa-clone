@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 import SignUpNewletter from './SignUpNewletter';
 import ProductCategory from './ProductCategory';
 import FlashSale from './FlashSale';
-import Products from './Products';
+import RecommendedProducts from './RecommendedProducts';
 import LoadingOverlay from 'react-loading-overlay'
 
 import _ from 'lodash';
@@ -70,8 +70,8 @@ class Homepage extends Component {
 
                 <ProductCategory />
 
-                <Products tagName={'notebook'} />
-                <Products tagName={'textbook'} />
+                <RecommendedProducts tagName={'notebook'} />
+                <RecommendedProducts tagName={'textbook'} />
 
                 {/* {tagArr.map((item, index) => (
 

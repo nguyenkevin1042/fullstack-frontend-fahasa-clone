@@ -119,28 +119,16 @@ class SearchResult extends Component {
     }
 
     renderProductList = (listProduct) => {
-        // for (let index = 0; index < listProduct.length; index++) {
-        //     const productId = listProduct[index];
-        //     await this.props.fetchProductById(productId)
-        //     console.log(this.props.singleProduct)
-        // }
-
         return (
             <>
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => (
                         <div key={index}
-                            className='sharing-product-item-container col-3'>
-                            <ProductItem productData={item} />
+                            className='sharing-product-item-container col-4 col-md-3'>
+                            <ProductItem productId={item.id} />
                         </div>
                     ))
                 }
-                {/* {listProduct.map(async (item) => {
-                    console.log(item)
-                    return (
-                        <></>
-                    )
-                })} */}
             </>
         )
     }
@@ -166,35 +154,30 @@ class SearchResult extends Component {
                         name="selectedPageLimit" />
                 </div>
                 <div className='search-result-list'>
-                    {/* <LoadingOverlay
+                    <LoadingOverlay
                         active={isLoading}
                         spinner={true}
-                        text='Please wait...'>*/}
-                    <div>
-                        <div className='row'>
-                            {this.renderProductList(rowsPerPage)}
-                        </div>
-                        {isLoading === false && listProduct.length === 0 && (
-                            <div className='no-products-text'>
-                                <FormattedMessage id="customer.product-list.no-product" />
+                        text='Please wait...'>
+                        <div>
+                            <div className='row'>
+                                {this.renderProductList(rowsPerPage)}
                             </div>
-                        )}
+                            {isLoading === false && listProduct.length === 0 && (
+                                <div className='no-products-text'>
+                                    <FormattedMessage id="customer.product-list.no-product" />
+                                </div>
+                            )}
 
-
-
-                        <CustomPagination
-                            totalRecords={listProduct.length}
-                            pageLimit={pageLimit || 12}
-                            initialPage={1}
-                            pagesToShow={6}
-                            onChangePage={this.handleOnChangePage}
-                        />
-
-
-                    </div>
-
-                    {/* </LoadingOverlay> */}
-                </div >
+                            <CustomPagination
+                                totalRecords={listProduct.length}
+                                pageLimit={pageLimit || 12}
+                                initialPage={1}
+                                pagesToShow={6}
+                                onChangePage={this.handleOnChangePage}
+                            />
+                        </div>
+                    </LoadingOverlay>
+                </div>
             </>
         )
     }
@@ -202,22 +185,10 @@ class SearchResult extends Component {
     render() {
         let { isLoading, listProduct, searchQuery, message } = this.state
 
-
-        // console.log(listProduct)
-        // for (let index = 0; index < listProduct.length; index++) {
-        //     const productId = listProduct[index];
-        //     this.props.fetchProductById(productId).then((responseData) => {
-        //         console.log(responseData);
-        //     })
-        // }
-
-
-
-
+        console.log(this.state.listProduct)
         return (
             <React.Fragment>
                 <Header />
-
 
                 {/* <Breadcrumb separator={'>'}>
                     <Breadcrumb.Item href="/">
@@ -235,18 +206,32 @@ class SearchResult extends Component {
                             <FormattedMessage id="customer.search-result.title" /> &lsquo;{searchQuery}&rsquo;
                         </div>
 
-                        {isLoading === false && listProduct.length === 0 ?
+                        {isLoading === false && listProduct.length === 0 &&
                             <div className='no-products-text'>
                                 {message}
-                            </div> :
-                            <>
-                                {this.renderIfHavingProducts()}</>}
+                            </div>}
+
+                        <div className='search-result-list'>
+                            {/* {this.renderIfHavingProducts()} */}
+
+                            {isLoading === false && listProduct.length > 0 &&
+                                <div className='row'>
+                                    {this.renderIfHavingProducts()}
+                                </div>}
+                            {/* {isLoading === false && listProduct.length === 0 ?
+                                <div className='no-products-text'>
+                                    {message}
+                                </div> :
+                                <>
+                                    {this.renderIfHavingProducts()}
+                                </>} */}
+                        </div>
                     </div>
                 </div>
 
 
-                <SignUpNewletter />
-                <Footer />
+                {/* <SignUpNewletter />
+                <Footer /> */}
             </React.Fragment >
 
         );
@@ -260,15 +245,12 @@ const mapStateToProps = state => {
         allProductArr: state.admin.allProductArr,
         actionResponse: state.admin.actionResponse,
         isFetchingData: state.admin.isFetchingData,
-        singleProduct: state.admin.singleProduct
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getProductByName: (inputName) => dispatch(actions.getProductByName(inputName)),
-        fetchProductById: (inputId) => dispatch(actions.fetchProductById(inputId))
-
     };
 };
 

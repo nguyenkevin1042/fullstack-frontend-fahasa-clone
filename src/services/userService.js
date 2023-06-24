@@ -253,6 +253,11 @@ const getProductByTagKeyNameAPI = (inputKeyName) => {
         { params: { keyName: inputKeyName } });
 }
 
+const getProductByTagIdAPI = (inputTagId) => {
+    return axios.get("/api/get-product-by-tag-id",
+        { params: { tagId: inputTagId } });
+}
+
 const getTagByTypeAPI = (inputType) => {
     return axios.get("/api/get-tag-by-type",
         { params: { type: inputType } });
@@ -310,6 +315,6 @@ export {
     getProductByTagKeyNameAPI, getTagByTypeAPI, getAllTagAPI,
     getAllTagWithoutProductAPI,
     //PRODUCT TAG
-    createProductTagAPI, deleteProductTagAPI, updateProductTagAPI
+    createProductTagAPI, deleteProductTagAPI, updateProductTagAPI, getProductByTagIdAPI
 
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
-import './Products.scss';
+import './RecommendedProducts.scss';
 import * as actions from "../../../store/actions";
 import Slider from "react-slick";
 import { languages } from '../../../utils';
@@ -11,8 +11,9 @@ import LoadingOverlay from 'react-loading-overlay'
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import RecommendedProductItem from './RecommendedProductItem';
 
-class Products extends Component {
+class RecommendedProducts extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,11 +25,19 @@ class Products extends Component {
     }
 
     async componentDidMount() {
-        let { tagData } = this.props
+        let { tagName } = this.props
 
+        await this.props.getTagByType(tagName)
+
+        let dataTag = this.buildDataInputSelect(this.props.allTagArr);
         this.setState({
-            selectedTag: tagData[0],
-            listProducts: tagData[0].ProductTags.map(item => item.Product)
+            listTags: dataTag,
+            selectedTag: dataTag[0]
+        })
+
+        await this.props.getProductByTagId(this.state.selectedTag.id)
+        this.setState({
+            listProducts: this.props.allProductArr
         })
     }
 
@@ -37,28 +46,27 @@ class Products extends Component {
 
         }
 
+        if (prevProps.tagName !== this.props.tagName) {
+            await this.props.getTagByType(this.props.tagName)
+            let dataTag = this.buildDataInputSelect(this.props.tagData);
+            this.setState({
+                listTags: dataTag,
+                selectedTag: dataTag[0]
+            })
+            await this.props.getProductByTagId(this.state.selectedTag.id)
+            this.setState({
+                listProducts: this.props.allProductArr
+            })
+        }
+
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
             this.setState({
                 isLoading: this.props.isFetchingData,
             })
         }
 
-        if (prevState.listProducts !== this.state.listProducts) {
-            this.setState({
-                listProducts: this.state.listProducts
-            })
-        }
-
-        if (prevProps.allTagArr !== this.props.allTagArr ||
-            prevProps.lang !== this.props.lang) {
-            let dataTag = this.buildDataInputSelect(this.props.tagData);
-            this.setState({
-                listTags: dataTag,
-                selectedTag: dataTag[0]
-            })
-        }
-
-        if (prevProps.allProductArr !== this.props.allProductArr) {
+        if (prevState.selectedTag !== this.state.selectedTag) {
+            await this.props.getProductByTagId(this.state.selectedTag.id)
             this.setState({
                 listProducts: this.props.allProductArr
             })
@@ -75,6 +83,7 @@ class Products extends Component {
                 let labelVI = item.valueVI;
                 let labelEN = item.valueEN;
 
+                obj.id = item.id;
                 obj.keyName = item.keyName;
                 obj.label = language === languages.VI ? labelVI : labelEN;
                 result.push(obj);
@@ -91,56 +100,20 @@ class Products extends Component {
     }
 
     renderProductHeader = () => {
-        let { selectedTag } = this.state
-        let { tagData, lang } = this.props
+        let { selectedTag, listTags } = this.state
+
         return (
             <>
                 <div className='header-item-list'>
-                    {tagData && tagData.length > 0 &&
-                        tagData.map((item, index) => (
+                    {listTags && listTags.length > 0 &&
+                        listTags.map((item, index) => (
                             <div className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
                                 onClick={() => this.handleOnClickTag(item)}>
-                                {lang === languages.VI ? item.valueVI : item.valueEN}
+                                {item.label}
                             </div>
                         ))
                     }
                 </div>
-            </>
-        )
-    }
-
-    renderProductPrice = (price, discount) => {
-        let salePrice = price - ((price * discount) / 100);
-        return (
-            <>
-                {discount != 0 ?
-                    <>
-                        <div className='product-discount-price'>
-                            <NumericFormat value={salePrice}
-                                displayType={'text'}
-                                thousandSeparator={'.'}
-                                decimalSeparator={','}
-                                suffix={'đ'} />
-                            <span className='product-discount'>
-                                -{discount}%
-                            </span>
-                        </div>
-                        <div className='product-price'>
-                            <NumericFormat value={parseFloat(price)}
-                                displayType={'text'}
-                                thousandSeparator={'.'}
-                                decimalSeparator={','} />
-                        </div>
-                    </>
-                    :
-                    <>
-                        <div className='product-discount-price'>
-                            <NumericFormat value={parseFloat(price)}
-                                displayType={'text'}
-                                thousandSeparator={'.'}
-                                decimalSeparator={','} />
-                        </div>
-                    </>}
             </>
         )
     }
@@ -181,27 +154,10 @@ class Products extends Component {
                     {listProducts && listProducts.length > 0 &&
                         listProducts.map((item, index) => {
 
-                            let imageBase64 = '';
-                            if (item.image) {
-                                imageBase64 = new Buffer(item.image, 'base64').toString('binary');
-                            }
-
                             return (
-                                <div className='product-item' title={item.name} key={index}
-                                    onClick={() => this.handleRedirectToProductDetail(item.keyName)} >
-                                    <div className='product-image'
-                                        style={{
-                                            backgroundImage: "url(" + imageBase64 + ")"
-                                        }}>
-                                    </div>
-                                    <div className='product-name'>
-                                        {item.name}
-                                    </div>
-                                    <div className='product-price-text'>
-                                        {this.renderProductPrice(item.price, item.discount)}
-
-                                    </div>
-                                </div >
+                                <>
+                                    <RecommendedProductItem productId={item.productId} />
+                                </>
                             )
                         })}
                 </Slider >
@@ -212,7 +168,6 @@ class Products extends Component {
     handleOnClickTag = async (item) => {
         this.setState({
             selectedTag: item,
-            listProducts: item.ProductTags.map(item => item.Product)
         })
     }
 
@@ -225,6 +180,8 @@ class Products extends Component {
     render() {
         let { selectedTag } = this.state
 
+        console.log(this.state.listTags)
+
         return (
             <div className='products-container'>
                 <div className='products-header'>
@@ -232,7 +189,7 @@ class Products extends Component {
                 </div>
 
                 <div>
-                    {/* {this.renderProductList()} */}
+                    {this.renderProductList()}
                 </div>
 
                 <div className='more-product-btn col-12'>
@@ -249,15 +206,17 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         isFetchingData: state.admin.isFetchingData,
-        // allTagArr: state.admin.allTagArr,
-        // allProductArr: state.admin.allProductArr,
+        allTagArr: state.admin.allTagArr,
+        allProductArr: state.admin.allProductArr,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // getTagByType: (type) => dispatch(actions.getTagByType(type)),
+        getTagByType: (type) => dispatch(actions.getTagByType(type)),
+        getProductByTagId: (tagId) => dispatch(actions.getProductByTagId(tagId)),
+        fetchProductById: (inputId) => dispatch(actions.fetchProductById(inputId))
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RecommendedProducts));
