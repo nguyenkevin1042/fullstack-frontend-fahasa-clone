@@ -360,8 +360,8 @@ class ProductDetail extends Component {
 
                 {/* <OtherProductsComponent titleKey={'same-author'} /> */}
                 {/* <OtherProductsComponent titleKey={'relevant-products'} /> */}
-                <OtherProductsComponent titleKey={'suggest'}
-                    category={category} subCategory={subCategory} />
+                {/* <OtherProductsComponent titleKey={'suggest'}
+                    category={category} subCategory={subCategory} /> */}
 
 
                 <ProductDescriptionComponent

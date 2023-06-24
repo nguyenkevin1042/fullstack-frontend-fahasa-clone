@@ -65,7 +65,6 @@ class ManageCategory extends Component {
 
 
     handleSaveNewCategory = async () => {
-
         await this.props.addNewCode({
             type: this.state.type,
             keyMap: this.state.keyMap,
@@ -253,7 +252,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addNewCode: (codeData) => dispatch(actions.addNewCode(codeData)),
-
         deleteCode: (inputId) => dispatch(actions.deleteCode(inputId)),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
     };

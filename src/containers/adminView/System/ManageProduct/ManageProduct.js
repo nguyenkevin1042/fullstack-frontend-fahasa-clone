@@ -215,7 +215,6 @@ class ManageProduct extends Component {
     }
 
     renderProductsTableData = (products) => {
-        console.log(products)
         return (
             <>
                 {products && products.length > 0 &&
@@ -223,7 +222,8 @@ class ManageProduct extends Component {
                         <tr>
                             <ProductRowItem productId={item.id}
                                 editProduct={this.handleEdit}
-                                deleteProduct={this.handleDelete} />
+                                deleteProduct={this.handleDelete}
+                                price={'on'} />
                         </tr>
                     ))
 

@@ -131,18 +131,18 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.UPDATE_CODE_SUCCESS:
-            state.updateCodeRes = action.response
+            state.actionResponse = action.response
             return {
                 ...state,
             }
         case actionTypes.UPDATE_CODE_FAIL:
-            state.updateCodeRes = action.response
+            state.actionResponse = action.response
             return {
                 ...state,
             }
 
         case actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS:
-            state.errResponse = action.errResponse
+            state.actionResponse = action.response
             return {
                 ...state,
             }

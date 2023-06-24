@@ -5,7 +5,6 @@ import { withRouter } from 'react-router';
 import { CommonUtils, languages } from '../../../../../utils'
 import { Modal } from 'reactstrap'
 import Select from 'react-select';
-import './AddSubCategoryModal.scss';
 import * as actions from "../../../../../store/actions";
 
 class AddSubCategoryModal extends Component {
@@ -73,9 +72,10 @@ class AddSubCategoryModal extends Component {
             valueVI: this.state.valueVI,
             valueEN: this.state.valueEN,
         })
-        if (this.props.errResponse.errCode === 0) {
-            this.props.closeAddSubCategoryModel()
-        }
+        // if (this.props.actionResponse.errCode === 0) {
+        //     this.handleClearAllInput()
+        //     this.props.closeAddSubCategoryModel()
+        // }
 
     }
 
@@ -89,12 +89,10 @@ class AddSubCategoryModal extends Component {
     handleClearAllInput = () => {
         this.setState({
             keyName: '',
-            // type: '',
+            selectedCategory: '',
             valueVI: '',
             valueEN: '',
         })
-
-
     }
 
     handleOnChangeInputValueVI = (event) => {
@@ -114,6 +112,7 @@ class AddSubCategoryModal extends Component {
         return (
             <React.Fragment>
                 <Modal isOpen={isModalAddOpened}
+                    toggle={closeAddSubCategoryModel}
                     className={'sharing-edit-modal-container'}
                     size='lg'
                     centered>
@@ -178,7 +177,7 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
-        errResponse: state.admin.errResponse
+        actionResponse: state.admin.actionResponse
     };
 };
 

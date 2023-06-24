@@ -17,8 +17,7 @@ class EditCategoryModal extends Component {
             type: '',
             keyMap: '',
             valueVI: '',
-            valueVN: '',
-            errResponse: []
+            valueEN: '',
         };
     }
 
@@ -42,18 +41,11 @@ class EditCategoryModal extends Component {
             })
         }
 
-        if (prevProps.updateCodeRes !== this.props.updateCodeRes) {
-            this.setState({
-                errResponse: this.props.updateCodeRes
-            })
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode === 0) {
+                this.props.closeEditCodeModel();
+            }
         }
-
-        // if (prevProps.errResponse !== this.props.errResponse) {
-        //     this.setState({
-        //         message: this.props.errResponse.message
-        //     })
-        // }
-
 
     }
 
@@ -65,7 +57,6 @@ class EditCategoryModal extends Component {
     }
 
     handleUpdate = async () => {
-        // this.props.closeEditCodeModel();
         await this.props.updateCode({
             id: this.state.id,
             type: this.state.type,
@@ -73,10 +64,7 @@ class EditCategoryModal extends Component {
             valueVI: this.state.valueVI,
             valueEN: this.state.valueEN,
         })
-        let { errResponse } = this.state;
-
-
-        if (errResponse.errCode === 0) {
+        if (this.props.actionResponse.errCode === 0) {
             this.props.closeEditCodeModel();
         }
     }
@@ -98,6 +86,7 @@ class EditCategoryModal extends Component {
             <React.Fragment>
 
                 <Modal isOpen={isModalOpened}
+                    toggle={closeEditCodeModel}
                     className={'sharing-edit-modal-container'}
                     size='lg'
                     centered>
@@ -152,7 +141,7 @@ class EditCategoryModal extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        updateCodeRes: state.admin.updateCodeRes
+        actionResponse: state.admin.actionResponse
     };
 };
 

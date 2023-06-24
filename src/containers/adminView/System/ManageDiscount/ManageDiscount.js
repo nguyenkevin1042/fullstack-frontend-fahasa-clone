@@ -202,6 +202,7 @@ class ManageDiscount extends Component {
                             <td>{index + 1}</td>
                             <ProductRowItem productId={item.product.id}
                                 actions={'off'}
+                                price={'on'}
                                 discount={'on'} />
                         </tr>
                     ))

@@ -157,14 +157,14 @@ class ManageSubCategory extends Component {
 
                     <div className='sharing-sort-category row'>
                         {/* <div className='col-6 form-group'> */}
-                        <label>Tìm kiếm theo:</label>
+                        {/* <label>Tìm kiếm theo:</label>
                         <Select
                             value={selectedCategory}
                             onChange={this.handleChange}
                             options={listCategory}
                             // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
                             name="selectedCategory"
-                        />
+                        /> */}
 
                         {/* </div> */}
                     </div>

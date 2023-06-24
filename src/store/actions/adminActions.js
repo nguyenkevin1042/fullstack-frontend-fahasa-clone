@@ -86,11 +86,7 @@ export const addNewCode = (codeData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            // console.log(codeData)
-            // return;
             res = await addNewCodeAPI(codeData);
-            console.log(res)
-            return;
 
             if (res && res.errCode === 0) {
                 toast.success(res.message)
@@ -396,12 +392,12 @@ export const addNewSubCategory = (inputData) => {
 
 export const addNewSubCategorySuccess = (response) => ({
     type: actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS,
-    errResponse: response
+    response: response
 })
 
 export const addNewSubCategoryFail = (response) => ({
     type: actionTypes.ADD_NEW_SUB_CATEGORY_SUCCESS,
-    errResponse: response
+    response: response
 })
 
 //DELETE SUB CATEGORY
@@ -870,10 +866,10 @@ export const updateProductDiscount = (inputData) => {
             res = await updateProductDiscountAPI(inputData);
 
             if (res && res.errCode === 0) {
-                dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
                 dispatch(updateProductDiscountSuccess(res));
+                // toast.success(res)
                 dispatch(fetchAllProduct());
-                dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+
             } else {
                 dispatch(updateProductDiscountFail(res));
             }

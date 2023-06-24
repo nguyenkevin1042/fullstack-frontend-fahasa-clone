@@ -90,7 +90,7 @@ class OtherProductsComponent extends Component {
                         {listProductBySubCategory && listProductBySubCategory.length > 0 &&
                             listProductBySubCategory.map((item, index) => (
                                 <div key={index}>
-                                    <ProductItem productData={item} />
+                                    {/* <ProductItem productId={item.id} /> */}
                                 </div>
                             ))
                         }
