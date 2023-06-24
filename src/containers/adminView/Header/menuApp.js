@@ -2,10 +2,10 @@ export const adminMenu = [
     //Hệ thống
     {
         name: 'menu.system.header', menus: [
-            // {
-            //     name: 'menu.system.manage-all-codes',
-            //     link: '/system/manage-all-codes'
-            // },
+            {
+                name: 'menu.system.manage-all-codes',
+                link: '/system/manage-all-codes'
+            },
             {
                 name: 'menu.system.manage-category.title',
                 subMenus: [
@@ -24,16 +24,21 @@ export const adminMenu = [
                 ]
 
             },
-            {
-                name: 'menu.system.manage-product',
-                link: '/system/manage-product'
-            },
+
+            // {
+            //     name: 'menu.system.manage-tags',
+            //     link: '/system/manage-tags'
+            // },
         ]
     },
     //Sản phẩm
     {
         name: 'menu.product.header',
         menus: [
+            {
+                name: 'menu.product.all-product',
+                link: '/system/manage-product'
+            },
             {
                 name: 'menu.product.set-discount',
                 link: '/system/product/manage-discount'

@@ -375,7 +375,9 @@ export const addNewSubCategory = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
+
             res = await addNewSubCategoryAPI(inputData);
+
             if (res && res.errCode === 0) {
                 dispatch(addNewSubCategorySuccess(res));
                 toast.success(res.message)
@@ -618,10 +620,9 @@ export const addNewProduct = (inputData) => {
             if (res && res.errCode === 0) {
                 dispatch(addNewProductSuccess(res));
                 toast.success(res.message)
-                // dispatch(fetchAllProduct())
             } else {
                 dispatch(addNewProductFail(res));
-                toast.error(res.message)
+                toast.error(res.messageVI)
             }
         } catch (error) {
             dispatch(addNewProductFail(res));

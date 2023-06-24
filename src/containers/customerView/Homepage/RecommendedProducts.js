@@ -43,7 +43,12 @@ class RecommendedProducts extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
-
+            console.log('prevProps; ', prevProps)
+            console.log('this.state; ', this.state)
+            // await this.props.getProductByTagId(prevProps.selectedTag.id)
+            // this.setState({
+            //     listProducts: this.props.allProductArr
+            // })
         }
 
         if (prevProps.tagName !== this.props.tagName) {
@@ -53,10 +58,10 @@ class RecommendedProducts extends Component {
                 listTags: dataTag,
                 selectedTag: dataTag[0]
             })
-            await this.props.getProductByTagId(this.state.selectedTag.id)
-            this.setState({
-                listProducts: this.props.allProductArr
-            })
+            // await this.props.getProductByTagId(this.state.selectedTag.id)
+            // this.setState({
+            //     listProducts: this.props.allProductArr
+            // })
         }
 
         if (prevProps.isFetchingData !== this.props.isFetchingData) {

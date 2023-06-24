@@ -373,25 +373,26 @@ class ProductDetail extends Component {
                 <SignUpNewletter />
                 <Footer />
 
-                <div className='sticky-actions d-flex d-md-none'>
-                    {/* <div className='row'> */}
-                    <div className='col-4 sticky-action'>
-                        <ChangingQuantityComponent quantityValue={quantityValue}
-                            onChange={this.eventhandler} />
+                <div className='sticky-actions-container'>
+                    <div className='sticky-actions d-flex d-md-none'>
+                        {/* <div className='row'> */}
+                        <div className='col-4 sticky-action'>
+                            <ChangingQuantityComponent quantityValue={quantityValue}
+                                onChange={this.eventhandler} />
+                        </div>
+                        <div className='col-4 sticky-action'>
+                            <button className='add-to-cart-btn'
+                                onClick={() => this.handleAddToCart()}>
+                                <FormattedMessage id="customer.product-detail.add-to-cart" />
+                            </button>
+                        </div>
+                        <div className='col-4 sticky-action'>
+                            <button className='buy-now-btn'
+                                onClick={() => this.handleBuyNow()}>
+                                <FormattedMessage id="customer.product-detail.buy-now" />
+                            </button>
+                        </div>
                     </div>
-                    <div className='col-4 sticky-action'>
-                        <button className='add-to-cart-btn'
-                            onClick={() => this.handleAddToCart()}>
-                            <FormattedMessage id="customer.product-detail.add-to-cart" />
-                        </button>
-                    </div>
-                    <div className='col-4 sticky-action'>
-                        <button className='buy-now-btn'
-                            onClick={() => this.handleBuyNow()}>
-                            <FormattedMessage id="customer.product-detail.buy-now" />
-                        </button>
-                    </div>
-                    {/* </div> */}
                 </div>
             </>
 

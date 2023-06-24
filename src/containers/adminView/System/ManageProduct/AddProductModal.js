@@ -24,34 +24,20 @@ class AddProductModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // name: '',
-            // keyName: '',
-            // price: '',
-            // discount: '',
-            // weight: '',
-            // height: '',
-            // width: '',
-            // length: '',
-            // publishYear: '',
-            // categoryKeyName: '',
-            // image: '',
-            // previewImgURL: '',
-            // contentMarkdown: '',
-            // contentHTML: '',
-            name: 'test',
-            keyName: 'test',
-            price: '20000',
-            discount: '10',
-            weight: 'test',
-            height: 'test',
-            width: 'test',
-            length: 'test',
-            publishYear: 'test',
-            categoryKeyName: 'test',
+            name: '',
+            keyName: '',
+            price: '',
+            discount: '',
+            weight: '',
+            height: '',
+            width: '',
+            length: '',
+            publishYear: '',
+            categoryKeyName: '',
             image: '',
-            previewImgURL: 'test',
-            contentMarkdown: 'test',
-            contentHTML: 'test',
+            previewImgURL: '',
+            contentMarkdown: '',
+            contentHTML: '',
 
             listCategory: [], selectedCategory: '',
             listSubCategory: [], selectedSubCategory: '',
@@ -79,11 +65,11 @@ class AddProductModal extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        // if (prevProps.actionResponse !== this.props.actionResponse) {
-        //     if (this.props.actionResponse.errCode === 0) {
-        //         this.props.closeModal()
-        //     }
-        // }
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode === 0) {
+                this.props.closeModal()
+            }
+        }
 
         if (prevProps.isOpenedAddModal !== this.props.isOpenedAddModal) {
             if (this.props.isOpenedAddModal === false) {
@@ -276,6 +262,10 @@ class AddProductModal extends Component {
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown
         })
+
+        // if (this.props.actionResponse.errCode === 0) {
+        //     this.props.closeModal()
+        // }
     }
 
     eventhandler = (data) => {

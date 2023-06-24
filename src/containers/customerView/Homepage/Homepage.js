@@ -16,12 +16,13 @@ import LoadingOverlay from 'react-loading-overlay'
 import _ from 'lodash';
 import NotificationModal from './modal/NotificationModal';
 import BrandSection from './BrandSection';
+import RecommendedProducts2 from './RecommendedProducts2';
 
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tagArr: ['notebook', 'textbook'],
+            tagArr: ['notebook', 'textbook', 'pencils'],
             isLoading: false,
             isModalOpened: true,
             listAllTag: []
@@ -74,6 +75,11 @@ class Homepage extends Component {
                 <RecommendedProducts tagName={'notebook'} />
                 <RecommendedProducts tagName={'textbook'} />
                 <RecommendedProducts tagName={'pencils'} />
+
+                <RecommendedProducts2 tagName={'psychology-life-skills'} />
+                {/* {tagArr.map((item, index) => (
+                    <RecommendedProducts tagName={item} />
+                ))} */}
 
                 <BrandSection />
                 <SignUpNewletter />

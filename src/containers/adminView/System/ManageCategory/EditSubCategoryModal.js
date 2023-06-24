@@ -20,16 +20,16 @@ class EditSubCategoryModal extends Component {
             valueVI: '',
             valueEN: '',
 
-            errResponse: [],
-            selectedItem: ''
+            listCategory: [],
+            selectedCategory: '',
         };
     }
 
     componentDidMount() {
         let dataSelect = this.buildDataInputSelect(this.props.selectedItem);
-        this.setState({
-            selectedItem: dataSelect
-        })
+        // this.setState({
+        //     selectedItem: dataSelect
+        // })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -126,10 +126,13 @@ class EditSubCategoryModal extends Component {
         let { isModalEditOpened, closeEditCodeModel,
             listCategory } = this.props;
 
+        console.log(this.props.selectedItem)
+
         return (
             <React.Fragment>
 
                 <Modal isOpen={isModalEditOpened}
+                    toggle={closeEditCodeModel}
                     className={'sharing-edit-modal-container'}
                     size='lg'
                     centered>
@@ -188,13 +191,16 @@ class EditSubCategoryModal extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        errResponse: state.admin.errResponse
+        allCodesArr: state.admin.allCodesArr,
+        actionResponse: state.admin.actionResponse
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         updateSubCategory: (inputData) => dispatch(actions.updateSubCategory(inputData)),
+        fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
+
     };
 };
 

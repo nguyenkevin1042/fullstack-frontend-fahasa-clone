@@ -32,6 +32,8 @@ class System extends Component {
                             <Route path="/system/product/manage-discount" component={ManageDiscount} />
                             <Route path="/system/manage-orders" component={ManageOrders} />
                             <Route path="/system/product/manage-product-tag" component={ManageProductTag} />
+                            {/* <Route path="/system/product/manage-tags" component={ManageTag} /> */}
+
                             <Route path="/system/users" component={ManageUser} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />

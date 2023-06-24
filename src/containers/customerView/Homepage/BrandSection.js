@@ -48,40 +48,16 @@ class BrandSection extends Component {
 
     render() {
         let settings = {
-            // className: 'brand-section-content',
             dots: false,
-            infinite: false,
-            slidesToShow: 5,
-            slidesToScroll: 2,
-            variableWidth: true,
-            responsive: [{
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 2,
-                }
-            }, {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 2,
-                }
-            },
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 5,
-                    slidesToScroll: 2,
-                }
-            }]
+            infinite: true,
+            slidesToShow: 9,
+            slidesToScroll: 4,
         };
         return (
             <div className='brand-section-container'>
                 <div className='brand-section-content'>
 
                     <Slider {...settings} >
-                        {/* <div className='brand-section-content'> */}
-                        {/* <div className='row'> */}
                         <img src={cambridgeLogo} className='brand-logo img-fluid' />
                         <img src={cengageLogo} className='brand-logo img-fluid' />
                         <img src={harperCollinsLogo} className='brand-logo img-fluid' />
@@ -96,11 +72,7 @@ class BrandSection extends Component {
                         <img src={usborneLogo} className='brand-logo img-fluid' />
                         <img src={scholasticLogo} className='brand-logo img-fluid' />
                         <img src={savvasLogo} className='brand-logo img-fluid' />
-                        {/* </div> */}
-                        {/* </div> */}
                     </Slider>
-
-
                 </div>
             </div>
         );

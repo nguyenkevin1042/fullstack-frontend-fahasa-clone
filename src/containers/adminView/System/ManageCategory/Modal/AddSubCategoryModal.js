@@ -72,10 +72,10 @@ class AddSubCategoryModal extends Component {
             valueVI: this.state.valueVI,
             valueEN: this.state.valueEN,
         })
-        // if (this.props.actionResponse.errCode === 0) {
-        //     this.handleClearAllInput()
-        //     this.props.closeAddSubCategoryModel()
-        // }
+        if (this.props.actionResponse.errCode === 0) {
+            this.handleClearAllInput()
+            this.props.closeAddSubCategoryModel()
+        }
 
     }
 

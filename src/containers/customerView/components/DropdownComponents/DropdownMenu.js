@@ -33,7 +33,8 @@ class DropdownMenu extends Component {
 
         })
 
-        await this.props.fetchAllSubCategoryByCategory(dataSelectCategory[0].keyName);
+        // await this.props.fetchAllSubCategoryByCategory(dataSelectCategory[0].keyName);
+        await this.props.fetchAllSubCategoryByCategory(this.state.selectedCategory.keyName);
         let dataSelectSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
         this.setState({
             listSubCategory: dataSelectSubCategory,
