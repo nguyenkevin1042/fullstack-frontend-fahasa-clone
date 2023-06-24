@@ -43,8 +43,8 @@ class RecommendedProducts extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
-            console.log('prevProps; ', prevProps)
-            console.log('this.state; ', this.state)
+            // console.log('prevProps; ', prevProps)
+            // console.log('this.state; ', this.state)
             // await this.props.getProductByTagId(prevProps.selectedTag.id)
             // this.setState({
             //     listProducts: this.props.allProductArr
@@ -184,8 +184,6 @@ class RecommendedProducts extends Component {
 
     render() {
         let { selectedTag } = this.state
-
-        console.log(this.state.listTags)
 
         return (
             <div className='products-container'>

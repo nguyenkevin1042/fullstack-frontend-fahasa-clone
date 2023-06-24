@@ -67,22 +67,27 @@ class DashboardComponent extends Component {
         })
     }
 
-    handleReOrder = (selectedItem) => {
+    handleReorder = async (selectedItem) => {
         let billProducts = selectedItem.BillProducts
         let { userInfo, actionResponse } = this.props
-        actionResponse = ''
+        let userCartId = this.props.userInfo.Cart.id
 
         billProducts.map(async (item) => {
             let productItem = item.Product
             let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
 
             await this.props.addToCart({
-                cartId: userInfo ? userInfo.Cart.id : '',
-                productId: productItem.id,
+                cartId: userCartId,
+                productId: item.productId,
                 quantity: item.quantity,
                 productPrice: productItem.discount ? salePrice : productItem.price
             })
         })
+        await this.props.getCartByUserId(userCartId)
+
+        if (this.props.history) {
+            this.props.history.push("/cart");
+        }
     }
 
     handleBackToDashboard = async () => {
@@ -134,7 +139,7 @@ class DashboardComponent extends Component {
                                                 <FormattedMessage id='customer.account.dashboard.view-order' />
                                             </p>
                                             <span>|</span>
-                                            <p onClick={() => this.handleReOrder(item)}>
+                                            <p onClick={() => this.handleReorder(item)}>
                                                 <FormattedMessage id='customer.account.dashboard.reorder' />
                                             </p>
                                         </> :
@@ -255,6 +260,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getBillByUserId: (inputUserId) => dispatch(actions.getBillByUserId(inputUserId)),
         addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
+        getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
 
     };
 };

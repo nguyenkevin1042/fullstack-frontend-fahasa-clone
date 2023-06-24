@@ -77,11 +77,9 @@ class MyOrderDetailComponent extends Component {
         }
     }
 
-    handleReOrder = () => {
+    handleReOrder = async () => {
         let billProducts = this.state.orderData.BillProducts
         let userCartId = this.props.userInfo.Cart.id
-        console.log(billProducts)
-        console.log(userCartId)
 
 
         billProducts.map(async (item) => {
@@ -96,9 +94,8 @@ class MyOrderDetailComponent extends Component {
             })
         })
 
-        // if (this.props.actionResponse.errCode === 0) {
-        //     this.props.history.push("/cart");
-        // }
+        await this.props.getCartByUserId(userCartId)
+
         if (this.props.history) {
             this.props.history.push("/cart");
         }
@@ -260,6 +257,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
         getBillById: (inputId) => dispatch(actions.getBillById(inputId)),
         updateBillStatus: (inputData) => dispatch(actions.updateBillStatus(inputData)),
         addToCart: (inputData) => dispatch(actions.addToCart(inputData)),

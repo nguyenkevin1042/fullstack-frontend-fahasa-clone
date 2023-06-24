@@ -76,7 +76,9 @@ class Homepage extends Component {
                 <RecommendedProducts tagName={'textbook'} />
                 <RecommendedProducts tagName={'pencils'} />
 
-                <RecommendedProducts2 tagName={'psychology-life-skills'} />
+                {/* <RecommendedProducts2 tagName={'notebook'} /> */}
+
+                {/* <RecommendedProducts2 tagName={'psychology-life-skills'} /> */}
                 {/* {tagArr.map((item, index) => (
                     <RecommendedProducts tagName={item} />
                 ))} */}

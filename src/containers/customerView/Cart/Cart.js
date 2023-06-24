@@ -58,6 +58,12 @@ class Cart extends Component {
             || prevProps.lang !== this.props.lang) {
             await this.props.getCartByUserId(this.props.userInfo.id)
         }
+        if (prevProps.location !== this.props.location) {
+            await this.props.getCartByUserId(this.props.userInfo.id)
+            this.setState({
+                listProductInCart: this.props.cartData
+            })
+        }
     }
 
     countTotalPrice = () => {
@@ -269,6 +275,7 @@ class Cart extends Component {
         let { listProductInCart } = this.state
         let { userInfo } = this.props
 
+        console.log(this.props.cartData)
 
         return (
             <React.Fragment>

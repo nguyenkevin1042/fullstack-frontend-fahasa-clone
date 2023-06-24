@@ -70,22 +70,28 @@ class MyOrderComponent extends Component {
         })
     }
 
-    handleReOrder = (selectedItem) => {
+    handleReOrder = async (selectedItem) => {
         let billProducts = selectedItem.BillProducts
         let { userInfo, actionResponse } = this.props
-        actionResponse = ''
+        let userCartId = this.props.userInfo.Cart.id
 
         billProducts.map(async (item) => {
             let productItem = item.Product
             let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
 
             await this.props.addToCart({
-                cartId: userInfo ? userInfo.Cart.id : '',
-                productId: productItem.id,
+                cartId: userCartId,
+                productId: item.productId,
                 quantity: item.quantity,
                 productPrice: productItem.discount ? salePrice : productItem.price
             })
         })
+
+        await this.props.getCartByUserId(userCartId)
+
+        if (this.props.history) {
+            this.props.history.push("/cart");
+        }
     }
 
     handleBackToOrderLists = async () => {
@@ -212,6 +218,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getBillByUserId: (inputUserId) => dispatch(actions.getBillByUserId(inputUserId)),
         addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
+        getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
 
     };
 };
