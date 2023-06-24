@@ -15,6 +15,7 @@ import LoadingOverlay from 'react-loading-overlay'
 
 import _ from 'lodash';
 import NotificationModal from './modal/NotificationModal';
+import BrandSection from './BrandSection';
 
 class Homepage extends Component {
     constructor(props) {
@@ -72,25 +73,9 @@ class Homepage extends Component {
 
                 <RecommendedProducts tagName={'notebook'} />
                 <RecommendedProducts tagName={'textbook'} />
+                <RecommendedProducts tagName={'pencils'} />
 
-                {/* {tagArr.map((item, index) => (
-
-                    <Products tagName={item} />
-
-                ))} */}
-
-                {/* <LoadingOverlay
-                    active={isLoading}
-                    spinner={true}
-                    text='Please wait...'>
-                    {listAllTag.map((item, index) => (
-
-                        <Products tagData={item} />
-
-                    ))}
-                </LoadingOverlay> */}
-
-
+                <BrandSection />
                 <SignUpNewletter />
                 <Footer />
 

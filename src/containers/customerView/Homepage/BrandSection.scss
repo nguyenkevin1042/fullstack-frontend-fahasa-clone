@@ -1,0 +1,42 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (min-width: $large) {
+    .brand-section-container{
+        margin: 0 50px;
+        .brand-section-content{
+            // border: 1px solid red;
+            padding: 20px;
+        }
+    }
+}
+
+.brand-section-container{
+
+    .brand-section-content{
+        background-color: white;
+
+        .brand-logo{
+            width: 10vw !important;
+            margin: 0 !important;
+
+        }
+    }
+
+    .slick-slider{
+        .slick-list{
+            
+            .slick-track{
+              
+                .slide-slide{
+                    
+                    border: 1px solid red;
+                }
+            }
+        }
+    }
+}
+
