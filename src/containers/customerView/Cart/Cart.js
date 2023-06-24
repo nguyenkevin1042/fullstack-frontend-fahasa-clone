@@ -27,9 +27,9 @@ class Cart extends Component {
         document.title = "Cart | Nguyenkevin1042's Fahasa Clone"
         if (this.props.userInfo) {
             await this.props.getCartByUserId(this.props.userInfo.id)
-            // this.setState({
-            //     listProductInCart: this.props.cartData
-            // })
+            this.setState({
+                listProductInCart: this.props.cartData
+            })
         }
 
     }
@@ -65,14 +65,14 @@ class Cart extends Component {
         let totalPriceResult = 0
         selectedProducts.map(item => totalPriceResult += item.totalPrice);
         return totalPriceResult;
-
     }
 
     eventhandler = (data) => {
-        let copyState = { ...this.state };
+        // console.log(data)
+        // let copyState = { ...this.state };
         // copyState.selectedProducts = copyState.selectedProducts.filter(item => item.id !== data.id);
         // copyState.selectedProducts.push(data);
-        this.setState({ ...copyState });
+        // this.setState({ ...copyState });
         // this.setState({
         //     quantityValue: data.value
         // })
@@ -122,7 +122,7 @@ class Cart extends Component {
                                 // onClick={(event) => this.handleCheckAllProducts(event)} 
                                 />
                             </th>
-                            <th className='col-6'>
+                            <th className='col-xl-6'>
                                 <label for="choose-all">
                                     <FormattedMessage id="customer.cart.choose-all" />
                                 </label>
@@ -268,6 +268,7 @@ class Cart extends Component {
     render() {
         let { listProductInCart } = this.state
         let { userInfo } = this.props
+
 
         return (
             <React.Fragment>

@@ -185,7 +185,6 @@ class SearchResult extends Component {
     render() {
         let { isLoading, listProduct, searchQuery, message } = this.state
 
-        console.log(this.state.listProduct)
         return (
             <React.Fragment>
                 <Header />
@@ -220,8 +219,8 @@ class SearchResult extends Component {
                 </div>
 
 
-                {/* <SignUpNewletter />
-                <Footer /> */}
+                <SignUpNewletter />
+                <Footer />
             </React.Fragment >
 
         );

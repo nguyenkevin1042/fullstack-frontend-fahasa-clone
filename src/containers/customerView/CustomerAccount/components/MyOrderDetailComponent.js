@@ -13,35 +13,48 @@ class MyOrderDetailComponent extends Component {
         super(props);
         this.state = {
             orderStatus: '',
-            orderStatusColor: ''
+            orderStatusColor: '',
+            orderData: {}
         };
     }
 
-    componentDidMount() {
-        let labelVI = this.props.selectedOrder.AllCode.valueVI
-        let labelEN = this.props.selectedOrder.AllCode.valueEN
+    async componentDidMount() {
+        let id = this.props.selectedOrder.id
+        await this.props.getBillById(id)
+        this.setState({
+            orderData: this.props.singleOrder
+        })
 
-        if (this.props.selectedOrder) {
-            this.setState({
-                orderStatus: this.props.lang === languages.VI ? labelVI : labelEN,
-                orderStatusColor: this.getOrderStatusColor()
-            })
-        }
+        let labelVI = this.state.orderData.AllCode.valueVI
+        let labelEN = this.state.orderData.AllCode.valueEN
+        this.setState({
+            orderStatus: this.props.lang === languages.VI ? labelVI : labelEN,
+            orderStatusColor: this.getOrderStatusColor()
+        })
+
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-            let labelVI = this.props.selectedOrder.AllCode.valueVI
-            let labelEN = this.props.selectedOrder.AllCode.valueEN
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        // if (prevProps.lang !== this.props.lang) {
+        //     let labelVI = this.props.selectedOrder.AllCode.valueVI
+        //     let labelEN = this.props.selectedOrder.AllCode.valueEN
+        //     this.setState({
+        //         orderStatus: this.props.lang === languages.VI ? labelVI : labelEN
+        //     })
+        // }
+
+        if (prevProps.selectedOrder !== this.props.selectedOrder) {
+            let id = this.props.selectedOrder.id
+            await this.props.getBillById(id)
             this.setState({
-                orderStatus: this.props.lang === languages.VI ? labelVI : labelEN
+                orderData: this.props.singleOrder
             })
         }
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
-            if (this.props.actionResponse.errCode === 0) {
-                this.handleGoBack();
-            }
+            // if (this.props.actionResponse.errCode === 0) {
+            //     this.props.history.push("/cart");
+            // }
         }
     }
 
@@ -65,21 +78,27 @@ class MyOrderDetailComponent extends Component {
     }
 
     handleReOrder = () => {
-        let billProducts = this.props.selectedOrder.BillProducts
-        let { userInfo } = this.props
+        let billProducts = this.state.orderData.BillProducts
+        let userCartId = this.props.userInfo.Cart.id
+        console.log(billProducts)
+        console.log(userCartId)
+
 
         billProducts.map(async (item) => {
             let productItem = item.Product
             let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
 
             await this.props.addToCart({
-                cartId: userInfo ? userInfo.Cart.id : '',
+                cartId: userCartId,
                 productId: productItem.id,
                 quantity: item.quantity,
                 productPrice: productItem.discount ? salePrice : productItem.price
             })
         })
 
+        // if (this.props.actionResponse.errCode === 0) {
+        //     this.props.history.push("/cart");
+        // }
         if (this.props.history) {
             this.props.history.push("/cart");
         }
@@ -87,7 +106,7 @@ class MyOrderDetailComponent extends Component {
 
     getOrderStatusColor = () => {
         let color;
-        let status = this.props.selectedOrder.status
+        let status = this.state.orderData.status
         switch (status) {
             case 'S4':
                 color = 'green'
@@ -104,7 +123,7 @@ class MyOrderDetailComponent extends Component {
     }
 
     renderProductData = () => {
-        let billProducts = this.props.selectedOrder.BillProducts
+        let billProducts = this.state.orderData.BillProducts
         return (
             <>
                 {billProducts && billProducts.length > 0 &&
@@ -114,6 +133,7 @@ class MyOrderDetailComponent extends Component {
                         if (productData.image) {
                             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
                         }
+
                         return (
                             <tr key={index} className='product-item row'>
                                 <td className='col-2'>
@@ -149,9 +169,9 @@ class MyOrderDetailComponent extends Component {
     }
 
     render() {
-        let { selectedOrder, backToOrderList } = this.props
-        let { orderStatus, orderStatusColor } = this.state
-        let orderedDate = moment(selectedOrder.orderedDate).format('DD/MM/YYYY')
+        let { selectedOrder, backToOrderList, singleOrder } = this.props
+        let { orderStatus, orderStatusColor, orderData } = this.state
+        let orderedDate = moment(orderData.orderedDate).format('DD/MM/YYYY')
 
         return (
             <React.Fragment>
@@ -164,7 +184,7 @@ class MyOrderDetailComponent extends Component {
                             </div>
                             <div className='sharing-detail-text'>
                                 <label><FormattedMessage id='customer.account.order-detail.order-id' />:</label>
-                                <b>{selectedOrder.id}</b>
+                                <b>{orderData.id}</b>
                             </div>
                             <div className='sharing-detail-text'>
                                 <label><FormattedMessage id='customer.account.order-detail.ordered-date' />:</label>
@@ -182,12 +202,12 @@ class MyOrderDetailComponent extends Component {
                             </div>
                             <div className='sharing-detail-text'>
                                 <label><FormattedMessage id='customer.account.order-detail.quantity' />:</label>
-                                <b>{selectedOrder.BillProducts.length}</b>
+                                <b>{orderData.BillProducts && orderData.BillProducts.length}</b>
                             </div>
                         </div>
 
                         <div className='review-order col-12 col-lg-5'>
-                            {selectedOrder.status === 'S1' || selectedOrder.status === 'S2' ?
+                            {orderData.status === 'S1' || orderData.status === 'S2' ?
                                 <button className='cancel-btn'
                                     onClick={() => this.handleCancelOrder()}>
                                     <FormattedMessage id='customer.account.order-detail.cancel-order' />
@@ -195,7 +215,7 @@ class MyOrderDetailComponent extends Component {
                                 <></>
                             }
 
-                            {selectedOrder.status === 'S4' || selectedOrder.status === 'S5' ?
+                            {orderData.status === 'S4' || orderData.status === 'S5' ?
                                 <button className='cancel-btn'
                                     onClick={() => this.handleReOrder()}>
                                     <FormattedMessage id='customer.account.order-detail.reorder' />
@@ -234,11 +254,13 @@ const mapStateToProps = state => {
         lang: state.app.language,
         userInfo: state.user.userInfo,
         actionResponse: state.admin.actionResponse,
+        singleOrder: state.user.singleOrder,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getBillById: (inputId) => dispatch(actions.getBillById(inputId)),
         updateBillStatus: (inputData) => dispatch(actions.updateBillStatus(inputData)),
         addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
     };

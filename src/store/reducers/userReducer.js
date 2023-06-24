@@ -7,7 +7,8 @@ const initialState = {
     product: '',
     cartData: '',
     selectedProducts: '',
-    billData: []
+    billData: [],
+    singleOrder: ''
 
 }
 
@@ -120,6 +121,17 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 actionResponse: action.response
+            }
+
+        case actionTypes.GET_BILL_BY_ID_SUCCESS:
+            return {
+                ...state,
+                singleOrder: action.response.data,
+            }
+        case actionTypes.GET_BILL_BY_ID_FAIL:
+            return {
+                ...state,
+                singleOrder: ''
             }
 
         case actionTypes.USER_PROCESS_LOGOUT:

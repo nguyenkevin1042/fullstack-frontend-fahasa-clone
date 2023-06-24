@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { addToCartAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByIdAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -270,6 +270,36 @@ export const getBillByUserIdSuccess = (response) => ({
 
 export const getBillByUserIdFail = (response) => ({
     type: actionTypes.GET_BILL_BY_USER_ID_FAIL,
+    response: response
+})
+
+// GET BILLS BY ID
+export const getBillById = (inputId) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+
+            res = await getBillByIdAPI(inputId);
+
+            if (res && res.errCode === 0) {
+                dispatch(getBillByIdSuccess(res));
+            } else {
+                dispatch(getBillByIdSuccess(res));
+            }
+        } catch (error) {
+            dispatch(getBillByIdSuccess(res));
+            console.log("getBillByUserId Error: ", error)
+        }
+    }
+}
+
+export const getBillByIdSuccess = (response) => ({
+    type: actionTypes.GET_BILL_BY_ID_SUCCESS,
+    response: response
+})
+
+export const getBillByIdFail = (response) => ({
+    type: actionTypes.GET_BILL_BY_ID_FAIL,
     response: response
 })
 

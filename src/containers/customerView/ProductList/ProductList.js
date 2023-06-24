@@ -68,11 +68,10 @@ class ProductList extends Component {
                     this.setState({
                         keyName: childCategory,
                     })
-                    // await this.props.fetchAllCodesByKeyMap(category)
-                    // await this.props.fetchAllSubCategoryByKeyName(subCategory)
-                    // await this.props.fetchAllChildCategoryBySubCategory(subCategory)
-                    // await this.props.fetchChildCategoryByKeyName(childCategory)
-                    // await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
+                    await this.props.fetchAllCodesByKeyMap(category)
+                    await this.props.fetchAllSubCategoryByKeyName(subCategory)
+                    await this.props.fetchChildCategoryByKeyName(childCategory)
+                    await this.props.fetchAllChildCategoryBySubCategory(subCategory, childCategory)
                     await this.props.fetchAllProductByChildCategory(subCategory, childCategory)
                 } else {
                     this.setState({

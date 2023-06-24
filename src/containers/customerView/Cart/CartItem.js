@@ -16,13 +16,19 @@ class CartItem extends Component {
             quantity: '',
             productPrice: '',
             totalPrice: '',
-            productData: ''
+            productData: {}
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        let id = this.props.productInCart.productId;
+        await this.props.fetchProductById(id);
+        this.setState({
+            productData: this.props.singleProduct
+        })
+
+        let { discount, price } = this.state.productData
         let { productInCart } = this.props
-        let { discount, price } = productInCart.Product
         let salePrice = price - ((price * discount) / 100)
         let calTotal = discount ?
             ((price - ((price * discount) / 100)) * productInCart.quantity) : (price * productInCart.quantity);
@@ -34,25 +40,47 @@ class CartItem extends Component {
             quantity: productInCart.quantity,
             productPrice: discount ? salePrice : price,
             totalPrice: calTotal,
-            productData: productInCart.Product
         })
 
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        let { discount, price } = this.props.productInCart.Product
-        let { quantity } = this.state
-        let salePrice = price - ((price * discount) / 100)
+        if (prevProps.productInCart !== this.props.productInCart) {
+            this.setState({
+                productData: {}
+            })
+            let id = this.props.productInCart.productId;
+            await this.props.fetchProductById(id);
+            this.setState({
+                productData: this.props.singleProduct
+            })
+        }
+
+
+
+
+        // let { discount, price } = this.state.productData
+        // let { quantity } = this.state
+        // let salePrice = price - ((price * discount) / 100)
 
         if (prevState.quantity !== this.state.quantity) {
+            let { discount, price } = this.state.productData
+            let { productInCart } = this.props
+
             let calTotal = discount ?
-                ((price - ((price * discount) / 100)) * quantity) : (price * quantity);
+                ((price - ((price * discount) / 100)) * this.state.quantity)
+                : (price * this.state.quantity);
+
             this.setState({
+                id: productInCart.id,
+                cartId: productInCart.cartId,
+                productId: productInCart.productId,
                 quantity: this.state.quantity,
                 totalPrice: calTotal
+
             }, () => {
                 if (this.props.onChange) {
-                    this.props.onChange(this.state);
+                    this.props.onChange(this.state.totalPrice);
                 }
             })
         }
@@ -86,7 +114,7 @@ class CartItem extends Component {
     }
 
     handleCheckThisProduct = (event) => {
-        let { getTotalPriceAllProduct, addItemToSelectedProducts, deleteItemSelectedProducts } = this.props
+        let { addItemToSelectedProducts, deleteItemSelectedProducts } = this.props
         let data = {
             id: this.state.id,
             cartId: this.state.cartId,
@@ -94,7 +122,6 @@ class CartItem extends Component {
             quantity: this.state.quantity,
             productPrice: this.state.productPrice,
             totalPrice: this.state.totalPrice,
-            productData: this.state.productData
         }
 
         if (event.target.checked === true) {
@@ -142,11 +169,11 @@ class CartItem extends Component {
 
     render() {
         let { productInCart, checkAll } = this.props
-        let { totalPrice } = this.state
+        let { totalPrice, productData } = this.state
+
         let imageBase64 = '';
-        let product = productInCart.Product;
-        if (product.image) {
-            imageBase64 = new Buffer(product.image, 'base64').toString('binary');
+        if (productData.image) {
+            imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
         }
 
         return (
@@ -160,9 +187,6 @@ class CartItem extends Component {
                             :
                             <input type="checkbox" id="choose" name="choose"
                                 onClick={(event) => this.handleCheckThisProduct(event)} />}
-                        {/* <input type="checkbox" id="choose" name="choose"
-                            onClick={(event) => this.handleCheckThisProduct(event)}
-                        /> */}
                     </td>
                     <td className='product-section col-5 col-xl-6'>
                         <div className='product-img col-xl-3'
@@ -174,11 +198,11 @@ class CartItem extends Component {
 
                         <div className='product-name-price col-xl-9'>
                             <div className='product-name'
-                                onClick={() => this.handleToProductDetail(product.keyName)}>
-                                {product.name}
+                                onClick={() => this.handleToProductDetail(productData.keyName)}>
+                                {productData.name}
                             </div>
                             <div className='product-price'>
-                                {this.renderProductPrice(product.price, product.discount)}
+                                {this.renderProductPrice(productData.price, productData.discount)}
                             </div>
                         </div>
                     </td>
@@ -200,9 +224,7 @@ class CartItem extends Component {
                             onClick={() => this.handleDeleteItem(productInCart)}></i>
                     </td>
                 </tr>
-
             </React.Fragment >
-
         );
     }
 }
@@ -214,6 +236,7 @@ const mapStateToProps = state => {
         userInfo: state.user.userInfo,
         cartData: state.user.cartData,
         actionResponse: state.user.actionResponse,
+        singleProduct: state.admin.singleProduct,
     };
 };
 
@@ -222,6 +245,7 @@ const mapDispatchToProps = dispatch => {
         getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
         deleteProductInCart: (inputCartId, inputProductId) => dispatch(actions.deleteProductInCart(inputCartId, inputProductId)),
         updateCart: (inputData) => dispatch(actions.updateCart(inputData)),
+        fetchProductById: (inputId) => dispatch(actions.fetchProductById(inputId))
     };
 };
 

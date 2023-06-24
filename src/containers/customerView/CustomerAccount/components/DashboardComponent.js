@@ -103,6 +103,9 @@ class DashboardComponent extends Component {
                 {billDataLimit7 && billDataLimit7.length > 0 ?
                     billDataLimit7.map((item, index) => {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
+                        let labelStatusVI = item.AllCode ? item.AllCode.valueVI : ''
+                        let labelStatusEN = item.AllCode ? item.AllCode.valueEN : ''
+
 
                         return (
                             <tr key={index}>
@@ -121,7 +124,7 @@ class DashboardComponent extends Component {
                                 </td>
                                 <td>
                                     {lang === languages.VI ?
-                                        item.AllCode.valueVI : item.AllCode.valueEN
+                                        labelStatusVI : labelStatusEN
                                     }
                                 </td>
                                 <td className='actions'>

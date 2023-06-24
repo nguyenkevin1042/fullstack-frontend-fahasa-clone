@@ -243,6 +243,11 @@ const getBillByUserIdAPI = (inputUserId) => {
         });
 }
 
+const getBillByIdAPI = (inputId) => {
+    return axios.get("/api/get-bill-by-id",
+        { params: { id: inputId } });
+}
+
 const getAllBillAPI = () => {
     return axios.get("/api/get-all-bill");
 }
@@ -311,6 +316,7 @@ export {
     createNewAddressAPI,
     //BILL
     createNewBillAPI, getBillByUserIdAPI, getAllBillAPI, updateBillStatusAPI,
+    getBillByIdAPI,
     //TAG
     getProductByTagKeyNameAPI, getTagByTypeAPI, getAllTagAPI,
     getAllTagWithoutProductAPI,

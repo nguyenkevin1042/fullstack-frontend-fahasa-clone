@@ -81,12 +81,12 @@ class Header extends Component {
             })
         }
 
-        if (prevProps.cartData !== this.props.cartData ||
-            prevProps.history !== this.props.history) {
-            this.setState({
-                productInCartLength: this.props.cartData.length
-            })
-        }
+        // if (prevProps.cartData !== this.props.cartData ||
+        //     prevProps.history !== this.props.history) {
+        //     this.setState({
+        //         productInCartLength: this.props.cartData.length
+        //     })
+        // }
 
         // if (prevProps.history !== this.props.history) {
         //     this.setState({
