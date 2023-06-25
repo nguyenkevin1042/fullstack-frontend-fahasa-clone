@@ -8,7 +8,7 @@ class ToyDescriptionComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            age: '',
+            age: null,
             supplier: '',
             brand: '',
             origin: '',

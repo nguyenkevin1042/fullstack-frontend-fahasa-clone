@@ -54,9 +54,12 @@ class ManageProduct extends Component {
         // })
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode === 0) {
+                await this.props.fetchAllProduct();
 
+            }
         }
 
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
@@ -367,6 +370,7 @@ const mapStateToProps = state => {
         allSubCategoryArr: state.admin.allSubCategoryArr,
         allChildCategoryArr: state.admin.allChildCategoryArr,
         isFetchingData: state.admin.isFetchingData,
+        actionResponse: state.admin.actionResponse,
     };
 };
 

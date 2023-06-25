@@ -805,26 +805,26 @@ export const deleteProduct = (inputId) => {
             res = await deleteProductAPI(inputId);
 
             if (res && res.errCode === 0) {
-                dispatch(deleteProductSuccess());
+                dispatch(deleteProductSuccess(res));
                 toast.success(res.message)
-                dispatch(fetchAllProduct());
             } else {
-                dispatch(deleteProductFail());
+                dispatch(deleteProductFail(res));
             }
         } catch (error) {
-            dispatch(deleteProductFail());
+            dispatch(deleteProductFail(res));
             console.log("fetchAllProduct Error: ", error)
         }
     }
 }
 
-export const deleteProductSuccess = () => ({
+export const deleteProductSuccess = (response) => ({
     type: actionTypes.DELETE_PRODUCT_SUCCESS,
-
+    response: response
 })
 
-export const deleteProductFail = () => ({
-    type: actionTypes.DELETE_PRODUCT_FAIL
+export const deleteProductFail = (response) => ({
+    type: actionTypes.DELETE_PRODUCT_FAIL,
+    response: response
 })
 
 //UPDATE PPRODUCT

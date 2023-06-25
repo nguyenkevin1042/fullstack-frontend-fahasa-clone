@@ -159,7 +159,7 @@ class Header extends Component {
     }
 
     handleRedirectToAccountPage = () => {
-        if (this.props.history) {
+        if (this.props.userInfo) {
             this.props.history.push("/customer/account/dashboard");
         }
     }

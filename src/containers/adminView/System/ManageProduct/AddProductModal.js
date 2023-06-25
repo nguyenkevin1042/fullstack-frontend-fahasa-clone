@@ -26,13 +26,13 @@ class AddProductModal extends Component {
         this.state = {
             name: '',
             keyName: '',
-            price: '',
-            discount: '',
-            weight: '',
-            height: '',
-            width: '',
-            length: '',
-            publishYear: '',
+            price: null,
+            discount: null,
+            weight: null,
+            height: null,
+            width: null,
+            length: null,
+            publishYear: null,
             categoryKeyName: '',
             image: '',
             previewImgURL: '',
@@ -64,6 +64,7 @@ class AddProductModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
             if (this.props.actionResponse.errCode === 0) {
@@ -262,10 +263,9 @@ class AddProductModal extends Component {
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown
         })
-
-        // if (this.props.actionResponse.errCode === 0) {
-        //     this.props.closeModal()
-        // }
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal()
+        }
     }
 
     eventhandler = (data) => {
@@ -325,7 +325,6 @@ class AddProductModal extends Component {
                                         value={selectedCategory}
                                         onChange={this.handleChangeCategory}
                                         options={listCategory}
-                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
                                         name="selectedCategory" />
                                 </div>
                                 <div className='col-4 form-group'>
@@ -334,7 +333,6 @@ class AddProductModal extends Component {
                                         value={selectedSubCategory}
                                         onChange={this.handleChangeSubCategory}
                                         options={listSubCategory}
-                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
                                         name="selectedSubCategory" />
                                 </div>
                                 <div className='col-4 form-group'>
@@ -343,7 +341,6 @@ class AddProductModal extends Component {
                                         value={selectedChildCategory}
                                         onChange={this.handleChangeChildCategory}
                                         options={listChildCategory}
-                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
                                         name="selectedChildCategory" />
                                 </div>
                             </div>
@@ -423,7 +420,6 @@ class AddProductModal extends Component {
                                         value={selectedForm}
                                         onChange={this.handleChangeForm}
                                         options={listForm}
-                                        // placeholder={<FormattedMessage id='admin.manage-doctor.choose-doctor' />}
                                         name="selectedForm" />
                                 </div>
                             </div>

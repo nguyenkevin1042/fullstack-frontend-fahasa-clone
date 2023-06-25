@@ -13,7 +13,7 @@ class StationaryDescriptionComponent extends Component {
             origin: '',
             color: '',
             material: '',
-            quantity: '',
+            quantity: null,
             madeBy: ''
         };
     }

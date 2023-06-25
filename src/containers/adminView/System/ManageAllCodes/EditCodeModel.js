@@ -47,14 +47,6 @@ class EditCodeModel extends Component {
                 errResponse: this.props.updateCodeRes
             })
         }
-
-        // if (prevProps.errResponse !== this.props.errResponse) {
-        //     this.setState({
-        //         message: this.props.errResponse.message
-        //     })
-        // }
-
-
     }
 
     handleOnChangeInput = (event, key) => {
@@ -72,7 +64,7 @@ class EditCodeModel extends Component {
             valueVI: this.state.valueVI,
             valueEN: this.state.valueEN,
         })
-        let { errResponse } = this.state;
+
 
         if (this.props.updateCodeRes.errCode === 0) {
             this.props.closeEditCodeModel();

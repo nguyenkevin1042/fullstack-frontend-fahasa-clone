@@ -326,6 +326,18 @@ const appReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case actionTypes.DELETE_PRODUCT_SUCCESS:
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
+        case actionTypes.DELETE_PRODUCT_FAIL:
+            state.actionResponse = action.response
+            return {
+                ...state,
+            }
+
         case actionTypes.UPDATE_PRODUCT_SUCCESS:
             state.actionResponse = ''
             state.actionResponse = action.response

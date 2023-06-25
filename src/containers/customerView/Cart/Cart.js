@@ -35,6 +35,12 @@ class Cart extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.lang !== this.props.lang) {
+            if (this.props.userInfo) {
+                await this.props.getCartByUserId(this.props.userInfo.id)
+
+            }
+        }
         if (prevState.checkAll !== this.state.checkAll) {
             if (this.state.checkAll == true) {
                 let copyState = { ...this.state };
@@ -54,8 +60,7 @@ class Cart extends Component {
             })
         }
 
-        if (prevProps.userInfo !== this.props.userInfo
-            || prevProps.lang !== this.props.lang) {
+        if (prevProps.userInfo !== this.props.userInfo) {
             await this.props.getCartByUserId(this.props.userInfo.id)
         }
         if (prevProps.location !== this.props.location) {

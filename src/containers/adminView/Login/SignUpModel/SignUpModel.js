@@ -5,8 +5,6 @@ import './SignUpModel.scss';
 import { Modal } from 'reactstrap'
 
 import _ from 'lodash';
-import { createNewUserAPI } from '../../../../services/userService';
-
 import * as actions from "../../../../store/actions";
 
 

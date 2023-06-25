@@ -12,7 +12,14 @@ class DropdownAccount extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalOpened: false
+            isModalOpened: false,
+            linksWillRedirectToHomeWhenLogout: [
+                '/customer/account',
+                '/customer/account/dashboard',
+                '/customer/account/account-information',
+                '/customer/account/my-orders',
+                '/onestepcheckout'
+            ]
         };
     }
 
@@ -21,15 +28,7 @@ class DropdownAccount extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
 
-        }
-
-        if (this.props.userInfo && prevProps.userInfo !== this.props.userInfo) {
-            // if (this.props.history.location.pathname === '/customer/account') {
-            //     this.props.history.push("/home");
-            // }
-        }
 
     }
 
@@ -52,11 +51,11 @@ class DropdownAccount extends Component {
 
     handleSignOut = () => {
         this.props.userProcessLogout();
-        if (this.props.history.location.pathname === '/customer/account/dashboard' ||
-            this.props.history.location.pathname === '/onestepcheckout') {
-            this.props.history.push("/home");
-        }
-
+        this.state.linksWillRedirectToHomeWhenLogout.map(item => {
+            if (this.props.history.location.pathname === item) {
+                this.props.history.push("/home");
+            }
+        })
     }
 
     renderIfNotSignIn = () => {

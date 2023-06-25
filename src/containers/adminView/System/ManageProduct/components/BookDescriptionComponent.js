@@ -14,8 +14,8 @@ class BookDescriptionComponent extends Component {
             translator: '',
             publisher: '',
             language: '',
-            pages: '',
-            chapter: '',
+            pages: null,
+            chapter: null,
         };
     }
 

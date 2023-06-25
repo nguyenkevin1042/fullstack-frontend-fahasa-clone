@@ -31,7 +31,6 @@ import OneStepCheckout from './customerView/OneStepCheckout/OneStepCheckout';
 import MakeOrderSuccess from './customerView/OneStepCheckout/MakeOrderSuccess';
 import SearchResult from './customerView/SearchResult/SearchResult';
 import ProductsOfTag from './customerView/ProductsOfTag/ProductsOfTag';
-import MyOrderComponent from './customerView/CustomerAccount/components/MyOrderComponent';
 import ScrollToTop from '../components/ScrollToTop';
 
 
@@ -75,7 +74,6 @@ class App extends Component {
                                         <Route path={path.HOMEPAGE} exact component={(Homepage)} />
                                         <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
                                         <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
-                                        {/* <Route path={path.CUSTOMER_ORDERS} exact component={(MyOrderComponent)} /> */}
                                         <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
                                         <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
                                         <Route path={path.CART} exact component={(Cart)} />
