@@ -65,16 +65,16 @@ class Banner extends Component {
                         <div className='row'>
                             <div className='banner-content-up-left col-md-12 col-lg-8 my-1'>
                                 <Slider {...settings}>
-                                    <img src={bannerUp1} className='img-fluid banner-border' />
-                                    <img src={bannerUp2} className='img-fluid banner-border' />
-                                    <img src={bannerUp3} className='img-fluid banner-border' />
-                                    <img src={bannerUp4} className='img-fluid banner-border' />
-                                    <img src={bannerUp5} className='img-fluid banner-border' />
+                                    <img src={bannerUp1} alt={'bannerUp1'} className='img-fluid banner-border' />
+                                    <img src={bannerUp2} alt={'bannerUp2'} className='img-fluid banner-border' />
+                                    <img src={bannerUp3} alt={'bannerUp3'} className='img-fluid banner-border' />
+                                    <img src={bannerUp4} alt={'bannerUp4'} className='img-fluid banner-border' />
+                                    <img src={bannerUp5} alt={'bannerUp5'} className='img-fluid banner-border' />
                                 </Slider>
                             </div>
                             <div className='banner-content-up-right col-lg-4 d-none d-lg-block'>
-                                <img src={bannerUp6} className='img-fluid banner-border' />
-                                <img src={bannerUp7} className='img-fluid banner-border my-2' />
+                                <img src={bannerUp6} alt={'bannerUp6'} className='img-fluid banner-border' />
+                                <img src={bannerUp7} alt={'bannerUp7'} className='img-fluid banner-border my-2' />
                             </div>
                         </div>
                     </div>{/*End .banner-content-up*/}

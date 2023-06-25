@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './BrandSection.scss';
-import * as actions from "../../../store/actions";
 
 import Slider from "react-slick";
 
@@ -58,20 +57,20 @@ class BrandSection extends Component {
                 <div className='brand-section-content'>
 
                     <Slider {...settings} >
-                        <img src={cambridgeLogo} className='brand-logo img-fluid' />
-                        <img src={cengageLogo} className='brand-logo img-fluid' />
-                        <img src={harperCollinsLogo} className='brand-logo img-fluid' />
-                        <img src={hachetteLogo} className='brand-logo img-fluid' />
-                        <img src={mcGrawHillLogo} className='brand-logo img-fluid' />
-                        <img src={macMillanLogo} className='brand-logo img-fluid' />
-                        <img src={oxfordLogo} className='brand-logo img-fluid' />
-                        <img src={parragonLogo} className='brand-logo img-fluid' />
-                        <img src={pearsonLogo} className='brand-logo img-fluid' />
-                        <img src={penguinLogo} className='brand-logo img-fluid' />
-                        <img src={sterlingLogo} className='brand-logo img-fluid' />
-                        <img src={usborneLogo} className='brand-logo img-fluid' />
-                        <img src={scholasticLogo} className='brand-logo img-fluid' />
-                        <img src={savvasLogo} className='brand-logo img-fluid' />
+                        <img src={cambridgeLogo} alt={'cambridgeLogo'} className='brand-logo img-fluid' />
+                        <img src={cengageLogo} alt={'cengageLogo'} c lassName='brand-logo img-fluid' />
+                        <img src={harperCollinsLogo} alt={'harperCollinsLogo'} className='brand-logo img-fluid' />
+                        <img src={hachetteLogo} alt={'hachetteLogo'} className='brand-logo img-fluid' />
+                        <img src={mcGrawHillLogo} alt={'mcGrawHillLogo'} className='brand-logo img-fluid' />
+                        <img src={macMillanLogo} alt={'macMillanLogo'} className='brand-logo img-fluid' />
+                        <img src={oxfordLogo} alt={'oxfordLogo'} className='brand-logo img-fluid' />
+                        <img src={parragonLogo} alt={'parragonLogo'} className='brand-logo img-fluid' />
+                        <img src={pearsonLogo} alt={'pearsonLogo'} className='brand-logo img-fluid' />
+                        <img src={penguinLogo} alt={'penguinLogo'} className='brand-logo img-fluid' />
+                        <img src={sterlingLogo} alt={sterlingLogo} className='brand-logo img-fluid' />
+                        <img src={usborneLogo} alt={'usborneLogo'} className='brand-logo img-fluid' />
+                        <img src={scholasticLogo} alt={'scholasticLogo'} className='brand-logo img-fluid' />
+                        <img src={savvasLogo} alt={'savvasLogo'} className='brand-logo img-fluid' />
                     </Slider>
                 </div>
             </div>

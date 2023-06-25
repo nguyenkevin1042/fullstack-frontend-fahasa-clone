@@ -85,34 +85,40 @@ class ProductItem extends Component {
 
         return (
             <React.Fragment>
-                <div className='sharing-product-item' id={productData.id}
-                    title={productData.name}
-                    onClick={() => this.handleRedirectToProductDetail(productData.keyName)}>
-                    <div className='sharing-product-item-image'
-                        style={{
-                            backgroundImage: "url(" + imageBase64 + ")"
-                        }}>
-                        {productData.discount ?
-                            <div className='discount'>{productData.discount}%</div>
-                            : <></>}
+                <LoadingOverlay
+                    className='customer-view'
+                    active={isLoading}
+                    spinner={true}
+                    text='Please wait...'>
+                    <div className='sharing-product-item' id={productData.id}
+                        title={productData.name}
+                        onClick={() => this.handleRedirectToProductDetail(productData.keyName)}>
+                        <div className='sharing-product-item-image'
+                            style={{
+                                backgroundImage: "url(" + imageBase64 + ")"
+                            }}>
+                            {productData.discount ?
+                                <div className='discount'>{productData.discount}%</div>
+                                : <></>}
 
-                    </div>
-
-                    <div className='sharing-product-item-text'>
-                        <div className='item-name'>
-                            {productData.name}
                         </div>
-                        <div className='item-price-chapter'>
-                            {this.renderProductPrice(productData.price, productData.discount)}
 
-                            {productData.bookDescriptionData &&
-                                productData.bookDescriptionData.chapter ?
-                                <div className='item-chapter'>
-                                    Tập {productData.bookDescriptionData.chapter}
-                                </div> : <></>}
+                        <div className='sharing-product-item-text'>
+                            <div className='item-name'>
+                                {productData.name}
+                            </div>
+                            <div className='item-price-chapter'>
+                                {this.renderProductPrice(productData.price, productData.discount)}
+
+                                {productData.bookDescriptionData &&
+                                    productData.bookDescriptionData.chapter ?
+                                    <div className='item-chapter'>
+                                        Tập {productData.bookDescriptionData.chapter}
+                                    </div> : <></>}
+                            </div>
                         </div>
-                    </div>
-                </div >
+                    </div >
+                </LoadingOverlay>
             </React.Fragment >
 
         );

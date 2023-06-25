@@ -126,8 +126,6 @@ class EditSubCategoryModal extends Component {
         let { isModalEditOpened, closeEditCodeModel,
             listCategory } = this.props;
 
-        console.log(this.props.selectedItem)
-
         return (
             <React.Fragment>
 
