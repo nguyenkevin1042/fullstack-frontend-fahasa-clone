@@ -172,7 +172,7 @@ class AccountInformationComponent extends Component {
                         <div className='select-gender-option'>
                             {listGender && listGender.length > 0 && (
                                 listGender.map((item, index) => (
-                                    <label key={index}>
+                                    <label key={item.id}>
                                         <input
                                             type="radio"
                                             value={item.keyMap}

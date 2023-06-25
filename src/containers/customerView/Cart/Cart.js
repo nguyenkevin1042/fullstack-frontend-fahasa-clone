@@ -157,7 +157,7 @@ class Cart extends Component {
                     <table>
                         {listProductInCart && listProductInCart.length > 0 &&
                             listProductInCart.map((item, index) =>
-                            (<CartItem key={index} productInCart={item}
+                            (<CartItem key={item.id} productInCart={item}
                                 onChange={this.eventhandler}
                                 addItemToSelectedProducts={this.handleAddSelectedProduct}
                                 deleteItemSelectedProducts={this.handleDeleteSelectedProduct}

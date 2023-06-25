@@ -216,12 +216,6 @@ class ManageProductTag extends Component {
             <>
                 {products && products.length > 0 &&
                     products.map((item, index) => {
-                        // let tagLabelVI = item.product.ProductTags
-                        //     && item.product.ProductTags[0].Tag &&
-                        //     item.product.ProductTags[0].Tag.valueVI ? item.product.ProductTags[0].Tag.valueVI : ''
-                        // let tagLabelEN = item.product.ProductTags
-                        //     && item.product.ProductTags[0].Tag &&
-                        //     item.product.ProductTags[0].Tag.valueEN ? item.product.ProductTags[0].Tag.valueEN : ''
                         let tagLabelVI = item.product.ProductTags && item.product.ProductTags.length > 0
                             && item.product.ProductTags[0].Tag &&
                             item.product.ProductTags[0].Tag.valueVI ? item.product.ProductTags[0].Tag.valueVI : ''
@@ -231,7 +225,7 @@ class ManageProductTag extends Component {
 
                         return (
                             <>
-                                <tr key={index} className={item.selected ? 'product-discount-item selected' : 'product-discount-item'}
+                                <tr key={item.id} className={item.selected ? 'product-discount-item selected' : 'product-discount-item'}
                                     onClick={() => this.handleClickProductRow(item)}>
                                     <td scope="row">
                                         <input type="checkbox" id={`product${item.id}`} value={item}

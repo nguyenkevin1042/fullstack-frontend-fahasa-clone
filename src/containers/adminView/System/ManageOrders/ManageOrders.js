@@ -84,7 +84,7 @@ class ManageOrders extends Component {
                     orders.map((item, index) => {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
                         return (
-                            <tr key={index}>
+                            <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{orderedDate}</td>
                                 <td>

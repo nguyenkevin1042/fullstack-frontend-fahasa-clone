@@ -82,6 +82,7 @@ class DropdownMenu extends Component {
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
+                    obj.id = item.id
                     obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
@@ -93,6 +94,7 @@ class DropdownMenu extends Component {
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
+                    obj.id = item.id
                     obj.keyName = item.keyName;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     obj.childCategoryData = item.ChildCategories
@@ -142,7 +144,7 @@ class DropdownMenu extends Component {
                         <div className='left-menu-category-item'
                             onMouseOver={() => this.handleOnMouseOver(item)}
                             onClick={(event) => this.hanldeRedirectToCategoryProductList(event, item)}
-                            key={index}>
+                            key={item.id}>
                             {item.label}
                         </div>
                     ))
@@ -164,7 +166,7 @@ class DropdownMenu extends Component {
                     <div className='row'>
                         {listSubCategory && listSubCategory.length > 0 &&
                             listSubCategory.map((subCategoryItem, index) => (
-                                <div className='sub-category-item col-md-3' key={index}>
+                                <div className='sub-category-item col-md-3' key={subCategoryItem.id}>
                                     <div className='sub-category-title'
                                         onClick={(event) => this.hanldeRedirectToSubCategoryProductList(event, subCategoryItem)}>
                                         {subCategoryItem.label}
@@ -173,7 +175,7 @@ class DropdownMenu extends Component {
                                         <ul className='child-category-list'>
                                             {subCategoryItem.childCategoryData && subCategoryItem.childCategoryData.length > 0 &&
                                                 subCategoryItem.childCategoryData.map((item, index) => (
-                                                    <li key={index} className='child-category-item'
+                                                    <li key={item.id} className='child-category-item'
                                                         onClick={(event) => this.hanldeRedirectToChildCategoryProductList(event, subCategoryItem, item)}>
                                                         {language === languages.VI ? item.valueVI : item.valueEN}
                                                     </li>

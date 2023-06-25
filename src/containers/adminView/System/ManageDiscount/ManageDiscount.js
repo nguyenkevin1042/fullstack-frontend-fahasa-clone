@@ -193,7 +193,7 @@ class ManageDiscount extends Component {
             <>
                 {products && products.length > 0 &&
                     products.map((item, index) => (
-                        <tr key={index} className={item.selected ? 'product-discount-item selected' : 'product-discount-item'}
+                        <tr key={item.id} className={item.selected ? 'product-discount-item selected' : 'product-discount-item'}
                             onClick={() => this.handleClickProductRow(item)}>
                             <td scope="row">
                                 <input type="checkbox" id={`product${item.id}`} value={item}

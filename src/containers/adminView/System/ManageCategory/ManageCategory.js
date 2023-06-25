@@ -135,7 +135,7 @@ class ManageCategory extends Component {
                     listCategory.map((item, index) => {
                         return (
                             <>
-                                <tr key={index}>
+                                <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.type}</td>
                                     <td>{item.keyMap}</td>

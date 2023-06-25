@@ -164,7 +164,7 @@ class ManageChildCategory extends Component {
                     listChildCategory.map((item, index) => {
                         return (
                             <>
-                                <tr key={index}>
+                                <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.subCategory}</td>
                                     <td>{item.keyName}</td>

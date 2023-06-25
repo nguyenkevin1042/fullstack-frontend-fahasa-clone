@@ -203,7 +203,7 @@ class OneStepCheckout extends Component {
             <>
                 {listUserAddress.length > 0 ?
                     listUserAddress.map((item, index) => (
-                        <div key={index} className='user-address-item'>
+                        <div key={item.id} className='user-address-item'>
                             <div className='address-text'>
                                 < input
                                     type="radio"
@@ -232,7 +232,7 @@ class OneStepCheckout extends Component {
             <>
                 {listPayment && listPayment.length > 0 && (
                     listPayment.map((item, index) => (
-                        <div key={index} className='payment-method-item'>
+                        <div key={item.id} className='payment-method-item'>
                             < input
                                 type="radio"
                                 value={item}
@@ -262,7 +262,7 @@ class OneStepCheckout extends Component {
                         }
 
                         return (
-                            <div key={index} className={index == 0 ? 'product-item border-top-none' : 'product-item'}>
+                            <div key={item.id} className={index == 0 ? 'product-item border-top-none' : 'product-item'}>
                                 <div className='product-img'
                                     style={{
                                         backgroundImage: "url(" + imageBase64 + ")"

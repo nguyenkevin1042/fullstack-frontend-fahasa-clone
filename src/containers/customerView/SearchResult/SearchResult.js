@@ -123,7 +123,7 @@ class SearchResult extends Component {
             <>
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => (
-                        <div key={index}
+                        <div key={item.id}
                             className='sharing-product-item-container col-4 col-md-3'>
                             <ProductItem productId={item.id} />
                         </div>

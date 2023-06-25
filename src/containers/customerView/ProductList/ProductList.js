@@ -374,7 +374,7 @@ class ProductList extends Component {
                 <ul className='list-category'>
                     {list && list.length > 0 &&
                         list.map((item, index) => (
-                            <li key={index}
+                            <li key={item.id}
                                 onClick={() => this.handleOnClickCategory(item)}
                                 className={item.keyName === keyName ? 'active' : 'hover'}>
                                 {item.label}
@@ -400,7 +400,7 @@ class ProductList extends Component {
                 <ul className='list-sub-category'>
                     {list && list.length > 0 &&
                         list.map((item, index) => (
-                            <li key={index}
+                            <li key={item.id}
                                 onClick={() => this.handleOnClickSubCategory(item)}
                                 className={item.keyName === keyName ? 'active' : 'hover'}>
                                 {item.label}
@@ -430,7 +430,7 @@ class ProductList extends Component {
                 <ul className='list-child-category'>
                     {list && list.length > 0 &&
                         list.map((item, index) => (
-                            <li key={index}
+                            <li key={item.id}
                                 onClick={() => this.handleOnClickChildCategory(item)}
                                 className={item.keyName === keyName ? 'active' : 'hover'}>
                                 {item.label}
@@ -448,7 +448,7 @@ class ProductList extends Component {
             <>
                 {products.map((item, index) => {
                     return (
-                        <div key={index}
+                        <div key={item.id}
                             className='sharing-product-item-container col-4 col-md-3'>
                             <ProductItem productId={item.id} />
                         </div>

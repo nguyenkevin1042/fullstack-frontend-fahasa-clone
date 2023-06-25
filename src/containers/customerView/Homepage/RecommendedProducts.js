@@ -35,10 +35,11 @@ class RecommendedProducts extends Component {
             selectedTag: dataTag[0]
         })
 
-        await this.props.getProductByTagId(this.state.selectedTag.id)
+        await this.props.getProductByTagId(dataTag[0])
         this.setState({
             listProducts: this.props.allProductArr
         })
+        console.log(dataTag[0])
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -74,7 +75,7 @@ class RecommendedProducts extends Component {
             })
         }
 
-        if (prevState.selectedTag !== this.state.selectedTag) {
+        if (this.state.selectedTag && prevState.selectedTag !== this.state.selectedTag) {
             await this.props.getProductByTagId(this.state.selectedTag.id)
             this.setState({
                 listProducts: this.props.allProductArr

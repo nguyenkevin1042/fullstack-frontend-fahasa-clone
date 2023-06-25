@@ -132,7 +132,7 @@ class MyOrderDetailComponent extends Component {
                         }
 
                         return (
-                            <tr key={index} className='product-item row'>
+                            <tr key={item.id} className='product-item row'>
                                 <td className='col-2'>
                                     <div className='product-img'
                                         style={{

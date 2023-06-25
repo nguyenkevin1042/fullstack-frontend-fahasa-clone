@@ -113,7 +113,7 @@ class DashboardComponent extends Component {
 
 
                         return (
-                            <tr key={index}>
+                            <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{orderedDate}</td>
                                 <td>

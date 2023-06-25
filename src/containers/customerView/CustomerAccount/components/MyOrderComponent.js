@@ -111,7 +111,7 @@ class MyOrderComponent extends Component {
                     listUserOrders.map((item, index) => {
                         let orderedDate = moment(item.orderedDate).format('DD/MM/YYYY')
                         return (
-                            <tr key={index} className='row'>
+                            <tr key={item.id} className='row'>
                                 <td className='col-2 text-center'>{item.id}</td>
                                 <td className='col-2'>{orderedDate}</td>
                                 <td className='col-2'>

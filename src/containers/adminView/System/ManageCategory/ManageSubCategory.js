@@ -115,7 +115,7 @@ class ManageSubCategory extends Component {
                     listSubCategory.map((item, index) => {
                         return (
                             <>
-                                <tr key={index}>
+                                <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.category}</td>
                                     <td>{item.keyName}</td>

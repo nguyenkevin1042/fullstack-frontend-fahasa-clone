@@ -89,7 +89,7 @@ class OtherProductsComponent extends Component {
                     <Slider {...settings} >
                         {listProductBySubCategory && listProductBySubCategory.length > 0 &&
                             listProductBySubCategory.map((item, index) => (
-                                <div key={index}>
+                                <div key={item.id}>
                                     {/* <ProductItem productId={item.id} /> */}
                                 </div>
                             ))
