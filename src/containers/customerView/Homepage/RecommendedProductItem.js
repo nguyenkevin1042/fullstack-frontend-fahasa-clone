@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import * as actions from "../../../store/actions";
 import NumericFormat from 'react-number-format';
-import LoadingOverlay from 'react-loading-overlay'
+// import LoadingOverlay from 'react-loading-overlay'
 
 class RecommendedProductItem extends Component {
     constructor(props) {
@@ -21,7 +21,6 @@ class RecommendedProductItem extends Component {
         this.setState({
             productData: this.props.singleProduct
         })
-        // console.log(this.state.productData)
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -48,7 +47,7 @@ class RecommendedProductItem extends Component {
         let salePrice = price - ((price * discount) / 100);
         return (
             <>
-                {discount != 0 ?
+                {discount !== 0 ?
                     <>
                         <div className='product-discount-price'>
                             <NumericFormat value={salePrice}

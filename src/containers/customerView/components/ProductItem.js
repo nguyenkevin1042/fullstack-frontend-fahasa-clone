@@ -47,7 +47,7 @@ class ProductItem extends Component {
         let salePrice = price - ((price * discount) / 100);
         return (
             <>
-                {discount != 0 ?
+                {discount !== 0 ?
                     <>
                         <div className='item-discount-price'>
                             <NumericFormat value={salePrice}

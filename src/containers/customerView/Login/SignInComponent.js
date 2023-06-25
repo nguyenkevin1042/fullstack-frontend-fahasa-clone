@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import * as actions from "../../../store/actions";
 
-import { CommonUtils, languages } from '../../../utils';
+import { languages } from '../../../utils';
 
 class SignInComponent extends Component {
     constructor(props) {

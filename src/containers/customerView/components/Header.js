@@ -204,7 +204,7 @@ class Header extends Component {
         let cartDataLength = cartData.length
 
         const menu = (<DropdownMenu />);
-        const searchDropdown = (<SearchDropdown />)
+        // const searchDropdown = (<SearchDropdown />)
         return (
             <>
                 <div className='home-header-container '>

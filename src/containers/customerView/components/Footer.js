@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import './Footer.scss';
-import * as actions from "../../../store/actions";
 
 class Footer extends Component {
     constructor(props) {

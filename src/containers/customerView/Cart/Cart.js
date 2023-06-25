@@ -42,7 +42,7 @@ class Cart extends Component {
             }
         }
         if (prevState.checkAll !== this.state.checkAll) {
-            if (this.state.checkAll == true) {
+            if (this.state.checkAll === true) {
                 let copyState = { ...this.state };
                 copyState.listProductInCart.map(
                     item => copyState.selectedProducts.push(item));
@@ -176,7 +176,7 @@ class Cart extends Component {
         let salePrice = price - ((price * discount) / 100);
         return (
             <>
-                {discount != 0 ?
+                {discount !== 0 ?
                     <>
                         <div className='item-discount-price'>
                             <NumericFormat value={salePrice}

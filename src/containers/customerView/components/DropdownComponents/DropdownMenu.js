@@ -113,20 +113,20 @@ class DropdownMenu extends Component {
         })
     }
 
-    hanldeRedirectToCategoryProductList = (event, item) => {
+    hanldeRedirectToCategoryProductList = (item) => {
         if (this.props.history) {
             this.props.history.push("/category/" + item.keyName);
         }
     }
 
-    hanldeRedirectToSubCategoryProductList = (event, item) => {
+    hanldeRedirectToSubCategoryProductList = (item) => {
         let { selectedCategory } = this.state
         if (this.props.history) {
             this.props.history.push("/category/" + selectedCategory.keyName + "/" + item.keyName);
         }
     }
 
-    hanldeRedirectToChildCategoryProductList = (event, subCategoryItem, item) => {
+    hanldeRedirectToChildCategoryProductList = (subCategoryItem, item) => {
         let { selectedCategory } = this.state
         if (this.props.history) {
             this.props.history.push("/category/" + selectedCategory.keyName
@@ -143,7 +143,7 @@ class DropdownMenu extends Component {
                     listCategory.map((item, index) => (
                         <div className='left-menu-category-item'
                             onMouseOver={() => this.handleOnMouseOver(item)}
-                            onClick={(event) => this.hanldeRedirectToCategoryProductList(event, item)}
+                            onClick={() => this.hanldeRedirectToCategoryProductList(item)}
                             key={item.id}>
                             {item.label}
                         </div>
@@ -168,7 +168,7 @@ class DropdownMenu extends Component {
                             listSubCategory.map((subCategoryItem, index) => (
                                 <div className='sub-category-item col-md-3' key={subCategoryItem.id}>
                                     <div className='sub-category-title'
-                                        onClick={(event) => this.hanldeRedirectToSubCategoryProductList(event, subCategoryItem)}>
+                                        onClick={() => this.hanldeRedirectToSubCategoryProductList(subCategoryItem)}>
                                         {subCategoryItem.label}
                                     </div>
                                     <div>
@@ -176,7 +176,7 @@ class DropdownMenu extends Component {
                                             {subCategoryItem.childCategoryData && subCategoryItem.childCategoryData.length > 0 &&
                                                 subCategoryItem.childCategoryData.map((item, index) => (
                                                     <li key={item.id} className='child-category-item'
-                                                        onClick={(event) => this.hanldeRedirectToChildCategoryProductList(event, subCategoryItem, item)}>
+                                                        onClick={() => this.hanldeRedirectToChildCategoryProductList(subCategoryItem, item)}>
                                                         {language === languages.VI ? item.valueVI : item.valueEN}
                                                     </li>
                                                 ))
@@ -186,7 +186,7 @@ class DropdownMenu extends Component {
 
                                     <div className='view-all-child-category'>
                                         {subCategoryItem.childCategoryData && subCategoryItem.childCategoryData.length > 0 ?
-                                            <p onClick={(event) => this.hanldeRedirectToSubCategoryProductList(event, subCategoryItem)}>
+                                            <p onClick={() => this.hanldeRedirectToSubCategoryProductList(subCategoryItem)}>
                                                 <FormattedMessage id="customer.homepage.header.menu.all-child-category" />
                                             </p> :
                                             <></>
@@ -205,7 +205,6 @@ class DropdownMenu extends Component {
     }
 
     render() {
-        let { onHovering } = this.state
         return (
             // <div className='dropdown-menu-container d-none d-lg-block'
             <div className='dropdown-menu-container d-none d-lg-block'>

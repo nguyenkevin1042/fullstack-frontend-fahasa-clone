@@ -6,7 +6,7 @@ import './OneStepCheckout.scss';
 import Header from '../components/Header';
 import AddNewAddressModal from './Modal/AddNewAddressModal';
 import NumericFormat from 'react-number-format';
-import { CommonUtils, languages } from '../../../utils';
+import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
 
 class OneStepCheckout extends Component {
@@ -168,7 +168,7 @@ class OneStepCheckout extends Component {
         let salePrice = price - ((price * discount) / 100);
         return (
             <>
-                {discount != 0 ?
+                {discount !== 0 ?
                     <>
                         <div className='item-discount-price'>
                             <NumericFormat value={salePrice}
@@ -262,7 +262,7 @@ class OneStepCheckout extends Component {
                         }
 
                         return (
-                            <div key={item.id} className={index == 0 ? 'product-item border-top-none' : 'product-item'}>
+                            <div key={item.id} className={index === 0 ? 'product-item border-top-none' : 'product-item'}>
                                 <div className='product-img'
                                     style={{
                                         backgroundImage: "url(" + imageBase64 + ")"
@@ -293,7 +293,7 @@ class OneStepCheckout extends Component {
     }
 
     render() {
-        let { isOpenAddNewAddress, listProduct } = this.state
+        let { isOpenAddNewAddress } = this.state
 
         console.log(this.state)
 

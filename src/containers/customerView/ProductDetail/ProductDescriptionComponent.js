@@ -200,7 +200,7 @@ class ProductDescriptionComponent extends Component {
     renderProductSize = (length, width, height) => {
         let lengthValue = parseFloat(length)
         let widthValue = parseFloat(width)
-        let heightValue = height == 0 ? '' : ' x ' + parseFloat(height);
+        let heightValue = height === 0 ? '' : ' x ' + parseFloat(height);
         return (
             <>
                 {lengthValue} x {widthValue} {heightValue}
