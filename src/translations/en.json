@@ -29,6 +29,9 @@
                 "secondhand-book-fair": "Secondhand Book Fair",
                 "economic": "Economic"
             },
+            "recommended-products": {
+                "see-more": "See more"
+            },
             "product-category": {
                 "title": "Product Category",
                 "stationery": "Stationery",

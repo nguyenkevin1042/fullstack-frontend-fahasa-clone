@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
-
+import ScrollToTop from "react-scroll-to-top";
 
 import {
     userIsAuthenticated, userIsNotAuthenticated,
@@ -31,8 +31,6 @@ import OneStepCheckout from './customerView/OneStepCheckout/OneStepCheckout';
 import MakeOrderSuccess from './customerView/OneStepCheckout/MakeOrderSuccess';
 import SearchResult from './customerView/SearchResult/SearchResult';
 import ProductsOfTag from './customerView/ProductsOfTag/ProductsOfTag';
-import ScrollToTop from '../components/ScrollToTop';
-
 
 class App extends Component {
 
@@ -61,46 +59,47 @@ class App extends Component {
         return (
             <Fragment>
                 <Router history={history}>
-                    <ScrollToTop>
-                        <div className="main-container">
-                            <ConfirmModal />
-                            <CustomScrollbars style={{ height: '100vh' }}>
-                                <span className="content-container">
-                                    <Switch>
-                                        <Route path={path.HOME} exact component={(Home)} />
-                                        <Route path={path.LOGIN} component={adminIsNotAuthenticated(Login)} />
-                                        <Route path={path.SYSTEM} component={adminIsAuthenticated(System)} />
 
-                                        <Route path={path.HOMEPAGE} exact component={(Homepage)} />
-                                        <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
-                                        <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
-                                        <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
-                                        <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
-                                        <Route path={path.CART} exact component={(Cart)} />
-                                        <Route path={path.ONE_STEP_CHECKOUT} exact component={(OneStepCheckout)} />
-                                        <Route path={path.ORDER_COMPLETED} exact component={(MakeOrderSuccess)} />
-                                        <Route path={path.SEARCH_RESULT} exact component={(SearchResult)} />
+                    <div className="main-container">
+                        <ConfirmModal />
+                        <CustomScrollbars style={{ height: '100vh' }}>
+                            <ScrollToTop smooth />
+                            <span className="content-container">
+                                <Switch>
+                                    <Route path={path.HOME} exact component={(Home)} />
+                                    <Route path={path.LOGIN} component={adminIsNotAuthenticated(Login)} />
+                                    <Route path={path.SYSTEM} component={adminIsAuthenticated(System)} />
 
-                                        <Route path={path.PRODUCT_TAG} exact component={(ProductsOfTag)} />
-                                    </Switch>
-                                </span>
+                                    <Route path={path.HOMEPAGE} exact component={(Homepage)} />
+                                    <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
+                                    <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
+                                    <Route path={path.PRODUCT_DETAIL} exact component={(ProductDetail)} />
+                                    <Route path={path.PRODUCT_LIST} exact component={(ProductList)} />
+                                    <Route path={path.CART} exact component={(Cart)} />
+                                    <Route path={path.ONE_STEP_CHECKOUT} exact component={(OneStepCheckout)} />
+                                    <Route path={path.ORDER_COMPLETED} exact component={(MakeOrderSuccess)} />
+                                    <Route path={path.SEARCH_RESULT} exact component={(SearchResult)} />
 
-                            </CustomScrollbars>
+                                    <Route path={path.PRODUCT_TAG} exact component={(ProductsOfTag)} />
+                                </Switch>
+                            </span>
 
-                            <ToastContainer
-                                position="bottom-right"
-                                autoClose={5000}
-                                hideProgressBar={false}
-                                newestOnTop={false}
-                                closeOnClick
-                                rtl={false}
-                                pauseOnFocusLoss
-                                draggable
-                                pauseOnHover
-                                theme="colored"
-                            />
-                        </div>
-                    </ScrollToTop>
+                        </CustomScrollbars>
+
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="colored"
+                        />
+                    </div>
+
                 </Router>
             </Fragment >
         )

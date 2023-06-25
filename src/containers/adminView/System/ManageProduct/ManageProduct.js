@@ -55,6 +55,19 @@ class ManageProduct extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.searchKey !== this.state.searchKey) {
+            // let searchKey = this.state.searchKey
+            // let tempList = this.props.allProductArr;
+
+            // tempList = tempList.filter((item) => {
+            //     return item.name.toLowerCase().indexOf(searchKey.toLowerCase()) !== -1;
+            // });
+
+            // this.setState({
+            //     listProduct: tempList
+            // })
+        }
+
         if (prevProps.actionResponse !== this.props.actionResponse) {
             if (this.props.actionResponse.errCode === 0) {
                 await this.props.fetchAllProduct();
@@ -149,17 +162,15 @@ class ManageProduct extends Component {
         this.setState({ ...copyState });
     }
 
-    handleKeyUp = (event) => {
-        let query = event.target.value;
-        let tempList = this.props.allProductArr;
-        tempList = tempList.filter((item) => {
-            return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-        });
-
-        this.setState({
-            searchKey: query,
-            listProduct: tempList
-        })
+    handleKeyDown = async (event) => {
+        if (event.key === "Enter") {
+            let searchKey = this.state.searchKey
+            await this.props.getProductByName(searchKey)
+            this.setState({
+                listProduct: this.props.allProductArr,
+                totalRecords: this.props.allProductArr.length
+            })
+        }
     }
 
     handleChangeCategory = async (selectedCategory) => {
@@ -318,7 +329,7 @@ class ManageProduct extends Component {
                                 id='searchKey'
                                 value={searchKey}
                                 onChange={(event) => this.hanleOnChangeInput(event)}
-                                onKeyUp={(event) => { this.handleKeyUp(event) }}
+                                onKeyDown={(event) => { this.handleKeyDown(event) }}
                                 className='form-control'
                             />
                         </div>
@@ -376,6 +387,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getProductByName: (inputName) => dispatch(actions.getProductByName(inputName)),
         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),

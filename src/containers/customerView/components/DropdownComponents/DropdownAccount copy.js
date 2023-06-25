@@ -13,8 +13,6 @@ class DropdownAccount extends Component {
         super(props);
         this.state = {
             isModalOpened: false,
-            loadSignInForm: false,
-            loadSignUpForm: false,
             linksWillRedirectToHomeWhenLogout: [
                 '/customer/account',
                 '/customer/account/dashboard',
@@ -34,18 +32,9 @@ class DropdownAccount extends Component {
 
     }
 
-    handleOpenSignInModal = () => {
+    handleOpenAccountModal = () => {
         this.setState({
-            isModalOpened: true,
-            loadSignInForm: true,
-            loadSignUpForm: false,
-        })
-    }
-    handleOpenSignUpModal = () => {
-        this.setState({
-            isModalOpened: true,
-            loadSignInForm: false,
-            loadSignUpForm: true,
+            isModalOpened: true
         })
     }
     handleCloseAccountModal = () => {
@@ -73,11 +62,11 @@ class DropdownAccount extends Component {
         return (
             <>
                 <div className='col-12 sign-in-btn'>
-                    <button onClick={() => this.handleOpenSignInModal()}>
+                    <button onClick={() => this.handleOpenAccountModal()}>
                         <FormattedMessage id="customer.login.sign-in-text" /></button>
                 </div>
                 <div className='col-12 sign-up-btn'>
-                    <button onClick={() => this.handleOpenSignUpModal()}><FormattedMessage id="customer.login.sign-up-text" /></button>
+                    <button onClick={() => this.handleOpenAccountModal()}><FormattedMessage id="customer.login.sign-up-text" /></button>
                 </div>
             </>
         )
@@ -120,7 +109,7 @@ class DropdownAccount extends Component {
 
 
     render() {
-        let { isModalOpened, loadSignInForm, loadSignUpForm } = this.state
+        let { isModalOpened } = this.state
         let { userInfo } = this.props
 
         return (
@@ -129,8 +118,6 @@ class DropdownAccount extends Component {
                     {userInfo ? this.renderIfSignedIn() : this.renderIfNotSignIn()}
                 </div>
                 <AccountModal isModalOpened={isModalOpened}
-                    loadSignInForm={loadSignInForm}
-                    loadSignUpForm={loadSignUpForm}
                     closeAccountModal={this.handleCloseAccountModal} />
             </>
 

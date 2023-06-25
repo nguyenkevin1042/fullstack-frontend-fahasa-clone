@@ -266,39 +266,6 @@ class EditProductModal extends Component {
         return result;
     }
 
-    // setDefaultField = () => {
-    //     this.setState({
-    //         id: '',
-    //         name: '',
-    //         keyName: '',
-    //         price: '',
-    //         discount: '',
-    //         weight: '',
-    //         height: '',
-    //         width: '',
-    //         length: '',
-    //         publishYear: '',
-    //         categoryKeyName: '',
-    //         image: '',
-    //         previewImgURL: '',
-    //         contentMarkdown: '',
-    //         contentHTML: '',
-    //         bookDescriptionId: '',
-    //         stationaryDescriptionId: '',
-    //         toyDescriptionId: '',
-    //         descriptionData: '',
-
-    //         listCategory: [], selectedCategory: '',
-    //         listSubCategory: [], selectedSubCategory: '',
-    //         listChildCategory: [], selectedChildCategory: '',
-    //         listForm: [], selectedForm: '',
-
-    //         selectedProductType: '',
-    //         stateFromComponent: [],
-    //         response: ''
-    //     })
-    // }
-
     getProductType = (product) => {
         let bookDescriptionId = product.bookDescriptionId
         let stationaryDescriptionId = product.stationaryDescriptionId
@@ -398,7 +365,7 @@ class EditProductModal extends Component {
             width: this.state.width,
             length: this.state.length,
             categoryKeyName: this.state.categoryKeyName,
-            formId: this.state.selectedForm.keyMap,
+            formId: this.state.selectedForm ? this.state.selectedForm.keyMap : '',
             publishYear: this.state.publishYear,
             image: this.state.image,
             productType: this.state.selectedProductType,
@@ -410,16 +377,16 @@ class EditProductModal extends Component {
             contentMarkdown: this.state.contentMarkdown,
         })
 
-        // if (this.props.actionResponse.errCode === 0) {
-        //     this.props.closeModal()
-        // }
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal()
+        }
     }
 
-    // eventhandler = (data) => {
-    //     this.setState({
-    //         descriptionData: data
-    //     })
-    // }
+    eventhandler = (data) => {
+        this.setState({
+            descriptionData: data
+        })
+    }
 
     renderDescriptionSectionByProductType = (productType) => {
         let { descriptionData } = this.state
@@ -454,7 +421,6 @@ class EditProductModal extends Component {
             contentHTML, } = this.state;
         let { isOpenedEditModal, closeModal } = this.props
 
-        console.log(this.state)
         return (
             <>
                 <Modal isOpen={isOpenedEditModal}

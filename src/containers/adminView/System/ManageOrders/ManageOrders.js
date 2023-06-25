@@ -157,7 +157,7 @@ class ManageOrders extends Component {
 
                         <CustomPagination
                             totalRecords={listOrders.length}
-                            pageLimit={pageLimit || 5}
+                            pageLimit={pageLimit || 10}
                             initialPage={1}
                             pagesToShow={5}
                             onChangePage={this.onChangePage}

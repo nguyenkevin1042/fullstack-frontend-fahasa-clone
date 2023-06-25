@@ -158,7 +158,6 @@ $ex-large: 1200px;// Extra large >= 1200
                             
                         }
                         .react-select__value-container{
-                            // padding-left: 3px;
                             min-width: 45px;
                             max-width: 45px;
                         }
@@ -168,7 +167,7 @@ $ex-large: 1200px;// Extra large >= 1200
                         width: fit-content;
     
                         .react-select__menu-list{
-                            width: 82px;
+                            width: 85px;
                         }
                         .react-select__option{      
 
@@ -184,7 +183,7 @@ $ex-large: 1200px;// Extra large >= 1200
                             height: 23px;
                         }
                         span{
-                            margin-left: 5px;
+                            margin-left: 4px;
                         }
                     }
                 }

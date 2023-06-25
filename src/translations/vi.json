@@ -43,6 +43,9 @@
                 "novel": "Tiểu Thuyết",
                 "light-novel": "Light Novel"
             },
+            "recommended-products": {
+                "see-more": "Xem Thêm"
+            },
             "newletter": {
                 "title": "Đăng ký nhận bản tin",
                 "input-email": "nhập địa chỉ email của bạn",

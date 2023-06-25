@@ -43,12 +43,20 @@ class RecommendedProducts extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
-            // console.log('prevProps; ', prevProps)
-            // console.log('this.state; ', this.state)
-            // await this.props.getProductByTagId(prevProps.selectedTag.id)
-            // this.setState({
-            //     listProducts: this.props.allProductArr
-            // })
+            let { tagName } = this.props
+
+            await this.props.getTagByType(tagName)
+
+            let dataTag = this.buildDataInputSelect(this.props.allTagArr);
+            this.setState({
+                listTags: dataTag,
+                selectedTag: dataTag[0]
+            })
+
+            await this.props.getProductByTagId(this.state.selectedTag.id)
+            this.setState({
+                listProducts: this.props.allProductArr
+            })
         }
 
         if (prevProps.tagName !== this.props.tagName) {
@@ -58,10 +66,6 @@ class RecommendedProducts extends Component {
                 listTags: dataTag,
                 selectedTag: dataTag[0]
             })
-            // await this.props.getProductByTagId(this.state.selectedTag.id)
-            // this.setState({
-            //     listProducts: this.props.allProductArr
-            // })
         }
 
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
@@ -197,7 +201,8 @@ class RecommendedProducts extends Component {
 
                 <div className='more-product-btn col-12'>
                     <button onClick={() => this.handleViewMoreProductWithTag(selectedTag.keyName)}>
-                        Xem Thêm</button>
+                        <FormattedMessage id="customer.homepage.recommended-products.see-more" />
+                    </button>
                 </div>
             </div>
         );

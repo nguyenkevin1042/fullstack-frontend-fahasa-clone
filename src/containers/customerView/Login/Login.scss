@@ -82,16 +82,16 @@ $ex-large: 1200px;// Extra large >= 1200
             .log-in-form-input{
                 padding: 0 20px;
 
-                .custom-input-password {
-                    position: relative;
+                // .custom-input-password {
+                //     position: relative;
     
-                    i.show-hide-icon {
-                        position: absolute;
-                        right: 25px;
-                        top: 37px;
-                        cursor: pointer;
-                    }
-                }
+                //     i.show-hide-icon {
+                //         position: absolute;
+                //         right: 25px;
+                //         top: 37px;
+                //         cursor: pointer;
+                //     }
+                // }
 
                 .form-group{
                     margin-top: 20px;
@@ -143,4 +143,5 @@ $ex-large: 1200px;// Extra large >= 1200
             }
         }      
     }
+    
 }

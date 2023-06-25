@@ -67,7 +67,7 @@ class AddProductModal extends Component {
 
 
         if (prevProps.actionResponse !== this.props.actionResponse) {
-            if (this.props.actionResponse.errCode === 0) {
+            if (this.props.actionResponse && this.props.actionResponse.errCode === 0) {
                 this.props.closeModal()
             }
         }

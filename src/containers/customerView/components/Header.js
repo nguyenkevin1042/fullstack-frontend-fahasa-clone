@@ -57,6 +57,10 @@ class Header extends Component {
     }
 
     async componentDidMount() {
+        if (this.props.userInfo) {
+            await this.props.getCartByUserId(this.props.userInfo.id)
+
+        }
         this.setState({
             selectedLanguage: this.state.listLanguage[0]
         })
@@ -64,15 +68,6 @@ class Header extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-
-        }
-
-        if (prevProps.userInfo !== this.props.userInfo) {
-            // await this.props.getCartByUserId(this.props.userInfo.id)
-        }
-
-
         if (prevProps.allCodesArr !== this.props.allCodesArr
             || prevProps.lang !== this.props.lang) {
             let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
@@ -80,20 +75,6 @@ class Header extends Component {
                 listCategory: dataSelect
             })
         }
-
-        // if (prevProps.cartData !== this.props.cartData ||
-        //     prevProps.history !== this.props.history) {
-        //     this.setState({
-        //         productInCartLength: this.props.cartData.length
-        //     })
-        // }
-
-        // if (prevProps.history !== this.props.history) {
-        //     this.setState({
-        //         productInCartLength: this.props.cartData.length
-        //     })
-        // }
-
     }
 
     buildDataInputSelect = (inputData, type) => {

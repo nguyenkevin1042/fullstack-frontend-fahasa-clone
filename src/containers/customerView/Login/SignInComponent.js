@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import './SignInComponent.scss';
 import * as actions from "../../../store/actions";
 
 import { CommonUtils, languages } from '../../../utils';

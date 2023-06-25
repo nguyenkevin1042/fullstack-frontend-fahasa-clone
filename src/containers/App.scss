@@ -137,16 +137,27 @@ body{
           
          }
      }
- 
-     
- }
+}
+
+.custom-input-password {
+  position: relative;
+
+  i.show-hide-icon {
+      position: absolute;
+      right: 25px;
+      top: 40px;
+      cursor: pointer;
+  }
+}
+
 
 
  ._loading_overlay_wrapper{
     // height: 100vh;
+    // height: 100vh;
     ._loading_overlay_overlay{
       position: relative;
-      background-color: transparent;
+      // background-color: transparent;
 
 
       ._loading_overlay_content{

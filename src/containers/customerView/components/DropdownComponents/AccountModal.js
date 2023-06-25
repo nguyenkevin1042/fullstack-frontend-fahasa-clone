@@ -7,8 +7,6 @@ import SignInComponent from '../../Login/SignInComponent';
 import SignUpComponent from '../../Login/SignUpComponent';
 import ForgotPasswordComponent from '../../Login/ForgotPasswordComponent';
 
-// import * as actions from "../store/actions";
-
 class AccountModal extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +18,10 @@ class AccountModal extends Component {
     }
 
     componentDidMount() {
-
+        // this.setState({
+        //     loadSignInForm: this.props.loadSignInForm,
+        //     loadSignUpForm: this.props.loadSignUpForm
+        // })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -28,6 +29,18 @@ class AccountModal extends Component {
 
         }
 
+        if (prevProps.loadSignInForm !== this.props.loadSignInForm) {
+            this.setState({
+                loadSignUpForm: this.props.loadSignUpForm,
+                loadSignInForm: this.props.loadSignInForm
+            })
+        }
+        if (prevProps.loadSignUpForm !== this.props.loadSignUpForm) {
+            this.setState({
+                loadSignInForm: this.props.loadSignInForm,
+                loadSignUpForm: this.props.loadSignUpForm
+            })
+        }
 
     }
 
@@ -52,6 +65,15 @@ class AccountModal extends Component {
             loadSignInForm: false,
             loadSignUpForm: false,
             loadForgotPasswordForm: true
+        })
+    }
+
+    handleCloseModal = () => {
+        this.props.closeAccountModal()
+        this.setState({
+            loadSignInForm: true,
+            loadSignUpForm: false,
+            loadForgotPasswordForm: false
         })
     }
 
@@ -89,8 +111,10 @@ class AccountModal extends Component {
     render() {
         let { loadSignInForm, loadSignUpForm, loadForgotPasswordForm } = this.state
         let { isModalOpened, closeAccountModal } = this.props
+
         return (
             <Modal isOpen={isModalOpened}
+                toggle={this.handleCloseModal}
                 className={'account-modal-container'}>
 
 
@@ -112,7 +136,7 @@ class AccountModal extends Component {
                         </div>
 
                         <div className='close-modal-btn'>
-                            <button onClick={closeAccountModal}><FormattedMessage id="customer.login.skip-text" /></button>
+                            <button onClick={() => this.handleCloseModal()}><FormattedMessage id="customer.login.skip-text" /></button>
                         </div>
                     </div>
                 </div>

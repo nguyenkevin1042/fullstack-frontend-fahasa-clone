@@ -14,6 +14,7 @@ const renderApp = () => {
     ReactDOM.render(
         <Provider store={reduxStore}>
             <IntlProviderWrapper>
+
                 <App persistor={persistor} />
             </IntlProviderWrapper>
         </Provider>,
