@@ -32,14 +32,15 @@ class RecommendedProducts extends Component {
         let dataTag = this.buildDataInputSelect(this.props.allTagArr);
         this.setState({
             listTags: dataTag,
-            selectedTag: dataTag[0]
+            selectedTag: dataTag ? dataTag[0] : ''
         })
 
-        await this.props.getProductByTagId(dataTag[0].id)
-        this.setState({
-            listProducts: this.props.allProductArr
-        })
-        console.log(dataTag[0])
+        if (dataTag && dataTag.length > 0) {
+            await this.props.getProductByTagId(dataTag[0].id)
+            this.setState({
+                listProducts: this.props.allProductArr
+            })
+        }
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {

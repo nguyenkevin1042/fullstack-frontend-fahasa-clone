@@ -132,8 +132,10 @@ $ex-large: 1200px;// Extra large >= 1200
         }
 
         .home-header-user-options{
+            
             .option{
                 padding: 5px;
+                position: relative;
 
                 .fa{
                     font-size: 20px;
