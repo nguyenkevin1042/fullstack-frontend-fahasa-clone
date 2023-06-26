@@ -68,7 +68,7 @@ class ManageProduct extends Component {
             // })
         }
 
-        if (prevProps.actionResponse !== this.props.actionResponse) {
+        if (this.props.actionResponse && prevProps.actionResponse !== this.props.actionResponse) {
             if (this.props.actionResponse.errCode === 0) {
                 await this.props.fetchAllProduct();
 

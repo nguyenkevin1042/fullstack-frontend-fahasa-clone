@@ -52,7 +52,7 @@ class ManageAllCodes extends Component {
 
     render() {
         let { type, keyMap, valueVI, valueEN } = this.state
-        console.log(this.props.allCodesArr)
+
         return (
             <Fragment>
                 <div className='manage-all-codes-container'>
