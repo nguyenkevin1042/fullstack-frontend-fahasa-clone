@@ -271,6 +271,7 @@ class ManageProduct extends Component {
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
+        console.log(listProduct)
         return (
             <>
                 <LoadingOverlay

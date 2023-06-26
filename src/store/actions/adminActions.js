@@ -118,7 +118,8 @@ export const fetchAllCodes = () => {
         let res;
         try {
             res = await getAllCodesAPI();
-
+            console.log(res)
+            return
             if (res && res.errCode === 0) {
                 dispatch(fetchAllCodesSuccess(res.allCodes));
             } else {

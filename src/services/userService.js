@@ -67,7 +67,7 @@ const editCodeAPI = (inputData) => {
 const getCodeByTypeAPI = (inputType) => {
     return axios.get("/api/get-code-by-type", {
         params: {
-            type: inputType.toUpperCase()
+            type: inputType
         }
     });
 }

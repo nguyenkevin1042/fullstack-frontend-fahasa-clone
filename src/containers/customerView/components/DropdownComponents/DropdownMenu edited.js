@@ -14,26 +14,25 @@ class DropdownMenu extends Component {
             listCategory: [],
             selectedCategory: '',
             listSubCategory: [],
-            selectedChildCategory: [],
+            listChildCategory: [],
         };
     }
 
     async componentDidMount() {
-        this.setState({
-            listCategory: [],
-            selectedCategory: '',
-            listSubCategory: [],
-            selectedChildCategory: [],
-        })
+        // this.setState({
+        //     listCategory: [],
+        //     selectedCategory: '',
+        //     listSubCategory: [],
+        //     listChildCategory: [],
+        // })
         await this.props.fetchAllCodesByType('category')
         let dataSelectCategory = this.buildDataInputSelect(this.props.allCodesArr, "category");
         this.setState({
             listCategory: dataSelectCategory,
             selectedCategory: dataSelectCategory[0],
-
         })
 
-        await this.props.fetchAllSubCategoryByCategory(this.state.selectedCategory.keyName);
+        await this.props.fetchAllSubCategoryByCategory(dataSelectCategory[0].keyName);
         let dataSelectSubCategory = this.buildDataInputSelect(this.props.allSubCategoryArr, "subCategory");
         this.setState({
             listSubCategory: dataSelectSubCategory,
@@ -62,12 +61,12 @@ class DropdownMenu extends Component {
             })
         }
 
-        if (prevProps.childCategory !== this.props.childCategory ||
-            prevProps.lang !== this.props.lang) {
-            this.setState({
-                selectedChildCategory: this.props.childCategory[0],
-            })
-        }
+        // if (prevProps.childCategory !== this.props.childCategory ||
+        //     prevProps.lang !== this.props.lang) {
+        //     this.setState({
+        //         listChildCategory: this.props.childCategory[0],
+        //     })
+        // }
     }
 
     buildDataInputSelect = (inputData, type) => {
@@ -172,14 +171,14 @@ class DropdownMenu extends Component {
                                     </div>
                                     <div>
                                         <ul className='child-category-list'>
-                                            {subCategoryItem.childCategoryData && subCategoryItem.childCategoryData.length > 0 &&
+                                            {/* {subCategoryItem.childCategoryData && subCategoryItem.childCategoryData.length > 0 &&
                                                 subCategoryItem.childCategoryData.map((item, index) => (
                                                     <li key={item.id} className='child-category-item'
                                                         onClick={() => this.hanldeRedirectToChildCategoryProductList(subCategoryItem, item)}>
                                                         {language === languages.VI ? item.valueVI : item.valueEN}
                                                     </li>
                                                 ))
-                                            }
+                                            } */}
                                         </ul>
                                     </div>
 

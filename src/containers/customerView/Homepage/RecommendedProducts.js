@@ -35,7 +35,7 @@ class RecommendedProducts extends Component {
             selectedTag: dataTag[0]
         })
 
-        await this.props.getProductByTagId(dataTag[0])
+        await this.props.getProductByTagId(dataTag[0].id)
         this.setState({
             listProducts: this.props.allProductArr
         })
