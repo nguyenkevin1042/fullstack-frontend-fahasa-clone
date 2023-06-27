@@ -101,9 +101,9 @@ class ProductsOfTag extends Component {
             <>
                 {listProduct && listProduct.length > 0 &&
                     listProduct.map((item, index) => (
-                        <div key={item.id}
+                        <div key={item.productId}
                             className='sharing-product-item-container col-4 col-md-3'>
-                            {item && <ProductItem productId={item.id} />}
+                            {item && <ProductItem productId={item.productId} />}
                         </div>
                     ))
                 }
@@ -171,6 +171,7 @@ class ProductsOfTag extends Component {
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
+        console.log(listProduct)
         return (
             <>
                 <Header />

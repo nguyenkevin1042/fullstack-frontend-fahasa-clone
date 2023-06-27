@@ -989,7 +989,6 @@ export const getProductByTagKeyName = (inputKeyName) => {
         dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
-
             res = await getProductByTagKeyNameAPI(inputKeyName);
 
             if (res && res.errCode === 0) {
