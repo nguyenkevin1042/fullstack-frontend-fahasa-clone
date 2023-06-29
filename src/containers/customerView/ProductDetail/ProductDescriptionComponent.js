@@ -27,7 +27,7 @@ class ProductDescriptionComponent extends Component {
     renderBookDescription = (product, descriptionData) => {
         let { lang } = this.props
         return (
-            <>
+            <tbody>
                 <tr>
                     <th><FormattedMessage id="customer.product-detail.product-id" /></th>
                     <td>{product.id}</td>
@@ -93,14 +93,13 @@ class ProductDescriptionComponent extends Component {
                             product.AllCode.valueVI : product.AllCode.valueEN}</td>
                     </tr>
                     : <></>}
-
-            </>
+            </tbody>
         )
     }
 
     renderStationaryDescription = (product, descriptionData) => {
         return (
-            <>
+            <tbody>
                 <tr >
                     <th><FormattedMessage id="customer.product-detail.product-id" /></th>
                     <td>{product.id}</td>
@@ -133,13 +132,13 @@ class ProductDescriptionComponent extends Component {
                     <th><FormattedMessage id="customer.product-detail.size" /></th>
                     <td>{this.renderProductSize(product.length, product.width, product.height)} cm</td>
                 </tr>
-            </>
+            </tbody>
         )
     }
 
     renderToyDescription = (product, descriptionData) => {
         return (
-            <>
+            <tbody>
                 <tr >
                     <th><FormattedMessage id="customer.product-detail.product-id" /></th>
                     <td>{product.id}</td>
@@ -192,8 +191,7 @@ class ProductDescriptionComponent extends Component {
                     <th><FormattedMessage id="customer.product-detail.size" /></th>
                     <td>{this.renderProductSize(product.length, product.width, product.height)} cm</td>
                 </tr>
-
-            </>
+            </tbody>
         )
     }
 
@@ -227,11 +225,13 @@ class ProductDescriptionComponent extends Component {
                         <FormattedMessage id="customer.product-detail.product-detail" />
                     </div>
                     <div>
-                        <table>
-                            {productType === 'book' && this.renderBookDescription(product, descriptionData)}
-                            {productType === 'stationary' && this.renderStationaryDescription(product, descriptionData)}
-                            {productType === 'toy' && this.renderToyDescription(product, descriptionData)}
-                        </table>
+                        <div>
+                            <table>
+                                {productType === 'book' && this.renderBookDescription(product, descriptionData)}
+                                {productType === 'stationary' && this.renderStationaryDescription(product, descriptionData)}
+                                {productType === 'toy' && this.renderToyDescription(product, descriptionData)}
+                            </table>
+                        </div>
 
                         <div className='about-product-price'>
                             Giá sản phẩm trên Fahasa.com đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như Phụ phí đóng gói, phí vận chuyển, phụ phí hàng cồng kềnh,..

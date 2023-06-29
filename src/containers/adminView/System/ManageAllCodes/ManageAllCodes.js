@@ -36,8 +36,10 @@ class ManageAllCodes extends Component {
 
     handleSaveNewCode = async () => {
         await this.props.addNewCode(this.state)
-        this.handleClearAllInput();
-        this.props.fetchAllCodes();
+        if (this.props.actionResponse.errCode === 0) {
+            this.handleClearAllInput();
+            this.props.fetchAllCodes();
+        }
     }
 
     handleClearAllInput = () => {
@@ -52,7 +54,7 @@ class ManageAllCodes extends Component {
 
     render() {
         let { type, keyMap, valueVI, valueEN } = this.state
-
+        console.log(this.props.actionResponse)
         return (
             <Fragment>
                 <div className='manage-all-codes-container'>
@@ -110,7 +112,8 @@ class ManageAllCodes extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        allCodesArr: state.admin.allCodesArr
+        allCodesArr: state.admin.allCodesArr,
+        actionResponse: state.admin.actionResponse
     };
 };
 

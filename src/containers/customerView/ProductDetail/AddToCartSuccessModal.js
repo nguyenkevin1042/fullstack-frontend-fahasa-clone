@@ -5,8 +5,6 @@ import { withRouter } from 'react-router';
 import './AddToCartSuccessModal.scss';
 import { Modal } from 'reactstrap'
 
-// import * as actions from "../store/actions";
-
 class AddToCartSuccessModal extends Component {
     constructor(props) {
         super(props);
@@ -23,8 +21,6 @@ class AddToCartSuccessModal extends Component {
         if (prevProps.lang !== this.props.lang) {
 
         }
-
-
     }
 
 

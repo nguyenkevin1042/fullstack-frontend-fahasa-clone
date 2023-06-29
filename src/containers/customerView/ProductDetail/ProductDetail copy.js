@@ -15,7 +15,6 @@ import OtherProductsComponent from './OtherProductsComponent';
 import AddToCartSuccessModal from './AddToCartSuccessModal';
 import { languages } from '../../../utils';
 import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
-import AccountModal from '../components/DropdownComponents/AccountModal';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -30,12 +29,10 @@ class ProductDetail extends Component {
             message: '',
             formData: '',
 
-            isModalSuccessOpened: false,
+            isModalOpened: false,
             isLoggedIn: false,
 
-            isModalLoginOpened: false,
-            loadSignInForm: false,
-            loadSignUpForm: false,
+
         };
     }
 
@@ -90,28 +87,15 @@ class ProductDetail extends Component {
         }
     }
 
-    handleOpenSignInModal = () => {
-        this.setState({
-            isModalLoginOpened: true,
-            loadSignInForm: true,
-            loadSignUpForm: false,
-        })
-    }
-
     handleCloseModal = () => {
         this.setState({
-            isModalSuccessOpened: false
-        })
-    }
-    handleCloseAccountModal = () => {
-        this.setState({
-            isModalLoginOpened: false
+            isModalOpened: false
         })
     }
 
     hanldePayCheckNow = () => {
         this.setState({
-            isModalSuccessOpened: false
+            isModalOpened: false
         })
         if (this.props.history) {
             this.props.history.push("/cart");
@@ -133,7 +117,7 @@ class ProductDetail extends Component {
 
 
         this.setState({
-            isModalSuccessOpened: true
+            isModalOpened: true
         })
 
     }
@@ -142,22 +126,15 @@ class ProductDetail extends Component {
         let { userInfo, product } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
 
-        if (userInfo) {
-            await this.props.addToCart({
-                cartId: userInfo ? userInfo.Cart.id : '',
-                productId: product.id,
-                quantity: this.state.quantityValue,
-                productPrice: product.discount ? salePrice : product.price
-            })
-            console.log(this.props.userInfo)
-            console.log(this.state.isLoggedIn)
-        } else {
-            this.handleOpenSignInModal()
+        await this.props.addToCart({
+            cartId: userInfo ? userInfo.Cart.id : '',
+            productId: product.id,
+            quantity: this.state.quantityValue,
+            productPrice: product.discount ? salePrice : product.price
+        })
+        if (this.props.history) {
+            this.props.history.push("/cart");
         }
-
-        // if (this.props.history) {
-        //     this.props.history.push("/cart");
-        // }
     }
 
     handleOnChangeInput = (event, key) => {
@@ -307,13 +284,14 @@ class ProductDetail extends Component {
 
     render() {
         let { quantityValue, descriptionData, productType, category,
-            subCategory, isModalSuccessOpened, message, isModalLoginOpened,
-            loadSignInForm, loadSignUpForm } = this.state
+            subCategory, isModalOpened, message } = this.state
         let { product } = this.props
         let imageBase64 = '';
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
+
+        console.log(this.state.isLoggedIn)
 
         return (
             <>
@@ -387,14 +365,11 @@ class ProductDetail extends Component {
 
                 </div>
 
-                <AddToCartSuccessModal isModalOpened={isModalSuccessOpened}
+                <AddToCartSuccessModal isModalOpened={isModalOpened}
                     message={message} productImg={imageBase64}
                     closeModal={this.handleCloseModal}
                     payCheckNow={this.hanldePayCheckNow} />
-                {/* <AccountModal isModalOpened={isModalLoginOpened}
-                    loadSignInForm={loadSignInForm}
-                    loadSignUpForm={loadSignUpForm}
-                    closeAccountModal={this.handleCloseAccountModal} /> */}
+
 
                 {/* <OtherProductsComponent titleKey={'same-author'} /> */}
                 {/* <OtherProductsComponent titleKey={'relevant-products'} /> */}

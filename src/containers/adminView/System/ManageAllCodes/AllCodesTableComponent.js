@@ -14,8 +14,8 @@ class AllCodesTableComponent extends Component {
         };
     }
 
-    componentDidMount() {
-        this.props.fetchAllCodes();
+    async componentDidMount() {
+        await this.props.fetchAllCodes();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -57,8 +57,9 @@ class AllCodesTableComponent extends Component {
         )
     }
 
-    handleDelete = (item) => {
-        this.props.deleteCode(item.id);
+    handleDelete = async (item) => {
+        await this.props.deleteCode(item.id);
+        await this.props.fetchAllCodes();
     }
 
     handleEdit = (item) => {

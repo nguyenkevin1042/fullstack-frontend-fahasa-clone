@@ -62,12 +62,12 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.ADD_NEW_CODE_SUCCESS:
-            state.errResponse = action.errResponse
+            state.actionResponse = action.response
             return {
                 ...state,
             }
         case actionTypes.ADD_NEW_CODE_FAIL:
-            state.errResponse = action.errResponse
+            state.actionResponse = action.response
             return {
                 ...state,
             }

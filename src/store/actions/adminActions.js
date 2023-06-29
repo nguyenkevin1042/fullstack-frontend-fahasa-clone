@@ -104,12 +104,12 @@ export const addNewCode = (codeData) => {
 
 export const addNewCodeSuccess = (response) => ({
     type: actionTypes.ADD_NEW_CODE_SUCCESS,
-    errResponse: response
+    response: response
 })
 
 export const addNewCodeFail = (response) => ({
     type: actionTypes.ADD_NEW_CODE_FAIL,
-    errResponse: response
+    response: response
 })
 
 //FETCH ALL CODES
