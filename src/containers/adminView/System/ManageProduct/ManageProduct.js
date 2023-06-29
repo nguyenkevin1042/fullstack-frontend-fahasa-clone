@@ -233,7 +233,7 @@ class ManageProduct extends Component {
             <>
                 {products && products.length > 0 &&
                     products.map((item, index) => (
-                        <tr>
+                        <tr key={item.id}>
                             <ProductRowItem productId={item.id}
                                 editProduct={this.handleEdit}
                                 deleteProduct={this.handleDelete}
@@ -271,7 +271,6 @@ class ManageProduct extends Component {
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
-        console.log(listProduct)
         return (
             <>
                 <LoadingOverlay
