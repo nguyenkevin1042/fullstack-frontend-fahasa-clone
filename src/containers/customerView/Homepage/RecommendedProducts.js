@@ -118,7 +118,8 @@ class RecommendedProducts extends Component {
                 <div className='header-item-list'>
                     {listTags && listTags.length > 0 &&
                         listTags.map((item, index) => (
-                            <div className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
+                            <div key={item.id}
+                                className={selectedTag === item ? 'header-item-tag active' : 'header-item-tag'}
                                 onClick={() => this.handleOnClickTag(item)}>
                                 {item.label}
                             </div>
@@ -166,9 +167,8 @@ class RecommendedProducts extends Component {
                         listProducts.map((item, index) => {
 
                             return (
-                                <>
-                                    <RecommendedProductItem productId={item.productId} />
-                                </>
+                                <RecommendedProductItem productId={item.productId} key={item.productId} />
+
                             )
                         })}
                 </Slider >

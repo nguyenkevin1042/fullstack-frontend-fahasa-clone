@@ -205,16 +205,15 @@ class SearchResult extends Component {
                             <FormattedMessage id="customer.search-result.title" /> &lsquo;{searchQuery}&rsquo;
                         </div>
 
-                        {isLoading === false && listProduct.length === 0 &&
+                        {isLoading === false && listProduct.length === 0 ?
                             <div className='no-products-text'>
                                 {message}
+                            </div> :
+                            <div className='search-result-list container'>
+                                <div className='row'>
+                                    {this.renderIfHavingProducts()}
+                                </div>
                             </div>}
-
-                        <div className='search-result-list container'>
-                            <div className='row'>
-                                {this.renderIfHavingProducts()}
-                            </div>
-                        </div>
                     </div>
                 </div>
 

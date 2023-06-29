@@ -10,7 +10,8 @@ export const userLogin = (inputEmail, inputPassword) => {
         let res;
         try {
             res = await customerLoginAPI(inputEmail, inputPassword);
-
+            // console.log(res)
+            // return;
             if (res && res.errCode === 0) {
                 dispatch(userLoginSuccess(res));
             } else {

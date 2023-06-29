@@ -155,9 +155,9 @@ class ProductDetail extends Component {
             this.handleOpenSignInModal()
         }
 
-        // if (this.props.history) {
-        //     this.props.history.push("/cart");
-        // }
+        if (this.props.history) {
+            this.props.history.push("/cart");
+        }
     }
 
     handleOnChangeInput = (event, key) => {

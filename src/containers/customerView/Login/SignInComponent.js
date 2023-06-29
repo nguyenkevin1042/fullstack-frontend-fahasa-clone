@@ -18,23 +18,31 @@ class SignInComponent extends Component {
     }
 
     componentDidMount() {
-        if (this.props.userInfo) {
-            this.props.history.push("/customer/account/dashboard");
-        }
+        // if (this.props.userInfo) {
+        //     this.props.history.push("/customer/account/dashboard");
+        // }
         this.setState({
             message: ''
         })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.actionResponse !== this.props.actionResponse) {
-            this.setState({
-                message: this.props.lang === languages.VI ?
-                    this.props.actionResponse.messageVI :
-                    this.props.actionResponse.messageEN
-            })
+        if (this.props.actionResponse) {
+            if (prevProps.actionResponse !== this.props.actionResponse) {
+                this.setState({
+                    message: this.props.lang === languages.VI ?
+                        this.props.actionResponse.messageVI :
+                        this.props.actionResponse.messageEN
+                })
+            }
         }
 
+
+        // if (prevProps.userInfo !== this.props.userInfo) {
+        //     if (this.props.userInfo) {
+        //         this.props.history.push("/customer/account/dashboard");
+        //     }
+        // }
     }
 
     handleOnChangeInput = (event, key) => {
@@ -51,13 +59,13 @@ class SignInComponent extends Component {
 
         await this.props.userLogin(this.state.email, this.state.password)
 
-        if (this.props.actionResponse.errCode === 0) {
-            this.props.history.push("/customer/account/dashboard");
+        // if (this.props.actionResponse.errCode === 0) {
+        //     this.props.history.push("/customer/account/dashboard");
 
-            if (this.props.closeAccountModal) {
-                this.props.closeAccountModal();
-            }
-        }
+        //     if (this.props.closeAccountModal) {
+        //         this.props.closeAccountModal();
+        //     }
+        // }
     }
 
     handleShowHidePassword = () => {
@@ -71,6 +79,7 @@ class SignInComponent extends Component {
         let { email, password, message, isShowed } = this.state;
         let { isOpenSignInForm, handleOpenForgotPasswordForm } = this.props;
 
+        console.log(message)
         return (
             <>
                 {isOpenSignInForm === true &&
@@ -81,7 +90,7 @@ class SignInComponent extends Component {
                                 placeholder='Email'
                                 value={email}
                                 onChange={(event) => this.handleOnChangeInput(event, 'email')}
-                                required />
+                            />
                         </div>
                         <div className="col-12 form-group custom-input-password">
                             <label><FormattedMessage id="customer.login.password" /></label>
@@ -89,8 +98,9 @@ class SignInComponent extends Component {
                                 type={isShowed ? 'text' : 'password'}
                                 placeholder='Password'
                                 value={password}
+                                autoComplete='off'
                                 onChange={(event) => this.handleOnChangeInput(event, 'password')}
-                                required />
+                            />
                             <span onClick={() => this.handleShowHidePassword()}>
                                 <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
                             </span>
@@ -108,7 +118,6 @@ class SignInComponent extends Component {
                                 <FormattedMessage id="customer.login.sign-in-text" />
                             </button>
                         </div >
-
                     </>
                 }
             </>

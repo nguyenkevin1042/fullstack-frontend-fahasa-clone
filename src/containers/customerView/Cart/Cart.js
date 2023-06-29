@@ -38,7 +38,6 @@ class Cart extends Component {
         if (prevProps.lang !== this.props.lang) {
             if (this.props.userInfo) {
                 await this.props.getCartByUserId(this.props.userInfo.id)
-
             }
         }
         if (prevState.checkAll !== this.state.checkAll) {
@@ -61,13 +60,17 @@ class Cart extends Component {
         }
 
         if (prevProps.userInfo !== this.props.userInfo) {
-            await this.props.getCartByUserId(this.props.userInfo.id)
+            if (this.props.userInfo) {
+                await this.props.getCartByUserId(this.props.userInfo.id)
+            }
         }
         if (prevProps.location !== this.props.location) {
-            await this.props.getCartByUserId(this.props.userInfo.id)
-            this.setState({
-                listProductInCart: this.props.cartData
-            })
+            if (this.props.userInfo) {
+                await this.props.getCartByUserId(this.props.userInfo.id)
+                this.setState({
+                    listProductInCart: this.props.cartData
+                })
+            }
         }
     }
 

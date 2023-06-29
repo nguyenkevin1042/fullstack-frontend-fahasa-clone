@@ -29,9 +29,13 @@ class DashboardComponent extends Component {
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
+        }
+
+        if (prevProps.userInfo !== this.props.userInfo) {
+            await this.props.getBillByUserId(this.props.userInfo.id)
         }
 
         if (prevState.selectedOrder !== this.state.selectedOrder) {
@@ -113,6 +117,7 @@ class DashboardComponent extends Component {
 
 
                         return (
+
                             <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{orderedDate}</td>
@@ -150,6 +155,7 @@ class DashboardComponent extends Component {
                                         </>}
                                 </td>
                             </tr>
+
                         )
                     }) :
                     <></>}
@@ -175,15 +181,19 @@ class DashboardComponent extends Component {
                 </div>
                 <div className='recent-order-table'>
                     <table>
-                        <tr>
-                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.order-id' /></th>
-                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
-                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
-                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.total' /></th>
-                            <th className='col-2'><FormattedMessage id='customer.account.dashboard.status' /></th>
-                            <th className='col-2'></th>
-                        </tr>
-                        {this.renderOrderData()}
+                        <thead>
+                            <tr>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.order-id' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.ordered-date' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.ship-to' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.total' /></th>
+                                <th className='col-2'><FormattedMessage id='customer.account.dashboard.status' /></th>
+                                <th className='col-2'></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderOrderData()}
+                        </tbody>
                     </table>
 
                     <div className='no-order-text'>{message}</div>
@@ -197,6 +207,7 @@ class DashboardComponent extends Component {
         let { selectedOrder } = this.state
         let { userInfo, lang } = this.props
 
+        console.log(this.props.billData)
         return (
             <React.Fragment>
                 <div className='right-content-header'>

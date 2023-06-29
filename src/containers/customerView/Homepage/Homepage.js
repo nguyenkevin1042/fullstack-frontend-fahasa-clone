@@ -30,8 +30,6 @@ class Homepage extends Component {
     }
 
     async componentDidMount() {
-        document.title = "HomePage | Nguyenkevin1042's Fahasa Clone"
-        await this.props.getAllTag()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -60,10 +58,6 @@ class Homepage extends Component {
 
 
     render() {
-        let { tagArr, isLoading, isModalOpened, listAllTag } = this.state;
-        let { allTagArr } = this.props;
-
-
         return (
             <React.Fragment>
                 <Header />

@@ -21,7 +21,9 @@ class Login extends Component {
     }
 
     componentDidMount() {
-
+        // if (this.props.userInfo) {
+        //     this.props.history.push("/customer/account/dashboard");
+        // }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -29,9 +31,9 @@ class Login extends Component {
 
         }
         if (prevProps.userInfo !== this.props.userInfo) {
-            // if (this.props.history) {
-            //     this.props.history.push("/customer/account");
-            // }
+            if (this.props.userInfo) {
+                this.props.history.push("/customer/account/dashboard");
+            }
         }
     }
 

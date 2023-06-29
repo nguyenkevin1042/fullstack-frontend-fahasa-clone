@@ -155,6 +155,7 @@ class DropdownMenu extends Component {
     renderSubCategoryList = () => {
         let { selectedCategory, listSubCategory } = this.state
         let language = this.props.lang;
+        console.log(selectedCategory, listSubCategory)
 
         return (
             <>
@@ -217,7 +218,7 @@ class DropdownMenu extends Component {
                         </div>
                     </div>
                     <div className='right-menu col-md-9'>
-                        {this.renderSubCategoryList()}
+                        {/* {this.renderSubCategoryList()} */}
                     </div>
                 </div>
             </div>
