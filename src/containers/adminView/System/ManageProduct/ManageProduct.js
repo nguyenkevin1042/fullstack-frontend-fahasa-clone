@@ -272,22 +272,22 @@ class ManageProduct extends Component {
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
 
         return (
-            <>
-                <LoadingOverlay
-                    active={isLoading}
-                    spinner={true}
-                    text='Please wait...'>
-                    <div className='sharing-manage-container'>
-                        <div className='sharing-manage-title'>
-                            Quản lý sản phẩm
-                        </div>
+            <LoadingOverlay
+                classNamePrefix="Fullscreen_"
+                active={isLoading}
+                spinner={true}
+                text='Please wait...'>
+                <div className='sharing-manage-container'>
+                    <div className='sharing-manage-title'>
+                        Quản lý sản phẩm
+                    </div>
 
-                        <div className='sharing-manage-add'>
-                            <button className='add-btn btn btn-primary'
-                                onClick={() => this.handleOpenAddProductModal()}>Thêm sản phẩm mới</button>
-                        </div>
+                    <div className='sharing-manage-add'>
+                        <button className='add-btn btn btn-primary'
+                            onClick={() => this.handleOpenAddProductModal()}>Thêm sản phẩm mới</button>
+                    </div>
 
-                        {/* <div className='sharing-manage-sort'>
+                    {/* <div className='sharing-manage-sort'>
                             <div className='sharing-manage-sort-title'>
                                 Tìm kiếm sản phẩm
                             </div>
@@ -323,51 +323,50 @@ class ManageProduct extends Component {
 
                         </div> */}
 
-                        <div className='manage-discount-actions'>
-                            <label>Tìm sản phẩm theo tên:</label>
-                            <input type='text'
-                                id='searchKey'
-                                value={searchKey}
-                                onChange={(event) => this.hanleOnChangeInput(event)}
-                                onKeyDown={(event) => { this.handleKeyDown(event) }}
-                                className='form-control'
-                            />
-                        </div>
-
-                        <div className='manage-sharing-table'>
-                            <table className='sharing-table'>
-
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Ảnh sản phẩm</th>
-                                    <th>Danh mục sản phẩm</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Giá sản phẩm</th>
-                                    <th>Actions</th>
-                                </tr>
-
-                                {this.renderProductsTableData(rowsPerPage)}
-
-                            </table>
-
-                            <CustomPagination
-                                totalRecords={listProduct.length}
-                                pageLimit={pageLimit || 5}
-                                initialPage={1}
-                                pagesToShow={5}
-                                onChangePage={this.onChangePage}
-                            />
-                        </div>
+                    <div className='manage-discount-actions'>
+                        <label>Tìm sản phẩm theo tên:</label>
+                        <input type='text'
+                            id='searchKey'
+                            value={searchKey}
+                            onChange={(event) => this.hanleOnChangeInput(event)}
+                            onKeyDown={(event) => { this.handleKeyDown(event) }}
+                            className='form-control'
+                        />
                     </div>
-                    <AddProductModal
-                        isOpenedAddModal={isOpenedAddModal}
-                        closeModal={this.handleCloseAddProductModal} />
-                    <EditProductModal
-                        isOpenedEditModal={isOpenedEditModal}
-                        closeModal={this.handleCloseEditProductModal}
-                        product={selectedProduct} />
-                </LoadingOverlay>
-            </>
+
+                    <div className='manage-sharing-table'>
+                        <table className='sharing-table'>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Ảnh sản phẩm</th>
+                                <th>Danh mục sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá sản phẩm</th>
+                                <th>Actions</th>
+                            </tr>
+
+                            {this.renderProductsTableData(rowsPerPage)}
+
+                        </table>
+
+                        <CustomPagination
+                            totalRecords={listProduct.length}
+                            pageLimit={pageLimit || 10}
+                            initialPage={1}
+                            pagesToShow={5}
+                            onChangePage={this.onChangePage}
+                        />
+                    </div>
+                </div>
+                <AddProductModal
+                    isOpenedAddModal={isOpenedAddModal}
+                    closeModal={this.handleCloseAddProductModal} />
+                <EditProductModal
+                    isOpenedEditModal={isOpenedEditModal}
+                    closeModal={this.handleCloseEditProductModal}
+                    product={selectedProduct} />
+            </LoadingOverlay>
         );
     }
 }

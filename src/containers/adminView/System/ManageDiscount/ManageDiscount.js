@@ -231,6 +231,7 @@ class ManageDiscount extends Component {
 
         return (
             <LoadingOverlay
+                classNamePrefix="Fullscreen_"
                 active={isLoading}
                 spinner={true}
                 text='Please wait...'>
