@@ -160,6 +160,7 @@ class RecommendedProducts extends Component {
             }]
         };
 
+        console.log(listProducts)
         return (
             <>
                 <Slider {...settings} >
@@ -168,7 +169,6 @@ class RecommendedProducts extends Component {
 
                             return (
                                 <RecommendedProductItem productId={item.productId} key={item.productId} />
-
                             )
                         })}
                 </Slider >

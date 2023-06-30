@@ -4,14 +4,16 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import * as actions from "../../../store/actions";
 import NumericFormat from 'react-number-format';
-// import LoadingOverlay from 'react-loading-overlay'
+import LoadingOverlay from 'react-loading-overlay'
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 
 class RecommendedProductItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
             productData: {},
-
+            isLoading: false,
         };
     }
 
@@ -32,6 +34,12 @@ class RecommendedProductItem extends Component {
             await this.props.fetchProductById(id);
             this.setState({
                 productData: this.props.singleProduct
+            })
+        }
+
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
             })
         }
 
@@ -83,7 +91,7 @@ class RecommendedProductItem extends Component {
 
 
     render() {
-        let { productData } = this.state
+        let { productData, isLoading } = this.state
 
         let imageBase64 = '';
         if (productData && productData.image) {
@@ -91,23 +99,34 @@ class RecommendedProductItem extends Component {
         }
         return (
             <React.Fragment>
-                <>
-                    {productData &&
-                        <div className='product-item' title={productData.name}
-                            onClick={() => this.handleRedirectToProductDetail(productData.keyName)} >
-                            <div className='product-image'
-                                style={{
-                                    backgroundImage: "url(" + imageBase64 + ")"
-                                }}>
-                            </div>
-                            <div className='product-name'>
-                                {productData.name}
-                            </div>
-                            <div className='product-price-text'>
-                                {this.renderProductPrice(productData.price, productData.discount)}
-                            </div>
-                        </div >}
-                </>
+                {/* <LoadingOverlay
+                    active={isLoading}
+                    spinner={true}
+                    text='Please wait...'> */}
+                {productData &&
+                    <div className='product-item' title={productData.name}
+                        onClick={() => this.handleRedirectToProductDetail(productData.keyName)} >
+                        <div
+                        // className='product-image'
+                        // style={{
+                        //     backgroundImage: "url(" + imageBase64 + ")"
+                        // }}
+                        >
+                            {imageBase64 &&
+                                <LazyLoadImage src={imageBase64}
+                                    alt="Image Alt"
+                                    effect="blur"
+                                    className='product-image'
+                                />}
+                        </div>
+                        <div className='product-name'>
+                            {productData.name}
+                        </div>
+                        <div className='product-price-text'>
+                            {this.renderProductPrice(productData.price, productData.discount)}
+                        </div>
+                    </div >}
+                {/* </LoadingOverlay> */}
             </React.Fragment >
         );
     }
@@ -118,6 +137,8 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         singleProduct: state.admin.singleProduct,
+        isFetchingData: state.admin.isFetchingData,
+
     };
 };
 

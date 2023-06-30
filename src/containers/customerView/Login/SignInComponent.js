@@ -18,31 +18,37 @@ class SignInComponent extends Component {
     }
 
     componentDidMount() {
-        // if (this.props.userInfo) {
-        //     this.props.history.push("/customer/account/dashboard");
-        // }
         this.setState({
             message: ''
         })
+        if (this.props.userInfo) {
+            this.props.history.push("/customer/account/dashboard");
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.actionResponse) {
-            if (prevProps.actionResponse !== this.props.actionResponse) {
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse) {
                 this.setState({
                     message: this.props.lang === languages.VI ?
                         this.props.actionResponse.messageVI :
                         this.props.actionResponse.messageEN
                 })
             }
+            if (this.props.actionResponse.errCode === 0) {
+                this.props.history.push("/customer/account/dashboard");
+
+                if (this.props.closeAccountModal) {
+                    this.props.closeAccountModal();
+                }
+            }
         }
 
-
-        // if (prevProps.userInfo !== this.props.userInfo) {
-        //     if (this.props.userInfo) {
-        //         this.props.history.push("/customer/account/dashboard");
-        //     }
-        // }
+        if (prevProps.userInfo !== this.props.userInfo) {
+            if (this.props.userInfo) {
+                this.props.history.push("/customer/account/dashboard");
+            }
+        }
     }
 
     handleOnChangeInput = (event, key) => {

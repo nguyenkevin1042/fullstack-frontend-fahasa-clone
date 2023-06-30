@@ -51,20 +51,15 @@ class Header extends Component {
             selectedCategory: '',
 
             productName: '',
-            productInCartLength: '',
+            productsInCartLength: '',
             searchQuery: ''
         };
     }
 
     async componentDidMount() {
-        if (this.props.userInfo) {
-            await this.props.getCartByUserId(this.props.userInfo.id)
-
-        }
         this.setState({
             selectedLanguage: this.state.listLanguage[0]
         })
-
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -74,6 +69,18 @@ class Header extends Component {
             this.setState({
                 listCategory: dataSelect
             })
+        }
+
+        if (prevProps.cartData !== this.props.cartData) {
+            this.setState({
+                productInCartLength: this.props.cartData.length
+            })
+        }
+
+        if (prevProps.userInfo !== this.props.userInfo) {
+            if (this.props.userInfo) {
+                await this.props.getCartByUserId(this.props.userInfo.id)
+            }
         }
     }
 
@@ -200,11 +207,8 @@ class Header extends Component {
     render() {
         let { listLanguage, selectedLanguage, productInCartLength, isOpened } = this.state
         let language = this.props.lang
-        let { cartData, userInfo } = this.props
-        let cartDataLength = cartData.length
 
         const menu = (<DropdownMenu />);
-        // const searchDropdown = (<SearchDropdown />)
         return (
             <>
                 <div className='home-header-container '>
@@ -227,7 +231,6 @@ class Header extends Component {
                             </div >
                             {/* SEARCH BAR */}
                             <div className='home-header-search-bar col-9 col-md-9 col-lg-6'>
-                                {/* <Dropdown overlay={searchDropdown}> */}
                                 <input type='text'
                                     id='searchQuery'
                                     onChange={(event) => this.hanleOnChangeInput(event)}
@@ -239,7 +242,6 @@ class Header extends Component {
                                             "Search entire store here"
                                     } />
                                 <button onClick={() => this.handleSearchProduct()}><i className="fa fa-search"></i></button>
-                                {/* </Dropdown> */}
                             </div >
                             {/* OPTIONS */}
                             <div className='home-header-user-options col-2 col-md-2 col-lg-3'>
@@ -256,8 +258,8 @@ class Header extends Component {
                                             onClick={() => this.handleRedirectToCart()}>
                                             <i className="fa fa-shopping-cart"></i>
                                             <p><FormattedMessage id="customer.homepage.header.cart" /></p>
-                                            {userInfo && cartData && cartDataLength > 0 ?
-                                                <span className='sum-products-in-cart'>{cartDataLength}</span> : <></>}
+                                            {productInCartLength > 0 ?
+                                                <span className='sum-products-in-cart'>{productInCartLength}</span> : <></>}
                                         </div>
 
                                         {this.renderCustomerOption()}
@@ -277,9 +279,7 @@ class Header extends Component {
                         </div>
                     </div >
                 </div >
-
             </>
-
         );
     }
 }

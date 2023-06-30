@@ -17,6 +17,8 @@ import { languages } from '../../../utils';
 import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
 import AccountModal from '../components/DropdownComponents/AccountModal';
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 class ProductDetail extends Component {
     constructor(props) {
         super(props);
@@ -149,8 +151,6 @@ class ProductDetail extends Component {
                 quantity: this.state.quantityValue,
                 productPrice: product.discount ? salePrice : product.price
             })
-            console.log(this.props.userInfo)
-            console.log(this.state.isLoggedIn)
         } else {
             this.handleOpenSignInModal()
         }
@@ -323,9 +323,16 @@ class ProductDetail extends Component {
                     <div className='product-detail-section row'>
                         <div className='product-detail-left col-md-5'>
                             <div className='row'>
-                                <div className='col-md-12 text-center'>
-                                    <img src={imageBase64}
-                                        className='product-img img-fluid' />
+                                <div className='col-md-12 text-center image-section'>
+                                    {imageBase64 &&
+                                        <LazyLoadImage src={imageBase64}
+                                            className='product-img'
+                                            alt="Image Alt"
+                                            effect="blur"
+                                        />}
+
+                                    {/* <img src={imageBase64}
+                                        className='product-img img-fluid' /> */}
                                 </div>
                                 <div className='product-action col-lg-12 d-none d-md-flex'>
                                     <div className='col-6'>

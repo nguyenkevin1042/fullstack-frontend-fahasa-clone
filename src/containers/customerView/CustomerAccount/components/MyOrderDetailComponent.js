@@ -35,27 +35,21 @@ class MyOrderDetailComponent extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        // if (prevProps.lang !== this.props.lang) {
-        //     let labelVI = this.props.selectedOrder.AllCode.valueVI
-        //     let labelEN = this.props.selectedOrder.AllCode.valueEN
-        //     this.setState({
-        //         orderStatus: this.props.lang === languages.VI ? labelVI : labelEN
-        //     })
-        // }
-
-        if (prevProps.selectedOrder !== this.props.selectedOrder) {
-            let id = this.props.selectedOrder.id
-            await this.props.getBillById(id)
+        if (prevProps.lang !== this.props.lang) {
+            let labelVI = this.props.selectedOrder.AllCode.valueVI
+            let labelEN = this.props.selectedOrder.AllCode.valueEN
             this.setState({
-                orderData: this.props.singleOrder
+                orderStatus: this.props.lang === languages.VI ? labelVI : labelEN,
             })
         }
 
-        if (prevProps.actionResponse !== this.props.actionResponse) {
-            // if (this.props.actionResponse.errCode === 0) {
-            //     this.props.history.push("/cart");
-            // }
-        }
+        // if (prevProps.selectedOrder !== this.props.selectedOrder) {
+        //     let id = this.props.selectedOrder.id
+        //     await this.props.getBillById(id)
+        //     this.setState({
+        //         orderData: this.props.singleOrder
+        //     })
+        // }
     }
 
     handleCancelOrder = async () => {
@@ -65,6 +59,7 @@ class MyOrderDetailComponent extends Component {
             billId: selectedOrder.id,
             statusKeyMap: 'S5'
         })
+        this.handleGoBack()
     }
 
     handleGoBack = () => {
@@ -80,7 +75,6 @@ class MyOrderDetailComponent extends Component {
     handleReOrder = async () => {
         let billProducts = this.state.orderData.BillProducts
         let userCartId = this.props.userInfo.Cart.id
-
 
         billProducts.map(async (item) => {
             let productItem = item.Product
@@ -166,7 +160,7 @@ class MyOrderDetailComponent extends Component {
     }
 
     render() {
-        let { selectedOrder, backToOrderList, singleOrder } = this.props
+        let { selectedOrder } = this.props
         let { orderStatus, orderStatusColor, orderData } = this.state
         let orderedDate = moment(orderData.orderedDate).format('DD/MM/YYYY')
 
@@ -181,7 +175,7 @@ class MyOrderDetailComponent extends Component {
                             </div>
                             <div className='sharing-detail-text'>
                                 <label><FormattedMessage id='customer.account.order-detail.order-id' />:</label>
-                                <b>{orderData.id}</b>
+                                <b>{selectedOrder.id}</b>
                             </div>
                             <div className='sharing-detail-text'>
                                 <label><FormattedMessage id='customer.account.order-detail.ordered-date' />:</label>

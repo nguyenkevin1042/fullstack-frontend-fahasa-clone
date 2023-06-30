@@ -684,6 +684,7 @@ export const fetchProductById = (inputId) => {
             } else {
                 dispatch(fetchProductByIdFail(res));
             }
+
         } catch (error) {
             dispatch(fetchProductByIdFail(res));
             console.log("fetchProductById Error: ", error)

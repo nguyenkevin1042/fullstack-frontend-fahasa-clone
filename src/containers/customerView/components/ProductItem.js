@@ -5,7 +5,7 @@ import './ProductItem.scss';
 import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
 import LoadingOverlay from 'react-loading-overlay'
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 class ProductItem extends Component {
     constructor(props) {
@@ -86,7 +86,6 @@ class ProductItem extends Component {
         return (
             <React.Fragment>
                 <LoadingOverlay
-                    className='customer-view'
                     active={isLoading}
                     spinner={true}
                     text='Please wait...'>

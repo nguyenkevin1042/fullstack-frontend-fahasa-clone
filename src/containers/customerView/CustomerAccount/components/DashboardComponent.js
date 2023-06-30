@@ -76,6 +76,8 @@ class DashboardComponent extends Component {
         let { userInfo, actionResponse } = this.props
         let userCartId = this.props.userInfo.Cart.id
 
+        // console.log(selectedItem)
+        // return
         billProducts.map(async (item) => {
             let productItem = item.Product
             let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
@@ -207,7 +209,6 @@ class DashboardComponent extends Component {
         let { selectedOrder } = this.state
         let { userInfo, lang } = this.props
 
-        console.log(this.props.billData)
         return (
             <React.Fragment>
                 <div className='right-content-header'>

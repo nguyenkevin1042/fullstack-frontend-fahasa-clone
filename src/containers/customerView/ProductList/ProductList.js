@@ -27,7 +27,7 @@ class ProductList extends Component {
             selectedChildCategory: '',
 
             listProduct: [],
-            isLoading: true,
+            isLoading: false,
 
             totalRecords: "",
             totalPages: "",
