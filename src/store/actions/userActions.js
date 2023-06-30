@@ -319,6 +319,7 @@ export const toOneTimeCheckout = (inputSelectedProducts) => {
 //CREATE NEW BILL
 export const createNewBill = (inputData) => {
     return async (dispatch, getState) => {
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
             res = await createNewBillAPI(inputData);
@@ -333,6 +334,8 @@ export const createNewBill = (inputData) => {
             dispatch(createNewBillFail(res));
             console.log("createNewBill Error: ", error)
         }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+
     }
 }
 

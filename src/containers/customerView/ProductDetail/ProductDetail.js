@@ -123,9 +123,10 @@ class ProductDetail extends Component {
     handleAddToCart = async () => {
         let { userInfo, product } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
+        let userCartId = this.props.userInfo.Cart.id
 
         await this.props.addToCart({
-            cartId: userInfo ? userInfo.Cart.id : '',
+            cartId: userCartId,
             productId: product.id,
             quantity: this.state.quantityValue,
             productPrice: product.discount ? salePrice : product.price
@@ -133,20 +134,19 @@ class ProductDetail extends Component {
 
         await this.props.getCartByUserId(this.props.userInfo.id)
 
-
         this.setState({
             isModalSuccessOpened: true
         })
-
     }
 
     handleBuyNow = async () => {
         let { userInfo, product } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
+        let userCartId = this.props.userInfo.Cart.id
 
         if (userInfo) {
             await this.props.addToCart({
-                cartId: userInfo ? userInfo.Cart.id : '',
+                cartId: userCartId,
                 productId: product.id,
                 quantity: this.state.quantityValue,
                 productPrice: product.discount ? salePrice : product.price

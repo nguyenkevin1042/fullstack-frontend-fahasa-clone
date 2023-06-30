@@ -8,6 +8,8 @@ import AddNewAddressModal from './Modal/AddNewAddressModal';
 import NumericFormat from 'react-number-format';
 import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
+import LoadingOverlay from 'react-loading-overlay'
+
 
 class OneStepCheckout extends Component {
     constructor(props) {
@@ -19,6 +21,7 @@ class OneStepCheckout extends Component {
             listUserAddress: [],
             selectedPayment: '',
             selectedAddress: '',
+            isLoading: false,
         };
     }
 
@@ -42,8 +45,10 @@ class OneStepCheckout extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
         }
 
         if (prevProps.userInfo !== this.props.userInfo) {
@@ -95,10 +100,7 @@ class OneStepCheckout extends Component {
                     result.push(obj);
                 });
             }
-
-
         }
-
         return result;
     }
 
@@ -111,12 +113,6 @@ class OneStepCheckout extends Component {
     handleCloseAddNewAddress = () => {
         this.setState({
             isOpenAddNewAddress: false
-        })
-    }
-
-    handleOpenConfirmAddress = () => {
-        this.setState({
-            isOpenConfirmAddress: true
         })
     }
 
@@ -143,16 +139,16 @@ class OneStepCheckout extends Component {
     handleConfirm = async () => {
         let orderedDate = Date.now();
 
-        if (this.props.userInfo) {
-            await this.props.createNewBill({
-                orderedDate: orderedDate,
-                userId: this.props.userInfo.id,
-                userAddressId: this.state.selectedAddress.id,
-                paymentType: this.state.selectedPayment.keyMap,
-                totalPrice: this.countTotalPrice(),
-                listProduct: this.state.listProduct
-            })
-        }
+        // if (this.props.userInfo) {
+        await this.props.createNewBill({
+            orderedDate: orderedDate,
+            userId: this.props.userInfo.id,
+            userAddressId: this.state.selectedAddress.id,
+            paymentType: this.state.selectedPayment.keyMap,
+            totalPrice: this.countTotalPrice(),
+            listProduct: this.state.listProduct
+        })
+        // }
     }
 
     countTotalPrice = () => {
@@ -293,12 +289,15 @@ class OneStepCheckout extends Component {
     }
 
     render() {
-        let { isOpenAddNewAddress } = this.state
-
-        console.log(this.state)
+        let { isOpenAddNewAddress, isLoading } = this.state
 
         return (
-            <React.Fragment>
+            // <React.Fragment>
+            <LoadingOverlay
+                classNamePrefix='Fullscreen_'
+                active={isLoading}
+                spinner={true}
+                text='Please wait...'>
                 <Header />
                 {/* SHIPPING ADDRESS */}
                 <div className='shipping-address-container sharing-container'>
@@ -407,13 +406,10 @@ class OneStepCheckout extends Component {
                     </div>
                 </div>
 
-
                 <AddNewAddressModal isOpenAddNewAddress={isOpenAddNewAddress}
                     closeAddNewAddress={this.handleCloseAddNewAddress} />
-
-
-            </React.Fragment >
-
+                {/* </React.Fragment > */}
+            </LoadingOverlay>
         );
     }
 }
@@ -426,6 +422,7 @@ const mapStateToProps = state => {
         selectedProducts: state.user.selectedProducts,
         allCodesArr: state.admin.allCodesArr,
         actionResponse: state.admin.actionResponse,
+        isFetchingData: state.admin.isFetchingData,
     };
 }
 const mapDispatchToProps = dispatch => {

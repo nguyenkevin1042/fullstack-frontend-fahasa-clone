@@ -160,7 +160,6 @@ class RecommendedProducts extends Component {
             }]
         };
 
-        console.log(listProducts)
         return (
             <>
                 <Slider {...settings} >
