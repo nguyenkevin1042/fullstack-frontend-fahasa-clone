@@ -18,6 +18,7 @@ class SignInComponent extends Component {
     }
 
     componentDidMount() {
+
         this.setState({
             message: ''
         })

@@ -21,12 +21,12 @@ class CustomerAccount extends Component {
     }
 
     componentDidMount() {
-        // document.title = "Account | Nguyenkevin1042's Fahasa Clone"
-        // if (!this.props.userInfo) {
-        //     if (this.props.history) {
-        //         this.props.history.push("/customer/account/login");
-        //     }
-        // }
+        document.title = "Account | Nguyenkevin1042's Fahasa Clone"
+        if (!this.props.userInfo) {
+            if (this.props.history) {
+                this.props.history.push("/customer/account/login");
+            }
+        }
         if (this.props.match.params.section) {
             this.setState({
                 selectedSection: this.props.match.params.section

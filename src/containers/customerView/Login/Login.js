@@ -21,31 +21,54 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        // if (this.props.userInfo) {
+        // if (this.props.userInfo !== null) {
         //     this.props.history.push("/customer/account/dashboard");
         // }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
+        // if (prevProps.location !== this.props.location) {
+        //     if (this.props.userInfo) {
+        //         this.props.history.push("/customer/account/dashboard");
+        //     }
+        // }
 
-        }
-        if (prevProps.userInfo !== this.props.userInfo) {
-            if (this.props.userInfo) {
-                this.props.history.push("/customer/account/dashboard");
+        // if (prevProps.userInfo !== this.props.userInfo) {
+        //     if (this.props.userInfo) {
+        //         this.props.history.push("/customer/account/dashboard");
+        //     }
+        // }
+
+        if (prevProps.loadSignInForm !== this.props.loadSignInForm) {
+            if (this.props.loadSignInForm === true) {
+                // document.title = "Sign in| Nguyenkevin1042's Fahasa Clone"
             }
         }
+        if (prevProps.loadSignUpForm !== this.props.loadSignUpForm) {
+            if (this.props.loadSignUpForm === true) {
+                // document.title = "Sign up| Nguyenkevin1042's Fahasa Clone"
+            }
+        }
+        if (prevProps.loadForgotPasswordForm !== this.props.loadForgotPasswordForm) {
+            if (this.props.loadForgotPasswordForm === true) {
+                // document.title = "Forgot your password| Nguyenkevin1042's Fahasa Clone"
+            }
+        }
+
     }
 
     handleOpenSignInForm = () => {
+        document.title = "Sign in | Nguyenkevin1042's Fahasa Clone"
         this.setState({
             loadSignInForm: true,
             loadSignUpForm: false,
             loadForgotPasswordForm: false
         })
+
     }
 
     handleOpenSignUpForm = () => {
+        document.title = "Sign up | Nguyenkevin1042's Fahasa Clone"
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: true,
@@ -54,6 +77,7 @@ class Login extends Component {
     }
 
     handleOpenForgotPasswordForm = () => {
+        document.title = "Forgot your password | Nguyenkevin1042's Fahasa Clone"
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: false,

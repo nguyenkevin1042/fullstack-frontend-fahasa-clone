@@ -33,12 +33,12 @@ class SignUpComponent extends Component {
                     this.props.actionResponse.messageEN
             })
 
-            if (this.props.actionResponse.errCode === 0) {
-                if (this.props.history) {
-                    this.props.history.push("/customer/account/dashboard");
+            // if (this.props.actionResponse.errCode === 0) {
+            //     if (this.props.history) {
+            //         this.props.history.push("/customer/account/dashboard");
 
-                }
-            }
+            //     }
+            // }
         }
     }
 
@@ -54,18 +54,30 @@ class SignUpComponent extends Component {
             message: ''
         })
 
-        let isCorrect = CommonUtils.validatePassword(this.state.password)
+        let isEmailValid = CommonUtils.validateEmail(this.state.email)
+        let isPasswordValid = CommonUtils.validatePassword(this.state.password)
 
-        if (isCorrect.errCode === 0) {
-            await this.props.createNewUser({
-                email: this.state.email,
-                password: this.state.password,
-                isAdmin: false
+        if (isEmailValid.errCode === 0) {
+            this.setState({
+                message: ''
             })
+            if (isPasswordValid.errCode === 0) {
+                await this.props.createNewUser({
+                    email: this.state.email,
+                    password: this.state.password,
+                    isAdmin: false
+                })
+            } else {
+                this.setState({
+                    message: this.props.lang === languages.VI ?
+                        isPasswordValid.messageVI :
+                        isPasswordValid.messageEN
+                })
+            }
         } else {
             this.setState({
                 message: this.props.lang === languages.VI ?
-                    isCorrect.messageVI : isCorrect.messageEN
+                    isEmailValid.messageVI : isEmailValid.messageEN
             })
         }
     }

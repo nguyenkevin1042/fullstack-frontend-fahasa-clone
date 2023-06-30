@@ -31,6 +31,7 @@ import OneStepCheckout from './customerView/OneStepCheckout/OneStepCheckout';
 import MakeOrderSuccess from './customerView/OneStepCheckout/MakeOrderSuccess';
 import SearchResult from './customerView/SearchResult/SearchResult';
 import ProductsOfTag from './customerView/ProductsOfTag/ProductsOfTag';
+import VerifySignUp from './customerView/Login/VerifySignUp/VerifySignUp';
 
 class App extends Component {
 
@@ -69,7 +70,6 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={adminIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={adminIsAuthenticated(System)} />
-
                                     <Route path={path.HOMEPAGE} exact component={(Homepage)} />
                                     <Route path={path.CUSTOMER_LOGIN} exact component={(CustomerLogin)} />
                                     <Route path={path.CUSTOMER_ACCOUNT} exact component={(CustomerAccount)} />
@@ -79,8 +79,8 @@ class App extends Component {
                                     <Route path={path.ONE_STEP_CHECKOUT} exact component={(OneStepCheckout)} />
                                     <Route path={path.ORDER_COMPLETED} exact component={(MakeOrderSuccess)} />
                                     <Route path={path.SEARCH_RESULT} exact component={(SearchResult)} />
-
                                     <Route path={path.PRODUCT_TAG} exact component={(ProductsOfTag)} />
+                                    <Route path={path.VERIFY_SIGN_UP} exact component={(VerifySignUp)} />
                                 </Switch>
                             </span>
 

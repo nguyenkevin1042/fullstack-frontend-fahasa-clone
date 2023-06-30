@@ -5,17 +5,15 @@ export const path = {
     SYSTEM: '/system',
     HOMEPAGE: '/home',
     CUSTOMER_LOGIN: '/customer/account/login',
-    // CUSTOMER_ACCOUNT: '/customer/account',
     CUSTOMER_ACCOUNT: '/customer/account/:section?',
-    // CUSTOMER_ORDERS: '/customer/account/my-orders/:order-id?',
-    // CUSTOMER_ACCOUNT: '/customer/account/:section?/:order',
     PRODUCT_LIST: '/category/:category?/:subCategory?/:childCategory?',
     PRODUCT_DETAIL: '/product/:keyName',
     SEARCH_RESULT: '/search-result',
     CART: '/cart',
     ONE_STEP_CHECKOUT: '/onestepcheckout',
     ORDER_COMPLETED: '/make-order-success',
-    PRODUCT_TAG: '/:tagKeyName?',
+    PRODUCT_TAG: '/tag/:tagKeyName',
+    VERIFY_SIGN_UP: '/verify-sign-up'
 };
 
 export const languages = {

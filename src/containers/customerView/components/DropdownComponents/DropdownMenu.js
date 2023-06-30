@@ -205,6 +205,7 @@ class DropdownMenu extends Component {
     }
 
     render() {
+        console.log(this.props.allSubCategoryArr)
         return (
             // <div className='dropdown-menu-container d-none d-lg-block'
             <div className='dropdown-menu-container d-none d-lg-block'>
@@ -218,7 +219,7 @@ class DropdownMenu extends Component {
                         </div>
                     </div>
                     <div className='right-menu col-md-9'>
-                        {/* {this.renderSubCategoryList()} */}
+                        {this.renderSubCategoryList()}
                     </div>
                 </div>
             </div>

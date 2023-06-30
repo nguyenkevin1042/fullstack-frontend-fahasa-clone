@@ -62,7 +62,10 @@
             "recovery-password": "Recovery password",
             "confirm-text": "Confirm",
             "back-text": "Go back",
-            "skip-text": "Skip"
+            "skip-text": "Skip",
+            "sign-up-success": "Sign up successful!",
+            "to-homepage": "To Homepage",
+            "to-account": "To Account Management"
         },
         "product-list": {
             "category": {

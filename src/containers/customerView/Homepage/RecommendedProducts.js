@@ -184,7 +184,7 @@ class RecommendedProducts extends Component {
 
     handleViewMoreProductWithTag = (keyName) => {
         if (this.props.history) {
-            this.props.history.push("/" + keyName);
+            this.props.history.push("/tag/" + keyName);
         }
     }
 

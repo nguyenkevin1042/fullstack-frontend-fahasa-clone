@@ -30,6 +30,7 @@ class Homepage extends Component {
     }
 
     async componentDidMount() {
+        document.title = "Homepage | Nguyenkevin1042's Fahasa Clone"
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {

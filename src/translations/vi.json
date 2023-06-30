@@ -62,7 +62,10 @@
             "recovery-password": "Khôi phục mật khẩu",
             "confirm-text": "Xác nhận",
             "back-text": "Trở về",
-            "skip-text": "Bỏ qua"
+            "skip-text": "Bỏ qua",
+            "sign-up-success": "Đăng ký thành công",
+            "to-homepage": "Trang chủ",
+            "to-account": "Quản lý tài khoản"
         },
         "product-list": {
             "category": {

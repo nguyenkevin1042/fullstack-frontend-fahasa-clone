@@ -1,4 +1,6 @@
 import passwordValidator from 'password-validator'
+import emailValidator from "email-validator";
+
 const schema = new passwordValidator();
 
 schema.is().min(8)
@@ -8,6 +10,28 @@ schema.is().min(8)
     .has().digits(1)
 
 class CommonUtils {
+    static validateEmail(email) {
+        let isValid = emailValidator.validate(email)
+        let response = {}
+
+        if (email) {
+            if (isValid) {
+                response.errCode = 0;
+            } else {
+                response.errCode = 1;
+                response.messageVI = 'Sai định dạng mail'
+                response.messageEN = 'Wrong email syntax'
+            }
+        } else {
+            response.errCode = 1;
+            response.messageVI = 'Email không được để trống'
+            response.messageEN = 'Email can not be left empty'
+        }
+
+
+        return response;
+    }
+
     static validatePassword(password) {
         let isValid = schema.validate(password)
         let response = {}
@@ -28,6 +52,7 @@ class CommonUtils {
         }
         return false
     }
+
     static getSalePrice(price, discount) {
         return price - ((price * discount) / 100);
     }
