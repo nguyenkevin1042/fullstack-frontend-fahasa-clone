@@ -56,13 +56,6 @@ class CartItem extends Component {
             })
         }
 
-
-
-
-        // let { discount, price } = this.state.productData
-        // let { quantity } = this.state
-        // let salePrice = price - ((price * discount) / 100)
-
         if (prevState.quantity !== this.state.quantity) {
             let { discount, price } = this.state.productData
             let { productInCart } = this.props
@@ -87,8 +80,13 @@ class CartItem extends Component {
     }
 
     handleDeleteItem = async (item) => {
-        await this.props.deleteProductInCart(item.cartId, item.productId)
-        await this.props.getCartByUserId(this.props.userInfo.id)
+        let userId = this.props.userInfo.id
+        await this.props.deleteProductInCart({
+            userId: userId,
+            cartId: item.cartId,
+            productId: item.productId
+        })
+        await this.props.getCartByUserId(userId)
     }
 
     handleToProductDetail = async (productKeyName) => {
@@ -98,13 +96,17 @@ class CartItem extends Component {
     }
 
     handleUpdateCartProduct = async (value) => {
+        let userId = this.props.userInfo.id
+
         await this.props.updateCart({
+            userId: userId,
             cartId: this.state.cartId,
             productId: this.state.productId,
             quantity: value,
             productPrice: this.state.productPrice
         })
 
+        await this.props.getCartByUserId(userId)
     }
 
     eventhandler = (data) => {
@@ -243,7 +245,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
-        deleteProductInCart: (inputCartId, inputProductId) => dispatch(actions.deleteProductInCart(inputCartId, inputProductId)),
+        deleteProductInCart: (inputData) => dispatch(actions.deleteProductInCart(inputData)),
         updateCart: (inputData) => dispatch(actions.updateCart(inputData)),
         fetchProductById: (inputId) => dispatch(actions.fetchProductById(inputId))
     };

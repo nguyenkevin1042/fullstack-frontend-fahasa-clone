@@ -169,7 +169,7 @@ class MyOrderDetailComponent extends Component {
                 <div className='order-detail-container'>
                     <div className='order-detail-content-up row'>
 
-                        <div className='order-detail-text col-12 col-lg-7'>
+                        <div className='order-detail-text col-7'>
                             <div className='order-status'>
                                 <span className={orderStatusColor}>{orderStatus}</span>
                             </div>
@@ -197,7 +197,7 @@ class MyOrderDetailComponent extends Component {
                             </div>
                         </div>
 
-                        <div className='review-order col-12 col-lg-5'>
+                        <div className='review-order col-5'>
                             {orderData.status === 'S1' || orderData.status === 'S2' ?
                                 <button className='cancel-btn'
                                     onClick={() => this.handleCancelOrder()}>

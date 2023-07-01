@@ -154,29 +154,24 @@ class SearchResult extends Component {
                         name="selectedPageLimit" />
                 </div>
                 <div className='search-result-list'>
-                    <LoadingOverlay
-                        active={isLoading}
-                        spinner={true}
-                        text='Please wait...'>
-                        <div>
-                            <div className='row'>
-                                {this.renderProductList(rowsPerPage)}
-                            </div>
-                            {isLoading === false && listProduct.length === 0 && (
-                                <div className='no-products-text'>
-                                    <FormattedMessage id="customer.product-list.no-product" />
-                                </div>
-                            )}
-
-                            <CustomPagination
-                                totalRecords={listProduct.length}
-                                pageLimit={pageLimit || 12}
-                                initialPage={1}
-                                pagesToShow={6}
-                                onChangePage={this.handleOnChangePage}
-                            />
+                    <div>
+                        <div className='row'>
+                            {this.renderProductList(rowsPerPage)}
                         </div>
-                    </LoadingOverlay>
+                        {isLoading === false && listProduct.length === 0 && (
+                            <div className='no-products-text'>
+                                <FormattedMessage id="customer.product-list.no-product" />
+                            </div>
+                        )}
+
+                        <CustomPagination
+                            totalRecords={listProduct.length}
+                            pageLimit={pageLimit || 12}
+                            initialPage={1}
+                            pagesToShow={6}
+                            onChangePage={this.handleOnChangePage}
+                        />
+                    </div>
                 </div>
             </>
         )
@@ -186,7 +181,11 @@ class SearchResult extends Component {
         let { isLoading, listProduct, searchQuery, message } = this.state
 
         return (
-            <React.Fragment>
+            <LoadingOverlay
+                classNamePrefix='Fullscreen_'
+                active={isLoading}
+                spinner={true}
+                text='Please wait...'>
                 <Header />
 
                 {/* <Breadcrumb separator={'>'}>
@@ -220,8 +219,7 @@ class SearchResult extends Component {
 
                 <SignUpNewletter />
                 <Footer />
-            </React.Fragment >
-
+            </LoadingOverlay>
         );
     }
 }

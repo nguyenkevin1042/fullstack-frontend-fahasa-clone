@@ -99,7 +99,7 @@ class SignInComponent extends Component {
                                 onChange={(event) => this.handleOnChangeInput(event, 'email')}
                             />
                         </div>
-                        <div className="col-12 form-group custom-input-password">
+                        <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.password" /></label>
                             <input className='form-control'
                                 type={isShowed ? 'text' : 'password'}

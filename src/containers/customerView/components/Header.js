@@ -47,29 +47,29 @@ class Header extends Component {
             hoverMenu: false,
             isOpened: true,
 
-            listCategory: [],
-            selectedCategory: '',
-
-            productName: '',
             productsInCartLength: '',
             searchQuery: ''
         };
     }
 
     async componentDidMount() {
+        if (this.props.userInfo) {
+            await this.props.getCartByUserId(this.props.userInfo.id)
+            this.setState({
+                productInCartLength: this.props.cartData.length
+            })
+        } else {
+            this.setState({
+                productInCartLength: ''
+            })
+        }
+
         this.setState({
             selectedLanguage: this.state.listLanguage[0]
         })
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.allCodesArr !== this.props.allCodesArr
-            || prevProps.lang !== this.props.lang) {
-            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "category");
-            this.setState({
-                listCategory: dataSelect
-            })
-        }
 
         if (prevProps.cartData !== this.props.cartData) {
             this.setState({
@@ -80,6 +80,10 @@ class Header extends Component {
         if (prevProps.userInfo !== this.props.userInfo) {
             if (this.props.userInfo) {
                 await this.props.getCartByUserId(this.props.userInfo.id)
+            } else {
+                this.setState({
+                    productInCartLength: ''
+                })
             }
         }
     }

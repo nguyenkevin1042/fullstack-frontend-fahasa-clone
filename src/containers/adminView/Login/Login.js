@@ -93,7 +93,7 @@ class Login extends Component {
                                     onChange={(event) => this.handleOnChangeInput(event, 'email')}
                                     required />
                             </div>
-                            <div className="col-12 form-group custom-input-password">
+                            <div className="col-12 form-group custom-input">
                                 <input className='form-control'
                                     type={isShowed ? 'text' : 'password'}
                                     placeholder='Password'

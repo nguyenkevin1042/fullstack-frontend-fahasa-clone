@@ -65,6 +65,12 @@ class DashboardComponent extends Component {
         }
     }
 
+    hanldeViewAll = () => {
+        if (this.props.history) {
+            this.props.history.push("/customer/account/my-orders");
+        }
+    }
+
     hanldeViewOrderDetail = (item) => {
         this.setState({
             selectedOrder: item
@@ -73,11 +79,8 @@ class DashboardComponent extends Component {
 
     handleReorder = async (selectedItem) => {
         let billProducts = selectedItem.BillProducts
-        let { userInfo, actionResponse } = this.props
         let userCartId = this.props.userInfo.Cart.id
 
-        // console.log(selectedItem)
-        // return
         billProducts.map(async (item) => {
             let productItem = item.Product
             let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
@@ -105,7 +108,6 @@ class DashboardComponent extends Component {
 
     renderOrderData = () => {
         let { billData, lang } = this.props
-
 
         let billDataLimit7 = billData.slice(0, 7);
 
@@ -177,7 +179,8 @@ class DashboardComponent extends Component {
                         <FormattedMessage id='customer.account.dashboard.recent-orders' />
                     </p>
                     {actionResponse.errCode === 0 ?
-                        <p className='view-all-text'>
+                        <p className='view-all-text'
+                            onClick={() => this.hanldeViewAll()}>
                             <FormattedMessage id='customer.account.dashboard.view-all' />
                         </p> : <></>}
                 </div>

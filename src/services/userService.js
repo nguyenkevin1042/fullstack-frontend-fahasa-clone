@@ -27,6 +27,14 @@ const customerLoginAPI = (inputEmail, inputPassword) => {
     });
 }
 
+const getValidationKeyAPI = (inputEmail) => {
+    return axios.post("/api/get-validation-key", {
+        params: {
+            email: inputEmail
+        }
+    });
+}
+
 //ALL CODES
 const addNewCodeAPI = (data) => {
     return axios.post("/api/add-new-code", data);
@@ -206,12 +214,13 @@ const addToCartAPI = (data) => {
     return axios.post("/api/add-to-cart", data);
 }
 
-const deleteProductInCartAPI = (inputCartId, inputProductId) => {
+const deleteProductInCartAPI = (data) => {
     return axios.delete("/api/delete-product-in-cart",
         {
             params: {
-                cartId: inputCartId,
-                productId: inputProductId
+                userId: data.userId,
+                cartId: data.cartId,
+                productId: data.productId
             }
         });
 }
@@ -293,7 +302,7 @@ const deleteProductTagAPI = (data) => {
 export {
     //USER
     getAllUserAPI, createNewUserAPI, adminLoginAPI,
-    customerLoginAPI, updateUserAPI,
+    customerLoginAPI, updateUserAPI, getValidationKeyAPI,
     //ALLCODES
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, getAllCodesByKeyMapAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,

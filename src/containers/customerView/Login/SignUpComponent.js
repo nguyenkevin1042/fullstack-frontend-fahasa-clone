@@ -12,6 +12,7 @@ class SignUpComponent extends Component {
             email: '',
             password: '',
             message: '',
+            validationKey: '',
             isShowed: false,
 
         };
@@ -89,26 +90,27 @@ class SignUpComponent extends Component {
     }
 
     render() {
-        let { email, password, message, isShowed } = this.state
+        let { email, password, validationKey, message, isShowed } = this.state
         let { isOpenSignUpForm } = this.props;
 
         return (
             <>
                 {isOpenSignUpForm === true &&
                     <>
-                        <div className="col-12 form-group">
+                        <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.email-phone" /></label>
                             <input className='form-control'
-                                placeholder='Email'
                                 value={email}
                                 onChange={(event) => this.handleOnChangeInput(event, 'email')}
                                 required />
+                            <span onClick={() => this.handleShowHidePassword()}>
+
+                            </span>
                         </div>
-                        <div className="col-12 form-group custom-input-password">
+                        <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.password" /></label>
                             <input className='form-control'
                                 type={isShowed ? 'text' : 'password'}
-                                placeholder='Password'
                                 value={password}
                                 onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                 required />
@@ -116,6 +118,14 @@ class SignUpComponent extends Component {
                                 <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
                             </span>
                         </div>
+                        {/* <div className="col-12 form-group">
+                            <label><FormattedMessage id="customer.login.validatiton-key" /></label>
+                            <input className='form-control'
+                                // type='number'
+                                value={validationKey}
+                                onChange={(event) => this.handleOnChangeInput(event, 'validationKey')}
+                                required />
+                        </div> */}
                         <div className='col-12 error-message mt-4'>
                             {message}
                         </div>
@@ -135,12 +145,14 @@ class SignUpComponent extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.app.language,
-        actionResponse: state.admin.actionResponse
+        actionResponse: state.admin.actionResponse,
+        validationKeyResponse: state.user.actionResponse,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getValidationKey: (inputEmail) => dispatch(actions.getValidationKey(inputEmail)),
         createNewUser: (userData) => dispatch(actions.createNewUser(userData)),
     };
 };

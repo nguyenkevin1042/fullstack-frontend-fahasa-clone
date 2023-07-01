@@ -218,7 +218,6 @@ class ProductList extends Component {
 
                     obj.keyName = item.keyMap;
                     obj.label = language === languages.VI ? labelVI : labelEN;
-                    // obj.subCategories = item.SubCategories;
                     result.push(obj);
                 });
             }
@@ -229,7 +228,6 @@ class ProductList extends Component {
                     let labelEN = item.valueEN;
 
                     obj.keyName = item.keyName;
-                    // obj.childCategories = item.ChildCategories;
                     obj.label = language === languages.VI ? labelVI : labelEN;
                     result.push(obj);
                 });

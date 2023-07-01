@@ -10,6 +10,7 @@ import SignUpNewletter from '../Homepage/SignUpNewletter';
 import Footer from '../components/Footer';
 import NumericFormat from 'react-number-format';
 import CartItem from './CartItem';
+import LoadingOverlay from 'react-loading-overlay';
 
 class Cart extends Component {
     constructor(props) {
@@ -19,7 +20,9 @@ class Cart extends Component {
             listProductInCart: [],
             selectedProducts: [],
             listProductWillBuy: [],
-            checkAll: false
+            checkAll: false,
+            isLoading: false,
+            isCartEmpty: false
         };
     }
 
@@ -35,43 +38,63 @@ class Cart extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-            if (this.props.userInfo) {
-                await this.props.getCartByUserId(this.props.userInfo.id)
-            }
+        // if (prevProps.lang !== this.props.lang) {
+        //     if (this.props.userInfo) {
+        //         await this.props.getCartByUserId(this.props.userInfo.id)
+        //     }
+        // }
+
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
         }
+
         if (prevState.checkAll !== this.state.checkAll) {
-            if (this.state.checkAll === true) {
-                let copyState = { ...this.state };
-                copyState.listProductInCart.map(
-                    item => copyState.selectedProducts.push(item));
-                this.setState({ ...copyState });
-            } else {
-                this.setState({
-                    selectedProducts: []
-                })
-            }
+            // if (this.state.checkAll === true) {
+            //     let copyState = { ...this.state };
+            //     copyState.listProductInCart.map(
+            //         item => copyState.selectedProducts.push(item));
+            //     this.setState({ ...copyState });
+            // } else {
+            //     this.setState({
+            //         selectedProducts: []
+            //     })
+            // }
         }
 
         if (prevProps.cartData !== this.props.cartData) {
-            this.setState({
-                listProductInCart: this.props.cartData
-            })
+            if (this.props.cartData.length === 0) {
+                this.setState({
+                    isCartEmpty: true
+                })
+            } else {
+                this.setState({
+                    listProductInCart: this.props.cartData,
+                    isCartEmpty: false
+                })
+            }
+
         }
 
         if (prevProps.userInfo !== this.props.userInfo) {
             if (this.props.userInfo) {
                 await this.props.getCartByUserId(this.props.userInfo.id)
-            }
-        }
-        if (prevProps.location !== this.props.location) {
-            if (this.props.userInfo) {
-                await this.props.getCartByUserId(this.props.userInfo.id)
+            } else {
                 this.setState({
-                    listProductInCart: this.props.cartData
+                    isCartEmpty: true
                 })
             }
         }
+
+        // if (prevProps.location !== this.props.location) {
+        //     if (this.props.userInfo) {
+        //         await this.props.getCartByUserId(this.props.userInfo.id)
+        //         this.setState({
+        //             listProductInCart: this.props.cartData
+        //         })
+        //     }
+        // }
     }
 
     countTotalPrice = () => {
@@ -280,25 +303,30 @@ class Cart extends Component {
     }
 
     render() {
-        let { listProductInCart } = this.state
+        let { listProductInCart, isLoading, isCartEmpty } = this.state
         let { userInfo } = this.props
 
         console.log(this.props.cartData)
 
         return (
-            <React.Fragment>
+            <LoadingOverlay
+                classNamePrefix='Fullscreen_'
+                active={isLoading}
+                spinner={true}
+                text='Please wait...'>
 
                 <Header />
 
                 <div className='cart-container'>
-                    {userInfo && listProductInCart && listProductInCart.length > 0 ?
+                    {/* {userInfo && isCartEmpty === false ?
+                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
+                    {userInfo && isCartEmpty === false && listProductInCart && listProductInCart.length > 0 ?
                         this.renderIfHavingProduct() : this.renderIfNotHavingProduct()}
                 </div >
 
                 <SignUpNewletter />
                 <Footer />
-            </React.Fragment >
-
+            </LoadingOverlay>
         );
     }
 }

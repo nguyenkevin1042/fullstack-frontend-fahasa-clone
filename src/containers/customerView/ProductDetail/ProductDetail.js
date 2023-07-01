@@ -91,11 +91,18 @@ class ProductDetail extends Component {
                 isLoggedIn: this.props.isLoggedIn
             })
         }
+    }
 
-        if (prevProps.match.params.keyName !== this.props.match.params.keyName) {
+    startLoading = () => {
+        this.setState({
+            isLoading: true
+        })
+    }
 
-            await this.props.fetchProductByKeyName(this.props.match.params.keyName);
-        }
+    stopLoading = () => {
+        this.setState({
+            isLoading: false
+        })
     }
 
     handleOpenSignInModal = () => {
@@ -127,31 +134,37 @@ class ProductDetail extends Component {
     }
 
     handleAddToCart = async () => {
+        this.startLoading();
         let { userInfo, product } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
-        let userCartId = this.props.userInfo.Cart.id
+        let userId = userInfo.id
+        let userCartId = userInfo.Cart.id
 
         await this.props.addToCart({
+            userId: userId,
             cartId: userCartId,
             productId: product.id,
             quantity: this.state.quantityValue,
             productPrice: product.discount ? salePrice : product.price
         })
 
-        await this.props.getCartByUserId(this.props.userInfo.id)
-
+        this.stopLoading()
         this.setState({
-            isModalSuccessOpened: true
+            isModalSuccessOpened: true,
         })
+
     }
 
     handleBuyNow = async () => {
+        this.startLoading()
         let { userInfo, product } = this.props
         let salePrice = product.price - ((product.price * product.discount) / 100);
+        let userId = this.props.userInfo.id
         let userCartId = this.props.userInfo.Cart.id
 
         if (userInfo) {
             await this.props.addToCart({
+                userId: userId,
                 cartId: userCartId,
                 productId: product.id,
                 quantity: this.state.quantityValue,
@@ -160,7 +173,7 @@ class ProductDetail extends Component {
         } else {
             this.handleOpenSignInModal()
         }
-
+        this.stopLoading()
         if (this.props.history) {
             this.props.history.push("/cart");
         }
@@ -312,8 +325,8 @@ class ProductDetail extends Component {
     }
 
     render() {
-        let { quantityValue, descriptionData, productType, category,
-            subCategory, isModalSuccessOpened, message, isModalLoginOpened,
+        let { quantityValue, descriptionData, productType,
+            isModalSuccessOpened, message, isModalLoginOpened,
             loadSignInForm, loadSignUpForm, isLoading } = this.state
         let { product } = this.props
         let imageBase64 = '';
@@ -335,7 +348,7 @@ class ProductDetail extends Component {
                             <div className='row'>
                                 <div className='col-md-12 text-center image-section'>
                                     {imageBase64 &&
-                                        <LazyLoadImage src={imageBase64}
+                                        <LazyLoadImage src={imageBase64 ? imageBase64 : ''}
                                             className='product-img'
                                             alt="Image Alt"
                                             effect="blur"
@@ -408,10 +421,10 @@ class ProductDetail extends Component {
                     message={message} productImg={imageBase64}
                     closeModal={this.handleCloseModal}
                     payCheckNow={this.hanldePayCheckNow} />
-                {/* <AccountModal isModalOpened={isModalLoginOpened}
+                <AccountModal isModalOpened={isModalLoginOpened}
                     loadSignInForm={loadSignInForm}
                     loadSignUpForm={loadSignUpForm}
-                    closeAccountModal={this.handleCloseAccountModal} /> */}
+                    closeAccountModal={this.handleCloseAccountModal} />
 
                 {/* <OtherProductsComponent titleKey={'same-author'} /> */}
                 {/* <OtherProductsComponent titleKey={'relevant-products'} /> */}
@@ -469,8 +482,6 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchProductByKeyName: (inputKeyName) => dispatch(actions.fetchProductByKeyName(inputKeyName)),
         addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
-        getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
-
     };
 };
 

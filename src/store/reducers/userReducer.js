@@ -101,6 +101,18 @@ const appReducer = (state = initialState, action) => {
                 cartData: ''
             }
 
+        case actionTypes.GET_VALIDATION_KEY_SUCCESS:
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.GET_VALIDATION_KEY_FAIL:
+            return {
+                ...state,
+                actionResponse: action.response
+
+            }
+
         case actionTypes.CREATE_NEW_USER_ADDRESS_SUCCESS:
             return {
                 ...state,

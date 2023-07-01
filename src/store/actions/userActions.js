@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { addToCartAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByIdAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByIdAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, getValidationKeyAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -102,7 +102,6 @@ export const updateUserFail = (response) => ({
 //ADD PRODUCT TO CART
 export const addToCart = (inputData) => {
     return async (dispatch, getState) => {
-
         let res;
         try {
 
@@ -131,11 +130,11 @@ export const addToCartFail = (response) => ({
 })
 
 //DELETE PRODUCT IN CART
-export const deleteProductInCart = (inputCartId, inputProductId) => {
+export const deleteProductInCart = (inputData) => {
     return async (dispatch, getState) => {
         let res;
         try {
-            res = await deleteProductInCartAPI(inputCartId, inputProductId);
+            res = await deleteProductInCartAPI(inputData);
 
             if (res && res.errCode === 0) {
                 dispatch(deleteProductInCartSuccess(res));
@@ -162,6 +161,7 @@ export const deleteProductInCartFail = (response) => ({
 //GET CART BY USER ID
 export const getCartByUserId = (inputUserId) => {
     return async (dispatch, getState) => {
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
             res = await getCartByUserIdAPI(inputUserId);
@@ -175,6 +175,7 @@ export const getCartByUserId = (inputUserId) => {
             dispatch(getCartByUserIdFail(res));
             console.log("updateUser Error: ", error)
         }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
     }
 }
 
@@ -351,3 +352,34 @@ export const createNewBillFail = (response) => ({
     type: actionTypes.CREATE_NEW_BILL_FAIL,
     response: response
 })
+
+//GET VALIDATION KEY
+export const getValidationKey = (inputEmail) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getValidationKeyAPI(inputEmail);
+
+            if (res && res.errCode === 0) {
+                dispatch(getValidationKeySuccess(res));
+            } else {
+                dispatch(getValidationKeyFail(res));
+            }
+        } catch (error) {
+            dispatch(getValidationKeyFail(res));
+            console.log("getValidationKey Error: ", error)
+        }
+    }
+}
+
+export const getValidationKeySuccess = (response) => ({
+    type: actionTypes.CREATE_NEW_BILL_SUCCESS,
+    response: response
+})
+
+export const getValidationKeyFail = (response) => ({
+    type: actionTypes.CREATE_NEW_BILL_FAIL,
+    response: response
+})
+
+

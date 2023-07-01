@@ -57,6 +57,7 @@
             "sign-up-text": "Đăng ký",
             "email-phone": "Số điện thoại/Email",
             "password": "Mật khẩu",
+            "validatiton-key": "Mã xác nhận",
             "retype-password": "Nhập lại mật khẩu",
             "forgot-password": "Quên mật khẩu?",
             "recovery-password": "Khôi phục mật khẩu",
