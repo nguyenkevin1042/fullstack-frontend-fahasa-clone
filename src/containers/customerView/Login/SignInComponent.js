@@ -36,18 +36,22 @@ class SignInComponent extends Component {
                         this.props.actionResponse.messageEN
                 })
             }
-            if (this.props.actionResponse.errCode === 0) {
-                this.props.history.push("/customer/account/dashboard");
+            // if (this.props.actionResponse.errCode === 0) {
+            //     this.props.history.push("/customer/account/dashboard");
 
-                if (this.props.closeAccountModal) {
-                    this.props.closeAccountModal();
-                }
-            }
+            //     if (this.props.closeAccountModal) {
+            //         this.props.closeAccountModal();
+            //     }
+            // }
         }
 
         if (prevProps.userInfo !== this.props.userInfo) {
             if (this.props.userInfo) {
                 this.props.history.push("/customer/account/dashboard");
+            }
+
+            if (this.props.closeAccountModal) {
+                this.props.closeAccountModal();
             }
         }
     }
@@ -66,13 +70,13 @@ class SignInComponent extends Component {
 
         await this.props.userLogin(this.state.email, this.state.password)
 
-        // if (this.props.actionResponse.errCode === 0) {
-        //     this.props.history.push("/customer/account/dashboard");
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.history.push("/customer/account/dashboard");
 
-        //     if (this.props.closeAccountModal) {
-        //         this.props.closeAccountModal();
-        //     }
-        // }
+            if (this.props.closeAccountModal) {
+                this.props.closeAccountModal();
+            }
+        }
     }
 
     handleShowHidePassword = () => {
@@ -81,21 +85,25 @@ class SignInComponent extends Component {
         });
     }
 
+    handleGoBack = () => {
+
+    }
+
 
     render() {
         let { email, password, message, isShowed } = this.state;
         let { isOpenSignInForm, handleOpenForgotPasswordForm } = this.props;
 
-        console.log(message)
         return (
             <>
                 {isOpenSignInForm === true &&
-                    <>
+                    <form onSubmit={e => e.preventDefault()}>
                         <div className="col-12 form-group">
                             <label><FormattedMessage id="customer.login.email-phone" /></label>
                             <input className='form-control'
                                 placeholder='Email'
                                 value={email}
+                                required
                                 onChange={(event) => this.handleOnChangeInput(event, 'email')}
                             />
                         </div>
@@ -106,9 +114,10 @@ class SignInComponent extends Component {
                                 placeholder='Password'
                                 value={password}
                                 autoComplete='off'
-                                onChange={(event) => this.handleOnChangeInput(event, 'password')}
-                            />
-                            <span onClick={() => this.handleShowHidePassword()}>
+                                required
+                                onChange={(event) => this.handleOnChangeInput(event, 'password')} />
+                            <span className='custom-input-item'
+                                onClick={() => this.handleShowHidePassword()}>
                                 <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
                             </span>
                         </div>
@@ -125,7 +134,7 @@ class SignInComponent extends Component {
                                 <FormattedMessage id="customer.login.sign-in-text" />
                             </button>
                         </div >
-                    </>
+                    </form>
                 }
             </>
 

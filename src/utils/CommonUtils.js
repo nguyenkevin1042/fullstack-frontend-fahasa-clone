@@ -46,6 +46,19 @@ class CommonUtils {
         return response;
     }
 
+    static validateKey(key) {
+        let response = {}
+
+        if (key) {
+            response.errCode = 0;
+        } else {
+            response.errCode = 1;
+            response.messageVI = "Vui lòng nhập mã được gửi đến email của quý khách!"
+            response.messageEN = "Please input code that has been sent to your email!"
+        }
+        return response;
+    }
+
     static checkChosenAddress(target) {
         if (target) {
             return true;

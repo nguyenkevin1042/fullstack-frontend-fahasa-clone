@@ -15,7 +15,7 @@ const initialState = {
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.USER_LOGIN_SUCCESS:
-            // state.actionResponse = ''
+            state.actionResponse = ''
             return {
                 ...state,
                 isLoggedIn: true,
@@ -23,7 +23,7 @@ const appReducer = (state = initialState, action) => {
                 actionResponse: action.response
             }
         case actionTypes.USER_LOGIN_FAIL:
-            // state.actionResponse = ''
+            state.actionResponse = ''
             return {
                 ...state,
                 userInfo: null,
@@ -44,6 +44,8 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.UPDATE_USER_SUCCESS:
+            state.actionResponse = ''
+
             return {
                 ...state,
                 actionResponse: action.response,
@@ -51,10 +53,28 @@ const appReducer = (state = initialState, action) => {
                 userInfo: action.response.user
             }
         case actionTypes.UPDATE_USER_FAIL:
+            state.actionResponse = ''
+
             return {
                 ...state,
                 actionResponse: action.response,
                 userInfo: null,
+            }
+
+        case actionTypes.CHANGE_PASSWORD_SUCCESS:
+            state.actionResponse = ''
+
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
+        case actionTypes.CHANGE_PASSWORD_FAIL:
+            state.actionResponse = ''
+
+            return {
+                ...state,
+                actionResponse: action.response
             }
 
         case actionTypes.FETCH_PRODUCT_BY_KEY_NAME_SUCCESS:
@@ -69,22 +89,30 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.ADD_TO_CART_SUCCESS:
+            state.actionResponse = ''
+
             return {
                 ...state,
                 actionResponse: action.response
             }
         case actionTypes.ADD_TO_CART_FAIL:
+            state.actionResponse = ''
+
             return {
                 ...state,
                 actionResponse: action.response
             }
 
         case actionTypes.UPDATE_CART_SUCCESS:
+            state.actionResponse = ''
+
             return {
                 ...state,
                 actionResponse: action.response
             }
         case actionTypes.UPDATE_CART_FAIL:
+            state.actionResponse = ''
+
             return {
                 ...state,
                 actionResponse: action.response
@@ -102,11 +130,13 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.GET_VALIDATION_KEY_SUCCESS:
+            state.actionResponse = ''
             return {
                 ...state,
                 actionResponse: action.response
             }
         case actionTypes.GET_VALIDATION_KEY_FAIL:
+            state.actionResponse = ''
             return {
                 ...state,
                 actionResponse: action.response
@@ -114,6 +144,7 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.CREATE_NEW_USER_ADDRESS_SUCCESS:
+            state.actionResponse = ''
             return {
                 ...state,
                 actionResponse: action.response,
@@ -121,6 +152,7 @@ const appReducer = (state = initialState, action) => {
                 userInfo: action.response.user
             }
         case actionTypes.CREATE_NEW_USER_ADDRESS_FAIL:
+            state.actionResponse = ''
             return {
                 ...state,
                 actionResponse: action.response

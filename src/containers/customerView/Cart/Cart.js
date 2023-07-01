@@ -38,11 +38,6 @@ class Cart extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        // if (prevProps.lang !== this.props.lang) {
-        //     if (this.props.userInfo) {
-        //         await this.props.getCartByUserId(this.props.userInfo.id)
-        //     }
-        // }
 
         if (prevProps.isFetchingData !== this.props.isFetchingData) {
             this.setState({
@@ -77,21 +72,12 @@ class Cart extends Component {
 
         }
 
-        if (prevProps.userInfo !== this.props.userInfo) {
-            if (this.props.userInfo) {
-                await this.props.getCartByUserId(this.props.userInfo.id)
-            } else {
-                this.setState({
-                    isCartEmpty: true
-                })
-            }
-        }
-
-        // if (prevProps.location !== this.props.location) {
+        // if (prevProps.userInfo !== this.props.userInfo) {
         //     if (this.props.userInfo) {
         //         await this.props.getCartByUserId(this.props.userInfo.id)
+        //     } else {
         //         this.setState({
-        //             listProductInCart: this.props.cartData
+        //             isCartEmpty: true
         //         })
         //     }
         // }
@@ -150,50 +136,47 @@ class Cart extends Component {
 
         return (
             <>
-
                 <div className='left-content-up'>
                     <table>
-                        <tr className='row'>
-                            <th className='col-1'>
-                                <input type="checkbox" id="check-all" name="check-all"
-                                // onClick={(event) => this.handleCheckAllProducts(event)} 
-                                />
-                            </th>
-                            <th className='col-xl-6'>
-                                <label for="choose-all">
-                                    <FormattedMessage id="customer.cart.choose-all" />
-                                </label>
-                            </th>
-                            <th className='col-2 d-none d-lg-block'>
-                                <label>
-                                    <FormattedMessage id="customer.cart.quantity" />
-                                </label>
-                            </th>
-                            <th className='col-2 d-none d-lg-block'>
-                                <label>
-                                    <FormattedMessage id="customer.cart.subtotal" />
-                                </label>
-                            </th>
-                            <th className='col-1'></th>
-                        </tr>
+                        <thead>
+                            <tr className='row'>
+                                <th className='col-1'>
+                                    <input type="checkbox" id="check-all" name="check-all"
+                                    // onClick={(event) => this.handleCheckAllProducts(event)} 
+                                    />
+                                </th>
+                                <th className='col-xl-6'>
+                                    <label for="choose-all">
+                                        <FormattedMessage id="customer.cart.choose-all" />
+                                    </label>
+                                </th>
+                                <th className='col-2 d-none d-lg-block'>
+                                    <label>
+                                        <FormattedMessage id="customer.cart.quantity" />
+                                    </label>
+                                </th>
+                                <th className='col-2 d-none d-lg-block'>
+                                    <label>
+                                        <FormattedMessage id="customer.cart.subtotal" />
+                                    </label>
+                                </th>
+                                <th className='col-1'></th>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
 
                 <div className='left-content-down'>
-                    <table>
-                        {listProductInCart && listProductInCart.length > 0 &&
-                            listProductInCart.map((item, index) =>
-                            (<CartItem key={item.id} productInCart={item}
-                                onChange={this.eventhandler}
-                                addItemToSelectedProducts={this.handleAddSelectedProduct}
-                                deleteItemSelectedProducts={this.handleDeleteSelectedProduct}
-                                checkAll={checkAll} />)
-                            )
-                        }
-                    </table>
+                    {listProductInCart && listProductInCart.length > 0 &&
+                        listProductInCart.map((item, index) =>
+                        (<CartItem key={item.id} productInCart={item}
+                            onChange={this.eventhandler}
+                            addItemToSelectedProducts={this.handleAddSelectedProduct}
+                            deleteItemSelectedProducts={this.handleDeleteSelectedProduct}
+                            checkAll={checkAll} />)
+                        )
+                    }
                 </div>
-
-
             </>
         )
     }
@@ -306,27 +289,27 @@ class Cart extends Component {
         let { listProductInCart, isLoading, isCartEmpty } = this.state
         let { userInfo } = this.props
 
-        console.log(this.props.cartData)
-
         return (
-            <LoadingOverlay
-                classNamePrefix='Fullscreen_'
-                active={isLoading}
-                spinner={true}
-                text='Please wait...'>
+            // <LoadingOverlay
+            //     classNamePrefix='Fullscreen_'
+            //     active={isLoading}
+            //     spinner={true}
+            //     text='Please wait...'>
+            <>
 
                 <Header />
 
                 <div className='cart-container'>
-                    {/* {userInfo && isCartEmpty === false ?
-                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
-                    {userInfo && isCartEmpty === false && listProductInCart && listProductInCart.length > 0 ?
+                    {userInfo && isCartEmpty === false ?
                         this.renderIfHavingProduct() : this.renderIfNotHavingProduct()}
+                    {/* {userInfo && isCartEmpty === false && listProductInCart && listProductInCart.length > 0 ?
+                        this.renderIfHavingProduct() : this.renderIfNotHavingProduct()} */}
                 </div >
 
                 <SignUpNewletter />
                 <Footer />
-            </LoadingOverlay>
+            </>
+            // </LoadingOverlay>
         );
     }
 }

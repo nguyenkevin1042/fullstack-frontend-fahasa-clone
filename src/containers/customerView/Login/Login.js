@@ -21,9 +21,15 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        // if (this.props.userInfo !== null) {
-        //     this.props.history.push("/customer/account/dashboard");
-        // }
+        if (this.state.loadSignInForm === true) {
+            document.title = "Sign in | Nguyenkevin1042's Fahasa Clone"
+        }
+        if (this.state.loadSignUpForm === true) {
+            document.title = "Sign up | Nguyenkevin1042's Fahasa Clone"
+        }
+        if (this.state.loadForgotPasswordForm === true) {
+            document.title = "Forgot your password | Nguyenkevin1042's Fahasa Clone"
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -39,36 +45,33 @@ class Login extends Component {
         //     }
         // }
 
-        if (prevProps.loadSignInForm !== this.props.loadSignInForm) {
-            if (this.props.loadSignInForm === true) {
-                // document.title = "Sign in| Nguyenkevin1042's Fahasa Clone"
+        if (prevState.loadSignInForm !== this.state.loadSignInForm) {
+            if (this.state.loadSignInForm === true) {
+                document.title = "Sign in | Nguyenkevin1042's Fahasa Clone"
             }
         }
-        if (prevProps.loadSignUpForm !== this.props.loadSignUpForm) {
-            if (this.props.loadSignUpForm === true) {
-                // document.title = "Sign up| Nguyenkevin1042's Fahasa Clone"
+        if (prevState.loadSignUpForm !== this.state.loadSignUpForm) {
+            if (this.state.loadSignUpForm === true) {
+                document.title = "Sign up | Nguyenkevin1042's Fahasa Clone"
             }
         }
-        if (prevProps.loadForgotPasswordForm !== this.props.loadForgotPasswordForm) {
-            if (this.props.loadForgotPasswordForm === true) {
-                // document.title = "Forgot your password| Nguyenkevin1042's Fahasa Clone"
+        if (prevState.loadForgotPasswordForm !== this.state.loadForgotPasswordForm) {
+            if (this.state.loadForgotPasswordForm === true) {
+                document.title = "Forgot your password | Nguyenkevin1042's Fahasa Clone"
             }
         }
 
     }
 
     handleOpenSignInForm = () => {
-        document.title = "Sign in | Nguyenkevin1042's Fahasa Clone"
         this.setState({
             loadSignInForm: true,
             loadSignUpForm: false,
             loadForgotPasswordForm: false
         })
-
     }
 
     handleOpenSignUpForm = () => {
-        document.title = "Sign up | Nguyenkevin1042's Fahasa Clone"
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: true,
@@ -77,13 +80,21 @@ class Login extends Component {
     }
 
     handleOpenForgotPasswordForm = () => {
-        document.title = "Forgot your password | Nguyenkevin1042's Fahasa Clone"
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: false,
             loadForgotPasswordForm: true
         })
     }
+
+    handleBackSignInForm = () => {
+        this.setState({
+            loadSignInForm: true,
+            loadSignUpForm: false,
+            loadForgotPasswordForm: false
+        })
+    }
+
 
     renderTitle = () => {
         let { loadSignInForm, loadSignUpForm, loadForgotPasswordForm } = this.state
@@ -135,7 +146,8 @@ class Login extends Component {
                                 <SignUpComponent
                                     isOpenSignUpForm={loadSignUpForm} />
                                 <ForgotPasswordComponent
-                                    isOpenForgotPasswordForm={loadForgotPasswordForm} />
+                                    isOpenForgotPasswordForm={loadForgotPasswordForm}
+                                    backSignInForm={this.handleBackSignInForm} />
 
                             </div>
                         </div>

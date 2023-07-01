@@ -158,11 +158,23 @@ body{
 .custom-input {
   position: relative;
 
+  .custom-input-item{
+    position: absolute;
+    right: 25px;
+    top: 35px;
+    cursor: pointer;
+  }
+
+  .get-code-text{
+    font-weight: 600;
+    color: #2489F4;
+  }
+  
   i.show-hide-icon {
-      position: absolute;
-      right: 25px;
-      top: 40px;
-      cursor: pointer;
+      // position: absolute;
+      // right: 25px;
+      // top: 40px;
+      // cursor: pointer;
   }
 }
 

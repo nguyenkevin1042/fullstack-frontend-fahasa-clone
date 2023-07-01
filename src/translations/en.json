@@ -61,6 +61,7 @@
             "retype-password": "Retype password",
             "forgot-password": "Forgot password?",
             "recovery-password": "Recovery password",
+            "get-code": "Get code",
             "confirm-text": "Confirm",
             "back-text": "Go back",
             "skip-text": "Skip",

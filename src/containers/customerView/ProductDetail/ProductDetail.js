@@ -148,6 +148,8 @@ class ProductDetail extends Component {
             productPrice: product.discount ? salePrice : product.price
         })
 
+        await this.props.getCartByUserId(userId)
+
         this.stopLoading()
         this.setState({
             isModalSuccessOpened: true,
@@ -482,6 +484,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchProductByKeyName: (inputKeyName) => dispatch(actions.fetchProductByKeyName(inputKeyName)),
         addToCart: (inputData) => dispatch(actions.addToCart(inputData)),
+        getCartByUserId: (inputUserId) => dispatch(actions.getCartByUserId(inputUserId)),
+
     };
 };
 

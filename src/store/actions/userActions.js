@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { addToCartAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByIdAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, getValidationKeyAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, changePasswordAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByIdAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, getValidationKeyAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -373,13 +373,40 @@ export const getValidationKey = (inputEmail) => {
 }
 
 export const getValidationKeySuccess = (response) => ({
-    type: actionTypes.CREATE_NEW_BILL_SUCCESS,
+    type: actionTypes.GET_VALIDATION_KEY_SUCCESS,
     response: response
 })
 
 export const getValidationKeyFail = (response) => ({
-    type: actionTypes.CREATE_NEW_BILL_FAIL,
+    type: actionTypes.GET_VALIDATION_KEY_FAIL,
     response: response
 })
 
+//CHANGE PASSWORD
+export const changePassword = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await changePasswordAPI(inputData);
 
+            if (res && res.errCode === 0) {
+                dispatch(changePasswordSuccess(res));
+            } else {
+                dispatch(changePasswordFail(res));
+            }
+        } catch (error) {
+            dispatch(changePasswordFail(res));
+            console.log("changePassword Error: ", error)
+        }
+    }
+}
+
+export const changePasswordSuccess = (response) => ({
+    type: actionTypes.CHANGE_PASSWORD_SUCCESS,
+    response: response
+})
+
+export const changePasswordFail = (response) => ({
+    type: actionTypes.CHANGE_PASSWORD_FAIL,
+    response: response
+})

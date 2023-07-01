@@ -13,6 +13,10 @@ const updateUserAPI = (data) => {
     return axios.post("/api/update-user", data);
 }
 
+const changePasswordAPI = (data) => {
+    return axios.post("/api/change-password", data);
+}
+
 const adminLoginAPI = (inputEmail, inputPassword) => {
     return axios.post("/api/admin/login", {
         email: inputEmail,
@@ -29,9 +33,7 @@ const customerLoginAPI = (inputEmail, inputPassword) => {
 
 const getValidationKeyAPI = (inputEmail) => {
     return axios.post("/api/get-validation-key", {
-        params: {
-            email: inputEmail
-        }
+        email: inputEmail
     });
 }
 
@@ -302,7 +304,7 @@ const deleteProductTagAPI = (data) => {
 export {
     //USER
     getAllUserAPI, createNewUserAPI, adminLoginAPI,
-    customerLoginAPI, updateUserAPI, getValidationKeyAPI,
+    customerLoginAPI, updateUserAPI, getValidationKeyAPI, changePasswordAPI,
     //ALLCODES
     addNewCodeAPI, getAllCodesAPI, getAllCodesByIdAPI, getAllCodesByKeyMapAPI,
     deleteCodeAPI, editCodeAPI, getCodeByTypeAPI,

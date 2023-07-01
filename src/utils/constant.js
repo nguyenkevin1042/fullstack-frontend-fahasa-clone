@@ -13,7 +13,6 @@ export const path = {
     ONE_STEP_CHECKOUT: '/onestepcheckout',
     ORDER_COMPLETED: '/make-order-success',
     PRODUCT_TAG: '/tag/:tagKeyName',
-    VERIFY_SIGN_UP: '/verify-sign-up'
 };
 
 export const languages = {

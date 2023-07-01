@@ -140,7 +140,7 @@ class CartItem extends Component {
         let salePrice = price - ((price * discount) / 100);
         return (
             <>
-                {discount !== 0 ?
+                {discount != 0 ?
                     <>
                         <div className='item-discount-price'>
                             <NumericFormat value={salePrice}
@@ -180,17 +180,17 @@ class CartItem extends Component {
 
         return (
             <React.Fragment>
-                <div className='cart-item row'>
-                    <div className='col-1 col-xl-1'>
-                        {checkAll === true ?
+                <tr className='cart-item row'>
+                    <td className='col-1 col-xl-1'>
+                        {checkAll == true ?
                             <input type="checkbox" id="choose" name="choose"
                                 onClick={(event) => this.handleCheckThisProduct(event)}
                                 checked />
                             :
                             <input type="checkbox" id="choose" name="choose"
                                 onClick={(event) => this.handleCheckThisProduct(event)} />}
-                    </div>
-                    <div className='product-section col-5 col-xl-6'>
+                    </td>
+                    <td className='product-section col-5 col-xl-6'>
                         <div className='product-img col-xl-3'
                             style={{
                                 backgroundImage: "url(" + imageBase64 + ")"
@@ -207,25 +207,25 @@ class CartItem extends Component {
                                 {this.renderProductPrice(productData.price, productData.discount)}
                             </div>
                         </div>
-                    </div>
-                    <div className='col-3 col-xl-2'>
+                    </td>
+                    <td className='col-3 col-xl-2'>
                         <ChangingQuantityComponent
                             quantityValue={productInCart.quantity}
                             onChange={this.eventhandler}
                             handleUpdateCartProduct={this.handleUpdateCartProduct} />
-                    </div>
-                    <div className='total-price-text col-2 col-xl-2'>
+                    </td>
+                    <td className='total-price-text col-2 col-xl-2'>
                         <NumericFormat value={totalPrice}
                             displayType={'text'}
                             thousandSeparator={'.'}
                             decimalSeparator={','}
                             suffix={'đ'} />
-                    </div>
-                    <div className='delete-action col-1 col-xl-1'>
+                    </td>
+                    <td className='delete-action col-1 col-xl-1'>
                         <i className="fas fa-trash"
                             onClick={() => this.handleDeleteItem(productInCart)}></i>
-                    </div>
-                </div>
+                    </td>
+                </tr>
             </React.Fragment >
         );
     }

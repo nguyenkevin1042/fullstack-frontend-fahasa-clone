@@ -96,7 +96,7 @@ class SignUpComponent extends Component {
         return (
             <>
                 {isOpenSignUpForm === true &&
-                    <>
+                    <form action='#'>
                         <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.email-phone" /></label>
                             <input className='form-control'
@@ -114,18 +114,12 @@ class SignUpComponent extends Component {
                                 value={password}
                                 onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                 required />
-                            <span onClick={() => this.handleShowHidePassword()}>
+                            <span className='custom-input-item'
+                                onClick={() => this.handleShowHidePassword()}>
                                 <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
                             </span>
                         </div>
-                        {/* <div className="col-12 form-group">
-                            <label><FormattedMessage id="customer.login.validatiton-key" /></label>
-                            <input className='form-control'
-                                // type='number'
-                                value={validationKey}
-                                onChange={(event) => this.handleOnChangeInput(event, 'validationKey')}
-                                required />
-                        </div> */}
+
                         <div className='col-12 error-message mt-4'>
                             {message}
                         </div>
@@ -134,7 +128,7 @@ class SignUpComponent extends Component {
                                 <FormattedMessage id="customer.login.sign-up-text" />
                             </button>
                         </div >
-                    </>
+                    </form>
                 }
             </>
         );

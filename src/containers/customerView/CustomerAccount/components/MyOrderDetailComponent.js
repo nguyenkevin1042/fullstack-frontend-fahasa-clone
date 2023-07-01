@@ -31,7 +31,6 @@ class MyOrderDetailComponent extends Component {
             orderStatus: this.props.lang === languages.VI ? labelVI : labelEN,
             orderStatusColor: this.getOrderStatusColor()
         })
-
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -42,14 +41,6 @@ class MyOrderDetailComponent extends Component {
                 orderStatus: this.props.lang === languages.VI ? labelVI : labelEN,
             })
         }
-
-        // if (prevProps.selectedOrder !== this.props.selectedOrder) {
-        //     let id = this.props.selectedOrder.id
-        //     await this.props.getBillById(id)
-        //     this.setState({
-        //         orderData: this.props.singleOrder
-        //     })
-        // }
     }
 
     handleCancelOrder = async () => {
@@ -74,6 +65,7 @@ class MyOrderDetailComponent extends Component {
 
     handleReOrder = async () => {
         let billProducts = this.state.orderData.BillProducts
+        let userId = this.props.userInfo.id
         let userCartId = this.props.userInfo.Cart.id
 
         billProducts.map(async (item) => {
@@ -81,6 +73,7 @@ class MyOrderDetailComponent extends Component {
             let salePrice = CommonUtils.getSalePrice(productItem.price, productItem.discount)
 
             await this.props.addToCart({
+                userId: userId,
                 cartId: userCartId,
                 productId: productItem.id,
                 quantity: item.quantity,

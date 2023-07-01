@@ -21,7 +21,7 @@ class MyOrderComponent extends Component {
     }
 
     async componentDidMount() {
-        document.title = "My Orders | Nguyenkevin1042's Fahasa Clone"
+        // document.title = "My Orders | Nguyenkevin1042's Fahasa Clone"
 
         if (this.props.userInfo) {
             await this.props.getBillByUserId(this.props.userInfo.id)
