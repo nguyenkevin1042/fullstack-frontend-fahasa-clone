@@ -9,6 +9,7 @@ import NumericFormat from 'react-number-format';
 import { languages } from '../../../utils';
 import * as actions from "../../../store/actions";
 import LoadingOverlay from 'react-loading-overlay'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 
 class OneStepCheckout extends Component {
@@ -51,12 +52,12 @@ class OneStepCheckout extends Component {
             })
         }
 
-        if (prevProps.userInfo !== this.props.userInfo) {
-            this.setState({
-                listUserAddress: this.props.userInfo.UserAddresses,
-                selectedAddress: this.props.userInfo.UserAddresses[0],
-            })
-        }
+        // if (prevProps.userInfo !== this.props.userInfo) {
+        //     this.setState({
+        //         listUserAddress: this.props.userInfo.UserAddresses,
+        //         selectedAddress: this.props.userInfo.UserAddresses[0],
+        //     })
+        // }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
             let dataPayment = this.buildDataInputSelect(this.props.allCodesArr, 'payment');
@@ -139,7 +140,6 @@ class OneStepCheckout extends Component {
     handleConfirm = async () => {
         let orderedDate = Date.now();
 
-        // if (this.props.userInfo) {
         await this.props.createNewBill({
             orderedDate: orderedDate,
             userId: this.props.userInfo.id,
@@ -148,7 +148,6 @@ class OneStepCheckout extends Component {
             totalPrice: this.countTotalPrice(),
             listProduct: this.state.listProduct
         })
-        // }
     }
 
     countTotalPrice = () => {
@@ -263,6 +262,7 @@ class OneStepCheckout extends Component {
                                     style={{
                                         backgroundImage: "url(" + imageBase64 + ")"
                                     }}></div>
+
                                 <div className='product-name'>
                                     {productData.name}
                                 </div>
@@ -292,7 +292,6 @@ class OneStepCheckout extends Component {
         let { isOpenAddNewAddress, isLoading } = this.state
 
         return (
-            // <React.Fragment>
             <LoadingOverlay
                 classNamePrefix='Fullscreen_'
                 active={isLoading}

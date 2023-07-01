@@ -41,6 +41,7 @@ export const userProcessLogout = () => ({
 //GET PRODUCT BY KEY NAME
 export const fetchProductByKeyName = (inputKeyName) => {
     return async (dispatch, getState) => {
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
         let res;
         try {
             res = await getProductByKeyNameAPI(inputKeyName);
@@ -54,6 +55,8 @@ export const fetchProductByKeyName = (inputKeyName) => {
             dispatch(fetchProductByKeyNameFail());
             console.log("fetchAllCodesByType Error: ", error)
         }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+
     }
 }
 

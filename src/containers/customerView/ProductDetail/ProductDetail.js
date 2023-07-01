@@ -18,6 +18,7 @@ import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
 import AccountModal from '../components/DropdownComponents/AccountModal';
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import LoadingOverlay from 'react-loading-overlay';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class ProductDetail extends Component {
             message: '',
             formData: '',
 
+            isLoading: false,
             isModalSuccessOpened: false,
             isLoggedIn: false,
 
@@ -46,7 +48,11 @@ class ProductDetail extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
+        }
         if (prevProps.product !== this.props.product) {
             document.title = this.props.product.name
             this.setState({
@@ -308,7 +314,7 @@ class ProductDetail extends Component {
     render() {
         let { quantityValue, descriptionData, productType, category,
             subCategory, isModalSuccessOpened, message, isModalLoginOpened,
-            loadSignInForm, loadSignUpForm } = this.state
+            loadSignInForm, loadSignUpForm, isLoading } = this.state
         let { product } = this.props
         let imageBase64 = '';
         if (product.image) {
@@ -316,7 +322,11 @@ class ProductDetail extends Component {
         }
 
         return (
-            <>
+            <LoadingOverlay
+                classNamePrefix='Fullscreen_'
+                active={isLoading}
+                spinner={true}
+                text='Please wait...'>
                 <Header />
 
                 <div className='product-detail-container'>
@@ -439,8 +449,7 @@ class ProductDetail extends Component {
                         </div>
                     </div>
                 </div>
-            </>
-
+            </LoadingOverlay>
         );
     }
 }

@@ -1,11 +1,27 @@
 @import "../styles/common.scss";
 
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+
+
 body{
     width: 100%;
 }
 
 .sharing-container{
-  margin: 20px 40px;
+  @media (max-width: $medium){
+    margin: 20px 0px;
+  }
+  @media (min-width: $medium){
+    margin: 20px 25px;
+  }
+  @media (min-width: $large){
+    margin: 20px 50px;
+  }
   .sharing-content{
     background-color: white;
     padding: 15px;
@@ -233,17 +249,16 @@ body{
 //  }
 
   .Fullscreen_wrapper{
-    height: 100vh;
-overflow: scroll;
+    // height: 100vh;
+    
     .Fullscreen_overlay{
-      overflow: scroll;
-      
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+
       .Fullscreen_content{
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
         color: #F7941E;
         font-weight: 600;
         font-size: 1em;

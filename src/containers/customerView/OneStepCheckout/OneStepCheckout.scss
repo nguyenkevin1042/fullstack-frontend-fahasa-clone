@@ -1,3 +1,10 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+
 .shipping-address-container{
     .shipping-address-content{
 
@@ -129,7 +136,7 @@
                     background-size: cover;
                     background-position: center;
                     background-repeat: no-repeat;
-                    height: 150px;
+                    height: 100px;
                 }
 
                 .product-price{

@@ -28,6 +28,7 @@ class ProductList extends Component {
 
             listProduct: [],
             isLoading: false,
+            isProductListEmpty: false,
 
             totalRecords: "",
             totalPages: "",
@@ -110,8 +111,6 @@ class ProductList extends Component {
         }
 
         if (prevProps.lang !== this.props.lang) {
-            console.log(prevState)
-            console.log(this.state)
 
             if (category === 'all-category') {
                 this.setState({
@@ -193,9 +192,16 @@ class ProductList extends Component {
         }
 
         if (prevProps.allProductArr !== this.props.allProductArr) {
-            this.setState({
-                listProduct: this.props.allProductArr
-            })
+            if (this.props.allProductArr.length === 0) {
+                this.setState({
+                    isProductListEmpty: true
+                })
+            } else {
+                this.setState({
+                    listProduct: this.props.allProductArr,
+                    isProductListEmpty: false
+                })
+            }
         }
     }
 
@@ -460,9 +466,9 @@ class ProductList extends Component {
     }
 
     render() {
-        let { isLoading, listProduct, keyName, selectedCategory, selectedSubCategory } = this.state
-        let { totalPages, currentPage, pageLimit,
-            startIndex, endIndex, selectedPageLimit, numberOfProductsArr } = this.state;
+        let { isLoading, listProduct, keyName, selectedCategory, selectedSubCategory,
+            totalPages, currentPage, pageLimit, startIndex, endIndex,
+            selectedPageLimit, numberOfProductsArr, isProductListEmpty } = this.state;
         let rowsPerPage = [];
 
         rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
@@ -501,6 +507,7 @@ class ProductList extends Component {
                             </div>
                             {/* LIST PRODUCT */}
                             <LoadingOverlay
+                                classNamePrefix='Fullscreen_'
                                 active={isLoading}
                                 spinner={true}
                                 text='Please wait...'>
@@ -511,11 +518,17 @@ class ProductList extends Component {
 
                                         {this.renderProductList(rowsPerPage)}
 
-                                        {isLoading === false && listProduct.length === 0 && (
+                                        {isProductListEmpty === true && (
                                             <div className='no-products-text'>
                                                 <FormattedMessage id="customer.product-list.no-product" />
                                             </div>
                                         )}
+
+                                        {/* {isLoading === false && listProduct.length === 0 && (
+                                            <div className='no-products-text'>
+                                                <FormattedMessage id="customer.product-list.no-product" />
+                                            </div>
+                                        )} */}
                                     </div>
 
                                     <CustomPagination
