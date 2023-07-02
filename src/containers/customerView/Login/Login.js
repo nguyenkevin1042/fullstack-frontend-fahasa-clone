@@ -9,6 +9,7 @@ import SignInComponent from './SignInComponent';
 import SignUpComponent from './SignUpComponent';
 import ForgotPasswordComponent from './ForgotPasswordComponent';
 import * as actions from "../../../store/actions";
+import ChangingPasswordSuccessComponent from './ChangingPasswordSuccessComponent';
 
 class Login extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Login extends Component {
         this.state = {
             loadSignInForm: true,
             loadSignUpForm: false,
-            loadForgotPasswordForm: false
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: false,
         };
     }
 
@@ -33,17 +35,6 @@ class Login extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        // if (prevProps.location !== this.props.location) {
-        //     if (this.props.userInfo) {
-        //         this.props.history.push("/customer/account/dashboard");
-        //     }
-        // }
-
-        // if (prevProps.userInfo !== this.props.userInfo) {
-        //     if (this.props.userInfo) {
-        //         this.props.history.push("/customer/account/dashboard");
-        //     }
-        // }
 
         if (prevState.loadSignInForm !== this.state.loadSignInForm) {
             if (this.state.loadSignInForm === true) {
@@ -75,7 +66,8 @@ class Login extends Component {
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: true,
-            loadForgotPasswordForm: false
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: false,
         })
     }
 
@@ -83,29 +75,43 @@ class Login extends Component {
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: false,
-            loadForgotPasswordForm: true
+            loadForgotPasswordForm: true,
+            loadChangingPasswordSuccess: false,
         })
     }
+
+    handleOpenChangingPasswordSuccess = () => {
+        this.setState({
+            loadSignInForm: false,
+            loadSignUpForm: false,
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: true,
+        })
+    }
+
 
     handleBackSignInForm = () => {
         this.setState({
             loadSignInForm: true,
             loadSignUpForm: false,
-            loadForgotPasswordForm: false
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: false,
         })
     }
 
 
     renderTitle = () => {
-        let { loadSignInForm, loadSignUpForm, loadForgotPasswordForm } = this.state
+        let { loadSignInForm, loadSignUpForm,
+            loadForgotPasswordForm, loadChangingPasswordSuccess } = this.state
 
         return (
             <>
-                {loadForgotPasswordForm === true ?
+                {loadForgotPasswordForm === true || loadChangingPasswordSuccess === true ?
                     <>
-                        <div className='log-in-header-text log-in-header-forgot-password'>
-                            <FormattedMessage id="customer.login.recovery-password" />
-                        </div>
+                        {loadChangingPasswordSuccess === true ? <></> :
+                            <div className='log-in-header-text log-in-header-forgot-password'>
+                                <FormattedMessage id="customer.login.recovery-password" />
+                            </div>}
                     </>
                     :
                     <>
@@ -120,14 +126,16 @@ class Login extends Component {
                             'log-in-header-text log-in-header-sign-up'}
                             onClick={() => this.handleOpenSignUpForm()} >
                             <FormattedMessage id="customer.login.sign-up-text" />
-                        </div></>
+                        </div>
+                    </>
                 }
             </>
         )
     }
 
     render() {
-        let { loadSignInForm, loadSignUpForm, loadForgotPasswordForm } = this.state
+        let { loadSignInForm, loadSignUpForm,
+            loadForgotPasswordForm, loadChangingPasswordSuccess } = this.state
 
         return (
             <>
@@ -147,8 +155,11 @@ class Login extends Component {
                                     isOpenSignUpForm={loadSignUpForm} />
                                 <ForgotPasswordComponent
                                     isOpenForgotPasswordForm={loadForgotPasswordForm}
+                                    backSignInForm={this.handleBackSignInForm}
+                                    handleOpenChangingPasswordSuccess={this.handleOpenChangingPasswordSuccess} />
+                                <ChangingPasswordSuccessComponent
+                                    isOpenChangingPasswordSuccess={loadChangingPasswordSuccess}
                                     backSignInForm={this.handleBackSignInForm} />
-
                             </div>
                         </div>
                     </div>

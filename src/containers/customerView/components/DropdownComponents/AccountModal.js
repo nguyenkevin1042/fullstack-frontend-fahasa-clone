@@ -6,6 +6,7 @@ import { Modal } from 'reactstrap'
 import SignInComponent from '../../Login/SignInComponent';
 import SignUpComponent from '../../Login/SignUpComponent';
 import ForgotPasswordComponent from '../../Login/ForgotPasswordComponent';
+import ChangingPasswordSuccessComponent from '../../Login/ChangingPasswordSuccessComponent';
 
 class AccountModal extends Component {
     constructor(props) {
@@ -48,7 +49,8 @@ class AccountModal extends Component {
         this.setState({
             loadSignInForm: true,
             loadSignUpForm: false,
-            loadForgotPasswordForm: false
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: false,
         })
     }
 
@@ -56,7 +58,8 @@ class AccountModal extends Component {
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: true,
-            loadForgotPasswordForm: false
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: false,
         })
     }
 
@@ -64,7 +67,26 @@ class AccountModal extends Component {
         this.setState({
             loadSignInForm: false,
             loadSignUpForm: false,
-            loadForgotPasswordForm: true
+            loadForgotPasswordForm: true,
+            loadChangingPasswordSuccess: false,
+        })
+    }
+
+    handleOpenChangingPasswordSuccess = () => {
+        this.setState({
+            loadSignInForm: false,
+            loadSignUpForm: false,
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: true,
+        })
+    }
+
+    handleBackSignInForm = () => {
+        this.setState({
+            loadSignInForm: true,
+            loadSignUpForm: false,
+            loadForgotPasswordForm: false,
+            loadChangingPasswordSuccess: false,
         })
     }
 
@@ -117,7 +139,6 @@ class AccountModal extends Component {
                 toggle={this.handleCloseModal}
                 className={'account-modal-container'}>
 
-
                 <div className='log-in-content'>
                     <div className='log-in-form'>
                         <div className='log-in-header'>
@@ -132,7 +153,11 @@ class AccountModal extends Component {
                             <SignUpComponent
                                 isOpenSignUpForm={loadSignUpForm} />
                             <ForgotPasswordComponent
-                                isOpenForgotPasswordForm={loadForgotPasswordForm} />
+                                isOpenForgotPasswordForm={loadForgotPasswordForm}
+                                backSignInForm={this.handleBackSignInForm} />
+                            {/* <ChangingPasswordSuccessComponent
+                                isOpenForgotPasswordForm={loadForgotPasswordForm}
+                                backSignInForm={this.handleBackSignInForm} /> */}
                         </div>
 
                         <div className='close-modal-btn'>

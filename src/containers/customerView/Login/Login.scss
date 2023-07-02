@@ -79,9 +79,15 @@ $ex-large: 1200px;// Extra large >= 1200
                 }
             }
 
+            .log-in-header-forgot-password{
+                text-align: center;
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: 1.5em;
+            }
+
             .log-in-form-input{
                 padding: 0 20px;
-
 
                 .form-group{
                     margin-top: 20px;

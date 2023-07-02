@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import './ForgotPasswordComponent.scss';
 import { CommonUtils, languages } from '../../../utils';
 import * as actions from "../../../store/actions";
+import LoadingOverlay from 'react-loading-overlay';
 
 class ForgotPasswordComponent extends Component {
     constructor(props) {
@@ -55,6 +55,7 @@ class ForgotPasswordComponent extends Component {
     }
 
     handleGetValidationKey = async () => {
+        this.startLoading();
         this.setState({
             message: ''
         })
@@ -75,6 +76,7 @@ class ForgotPasswordComponent extends Component {
                     isEmailValid.messageVI : isEmailValid.messageEN
             })
         }
+        this.stopLoading();
     }
 
     handleOffKeyIfLengthEqual = (event, length) => {
@@ -83,6 +85,7 @@ class ForgotPasswordComponent extends Component {
     }
 
     handleAcceptToChangePassword = async () => {
+        this.startLoading()
         this.setState({
             message: ''
         })
@@ -93,6 +96,7 @@ class ForgotPasswordComponent extends Component {
         if (isEmailValid.errCode === 0) {
             //2. check password
             let isPasswordValid = CommonUtils.validatePassword(this.state.newPassword)
+
             if (isPasswordValid.errCode === 0) {
                 //3. check key
                 let isKeyValid = CommonUtils.validateKey(this.state.validationKey)
@@ -105,50 +109,54 @@ class ForgotPasswordComponent extends Component {
                     })
 
                     if (this.props.actionResponse && this.props.actionResponse.errCode === 0) {
-
+                        this.props.handleOpenChangingPasswordSuccess()
                     } else {
                         this.setState({
                             message: this.props.lang === languages.VI ?
                                 this.props.actionResponse.messageVI : this.props.actionResponse.messageEN
                         })
                     }
-
                 } else {
                     this.setState({
                         message: this.props.lang === languages.VI ?
                             isKeyValid.messageVI : isKeyValid.messageEN
                     })
-                }
-
+                } //End checking key
             } else {
                 this.setState({
                     message: this.props.lang === languages.VI ?
                         isPasswordValid.messageVI : isPasswordValid.messageEN
                 })
-            }
+            }//End checking password
         } else {
             this.setState({
                 message: this.props.lang === languages.VI ?
                     isEmailValid.messageVI : isEmailValid.messageEN
             })
-        }
+        } //End checking email
+        this.stopLoading()
     }
 
 
     render() {
-        let { email, newPassword, validationKey, message, isShowed } = this.state
+        let { email, newPassword, validationKey, message, isShowed, isLoading } = this.state
         let { isOpenForgotPasswordForm, backSignInForm } = this.props;
 
         return (
-            <>
+            <LoadingOverlay
+                classNamePrefix='Fullscreen_'
+                active={isLoading}
+                spinner={true}
+                text='Please wait...'>
                 {isOpenForgotPasswordForm === true &&
-                    <form action='#'>
+                    <form onSubmit={e => e.preventDefault()}>
                         <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.email-phone" /></label>
                             <input className='form-control'
                                 value={email}
+                                required
                                 onChange={(event) => this.handleOnChangeInput(event, 'email')}
-                                required />
+                            />
                             <span className='custom-input-item get-code-text'
                                 onClick={() => this.handleGetValidationKey()}>
                                 <FormattedMessage id="customer.login.get-code" />
@@ -159,8 +167,9 @@ class ForgotPasswordComponent extends Component {
                             <input className='form-control' value={newPassword}
                                 type={isShowed ? 'text' : 'password'}
                                 autoComplete='off'
+                                required
                                 onChange={(event) => this.handleOnChangeInput(event, 'newPassword')}
-                                required />
+                            />
                             <span className='custom-input-item'
                                 onClick={() => this.handleShowHidePassword()}>
                                 <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
@@ -171,10 +180,11 @@ class ForgotPasswordComponent extends Component {
                             <input className='form-control'
                                 type='number'
                                 value={validationKey}
+                                required
                                 // max={6}
                                 // onKeyPress={(event) => this.handleOffKeyIfLengthEqual(event, 6)}
                                 onChange={(event) => this.handleOnChangeInput(event, 'validationKey')}
-                                required />
+                            />
                         </div>
                         <div className='col-12 error-message mt-4'>
                             {message}
@@ -189,11 +199,9 @@ class ForgotPasswordComponent extends Component {
                                 <FormattedMessage id="customer.login.back-text" />
                             </button>
                         </div >
-
                     </form>
                 }
-            </>
-
+            </LoadingOverlay>
         );
     }
 }

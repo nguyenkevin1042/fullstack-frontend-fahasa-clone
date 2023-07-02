@@ -66,6 +66,22 @@
                         padding: 10px 0;
                     }
                 }
+
+                .back-btn{
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                    
+                    button{
+                        font-weight: 600;
+                        color: #C92127;
+                        border: 2px solid #C92127;
+                        background-color: white;
+                        width: 245px;
+                        border-radius: 8px;
+                        padding: 10px 0;
+                    }
+                }
                 
                 .error-message{
                     text-align: center;
@@ -87,7 +103,6 @@
                     width: 245px;
                     height: 40px;
                     border-radius: 8px;
-    
                 }
             }
         }
