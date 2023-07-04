@@ -107,7 +107,8 @@
             "suggest": "Suggestions from Fahasa",
             "same-author": "Other products of this author",
             "relevant-products": "Relevant products",
-            "review-product": "Review product"
+            "review-product": "Review product",
+            "write-a-review": "Write a review"
         },
         "account": {
             "title": "Account",
