@@ -106,18 +106,10 @@ class RecommendedProductItem extends Component {
                 {productData &&
                     <div className='product-item' title={productData.name}
                         onClick={() => this.handleRedirectToProductDetail(productData.keyName)} >
-                        <div
-                        // className='product-image'
-                        // style={{
-                        //     backgroundImage: "url(" + imageBase64 + ")"
-                        // }}
-                        >
-                            {imageBase64 &&
-                                <LazyLoadImage src={imageBase64}
-                                    alt="Image Alt"
-                                    effect="blur"
-                                    className='product-image'
-                                />}
+                        <div className='product-image'
+                            style={{
+                                backgroundImage: "url(" + imageBase64 + ")"
+                            }}>
                         </div>
                         <div className='product-name'>
                             {productData.name}

@@ -104,9 +104,11 @@ $ex-large: 1200px;// Extra large >= 1200
             margin-top: 20px;
             max-height: 80px;
             overflow: hidden;
+            white-space: pre-wrap;
         }
         .about-product-text-more{
             margin-top: 20px;
+            white-space: pre-wrap;
         }
 
         .show-hide-btn{

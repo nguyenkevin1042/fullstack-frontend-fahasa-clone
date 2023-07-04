@@ -106,7 +106,8 @@
             "less": "Show less",
             "suggest": "Suggestions from Fahasa",
             "same-author": "Other products of this author",
-            "relevant-products": "Relevant products"
+            "relevant-products": "Relevant products",
+            "review-product": "Review product"
         },
         "account": {
             "title": "Account",

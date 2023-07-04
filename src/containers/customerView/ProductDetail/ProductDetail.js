@@ -19,6 +19,7 @@ import AccountModal from '../components/DropdownComponents/AccountModal';
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LoadingOverlay from 'react-loading-overlay';
+import ProductReviewComponent from './ProductReviewComponent';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -356,8 +357,6 @@ class ProductDetail extends Component {
                                             effect="blur"
                                         />}
 
-                                    {/* <img src={imageBase64}
-                                        className='product-img img-fluid' /> */}
                                 </div>
                                 <div className='product-action col-lg-12 d-none d-md-flex'>
                                     <div className='col-6'>
@@ -438,6 +437,8 @@ class ProductDetail extends Component {
                     product={product}
                     descriptionData={descriptionData}
                     productType={productType} />
+
+                <ProductReviewComponent />
 
                 <PolicyComponent />
                 <SignUpNewletter />

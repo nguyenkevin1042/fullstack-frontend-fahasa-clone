@@ -1,0 +1,119 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (max-width: $medium) {
+    .review-product-container{
+        margin: 20px 0;
+             .review-product-content{
+             padding: 20px;
+             }
+         }
+}
+
+@media (min-width: $medium) {
+    .review-product-container{
+        margin: 20px 25px;
+        
+        .review-product-content{
+            border-radius: 10px;
+            padding: 20px;
+        }
+    }
+}
+
+@media (min-width: $large) {
+    .review-product-container{
+        margin: 20px 50px;
+        
+        .review-product-content{
+            border-radius: 10px;
+            padding: 20px;
+        }
+    }
+}
+
+.review-product-container{
+   
+    .review-product-content{
+        background-color: white;
+
+        .review-product-header{
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .review-product-rating-section{
+            // margin: 0;
+            .overall-rating{
+
+                p{
+                    text-align: center;
+                    margin: 0;
+                    padding: 0;
+                }
+                
+                .text-bold{  
+                    font-size: 1.9em;
+                    font-weight: 600;
+    
+                    span{
+                        font-size: 2.1em;
+                    }
+                }
+
+                .stars-icon{
+                    margin-bottom: 7px;
+                    img{
+                        width: 20px;
+                    }
+                }
+            }
+
+            .each-star-rating{
+                padding: 0;
+
+                ul{
+                    list-style: none;
+                    padding: 0;
+                    padding-right: 20px;
+
+                    .sharing-star-rating{
+                        display: flex;
+                        justify-content: center;
+                        margin: auto;
+
+                        p{
+                            white-space: nowrap;
+                            padding: 0;
+                            margin: 0;
+                            font-size: 1.2em;
+                        }
+                        
+                        :where(.css-dev-only-do-not-override-w8mnev).ant-progress-line{
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .write-review-section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid red;
+            // margin: 0;
+            padding: 0;
+            margin-top: 10px;
+
+            p{
+                // margin: 0;
+                padding: 0;
+                font-size: 0.95em;
+            }
+        }
+    }
+}
