@@ -112,7 +112,13 @@
             "same-author": "Cùng tác giả",
             "relevant-products": "Sản phẩm liên quan",
             "review-product": "Đánh giá sản phẩm",
-            "write-a-review": "Viết bài đánh giá"
+            "write-a-review": "Viết bài đánh giá",
+            "write-a-review-modal": {
+                "title": "Viết đánh giá sản phẩm",
+                "anonymous": "Đánh giá ẩn danh",
+                "cancel": "Hủy",
+                "send-review": "Gửi nhận xét"
+            }
         },
         "account": {
             "title": "Tài khoản",

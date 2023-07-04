@@ -108,7 +108,13 @@
             "same-author": "Other products of this author",
             "relevant-products": "Relevant products",
             "review-product": "Review product",
-            "write-a-review": "Write a review"
+            "write-a-review": "Write a review",
+            "write-a-review-modal": {
+                "title": "Write a review for this product",
+                "anonymous": "Review as a anonymous",
+                "cancel": "Cancel",
+                "send-review": "Send review"
+            }
         },
         "account": {
             "title": "Account",

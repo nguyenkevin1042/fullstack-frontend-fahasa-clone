@@ -1,0 +1,88 @@
+$ex-small: 576px;//Extra small < 576px
+$small: 576px;//Small small >= 576px
+$medium: 768px; // Medium >= 768
+$large: 992px;// Large >= 768
+$ex-large: 1200px;// Extra large >= 1200
+
+@media (max-width: $medium) {
+    .writing-review-modal-container{
+        .writing-review-modal-input-section{
+            .custom-toggle-anonymous{
+                margin-left: 15px;
+            }
+        }
+    }
+}
+
+@media (min-width: $medium) {
+    .writing-review-modal-container{
+        .writing-review-modal-input-section{
+            position: relative;
+            .custom-toggle-anonymous{
+                position: absolute;
+                top: 5px;
+                right: 15px;
+            }
+        }
+    }
+}
+
+@media (min-width: $large) {
+    
+}
+
+.writing-review-modal-container{
+    padding: 15px 20px;
+
+    .writing-review-modal-header{
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 500;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .writing-review-modal-rating-section{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        
+        img{
+            width: 30px;
+            cursor: pointer;
+        }
+    }
+
+    .writing-review-modal-input-section{
+        .custom-toggle-anonymous{
+
+            span{
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .writing-review-modal-buttons{
+        display: flex;
+        justify-content: flex-end;
+
+        button{
+            border: none;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .cancel-btn{
+            background-color: transparent;
+            color: #7A7E7F;
+            margin-right: 20px;
+        }
+        .send-review-btn{
+            border-radius: 8px;
+            background-color: #C92127;
+            color: white;
+            padding: 8px 40px;
+        }
+    }
+}

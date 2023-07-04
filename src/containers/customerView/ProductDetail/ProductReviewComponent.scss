@@ -69,6 +69,12 @@ $ex-large: 1200px;// Extra large >= 1200
             .list-reviews-section{
 
                 .customer-review-item{
+
+                    .customer-name-review-date{
+                        .review-date{
+                            text-align: left;
+                        }
+                    }
    
                     .customer-review-rating-text{
                         padding: 0;

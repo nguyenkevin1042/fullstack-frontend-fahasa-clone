@@ -12,7 +12,7 @@ import ProductDescriptionComponent from './ProductDescriptionComponent';
 import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
 import OtherProductsComponent from './OtherProductsComponent';
-import AddToCartSuccessModal from './AddToCartSuccessModal';
+import AddToCartSuccessModal from './modal/AddToCartSuccessModal';
 import { languages } from '../../../utils';
 import ChangingQuantityComponent from '../components/ChangingQuantityComponent';
 import AccountModal from '../components/DropdownComponents/AccountModal';

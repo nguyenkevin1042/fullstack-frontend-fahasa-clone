@@ -36,13 +36,6 @@ class SignInComponent extends Component {
                         this.props.actionResponse.messageEN
                 })
             }
-            // if (this.props.actionResponse.errCode === 0) {
-            //     this.props.history.push("/customer/account/dashboard");
-
-            //     if (this.props.closeAccountModal) {
-            //         this.props.closeAccountModal();
-            //     }
-            // }
         }
 
         if (prevProps.userInfo !== this.props.userInfo) {

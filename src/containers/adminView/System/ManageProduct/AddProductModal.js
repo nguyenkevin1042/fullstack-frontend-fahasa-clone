@@ -350,7 +350,7 @@ class AddProductModal extends Component {
                                     <label>Tên sản phảm</label>
                                     <input className='form-control'
                                         value={name}
-                                        onChange={(event) => this.handleOnChangeInputName(event)} />
+                                        onChange={(event) => this.handleOnChangeInputName(event, 'name')} />
                                 </div>
                                 <div className='col-4 form-group'>
                                     <label>Mã theo tên sản phẩm</label>

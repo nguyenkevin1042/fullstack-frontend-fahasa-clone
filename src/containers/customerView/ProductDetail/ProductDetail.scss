@@ -8,6 +8,10 @@ $ex-large: 1200px;// Extra large >= 1200
     .product-detail-container{ 
         .product-detail-section{
             .product-detail-left{
+                .product-img{
+                    width: 50%;
+                    height: 100%;
+                }
                 .product-action{
                     button{
                         // padding: 10px;
@@ -45,6 +49,10 @@ $ex-large: 1200px;// Extra large >= 1200
 
         .product-detail-section{
             .product-detail-left{
+                .product-img{
+                    width: 80%;
+                    height: 100%;
+                }
                 .product-action{
                     padding: 0;
 
@@ -80,6 +88,10 @@ $ex-large: 1200px;// Extra large >= 1200
 
         .product-detail-section{
             .product-detail-left{
+                .product-img{
+                    width: 65%;
+                    height: 100%;
+                }
                 .product-action{
                     button{
                         padding: 10px;
@@ -119,13 +131,7 @@ $ex-large: 1200px;// Extra large >= 1200
         padding: 20px 10px;
 
         .product-detail-left{
-            .image-section{
-                // border: 1px solid red;
-            }
-            .product-img{
-                width: 65%;
-                height: 100%;
-            }
+
 
             .product-action{
                 display: flex;
