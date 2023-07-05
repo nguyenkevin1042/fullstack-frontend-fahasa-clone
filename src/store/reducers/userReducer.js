@@ -8,8 +8,8 @@ const initialState = {
     cartData: '',
     selectedProducts: '',
     billData: [],
-    singleOrder: ''
-
+    singleOrder: '',
+    allReviewsArr: []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -178,6 +178,33 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleOrder: ''
+            }
+
+        case actionTypes.CREATE_NEW_BILL_SUCCESS:
+            state.actionResponse = ''
+
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.CREATE_NEW_BILL_FAIL:
+            state.actionResponse = ''
+
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
+        case actionTypes.GET_REVIEW_BY_PRODUCT_ID_SUCCESS:
+            return {
+                ...state,
+                allReviewsArr: action.response.reviewData
+            }
+
+        case actionTypes.GET_REVIEW_BY_PRODUCT_ID_FAIL:
+            return {
+                ...state,
+                allReviewsArr: action.response
             }
 
         case actionTypes.USER_PROCESS_LOGOUT:

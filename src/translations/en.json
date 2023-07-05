@@ -109,6 +109,7 @@
             "relevant-products": "Relevant products",
             "review-product": "Review product",
             "write-a-review": "Write a review",
+            "anonymous-user": "Anonymous user",
             "write-a-review-modal": {
                 "title": "Write a review for this product",
                 "anonymous": "Review as a anonymous",

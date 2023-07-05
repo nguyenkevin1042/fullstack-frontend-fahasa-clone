@@ -300,6 +300,17 @@ const deleteProductTagAPI = (data) => {
     return axios.delete("/api/delete-product-tag", data);
 }
 
+//REVIEW
+const createNewReviewAPI = (data) => {
+    return axios.post("/api/create-new-review", data);
+}
+
+const getReviewByProductIdAPI = (inputProductId) => {
+    return axios.get("/api/get-review-by-product-id",
+        { params: { productId: inputProductId } });
+}
+
+
 
 export {
     //USER
@@ -332,6 +343,7 @@ export {
     getProductByTagKeyNameAPI, getTagByTypeAPI, getAllTagAPI,
     getAllTagWithoutProductAPI,
     //PRODUCT TAG
-    createProductTagAPI, deleteProductTagAPI, updateProductTagAPI, getProductByTagIdAPI
-
+    createProductTagAPI, deleteProductTagAPI, updateProductTagAPI, getProductByTagIdAPI,
+    //REVIEW
+    createNewReviewAPI, getReviewByProductIdAPI
 };

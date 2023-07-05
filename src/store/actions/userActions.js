@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { addToCartAPI, changePasswordAPI, createNewAddressAPI, createNewBillAPI, customerLoginAPI, deleteProductInCartAPI, getBillByIdAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, getValidationKeyAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
+import { addToCartAPI, changePasswordAPI, createNewAddressAPI, createNewBillAPI, createNewReviewAPI, customerLoginAPI, deleteProductInCartAPI, getBillByIdAPI, getBillByUserIdAPI, getCartByUserIdAPI, getProductByKeyNameAPI, getReviewByProductIdAPI, getValidationKeyAPI, updateCartAPI, updateUserAPI } from '../../services/userService';
 
 export const addUserSuccess = () => ({
     type: actionTypes.ADD_USER_SUCCESS
@@ -408,5 +408,64 @@ export const changePasswordSuccess = (response) => ({
 
 export const changePasswordFail = (response) => ({
     type: actionTypes.CHANGE_PASSWORD_FAIL,
+    response: response
+})
+
+//CREATE NEW REVIEW
+export const createNewReview = (inputData) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await createNewReviewAPI(inputData);
+
+            if (res && res.errCode === 0) {
+                dispatch(createNewReviewSuccess(res));
+            } else {
+                dispatch(createNewReviewFail(res));
+            }
+        } catch (error) {
+            dispatch(createNewReviewFail(res));
+            console.log("createNewReview Error: ", error)
+        }
+    }
+}
+
+export const createNewReviewSuccess = (response) => ({
+    type: actionTypes.CREATE_NEW_REVIEW_SUCCESS,
+    response: response
+})
+
+export const createNewReviewFail = (response) => ({
+    type: actionTypes.CREATE_NEW_REVIEW_FAIL,
+    response: response
+})
+
+//CREATE NEW REVIEW
+export const getReviewByProductId = (inputProductId) => {
+    return async (dispatch, getState) => {
+        let res;
+        try {
+            res = await getReviewByProductIdAPI(inputProductId);
+            // console.log(inputProductId)
+            // return
+            if (res && res.errCode === 0) {
+                dispatch(getReviewByProductIdSuccess(res));
+            } else {
+                dispatch(getReviewByProductIdFail(res));
+            }
+        } catch (error) {
+            dispatch(getReviewByProductIdFail(res));
+            console.log("getReviewByProductId Error: ", error)
+        }
+    }
+}
+
+export const getReviewByProductIdSuccess = (response) => ({
+    type: actionTypes.GET_REVIEW_BY_PRODUCT_ID_SUCCESS,
+    response: response
+})
+
+export const getReviewByProductIdFail = (response) => ({
+    type: actionTypes.GET_REVIEW_BY_PRODUCT_ID_FAIL,
     response: response
 })

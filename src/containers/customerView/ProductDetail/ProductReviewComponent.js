@@ -7,7 +7,10 @@ import starIconGray from '../../../assets/images/ico_star_gray.svg'
 import starIconYellow from '../../../assets/images/ico_star_yellow.svg'
 
 import WritingReviewModal from './modal/WritingReviewModal';
-// import * as actions from "../store/actions";
+import * as actions from "../../../store/actions";
+
+import moment from 'moment';
+
 
 import { Progress } from 'antd';
 
@@ -15,11 +18,13 @@ class ProductReviewComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isWritingReviewModalOpened: false
+            isWritingReviewModalOpened: false,
+            listReviews: []
         };
     }
 
     componentDidMount() {
+        this.props.getReviewByProductId(this.props.productId)
 
     }
 
@@ -28,7 +33,15 @@ class ProductReviewComponent extends Component {
 
         }
 
+        if (prevProps.productId !== this.props.productId) {
+            this.props.getReviewByProductId(this.props.productId)
+        }
 
+        if (prevProps.allReviewsArr !== this.props.allReviewsArr) {
+            this.setState({
+                listReviews: this.props.allReviewsArr
+            })
+        }
     }
 
     handleOpenWritingReviewModal = () => {
@@ -41,12 +54,69 @@ class ProductReviewComponent extends Component {
         this.setState({
             isWritingReviewModalOpened: false
         })
+        this.props.getReviewByProductId(this.props.productId)
+    }
+
+    renderReviewData = () => {
+        let { listReviews } = this.state
+
+        return (
+            <>
+                {listReviews && listReviews.length > 0 &&
+                    listReviews.map((item, index) => {
+                        let reviewedDate = moment(item.reviewedDate).format('DD/MM/YYYY')
+
+                        return (
+                            <div className='customer-review-item row'>
+                                <div className='customer-name-review-date d-flex d-lg-block col-12 col-lg-2'>
+                                    <p className='customer-name col-6 col-lg-12'>
+                                        {item.isAnonymous === true ?
+                                            <>
+                                                <FormattedMessage id="customer.product-detail.anonymous-user" />
+                                            </> :
+
+                                            <>{item.reviewer}</>}
+                                    </p>
+                                    <p className='review-date col-6 col-lg-12'>{reviewedDate}</p>
+                                </div>
+                                <div className='customer-review-rating-text d-block col-12 col-lg-10'>
+                                    <div className='stars-icon'>
+                                        <img src={starIconYellow} alt='star' />
+                                        <img src={starIconYellow} alt='star' />
+                                        <img src={starIconYellow} alt='star' />
+                                        <img src={starIconYellow} alt='star' />
+                                        <img src={starIconYellow} alt='star' />
+                                    </div>
+                                    <div className='customer-review-text'>
+                                        {item.reviewText}
+                                    </div>
+                                </div>
+                                <div className='like-report col-12 d-flex'>
+                                    <p>
+                                        <i className="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        Thích
+                                    </p>
+                                    <p>
+                                        <i className="fa fa-flag" aria-hidden="true"></i>
+                                        Báo cáo
+                                    </p>
+
+                                </div>
+                            </div>
+                        )
+                    })
+
+                }
+            </>
+        )
     }
 
 
     render() {
-        let { isLoggedIn } = this.props
-        let { isWritingReviewModalOpened } = this.state
+        let { isLoggedIn, productId } = this.props
+        let { isWritingReviewModalOpened, listReviews } = this.state
+
+        console.log(this.state.listReviews)
 
         return (
             <>
@@ -67,7 +137,7 @@ class ProductReviewComponent extends Component {
                                     <img src={starIconGray} alt='star' />
                                     <img src={starIconGray} alt='star' />
                                 </p>
-                                <p>(2 đánh giá)</p>
+                                <p>&#40;{listReviews.length} đánh giá&#41;</p>
                             </div>
                             {/* RATING */}
                             <div className='each-star-rating col-8 col-lg-4'>
@@ -108,7 +178,8 @@ class ProductReviewComponent extends Component {
                             </div>
                             {/* ALL REVIEWS */}
                             <div className='list-reviews-section container-fluid'>
-                                <div className='customer-review-item row'>
+                                {this.renderReviewData()}
+                                {/* <div className='customer-review-item row'>
                                     <div className='customer-name-review-date d-flex d-lg-block col-12 col-lg-2'>
                                         <p className='customer-name col-6 col-lg-12'>Bùi Minh Phượng</p>
                                         <p className='review-date col-6 col-lg-12'>20/4/2023</p>
@@ -136,7 +207,7 @@ class ProductReviewComponent extends Component {
                                         </p>
 
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
@@ -146,7 +217,8 @@ class ProductReviewComponent extends Component {
                 </div >
 
                 <WritingReviewModal isOpenedModal={isWritingReviewModalOpened}
-                    closeModal={this.handleCloseWritingReviewModal} />
+                    closeModal={this.handleCloseWritingReviewModal}
+                    productId={productId} />
             </>
         );
     }
@@ -158,12 +230,14 @@ const mapStateToProps = state => {
         lang: state.app.language,
         userInfo: state.user.userInfo,
         isLoggedIn: state.user.isLoggedIn,
+        allReviewsArr: state.user.allReviewsArr,
+
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        getReviewByProductId: (inputProductId) => dispatch(actions.getReviewByProductId(inputProductId)),
     };
 };
 

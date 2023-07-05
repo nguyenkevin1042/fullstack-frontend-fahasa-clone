@@ -438,7 +438,7 @@ class ProductDetail extends Component {
                     descriptionData={descriptionData}
                     productType={productType} />
 
-                <ProductReviewComponent />
+                <ProductReviewComponent productId={product.id} />
 
                 <PolicyComponent />
                 <SignUpNewletter />

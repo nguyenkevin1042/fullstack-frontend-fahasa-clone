@@ -195,7 +195,8 @@ $ex-large: 1200px;// Extra large >= 1200
         .list-reviews-section{
             margin-top: 20px;
             .customer-review-item{
-
+                border-top: 2px solid #f6f6f6;
+                padding-top: 10px;
                 .customer-name-review-date{
                     padding: 0;
 

@@ -35,6 +35,7 @@ class WritingReviewModal extends Component {
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
             let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "rating");
+            dataSelect[0].isSelected = true
             this.setState({
                 listRating: dataSelect,
                 selectedRating: dataSelect[0]
@@ -104,13 +105,24 @@ class WritingReviewModal extends Component {
         })
     }
 
-    handleSendReview = () => {
-        console.log({
+    handleSendReview = async () => {
+        let { productId, userInfo } = this.props
+        let userId = userInfo.id
+        let reviewedDate = Date.now();
+
+        await this.props.createNewReview({
+            productId: productId,
+            userId: userId,
             customerName: this.state.customerName,
             reviewText: this.state.reviewText,
             isAnonymous: this.state.isAnonymous,
-            selectedRating: this.state.selectedRating
+            selectedRating: this.state.selectedRating,
+            reviewedDate: reviewedDate
         })
+
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal()
+        }
     }
 
     renderRatingView = (listRating) => {
@@ -119,12 +131,12 @@ class WritingReviewModal extends Component {
         return (
             <>
                 {listRating.map((item, index) =>
-                    <>
-                        <img key={item.id}
-                            src={item.id === selectedRating.id || item.isSelected === true ? starIconYellow : starIconGray}
-                            onMouseOver={() => this.handSelectRating(item)}
-                            alt='star' />
-                    </>
+
+                    <img key={item.id}
+                        src={item.id === selectedRating.id || item.isSelected === true ? starIconYellow : starIconGray}
+                        onMouseOver={() => this.handSelectRating(item)}
+                        alt='star' />
+
                 )}
             </>
         )
@@ -132,12 +144,11 @@ class WritingReviewModal extends Component {
 
     render() {
         let { isOpenedModal, closeModal, lang } = this.props
-        let { customerName, reviewText, isAnonymous, listRating, selectedRating } = this.state
+        let { customerName, reviewText, listRating } = this.state
 
         return (
             <React.Fragment>
-
-                <Modal isOpen={true}
+                <Modal isOpen={isOpenedModal}
                     toggle={closeModal}
                     size='lg'
                     centered>
@@ -196,9 +207,7 @@ class WritingReviewModal extends Component {
                         </div>
                     </div>
                 </Modal>
-
             </React.Fragment >
-
         );
     }
 }
@@ -208,13 +217,15 @@ const mapStateToProps = state => {
     return {
         lang: state.app.language,
         allCodesArr: state.admin.allCodesArr,
-
+        userInfo: state.user.userInfo,
+        actionResponse: state.user.actionResponse,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
+        createNewReview: (inputData) => dispatch(actions.createNewReview(inputData)),
 
     };
 };
