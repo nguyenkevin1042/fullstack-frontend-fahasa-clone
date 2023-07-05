@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import './WritingReviewModal.scss';
 import { Modal } from 'reactstrap'
-import { languages } from '../../../../utils'
+import { CommonUtils, languages } from '../../../../utils'
 import { Switch } from 'antd';
 
 import starIconGray from '../../../../assets/images/ico_star_gray.svg'
@@ -29,8 +29,18 @@ class WritingReviewModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
+        if (prevProps.isOpenedModal !== this.props.isOpenedModal) {
+            let { userInfo, lang } = this.props
 
+            let firstName = userInfo && userInfo.firstName ? userInfo.firstName : ''
+            let lastName = userInfo && userInfo.lastName ? userInfo.lastName : ''
+            let nameVI = lastName + ' ' + firstName
+            let nameEN = firstName + ' ' + lastName
+            let fullName = lang === languages.VI ? nameVI : nameEN
+
+            this.setState({
+                customerName: fullName
+            })
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr) {
@@ -67,23 +77,23 @@ class WritingReviewModal extends Component {
         let tempList = this.state.listRating
         let selectedList, nonSelectedList, resultList
         let index = tempList.indexOf(item)
+        resultList = CommonUtils.getRatingList(tempList, index)
+        // this.setState({
+        //     selectedRating: item
+        // })
 
-        this.setState({
-            selectedRating: item
-        })
+        // selectedList = tempList.slice(0, index).map(item => {
+        //     item.isSelected = true
+        //     return item
+        // })
+        // nonSelectedList = tempList.slice(index, tempList.length).map(item => {
+        //     item.isSelected = false
+        //     return item
+        // })
 
-        selectedList = tempList.slice(0, index).map(item => {
-            item.isSelected = true
-            return item
-        })
-        nonSelectedList = tempList.slice(index, tempList.length).map(item => {
-            item.isSelected = false
-            return item
-        })
+        // resultList = [...selectedList, ...nonSelectedList]
 
-        resultList = [...selectedList, ...nonSelectedList]
-
-        item.isSelected = !item.isSelected
+        // item.isSelected = !item.isSelected
 
         this.setState({
             selectedRating: item,
@@ -99,10 +109,23 @@ class WritingReviewModal extends Component {
         this.setState({ ...copyState });
     }
 
+    handleSetInputDefault = () => {
+        this.setState({
+            customerName: '',
+            reviewText: '',
+            isAnonymous: false,
+            selectedRating: ''
+        })
+    }
     handleOnChangeAnonymous = () => {
         this.setState({
             isAnonymous: !this.state.isAnonymous
         })
+    }
+
+    handleCancelReview = () => {
+        this.handleSetInputDefault()
+        this.props.closeModal()
     }
 
     handleSendReview = async () => {
@@ -121,6 +144,7 @@ class WritingReviewModal extends Component {
         })
 
         if (this.props.actionResponse.errCode === 0) {
+            this.handleSetInputDefault()
             this.props.closeModal()
         }
     }
@@ -131,19 +155,17 @@ class WritingReviewModal extends Component {
         return (
             <>
                 {listRating.map((item, index) =>
-
                     <img key={item.id}
                         src={item.id === selectedRating.id || item.isSelected === true ? starIconYellow : starIconGray}
                         onMouseOver={() => this.handSelectRating(item)}
                         alt='star' />
-
                 )}
             </>
         )
     }
 
     render() {
-        let { isOpenedModal, closeModal, lang } = this.props
+        let { isOpenedModal, closeModal, lang, userInfo } = this.props
         let { customerName, reviewText, listRating } = this.state
 
         return (
@@ -197,7 +219,7 @@ class WritingReviewModal extends Component {
 
                         <div className='writing-review-modal-buttons'>
                             <button className='cancel-btn'
-                                onClick={closeModal}>
+                                onClick={() => this.handleCancelReview()}>
                                 <FormattedMessage id="customer.product-detail.write-a-review-modal.cancel" />
                             </button>
                             <button className='send-review-btn'

@@ -446,8 +446,7 @@ export const getReviewByProductId = (inputProductId) => {
         let res;
         try {
             res = await getReviewByProductIdAPI(inputProductId);
-            // console.log(inputProductId)
-            // return
+
             if (res && res.errCode === 0) {
                 dispatch(getReviewByProductIdSuccess(res));
             } else {

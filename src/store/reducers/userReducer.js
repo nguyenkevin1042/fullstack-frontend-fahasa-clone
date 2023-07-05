@@ -195,6 +195,21 @@ const appReducer = (state = initialState, action) => {
                 actionResponse: action.response
             }
 
+        case actionTypes.CREATE_NEW_REVIEW_SUCCESS:
+            state.actionResponse = ''
+
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+        case actionTypes.CREATE_NEW_REVIEW_FAIL:
+            state.actionResponse = ''
+
+            return {
+                ...state,
+                actionResponse: action.response
+            }
+
         case actionTypes.GET_REVIEW_BY_PRODUCT_ID_SUCCESS:
             return {
                 ...state,
@@ -204,7 +219,8 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.GET_REVIEW_BY_PRODUCT_ID_FAIL:
             return {
                 ...state,
-                allReviewsArr: action.response
+                actionResponse: action.response,
+                allReviewsArr: []
             }
 
         case actionTypes.USER_PROCESS_LOGOUT:

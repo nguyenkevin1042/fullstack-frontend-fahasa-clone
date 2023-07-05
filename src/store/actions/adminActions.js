@@ -217,7 +217,7 @@ export const fetchAllCodesByKeyMap = (inputKeyMap) => {
 
 export const fetchAllCodesByKeyMapSuccess = (response) => ({
     type: actionTypes.FETCH_ALL_CODE_BY_KEY_MAP_SUCCESS,
-    categoryResult: response
+    codeByKeyMapData: response
 })
 
 export const fetchAllCodesByKeyMapFail = () => ({

@@ -70,8 +70,90 @@ class CommonUtils {
         return price - ((price * discount) / 100);
     }
 
-    static getName(firstName, lastName) {
+    //this is only used for rating
+    static getRatingList(targetList, targetIndex) {
+        let selectedList, nonSelectedList, resultList
+        selectedList = targetList.slice(0, targetIndex).map(item => {
+            item.isSelected = true
+            return item
+        })
+        nonSelectedList = targetList.slice(targetIndex, targetList.length).map(item => {
+            item.isSelected = false
+            return item
+        })
+        // targetList[targetIndex].isSelected = true
 
+        resultList = [...selectedList, ...nonSelectedList]
+        return resultList
+    }
+
+    // getTotalRating with a condition(all,1 star, 2star,...)
+    static getTotalRating(targetList, condition) {
+        let result = 0
+        let total1Star = 0, total2Star = 0, total3Star = 0,
+            total4Star = 0, total5Star = 0, total = 0
+        // star1.push(targetList[0])
+
+        //set value
+        for (let index = 0; index < targetList.length; index++) {
+            let currentKeyMap = targetList[index].rating
+            switch (currentKeyMap) {
+                case '1STAR':
+                    total1Star++
+                    break;
+                case '2STAR':
+                    total2Star++
+                    break;
+                case '3STAR':
+                    total3Star++
+                    break;
+                case '4STAR':
+                    total4Star++
+                    break;
+                case '5STAR':
+                    total5Star++
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        //get result before return
+        switch (condition) {
+            case 'all':
+                if (targetList.length === 0) {
+                    result = 0
+                } else {
+                    result = ((1 * total1Star) + (2 * total2Star)
+                        + (3 * total3Star) + (4 * total4Star) + (5 * total5Star))
+                        /
+                        (total1Star + total2Star + total3Star + total4Star + total5Star)
+                }
+
+                break;
+            case '1Star':
+                result = Math.round((total1Star / (targetList.length)) * 100)
+                break;
+            case '2Star':
+                result = Math.round((total2Star / (targetList.length)) * 100)
+                break;
+            case '3Star':
+                result = Math.round((total3Star / (targetList.length)) * 100)
+                break
+            case '4Star':
+                result = Math.round((total4Star / (targetList.length)) * 100)
+                break;
+            case '5Star':
+                result = Math.round((total5Star / (targetList.length)) * 100)
+                break;
+
+            default:
+                break;
+        }
+
+
+
+        return result
     }
 
     static getBase64(file) {

@@ -13,33 +13,47 @@ import moment from 'moment';
 
 
 import { Progress } from 'antd';
+import UserRatingComponent from './component/UserRatingComponent';
+import { CommonUtils } from '../../../utils';
+import ProductRatingComponent from './component/ProductRatingComponent';
 
 class ProductReviewComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isWritingReviewModalOpened: false,
-            listReviews: []
+            listReviews: [],
+            totalRatingScore: 0
         };
     }
 
-    componentDidMount() {
-        this.props.getReviewByProductId(this.props.productId)
-
+    async componentDidMount() {
+        await this.props.getReviewByProductId(this.props.productId)
+        this.setState({
+            listReviews: this.props.allReviewsArr,
+            // totalRatingScore: CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
+        })
+        console.log(CommonUtils.getTotalRating(this.props.allReviewsArr, 'all'))
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.lang !== this.props.lang) {
 
         }
 
         if (prevProps.productId !== this.props.productId) {
-            this.props.getReviewByProductId(this.props.productId)
+            await this.props.getReviewByProductId(this.props.productId)
+
+            this.setState({
+                listReviews: this.props.allReviewsArr,
+                // totalRatingScore: CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
+            })
         }
 
         if (prevProps.allReviewsArr !== this.props.allReviewsArr) {
             this.setState({
-                listReviews: this.props.allReviewsArr
+                listReviews: this.props.allReviewsArr,
+                // totalRatingScore: CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
             })
         }
     }
@@ -50,11 +64,11 @@ class ProductReviewComponent extends Component {
         })
     }
 
-    handleCloseWritingReviewModal = () => {
+    handleCloseWritingReviewModal = async () => {
         this.setState({
             isWritingReviewModalOpened: false
         })
-        this.props.getReviewByProductId(this.props.productId)
+        await this.props.getReviewByProductId(this.props.productId)
     }
 
     renderReviewData = () => {
@@ -67,7 +81,7 @@ class ProductReviewComponent extends Component {
                         let reviewedDate = moment(item.reviewedDate).format('DD/MM/YYYY')
 
                         return (
-                            <div className='customer-review-item row'>
+                            <div className='customer-review-item row' key={item.id}>
                                 <div className='customer-name-review-date d-flex d-lg-block col-12 col-lg-2'>
                                     <p className='customer-name col-6 col-lg-12'>
                                         {item.isAnonymous === true ?
@@ -80,13 +94,8 @@ class ProductReviewComponent extends Component {
                                     <p className='review-date col-6 col-lg-12'>{reviewedDate}</p>
                                 </div>
                                 <div className='customer-review-rating-text d-block col-12 col-lg-10'>
-                                    <div className='stars-icon'>
-                                        <img src={starIconYellow} alt='star' />
-                                        <img src={starIconYellow} alt='star' />
-                                        <img src={starIconYellow} alt='star' />
-                                        <img src={starIconYellow} alt='star' />
-                                        <img src={starIconYellow} alt='star' />
-                                    </div>
+                                    <UserRatingComponent rating={item.rating} />
+
                                     <div className='customer-review-text'>
                                         {item.reviewText}
                                     </div>
@@ -114,9 +123,16 @@ class ProductReviewComponent extends Component {
 
     render() {
         let { isLoggedIn, productId } = this.props
-        let { isWritingReviewModalOpened, listReviews } = this.state
+        let { isWritingReviewModalOpened, listReviews,
+            totalRatingScore } = this.state
+        // console.log(listReviews.length)
 
-        console.log(this.state.listReviews)
+        let total1Star = CommonUtils.getTotalRating(listReviews, '1Star')
+        let total2Star = CommonUtils.getTotalRating(listReviews, '2Star')
+        let total3Star = CommonUtils.getTotalRating(listReviews, '3Star')
+        let total4Star = CommonUtils.getTotalRating(listReviews, '4Star')
+        let total5Star = CommonUtils.getTotalRating(listReviews, '5Star')
+
 
         return (
             <>
@@ -129,14 +145,16 @@ class ProductReviewComponent extends Component {
                         <div className='review-product-rating-section row'>
                             {/* NAME & REVIEW DATE */}
                             <div className='overall-rating col-4 col-lg-2'>
-                                <p className='text-bold'><span>0</span>/5</p>
-                                <p className='stars-icon'>
+                                <p className='text-bold'><span>{totalRatingScore}</span>/5</p>
+
+                                <ProductRatingComponent productId={productId} />
+                                {/* <p className='stars-icon'>
                                     <img src={starIconGray} alt='star' />
                                     <img src={starIconGray} alt='star' />
                                     <img src={starIconGray} alt='star' />
                                     <img src={starIconGray} alt='star' />
                                     <img src={starIconGray} alt='star' />
-                                </p>
+                                </p> */}
                                 <p>&#40;{listReviews.length} đánh giá&#41;</p>
                             </div>
                             {/* RATING */}
@@ -144,23 +162,28 @@ class ProductReviewComponent extends Component {
                                 <ul >
                                     <li className='sharing-star-rating row'>
                                         <p className='col-2'>5 sao</p>
-                                        <Progress className=' col-10' status="normal" percent={100} strokeColor={'#F6A500'} />
+                                        <Progress className=' col-10' status="normal"
+                                            percent={total5Star} strokeColor={'#F6A500'} />
                                     </li>
                                     <li className='sharing-star-rating row'>
                                         <p className='col-2'>4 sao</p>
-                                        <Progress className=' col-10' status="normal" percent={0} strokeColor={'#F6A500'} />
+                                        <Progress className=' col-10' status="normal"
+                                            percent={total4Star} strokeColor={'#F6A500'} />
                                     </li>
                                     <li className='sharing-star-rating row'>
                                         <p className='col-2'>3 sao</p>
-                                        <Progress className=' col-10' status="normal" percent={0} strokeColor={'#F6A500'} />
+                                        <Progress className=' col-10' status="normal"
+                                            percent={total3Star} strokeColor={'#F6A500'} />
                                     </li>
                                     <li className='sharing-star-rating row'>
                                         <p className='col-2'>2 sao</p>
-                                        <Progress className=' col-10' status="normal" percent={0} strokeColor={'#F6A500'} />
+                                        <Progress className=' col-10' status="normal"
+                                            percent={total2Star} strokeColor={'#F6A500'} />
                                     </li>
                                     <li className='sharing-star-rating row'>
                                         <p className='col-2'>1 sao</p>
-                                        <Progress className=' col-10' status="normal" percent={0} strokeColor={'#F6A500'} />
+                                        <Progress className=' col-10' status="normal"
+                                            percent={total1Star} strokeColor={'#F6A500'} />
                                     </li>
                                 </ul>
 
