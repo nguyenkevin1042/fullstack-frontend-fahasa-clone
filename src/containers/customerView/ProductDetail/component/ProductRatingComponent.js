@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
+import './ProductRatingComponent.scss'
 import starIconGray from '../../../../assets/images/ico_star_gray.svg'
 import starIconYellow from '../../../../assets/images/ico_star_yellow.svg'
 
 import * as actions from "../../../../store/actions";
 import CommonUtils from '../../../../utils/CommonUtils';
 
-
 class ProductRatingComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             listRating: [],
+            listReviews: []
         };
     }
 
@@ -29,7 +30,21 @@ class ProductRatingComponent extends Component {
             let index = CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
 
             this.setState({
-                listRating: CommonUtils.getRatingList(dataSelect, index)
+                listRating: CommonUtils.getRatingList(dataSelect, index),
+                listReviews: this.props.allReviewsArr
+            })
+        }
+
+        if (prevProps.productId !== this.props.productId) {
+            await this.props.fetchAllCodesByType('rating')
+            await this.props.getReviewByProductId(this.props.productId)
+            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "rating");
+
+            let index = CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
+
+            this.setState({
+                listRating: CommonUtils.getRatingList(dataSelect, index),
+                listReviews: this.props.allReviewsArr
             })
         }
     }
@@ -55,21 +70,20 @@ class ProductRatingComponent extends Component {
     }
 
     render() {
-        let { listRating } = this.state
+        let { listRating, listReviews } = this.state
 
         return (
             <React.Fragment>
+                {listRating && listRating.length > 0 &&
+                    listRating.map((item, index) => {
+                        return (
+                            <img key={item.id}
+                                src={item.isSelected === true ? starIconYellow : starIconGray}
+                                alt='star' />
+                        )
+                    })}
 
-                <p className='stars-icon'>
-                    {listRating && listRating.length > 0 &&
-                        listRating.map((item, index) => {
-                            return (
-                                <img key={item.id}
-                                    src={item.isSelected === true ? starIconYellow : starIconGray}
-                                    alt='star' />
-                            )
-                        })}
-                </p>
+                <p>&#40;{listReviews.length} đánh giá&#41;</p>
             </React.Fragment >
 
         );

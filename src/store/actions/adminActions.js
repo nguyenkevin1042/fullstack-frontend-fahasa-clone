@@ -160,12 +160,12 @@ export const fetchAllCodesByType = (inputType) => {
 }
 
 export const fetchAllCodesByTypeSuccess = (allCode) => ({
-    type: actionTypes.FETCH_ALL_CODE_SUCCESS,
+    type: actionTypes.FETCH_ALL_CODE_BY_TYPE_SUCCESS,
     allCodeData: allCode
 })
 
 export const fetchAllCodesByTypeFail = () => ({
-    type: actionTypes.FETCH_ALL_CODE_FAIL
+    type: actionTypes.FETCH_ALL_CODE_BY_TYPE_FAIL
 })
 
 //FETCH ALL CODES BY ID

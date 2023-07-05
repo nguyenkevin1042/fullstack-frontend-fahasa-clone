@@ -20,6 +20,7 @@ import AccountModal from '../components/DropdownComponents/AccountModal';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LoadingOverlay from 'react-loading-overlay';
 import ProductReviewComponent from './ProductReviewComponent';
+import ProductRatingComponent from './component/ProductRatingComponent';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -382,8 +383,12 @@ class ProductDetail extends Component {
                                 {productType === 'stationary' && this.renderStationaryDescription(descriptionData)}
                                 {productType === 'toy' && this.renderToyDescription(descriptionData)}
 
-                                {/* <div className='review col-xl-12'>Đánh giá</div>
-                                <div className='flash-sale col-xl-12'>Flash Sale</div> */}
+                                <div className='review col-xl-12'>
+                                    <p className='stars-icon-product-item'>
+                                        <ProductRatingComponent productId={product.id} />
+                                    </p>
+                                </div>
+                                {/*<div className='flash-sale col-xl-12'>Flash Sale</div> */}
 
                                 <div className='product-price-text col-lg-12'>
                                     {this.renderProductPrice(product.price, product.discount)}

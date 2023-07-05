@@ -8,6 +8,7 @@ const initialState = {
     signUpResponse: [],
     allCodesArr: [],
     bookLayoutArr: [],
+    allStarArr: [],
     updateCodeRes: [],
     allSubCategoryArr: [],
     allChildCategoryArr: [],
@@ -107,14 +108,14 @@ const appReducer = (state = initialState, action) => {
 
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_SUCCESS:
             state.allCodesArr = action.allCodeData
-
+            state.allStarArr = action.allCodeData
             return {
                 ...state,
             }
 
         case actionTypes.FETCH_ALL_CODE_BY_TYPE_FAIL:
             state.allCodesArr = []
-            state.bookLayoutArr = []
+            state.allStarArr = []
             return {
                 ...state,
             }

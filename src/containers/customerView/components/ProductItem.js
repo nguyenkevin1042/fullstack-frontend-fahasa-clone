@@ -6,6 +6,7 @@ import NumericFormat from 'react-number-format';
 import * as actions from "../../../store/actions";
 import LoadingOverlay from 'react-loading-overlay'
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import ProductRatingComponent from '../ProductDetail/component/ProductRatingComponent';
 
 class ProductItem extends Component {
     constructor(props) {
@@ -116,6 +117,11 @@ class ProductItem extends Component {
                                     </div> : <></>}
                             </div>
                         </div>
+                        {/* <div className='stars-icon-product-item'>
+                            <ProductRatingComponent productId={productData.id}
+                                onlyShowNumber={true} />
+                        </div> */}
+
                     </div >
                 </LoadingOverlay>
             </React.Fragment >

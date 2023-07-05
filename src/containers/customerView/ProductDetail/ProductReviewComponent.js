@@ -161,8 +161,10 @@ class ProductReviewComponent extends Component {
                             {/* NAME & REVIEW DATE */}
                             <div className='overall-rating col-4 col-lg-2'>
                                 <p className='text-bold'><span>{totalRatingScore}</span>/5</p>
-                                <ProductRatingComponent productId={productId} />
-                                <p>&#40;{listReviews.length} đánh giá&#41;</p>
+                                <p className='stars-icon'>
+                                    <ProductRatingComponent productId={productId} />
+                                </p>
+                                {/* <p>&#40;{listReviews.length} đánh giá&#41;</p> */}
                             </div>
                             {/* RATING */}
                             <div className='each-star-rating col-8 col-lg-4'>
