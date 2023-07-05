@@ -78,22 +78,6 @@ class WritingReviewModal extends Component {
         let selectedList, nonSelectedList, resultList
         let index = tempList.indexOf(item)
         resultList = CommonUtils.getRatingList(tempList, index)
-        // this.setState({
-        //     selectedRating: item
-        // })
-
-        // selectedList = tempList.slice(0, index).map(item => {
-        //     item.isSelected = true
-        //     return item
-        // })
-        // nonSelectedList = tempList.slice(index, tempList.length).map(item => {
-        //     item.isSelected = false
-        //     return item
-        // })
-
-        // resultList = [...selectedList, ...nonSelectedList]
-
-        // item.isSelected = !item.isSelected
 
         this.setState({
             selectedRating: item,

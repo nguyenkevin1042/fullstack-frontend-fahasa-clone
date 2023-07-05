@@ -121,6 +121,11 @@ class CommonUtils {
         //get result before return
         switch (condition) {
             case 'all':
+                // result = ((1 * total1Star) + (2 * total2Star)
+                //     + (3 * total3Star) + (4 * total4Star) + (5 * total5Star))
+                //     /
+                //     (total1Star + total2Star + total3Star + total4Star + total5Star)
+                // result = Math.round(result)
                 if (targetList.length === 0) {
                     result = 0
                 } else {
@@ -128,6 +133,7 @@ class CommonUtils {
                         + (3 * total3Star) + (4 * total4Star) + (5 * total5Star))
                         /
                         (total1Star + total2Star + total3Star + total4Star + total5Star)
+                    result = Math.round(result)
                 }
 
                 break;

@@ -16,7 +16,6 @@ import { Progress } from 'antd';
 import UserRatingComponent from './component/UserRatingComponent';
 import { CommonUtils } from '../../../utils';
 import ProductRatingComponent from './component/ProductRatingComponent';
-import CustomPagination from '../../../components/CustomPagination';
 
 class ProductReviewComponent extends Component {
     constructor(props) {
@@ -84,8 +83,12 @@ class ProductReviewComponent extends Component {
         });
     };
 
-    renderReviewData = (listReviews) => {
-        // let { listReviews } = this.state
+    renderReviewData = () => {
+        let { listReviews, pageLimit, startIndex, endIndex } = this.state
+
+        let rowsPerPage = [];
+
+        rowsPerPage = listReviews.slice(startIndex, endIndex + 1);
 
         return (
             <>
@@ -137,17 +140,13 @@ class ProductReviewComponent extends Component {
     render() {
         let { isLoggedIn, productId } = this.props
         let { isWritingReviewModalOpened, listReviews,
-            totalRatingScore, pageLimit, startIndex, endIndex } = this.state
+            totalRatingScore } = this.state
 
         let total1Star = CommonUtils.getTotalRating(listReviews, '1Star')
         let total2Star = CommonUtils.getTotalRating(listReviews, '2Star')
         let total3Star = CommonUtils.getTotalRating(listReviews, '3Star')
         let total4Star = CommonUtils.getTotalRating(listReviews, '4Star')
         let total5Star = CommonUtils.getTotalRating(listReviews, '5Star')
-
-        let rowsPerPage = [];
-
-        rowsPerPage = listReviews.slice(startIndex, endIndex + 1);
 
         return (
             <>
@@ -208,14 +207,7 @@ class ProductReviewComponent extends Component {
                             </div>
                             {/* ALL REVIEWS */}
                             <div className='list-reviews-section container-fluid'>
-                                {this.renderReviewData(rowsPerPage)}
-
-                                <CustomPagination
-                                    totalRecords={listReviews.length}
-                                    pageLimit={pageLimit || 5}
-                                    initialPage={1}
-                                    pagesToShow={6}
-                                    onChangePage={this.handleOnChangePage} />
+                                {this.renderReviewData()}
                             </div>
                         </div>
 

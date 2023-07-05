@@ -384,7 +384,6 @@ class ProductList extends Component {
                                 {item.label}
                             </li>
                         ))
-
                     }
                 </ul>
             </>
@@ -392,7 +391,7 @@ class ProductList extends Component {
     }
 
     renderSubCategoryList = (list) => {
-        let { keyName, selectedCategory, listSubCategory } = this.state
+        let { keyName, selectedCategory } = this.state
 
         return (
             <>
@@ -521,15 +520,10 @@ class ProductList extends Component {
                                                 <FormattedMessage id="customer.product-list.no-product" />
                                             </div>
                                         )}
-
-                                        {/* {isLoading === false && listProduct.length === 0 && (
-                                            <div className='no-products-text'>
-                                                <FormattedMessage id="customer.product-list.no-product" />
-                                            </div>
-                                        )} */}
                                     </div>
 
                                     <CustomPagination
+
                                         totalRecords={listProduct.length}
                                         pageLimit={pageLimit || 12}
                                         initialPage={1}

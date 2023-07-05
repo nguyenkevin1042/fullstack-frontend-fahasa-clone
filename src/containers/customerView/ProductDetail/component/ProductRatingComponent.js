@@ -14,41 +14,22 @@ class ProductRatingComponent extends Component {
         super(props);
         this.state = {
             listRating: [],
-            selectedRating: ''
         };
     }
 
     async componentDidMount() {
         await this.props.fetchAllCodesByType('rating')
         await this.props.getReviewByProductId(this.props.productId)
-        let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "rating");
-
-        let index = CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
-
-        this.setState({
-            listRating: CommonUtils.getRatingList(dataSelect, index)
-        })
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allReviewsArr !== this.props.allReviewsArr) {
-            console.log(this.props.allReviewsArr)
-            // await this.props.fetchAllCodesByType('rating')
-            // await this.props.getReviewByProductId(this.props.productId)
-            // let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "rating");
-
-            // let index = CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
-
-            // this.setState({
-            //     listRating: CommonUtils.getRatingList(dataSelect, index)
-            // })
-        }
-
-        if (prevProps.allCodesArr !== this.props.allCodesArr) {
             let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "rating");
+
+            let index = CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
+
             this.setState({
-                listRating: dataSelect
-                // listRating: CommonUtils.getRatingList(dataSelect, index)
+                listRating: CommonUtils.getRatingList(dataSelect, index)
             })
         }
     }
