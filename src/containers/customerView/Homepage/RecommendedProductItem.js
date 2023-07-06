@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import * as actions from "../../../store/actions";
 import NumericFormat from 'react-number-format';
-import LoadingOverlay from 'react-loading-overlay'
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 
@@ -99,10 +98,6 @@ class RecommendedProductItem extends Component {
         }
         return (
             <React.Fragment>
-                {/* <LoadingOverlay
-                    active={isLoading}
-                    spinner={true}
-                    text='Please wait...'> */}
                 {productData &&
                     <div className='product-item' title={productData.name}
                         onClick={() => this.handleRedirectToProductDetail(productData.keyName)} >
@@ -111,6 +106,12 @@ class RecommendedProductItem extends Component {
                                 backgroundImage: "url(" + imageBase64 + ")"
                             }}>
                         </div>
+                        {/* {imageBase64 &&
+                            <LazyLoadImage src={imageBase64 ? imageBase64 : ''}
+                                className='product-image'
+                                alt="Image Alt"
+                                effect="blur"
+                            />} */}
                         <div className='product-name'>
                             {productData.name}
                         </div>
@@ -118,7 +119,6 @@ class RecommendedProductItem extends Component {
                             {this.renderProductPrice(productData.price, productData.discount)}
                         </div>
                     </div >}
-                {/* </LoadingOverlay> */}
             </React.Fragment >
         );
     }
