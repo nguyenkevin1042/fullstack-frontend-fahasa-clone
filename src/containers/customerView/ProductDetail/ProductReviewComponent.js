@@ -17,6 +17,7 @@ import UserRatingComponent from './component/UserRatingComponent';
 import { CommonUtils } from '../../../utils';
 import ProductRatingComponent from './component/ProductRatingComponent';
 import CustomPagination from '../../../components/CustomPagination';
+import AccountModal from '../components/DropdownComponents/AccountModal';
 
 class ProductReviewComponent extends Component {
     constructor(props) {
@@ -33,6 +34,10 @@ class ProductReviewComponent extends Component {
             currentPage: "",
             startIndex: "",
             endIndex: "",
+
+            isModalOpened: false,
+            loadSignInForm: false,
+            loadSignUpForm: false,
         };
     }
 
@@ -74,6 +79,26 @@ class ProductReviewComponent extends Component {
         await this.props.getReviewByProductId(this.props.productId)
     }
 
+    handleOpenSignInModal = () => {
+        this.setState({
+            isModalOpened: true,
+            loadSignInForm: true,
+            loadSignUpForm: false,
+        })
+    }
+    handleOpenSignUpModal = () => {
+        this.setState({
+            isModalOpened: true,
+            loadSignInForm: false,
+            loadSignUpForm: true,
+        })
+    }
+    // handleCloseSignInSignUpModalAndOpenWriting = () => {
+    //     this.setState({
+    //         isModalOpened: false
+    //     })
+    // }
+
     handleOnChangePage = (data) => {
         this.setState({
             pageLimit: data.pageLimit,
@@ -85,8 +110,6 @@ class ProductReviewComponent extends Component {
     };
 
     renderReviewData = (listReviews) => {
-        // let { listReviews } = this.state
-
         return (
             <>
                 {listReviews && listReviews.length > 0 &&
@@ -127,7 +150,6 @@ class ProductReviewComponent extends Component {
                             </div>
                         )
                     })
-
                 }
             </>
         )
@@ -137,7 +159,8 @@ class ProductReviewComponent extends Component {
     render() {
         let { isLoggedIn, productId } = this.props
         let { isWritingReviewModalOpened, listReviews,
-            totalRatingScore, pageLimit, startIndex, endIndex } = this.state
+            totalRatingScore, pageLimit, startIndex, endIndex,
+            isModalOpened, loadSignInForm, loadSignUpForm } = this.state
 
         let total1Star = CommonUtils.getTotalRating(listReviews, '1Star')
         let total2Star = CommonUtils.getTotalRating(listReviews, '2Star')
@@ -164,7 +187,6 @@ class ProductReviewComponent extends Component {
                                 <p className='stars-icon'>
                                     <ProductRatingComponent productId={productId} />
                                 </p>
-                                {/* <p>&#40;{listReviews.length} đánh giá&#41;</p> */}
                             </div>
                             {/* RATING */}
                             <div className='each-star-rating col-8 col-lg-4'>
@@ -205,7 +227,16 @@ class ProductReviewComponent extends Component {
                                         <FormattedMessage id="customer.product-detail.write-a-review" />
                                     </button> :
                                     <p>
-                                        Chỉ có thành viên mới có thể viết nhận xét.Vui lòng đăng nhập hoặc đăng ký.
+                                        <FormattedMessage id="customer.product-detail.signin-or-signup.text-1" />
+                                        <span className='action-text'
+                                            onClick={() => this.handleOpenSignInModal()}>
+                                            <FormattedMessage id="customer.product-detail.signin-or-signup.sign-in" />
+                                        </span>
+                                        <FormattedMessage id="customer.product-detail.signin-or-signup.text-2" />
+                                        <span className='action-text'
+                                            onClick={() => this.handleOpenSignUpModal()}>
+                                            <FormattedMessage id="customer.product-detail.signin-or-signup.sign-up" />
+                                        </span>
                                     </p>}
                             </div>
                             {/* ALL REVIEWS */}
@@ -229,6 +260,11 @@ class ProductReviewComponent extends Component {
                 <WritingReviewModal isOpenedModal={isWritingReviewModalOpened}
                     closeModal={this.handleCloseWritingReviewModal}
                     productId={productId} />
+
+                <AccountModal isModalOpened={isModalOpened}
+                    loadSignInForm={loadSignInForm}
+                    loadSignUpForm={loadSignUpForm}
+                    closeAccountModal={this.handleCloseAccountModal} />
             </>
         );
     }

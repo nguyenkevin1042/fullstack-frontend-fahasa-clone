@@ -109,6 +109,12 @@
             "relevant-products": "Relevant products",
             "review-product": "Review product",
             "write-a-review": "Write a review",
+            "signin-or-signup": {
+                "text-1": "Only member is allowed to write a review. Please ",
+                "sign-in": "sign in",
+                "text-2": " or ",
+                "sign-up": "sign up"
+            },
             "anonymous-user": "Anonymous user",
             "write-a-review-modal": {
                 "title": "Write a review for this product",

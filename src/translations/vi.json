@@ -113,6 +113,12 @@
             "relevant-products": "Sản phẩm liên quan",
             "review-product": "Đánh giá sản phẩm",
             "write-a-review": "Viết bài đánh giá",
+            "signin-or-signup": {
+                "text-1": "Chỉ có thành viên mới có thể viết nhận xét. Vui lòng ",
+                "sign-in": "đăng nhập",
+                "text-2": " hoặc ",
+                "sign-up": "đăng ký"
+            },
             "anonymous-user": "Người dùng ẩn danh",
             "write-a-review-modal": {
                 "title": "Viết đánh giá sản phẩm",
