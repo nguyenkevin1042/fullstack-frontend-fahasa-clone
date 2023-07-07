@@ -20,13 +20,9 @@ function ManageProductReviews(props) {
     const [rowsPerPage, setRowsPerPage] = useState([]);
 
     useEffect(async () => {
-        const asyncLoadAllProducts = async () => {
-            await props.fetchAllProduct();
-            console.log("props.allProductArr: ", props.allProductArr)
-            // setListProduct(props.allProductArr);
-        }
-        asyncLoadAllProducts();
-
+        await props.fetchAllProduct();
+        setListProduct(props.allProductArr);
+        return;
     }, [])
     console.log("useEffect: ", listProduct)
 
@@ -124,22 +120,20 @@ function renderProductsTableData(products) {
     )
 };
 
-export default ManageProductReviews
+const mapStateToProps = state => {
+    return {
+        lang: state.app.language,
+        allProductArr: state.admin.allProductArr,
+        isFetchingData: state.admin.isFetchingData,
 
-// const mapStateToProps = state => {
-//     return {
-//         lang: state.app.language,
-//         allProductArr: state.admin.allProductArr,
-//         isFetchingData: state.admin.isFetchingData,
+    };
+};
 
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
+    };
+};
 
-//     };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ManageProductReviews);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageProductReviews);

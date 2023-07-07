@@ -237,6 +237,7 @@ class ManageProduct extends Component {
                             <ProductRowItem productId={item.id}
                                 editProduct={this.handleEdit}
                                 deleteProduct={this.handleDelete}
+                                category={'on'}
                                 price={'on'} />
                         </tr>
                     ))

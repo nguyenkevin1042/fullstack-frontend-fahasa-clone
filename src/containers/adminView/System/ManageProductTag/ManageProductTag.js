@@ -233,6 +233,7 @@ class ManageProductTag extends Component {
                                     </td>
                                     <td>{index + 1}</td>
                                     <ProductRowItem productId={item.product.id}
+                                        category={'on'}
                                         actions={'off'}
                                         discount={'off'}
                                         tag={'on'}
