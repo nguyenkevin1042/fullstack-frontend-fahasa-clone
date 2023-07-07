@@ -13,6 +13,7 @@ import ManageOrders from '../containers/adminView/System/ManageOrders/ManageOrde
 import ManageDiscount from '../containers/adminView/System/ManageDiscount/ManageDiscount';
 import ManageProductTag from '../containers/adminView/System/ManageProductTag/ManageProductTag';
 import ManageUser from '../containers/adminView/System/ManageUser/ManageUser';
+import ManageProductReviews from '../containers/adminView/System/ManagaProductReviews/ManagaProductReviews';
 
 class System extends Component {
     render() {
@@ -32,7 +33,7 @@ class System extends Component {
                             <Route path="/system/product/manage-discount" component={ManageDiscount} />
                             <Route path="/system/manage-orders" component={ManageOrders} />
                             <Route path="/system/product/manage-product-tag" component={ManageProductTag} />
-                            {/* <Route path="/system/product/manage-tags" component={ManageTag} /> */}
+                            <Route path="/system/product/manage-product-reviews" component={ManageProductReviews} />
 
                             <Route path="/system/users" component={ManageUser} />
 

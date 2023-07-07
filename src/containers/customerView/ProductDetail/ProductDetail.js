@@ -337,8 +337,7 @@ class ProductDetail extends Component {
         if (product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
-        // let imageBase64 = Buffer.from(product.image).toString('binary');
-        console.log(imageBase64)
+
         return (
             <LoadingOverlay
                 classNamePrefix='Fullscreen_'

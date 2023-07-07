@@ -47,6 +47,10 @@ export const adminMenu = [
                 name: 'menu.product.set-product-tag',
                 link: '/system/product/manage-product-tag'
             },
+            {
+                name: 'menu.product.product-reviews',
+                link: '/system/product/manage-product-reviews'
+            },
         ]
 
     }

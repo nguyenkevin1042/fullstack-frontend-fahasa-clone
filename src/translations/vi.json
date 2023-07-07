@@ -265,7 +265,8 @@
             "header": "Sản phẩm",
             "all-product": "Tất cả sản phẩm",
             "set-discount": "Thiết lập giảm giá",
-            "set-product-tag": "Thiết lập thẻ sản phẩm"
+            "set-product-tag": "Thiết lập thẻ sản phẩm",
+            "product-reviews": "Đánh giá sản phẩm"
         },
         "user": {
             "header": "Người dùng",

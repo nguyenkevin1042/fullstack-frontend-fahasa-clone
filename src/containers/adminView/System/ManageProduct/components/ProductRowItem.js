@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from "../../../../../store/actions";
 import { languages } from '../../../../../utils';
 import NumericFormat from 'react-number-format';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 class ProductRowItem extends Component {
     constructor(props) {
@@ -82,9 +83,9 @@ class ProductRowItem extends Component {
 
     render() {
         let { productData } = this.state
-        let { actions, discount, tag, price } = this.props
+        let { actions, discount, tag, price, category } = this.props
         let imageBase64 = '';
-        if (productData.image) {
+        if (productData && productData.image) {
             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
         }
 
@@ -94,11 +95,27 @@ class ProductRowItem extends Component {
             <>
                 <td>{productData.id}</td>
                 <td className='product-img'>
-                    <div className='img'
+                    {imageBase64 &&
+                        <LazyLoadImage src={imageBase64 ? imageBase64 : ''}
+                            className='img img-fluid'
+                            alt="Image Alt"
+                            effect="blur"
+                        />}
+                    {/* <img src={imageBase64}
+                        className='img img-fluid'
+                        alt='product-item' /> */}
+
+                    {/* <span className='img'
                         style={{
                             backgroundImage: "url(" + imageBase64 + ")"
-                        }} /></td>
-                <td>{this.renderCategoryOfProduct(productData.ChildCategory)}</td>
+                        }}></span> */}
+                </td>
+
+                {category === 'on' ?
+                    <td>
+                        {this.renderCategoryOfProduct(productData.ChildCategory)}
+                    </td> : <></>}
+
                 <td>{productData.name}</td>
                 {price === 'on' ?
                     <td>
