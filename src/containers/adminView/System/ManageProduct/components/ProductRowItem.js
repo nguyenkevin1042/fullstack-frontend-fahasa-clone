@@ -6,6 +6,7 @@ import * as actions from "../../../../../store/actions";
 import { languages } from '../../../../../utils';
 import NumericFormat from 'react-number-format';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import ProductRatingComponent from './../../../../customerView/ProductDetail/component/ProductRatingComponent';
 
 class ProductRowItem extends Component {
     constructor(props) {
@@ -83,7 +84,8 @@ class ProductRowItem extends Component {
 
     render() {
         let { productData } = this.state
-        let { actions, discount, tag, price, category } = this.props
+        let { actions, discount, tag,
+            rating, price, category, productId } = this.props
         let imageBase64 = '';
         if (productData && productData.image) {
             imageBase64 = new Buffer(productData.image, 'base64').toString('binary');
@@ -117,6 +119,14 @@ class ProductRowItem extends Component {
                     </td> : <></>}
 
                 <td>{productData.name}</td>
+
+                {rating === 'on' ?
+                    <td>
+                        <ProductRatingComponent productId={productId} />
+                    </td> : <></>
+
+                }
+
                 {price === 'on' ?
                     <td>
                         <NumericFormat value={parseFloat(productData.price)}

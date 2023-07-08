@@ -1,11 +1,13 @@
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../store/actions";
 import { useCallback, useEffect, useState } from "react";
-import ProductRowItem from "../ManageProduct/components/ProductRowItem functional";
+import ProductRowItem from "../ManageProduct/components/ProductRowItem";
 import CustomPagination from "../../../../components/CustomPagination";
 import LoadingOverlay from 'react-loading-overlay'
 
 function ManageProductReviews(props) {
+    const { allProductArr } = props
+    const productArrClone = [...allProductArr]
     const [listProduct, setListProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -20,47 +22,45 @@ function ManageProductReviews(props) {
     const [rowsPerPage, setRowsPerPage] = useState([]);
 
     useEffect(async () => {
-        const asyncLoadAllProducts = async () => {
-            await props.fetchAllProduct();
-            console.log("props.allProductArr: ", props.allProductArr)
-            // setListProduct(props.allProductArr);
-        }
-        asyncLoadAllProducts();
+        await props.fetchAllProduct();
 
     }, [])
-    console.log("useEffect: ", listProduct)
+    // // useCallback(() => {
+    // //     setListProduct(props.allProductArr);
+    // // }, [listProduct])
 
-    useCallback(async () => {
-        await props.fetchAllProduct();
-        setListProduct(props.allProductArr);
-        return;
-    }, [listProduct])
-    console.log("useCallback: ", listProduct)
+    // console.log("useEffect: ", listProduct)
+    // // console.log("props.allProductArr: ", allProductArr)
 
-    // rowsPerPage = listProduct.slice(pagination.startIndex, pagination.endIndex + 1);
-    // setRowsPerPage(listProduct.slice(pagination.startIndex, pagination.endIndex + 1))
 
-    // const onChangePage = (data) => {
-    // const rows = listProduct.slice(data.startIndex, data.endIndex + 1)
-    //     setRowsPerPage(rows)
-    // };
+    // // useCallback(async () => {
+    // //     await props.fetchAllProduct();
+    // //     setListProduct(props.allProductArr);
+    // //     return;
+    // // }, [listProduct])
+    // // console.log("useCallback: ", listProduct)
+
+    // // rowsPerPage = listProduct.slice(pagination.startIndex, pagination.endIndex + 1);
+    // // setRowsPerPage(listProduct.slice(pagination.startIndex, pagination.endIndex + 1))
+
+    // // const onChangePage = (data) => {
+    // // const rows = listProduct.slice(data.startIndex, data.endIndex + 1)
+    // //     setRowsPerPage(rows)
+    // // };
 
     const onChangePage = useCallback((data) => {
-        const rows = listProduct.slice(data.startIndex, data.endIndex + 1)
-        console.log(data)
-        console.log(rows)
+        const rows = productArrClone.slice(data.startIndex, data.endIndex + 1)
 
-        // setPagination({
-        //     totalPages: data.totalPages,
-        //     pageLimit: data.pageLimit,
-        //     currentPage: data.page,
-        //     startIndex: data.startIndex,
-        //     endIndex: data.endIndex,
-        // })
-        //     setRowsPerPage(rows)
+        setPagination({
+            totalPages: data.totalPages,
+            pageLimit: data.pageLimit,
+            currentPage: data.page,
+            startIndex: data.startIndex,
+            endIndex: data.endIndex,
+        })
+        setRowsPerPage(rows)
 
-    }, [rowsPerPage])
-
+    })
 
     return (
         <LoadingOverlay
@@ -80,19 +80,18 @@ function ManageProductReviews(props) {
                                 <th>Mã sản phẩm</th>
                                 <th>Ảnh</th>
                                 <th>Tên sản phẩm</th>
-                                {/* <th>Điểm đánh giá của người dùng</th>
-                                <th>Trạng thái</th>
-                                <th>Actions</th> */}
+                                <th>Điểm đánh giá của người dùng</th>
                             </tr>
                         </thead>
 
                         <tbody>
+                            {/* {renderProductsTableData(allProductArr)} */}
                             {renderProductsTableData(rowsPerPage)}
                         </tbody>
                     </table>
 
                     <CustomPagination
-                        totalRecords={listProduct.length}
+                        totalRecords={productArrClone.length}
                         pageLimit={pagination.pageLimit || 10}
                         initialPage={1}
                         pagesToShow={5}
@@ -110,13 +109,18 @@ function renderProductsTableData(products) {
         <>
             {products && products.length > 0 &&
                 products.map((item, index) => (
+
                     <tr key={item.id}>
                         <ProductRowItem productId={item.id}
                             // editProduct={this.handleEdit}
                             // deleteProduct={this.handleDelete}
                             category={'off'}
-                            price={'off'} />
+                            price={'off'}
+                            actions={'off'}
+                            rating={'on'}
+                        />
                     </tr>
+
                 ))
 
             }
@@ -124,22 +128,22 @@ function renderProductsTableData(products) {
     )
 };
 
-export default ManageProductReviews
+// export default ManageProductReviews
 
-// const mapStateToProps = state => {
-//     return {
-//         lang: state.app.language,
-//         allProductArr: state.admin.allProductArr,
-//         isFetchingData: state.admin.isFetchingData,
+const mapStateToProps = state => {
+    return {
+        lang: state.app.language,
+        allProductArr: state.admin.allProductArr,
+        isFetchingData: state.admin.isFetchingData,
 
-//     };
-// };
+    };
+};
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchAllProduct: () => dispatch(actions.fetchAllProduct()),
 
-//     };
-// };
+    };
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ManageProductReviews);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageProductReviews);

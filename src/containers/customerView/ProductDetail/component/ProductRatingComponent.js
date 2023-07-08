@@ -21,19 +21,18 @@ class ProductRatingComponent extends Component {
     async componentDidMount() {
         await this.props.fetchAllCodesByType('rating')
         await this.props.getReviewByProductId(this.props.productId)
+        let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "rating");
+
+        let index = CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
+
+        this.setState({
+            listRating: CommonUtils.getRatingList(dataSelect, index),
+            listReviews: this.props.allReviewsArr
+        })
+
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.allReviewsArr !== this.props.allReviewsArr) {
-            let dataSelect = this.buildDataInputSelect(this.props.allCodesArr, "rating");
-
-            let index = CommonUtils.getTotalRating(this.props.allReviewsArr, 'all')
-
-            this.setState({
-                listRating: CommonUtils.getRatingList(dataSelect, index),
-                listReviews: this.props.allReviewsArr
-            })
-        }
 
         if (prevProps.productId !== this.props.productId) {
             await this.props.fetchAllCodesByType('rating')
