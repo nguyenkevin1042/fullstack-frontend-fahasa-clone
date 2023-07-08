@@ -25,28 +25,7 @@ function ManageProductReviews(props) {
         await props.fetchAllProduct();
 
     }, [])
-    // // useCallback(() => {
-    // //     setListProduct(props.allProductArr);
-    // // }, [listProduct])
 
-    // console.log("useEffect: ", listProduct)
-    // // console.log("props.allProductArr: ", allProductArr)
-
-
-    // // useCallback(async () => {
-    // //     await props.fetchAllProduct();
-    // //     setListProduct(props.allProductArr);
-    // //     return;
-    // // }, [listProduct])
-    // // console.log("useCallback: ", listProduct)
-
-    // // rowsPerPage = listProduct.slice(pagination.startIndex, pagination.endIndex + 1);
-    // // setRowsPerPage(listProduct.slice(pagination.startIndex, pagination.endIndex + 1))
-
-    // // const onChangePage = (data) => {
-    // // const rows = listProduct.slice(data.startIndex, data.endIndex + 1)
-    // //     setRowsPerPage(rows)
-    // // };
 
     const onChangePage = useCallback((data) => {
         const rows = productArrClone.slice(data.startIndex, data.endIndex + 1)

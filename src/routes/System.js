@@ -13,7 +13,7 @@ import ManageOrders from '../containers/adminView/System/ManageOrders/ManageOrde
 import ManageDiscount from '../containers/adminView/System/ManageDiscount/ManageDiscount';
 import ManageProductTag from '../containers/adminView/System/ManageProductTag/ManageProductTag';
 import ManageUser from '../containers/adminView/System/ManageUser/ManageUser';
-import ManageProductReviews from '../containers/adminView/System/ManagaProductReviews/ManagaProductReviews';
+import ManageProductReviews from '../containers/adminView/System/ManageProductReviews/ManageProductReviews';
 
 class System extends Component {
     render() {
