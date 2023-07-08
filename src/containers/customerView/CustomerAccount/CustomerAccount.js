@@ -11,6 +11,7 @@ import DashboardComponent from './components/DashboardComponent';
 import AccountInformationComponent from './components/AccountInformationComponent';
 import AddressComponent from './components/AddressComponent';
 import MyOrderComponent from './components/MyOrderComponent';
+import MyReviewsComponent from './components/MyReviewsComponent';
 
 class CustomerAccount extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ class CustomerAccount extends Component {
                 {selectedSection === 'my-orders' && (<MyOrderComponent />)}
                 {selectedSection === 'voucher' && (<DashboardComponent />)}
                 {selectedSection === 'f-point' && (<DashboardComponent />)}
-                {selectedSection === 'my-reviews' && (<DashboardComponent />)}
+                {selectedSection === 'my-reviews' && (<MyReviewsComponent />)}
                 {selectedSection === 'notification' && (<DashboardComponent />)}
                 {selectedSection === 'sign-up-newletter' && (<DashboardComponent />)}
 
@@ -122,7 +123,7 @@ class CustomerAccount extends Component {
                                         <li className={selectedSection === 'my-reviews' ? 'active' : ''}
                                             id='my-reviews'
                                             onClick={(event) => this.handleChooseMenu(event)}>
-                                            <FormattedMessage id='customer.account.my-reviews' />
+                                            <FormattedMessage id='customer.account.my-reviews.title' />
                                         </li>
                                         <li className={selectedSection === 'notification' ? 'active' : ''}
                                             id='notification'

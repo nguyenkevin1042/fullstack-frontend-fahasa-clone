@@ -25,9 +25,7 @@ class ProductRowItem extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
 
-        }
         if (prevProps.productId !== this.props.productId) {
             let id = this.props.productId;
             await this.props.fetchProductById(id);
@@ -103,14 +101,6 @@ class ProductRowItem extends Component {
                             alt="Image Alt"
                             effect="blur"
                         />}
-                    {/* <img src={imageBase64}
-                        className='img img-fluid'
-                        alt='product-item' /> */}
-
-                    {/* <span className='img'
-                        style={{
-                            backgroundImage: "url(" + imageBase64 + ")"
-                        }}></span> */}
                 </td>
 
                 {category === 'on' ?

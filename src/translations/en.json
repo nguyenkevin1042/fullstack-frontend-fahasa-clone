@@ -177,7 +177,9 @@
             "voucher": "Voucher wallet",
             "book-set": "Book set",
             "f-point": "F-point/Freeship",
-            "my-reviews": "My reviews",
+            "my-reviews": {
+                "title": "My reviews"
+            },
             "notification": "Notifications",
             "newletter": "Sign up for newletters"
         },

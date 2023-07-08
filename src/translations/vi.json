@@ -181,7 +181,9 @@
             "voucher": "Ví voucher",
             "book-set": "Sách theo bộ",
             "f-point": "Tài khoản F-point/Freeship",
-            "my-reviews": "Nhận xét của tôi",
+            "my-reviews": {
+                "title": "Nhận xét của tôi"
+            },
             "notification": "Thông báo",
             "newletter": "Đăng ký nhận tin điện tử"
         },
