@@ -1,24 +1,49 @@
-import React, { Component, useEffect, useCallback, useRef, useState } from 'react';
+import React, { Component, useEffect, useCallback, useRef, useState, useLayoutEffect } from 'react';
 import { connect, useDispatch, useSelector } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
-// import './ManageOrders.scss';
 import { Modal } from 'reactstrap'
 
 import * as actions from "../../../../store/actions";
-import { languages } from '../../../../utils';
-import CustomPagination from '../../../../components/CustomPagination';
-import moment from 'moment';
+import { CommonUtils, languages } from '../../../../utils';
 import NumericFormat from 'react-number-format';
 
 import LoadingOverlay from 'react-loading-overlay'
-import { bindActionCreators } from 'redux';
+import { Progress } from 'antd';
 
 const ProductReviewDetailModal = (props) => {
     const { isOpenedReviewDetailModal, closeModal,
         productData, allReviewsArr } = props
 
-    const [listReviews, setListReviews] = useState([])
+    const [productId, setProductId] = useState(productData.id)
+    const [reviewData, setReviewData] = useState(allReviewsArr)
+    const [reviewLength, setReviewLength] = useState(allReviewsArr.length)
+
+    let total1Star = CommonUtils.getTotalRating(reviewData, '1Star')
+    let total2Star = CommonUtils.getTotalRating(reviewData, '2Star')
+    let total3Star = CommonUtils.getTotalRating(reviewData, '3Star')
+    let total4Star = CommonUtils.getTotalRating(reviewData, '4Star')
+    let total5Star = CommonUtils.getTotalRating(reviewData, '5Star')
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         await props.getReviewByProductId(productData.id)
+    //         setReviewData(allReviewsArr)
+    //         setReviewLength(allReviewsArr.length)
+
+    //     }
+    //     fetchData();
+
+    // }, [])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await props.getReviewByProductId(productData.id)
+            setReviewData(allReviewsArr)
+            setReviewLength(allReviewsArr.length)
+        }
+        fetchData();
+    }, [productData, productId, allReviewsArr])
 
 
 
@@ -41,7 +66,39 @@ const ProductReviewDetailModal = (props) => {
                     </div>
                     <div className='col-12 form-group'>
                         <label>Tổng số đánh giá</label>
-                        <p>{listReviews.length}</p>
+                        <p>{reviewLength}</p>
+                    </div>
+                </div>
+
+                <div className='row'>
+                    <div className='col-12 form-group'>
+                        <ul >
+                            <li className='sharing-star-rating row'>
+                                <p className='col-2'>5 sao</p>
+                                <Progress className=' col-10' status="normal"
+                                    percent={total5Star} strokeColor={'#F6A500'} />
+                            </li>
+                            <li className='sharing-star-rating row'>
+                                <p className='col-2'>4 sao</p>
+                                <Progress className=' col-10' status="normal"
+                                    percent={total4Star} strokeColor={'#F6A500'} />
+                            </li>
+                            <li className='sharing-star-rating row'>
+                                <p className='col-2'>3 sao</p>
+                                <Progress className=' col-10' status="normal"
+                                    percent={total3Star} strokeColor={'#F6A500'} />
+                            </li>
+                            <li className='sharing-star-rating row'>
+                                <p className='col-2'>2 sao</p>
+                                <Progress className=' col-10' status="normal"
+                                    percent={total2Star} strokeColor={'#F6A500'} />
+                            </li>
+                            <li className='sharing-star-rating row'>
+                                <p className='col-2'>1 sao</p>
+                                <Progress className=' col-10' status="normal"
+                                    percent={total1Star} strokeColor={'#F6A500'} />
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -54,6 +111,27 @@ const ProductReviewDetailModal = (props) => {
         </Modal>
     )
 }
+
+function useBeforeRender(callback) {
+    // runs before render
+    useLayoutEffect(() => {
+        callback();
+    }, []);
+};
+
+function useDidMount(callback) {
+    // Replaces componentDidMount
+    useEffect(() => {
+        callback();
+    }, []);
+};
+
+function useDidUpdate(callback, dependencies) {
+    // Replaces componentDidMount
+    useEffect(() => {
+        callback();
+    }, [dependencies]);
+};
 
 function usePrevious(value) {
     const ref = useRef();

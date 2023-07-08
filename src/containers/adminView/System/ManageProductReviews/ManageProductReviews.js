@@ -7,7 +7,7 @@ import LoadingOverlay from 'react-loading-overlay'
 import ProductReviewDetailModal from "./ProductReviewDetailModal";
 
 function ManageProductReviews(props) {
-    const { allProductArr, allReviewsArr } = props
+    const { allProductArr, allReviewsArr, isFetchingData } = props
     const productArrClone = [...allProductArr]
     const [listProduct, setListProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -26,10 +26,16 @@ function ManageProductReviews(props) {
     })
     const [rowsPerPage, setRowsPerPage] = useState([]);
 
-    useEffect(async () => {
-        await props.fetchAllProduct();
-
+    useEffect(() => {
+        const fetchData = async () => {
+            await props.fetchAllProduct();
+        }
+        fetchData();
     }, [])
+
+    useEffect(() => {
+        setIsLoading(isFetchingData)
+    }, [isFetchingData])
 
 
     const onChangePage = useCallback((data) => {
@@ -53,7 +59,7 @@ function ManageProductReviews(props) {
     }
 
     const handleCloseReviewDetail = () => {
-        // setSelectedProduct({})
+        setSelectedProduct({})
         setIsOpenedReviewDetailModal(false)
 
     }
