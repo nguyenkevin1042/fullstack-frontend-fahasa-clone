@@ -334,7 +334,7 @@ class ProductDetail extends Component {
             loadSignInForm, loadSignUpForm, isLoading } = this.state
         let { product } = this.props
         let imageBase64 = '';
-        if (product.image) {
+        if (product && product.image) {
             imageBase64 = new Buffer(product.image, 'base64').toString('binary');
         }
 
@@ -385,7 +385,10 @@ class ProductDetail extends Component {
 
                                 <div className='review col-xl-12'>
                                     <p className='stars-icon-product-item'>
-                                        <ProductRatingComponent productId={product.id} />
+                                        {product && product.id &&
+                                            <ProductRatingComponent productId={product.id} />
+                                        }
+
                                     </p>
                                 </div>
                                 {/*<div className='flash-sale col-xl-12'>Flash Sale</div> */}
@@ -443,8 +446,11 @@ class ProductDetail extends Component {
                     descriptionData={descriptionData}
                     productType={productType} />
 
-                <ProductReviewComponent productId={product.id} />
 
+                {/* <ProductReviewComponent productId={product.id} /> */}
+                {product && product.id &&
+                    <ProductRatingComponent productId={product.id} />
+                }
                 <PolicyComponent />
                 <SignUpNewletter />
                 <Footer />
