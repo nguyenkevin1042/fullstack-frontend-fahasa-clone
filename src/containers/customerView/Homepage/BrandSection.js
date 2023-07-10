@@ -58,7 +58,7 @@ class BrandSection extends Component {
 
                     <Slider {...settings} >
                         <img src={cambridgeLogo} alt={'cambridgeLogo'} className='brand-logo img-fluid' />
-                        <img src={cengageLogo} alt={'cengageLogo'} c lassName='brand-logo img-fluid' />
+                        <img src={cengageLogo} alt={'cengageLogo'} className='brand-logo img-fluid' />
                         <img src={harperCollinsLogo} alt={'harperCollinsLogo'} className='brand-logo img-fluid' />
                         <img src={hachetteLogo} alt={'hachetteLogo'} className='brand-logo img-fluid' />
                         <img src={mcGrawHillLogo} alt={'mcGrawHillLogo'} className='brand-logo img-fluid' />

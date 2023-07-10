@@ -6,6 +6,7 @@ import './DropdownMenu.scss';
 import { languages } from '../../../../utils'
 
 import * as actions from "../../../../store/actions";
+import LoadingOverlay from 'react-loading-overlay';
 
 class DropdownMenu extends Component {
     constructor(props) {
@@ -15,6 +16,8 @@ class DropdownMenu extends Component {
             selectedCategory: '',
             listSubCategory: [],
             selectedChildCategory: [],
+            isLoading: false,
+
         };
     }
 
@@ -42,8 +45,10 @@ class DropdownMenu extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.lang !== this.props.lang) {
-
+        if (prevProps.isFetchingData !== this.props.isFetchingData) {
+            this.setState({
+                isLoading: this.props.isFetchingData,
+            })
         }
 
         if (prevProps.allCodesArr !== this.props.allCodesArr ||
@@ -202,10 +207,14 @@ class DropdownMenu extends Component {
     }
 
     render() {
-        console.log(this.props.allSubCategoryArr)
+        let { isLoading } = this.state
         return (
-            // <div className='dropdown-menu-container d-none d-lg-block'
-            <div className='dropdown-menu-container d-none d-lg-block'>
+            // <LoadingOverlay
+            //     classNamePrefix='Fullscreen_'
+            //     active={isLoading}
+            //     spinner={true}
+            //     text='Please wait...'>
+            < div className='dropdown-menu-container d-none d-lg-block' >
                 <div className='row'>
                     <div className='left-menu col-md-3'>
                         <div className='left-menu-title'>
@@ -219,7 +228,9 @@ class DropdownMenu extends Component {
                         {this.renderSubCategoryList()}
                     </div>
                 </div>
-            </div>
+            </div >
+
+            // </LoadingOverlay>
         );
     }
 }
@@ -232,6 +243,8 @@ const mapStateToProps = state => {
         allSubCategoryArr: state.admin.allSubCategoryArr,
         allChildCategoryArr: state.admin.allChildCategoryArr,
         childCategory: state.admin.childCategory,
+        isFetchingData: state.admin.isFetchingData,
+
     };
 };
 
@@ -239,7 +252,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllCodesByType: (inputType) => dispatch(actions.fetchAllCodesByType(inputType)),
         fetchAllSubCategoryByCategory: (category) => dispatch(actions.fetchAllSubCategoryByCategory(category)),
-        fetchChildCategoryByKeyName: (keyName) => dispatch(actions.fetchChildCategoryByKeyName(keyName)),
+        // fetchChildCategoryByKeyName: (keyName) => dispatch(actions.fetchChildCategoryByKeyName(keyName)),
     };
 };
 

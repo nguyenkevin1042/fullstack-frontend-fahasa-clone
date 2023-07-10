@@ -30,21 +30,18 @@ const ProductReviewDetailModal = (props) => {
     //         await props.getReviewByProductId(productData.id)
     //         setReviewData(allReviewsArr)
     //         setReviewLength(allReviewsArr.length)
-
     //     }
     //     fetchData();
+    // }, [productData.id, allReviewsArr])
 
-    // }, [])
-
-    useEffect(() => {
+    useLayoutEffect(() => {
         const fetchData = async () => {
             await props.getReviewByProductId(productData.id)
             setReviewData(allReviewsArr)
             setReviewLength(allReviewsArr.length)
         }
         fetchData();
-    }, [productData, productId, allReviewsArr])
-
+    }, [productData, allReviewsArr])
 
 
 

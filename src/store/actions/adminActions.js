@@ -144,6 +144,8 @@ export const fetchAllCodesFail = () => ({
 export const fetchAllCodesByType = (inputType) => {
     return async (dispatch, getState) => {
         let res;
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+
         try {
             res = await getCodeByTypeAPI(inputType);
 
@@ -156,6 +158,8 @@ export const fetchAllCodesByType = (inputType) => {
             dispatch(fetchAllCodesByTypeFail());
             console.log("fetchAllCodesByType Error: ", error)
         }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+
     }
 }
 
@@ -318,6 +322,8 @@ export const fetchAllSubCategoryFail = () => ({
 export const fetchAllSubCategoryByCategory = (category) => {
     return async (dispatch, getState) => {
         let res;
+        dispatch({ type: actionTypes.FETCHING_DATA_FAIL });
+
         try {
             res = await getAllSubCategoryByCategoryAPI(category);
 
@@ -330,6 +336,8 @@ export const fetchAllSubCategoryByCategory = (category) => {
             dispatch(fetchAllSubCategoryByCategoryFail());
             console.log("fetchAllSubCategoryByCategory Error: ", error)
         }
+        dispatch({ type: actionTypes.FETCHING_DATA_SUCCESS });
+
     }
 }
 

@@ -52,14 +52,21 @@ function ManageProductReviews(props) {
 
     })
 
-    const handleOpenReviewDetail = (selectedProduct) => {
-        setSelectedProduct(selectedProduct)
-        setIsOpenedReviewDetailModal(true)
+    // const handleOpenReviewDetail = (selectedProduct) => {
+    //     console.log('selectedProduct: ', selectedProduct)
+    //     setSelectedProduct(selectedProduct)
+    //     setIsOpenedReviewDetailModal(true)
 
-    }
+    // }
+    const handleOpenReviewDetail = useCallback((selectedItem) => {
+        setSelectedProduct(selectedItem)
+        setIsOpenedReviewDetailModal(true)
+    }, [selectedProduct])
 
     const handleCloseReviewDetail = () => {
-        setSelectedProduct({})
+        // console.log('selectedProduct: ', selectedProduct)
+
+        // setSelectedProduct({})
         setIsOpenedReviewDetailModal(false)
 
     }

@@ -77,15 +77,15 @@ class Header extends Component {
             })
         }
 
-        if (prevProps.userInfo !== this.props.userInfo) {
-            if (this.props.userInfo) {
-                await this.props.getCartByUserId(this.props.userInfo.id)
-            } else {
-                this.setState({
-                    productInCartLength: ''
-                })
-            }
-        }
+        // if (prevProps.userInfo !== this.props.userInfo) {
+        //     if (this.props.userInfo) {
+        //         await this.props.getCartByUserId(this.props.userInfo.id)
+        //     } else {
+        //         this.setState({
+        //             productInCartLength: ''
+        //         })
+        //     }
+        // }
     }
 
     buildDataInputSelect = (inputData, type) => {
