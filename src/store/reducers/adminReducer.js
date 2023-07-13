@@ -74,12 +74,12 @@ const appReducer = (state = initialState, action) => {
             }
 
         case actionTypes.DELETE_CODE_SUCCESS:
-            state.errResponse = action.errResponse
+            state.actionResponse = action.errResponse
             return {
                 ...state,
             }
         case actionTypes.DELETE_CODE_FAIL:
-            state.errResponse = action.errResponse
+            state.actionResponse = action.errResponse
             return {
                 ...state,
             }
