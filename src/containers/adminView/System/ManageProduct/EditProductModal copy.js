@@ -11,11 +11,8 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { Modal } from 'reactstrap'
 import { CommonUtils, languages } from '../../../../utils'
 import * as actions from "../../../../store/actions";
+import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 import BookDescriptionComponent from './components/BookDescriptionComponent';
 import StationaryDescriptionComponent from './components/StationaryDescriptionComponent';
@@ -38,10 +35,8 @@ class EditProductModal extends Component {
             length: '',
             publishYear: '',
             categoryKeyName: '',
-            mainImage: '',
-            subImageList: [],
+            image: '',
             previewImgURL: '',
-            previewSubImgURL: [],
             contentMarkdown: '',
             contentHTML: '',
             bookDescriptionId: '',
@@ -320,7 +315,7 @@ class EditProductModal extends Component {
         })
     }
 
-    handleOnChangeMainImage = async (event) => {
+    handleOnChangeImage = async (event) => {
         let data = event.target.files;
 
         let file = data[0];
@@ -331,25 +326,9 @@ class EditProductModal extends Component {
             let base64 = await CommonUtils.getBase64(file);
             this.setState({
                 previewImgURL: objectURL,
-                mainImage: base64.result
+                image: base64.result
             })
         }
-    }
-
-    handleOnChangeSubImage = async (event) => {
-        let data = event.target.files;
-        let copyState = { ...this.state };
-
-        for (let index = 0; index < data.length; index++) {
-            const currentFile = data[index];
-
-            if (currentFile) {
-                let objectURL = URL.createObjectURL(currentFile);
-                copyState.previewSubImgURL.push(objectURL)
-            }
-        }
-
-        this.setState({ ...copyState });
     }
 
     handleOnChangeInputName = (event) => {
@@ -375,32 +354,32 @@ class EditProductModal extends Component {
     }
 
     handleUpdateProduct = async () => {
-        // await this.props.updateProduct({
-        //     id: this.state.id,
-        //     name: this.state.name,
-        //     keyName: this.state.keyName,
-        //     price: this.state.price,
-        //     discount: this.state.discount,
-        //     weight: this.state.weight,
-        //     height: this.state.height,
-        //     width: this.state.width,
-        //     length: this.state.length,
-        //     categoryKeyName: this.state.categoryKeyName,
-        //     formId: this.state.selectedForm ? this.state.selectedForm.keyMap : '',
-        //     publishYear: this.state.publishYear,
-        //     image: this.state.image,
-        //     productType: this.state.selectedProductType,
-        //     descriptionData: this.state.descriptionData,
-        //     bookDescriptionId: this.state.bookDescriptionId,
-        //     stationaryDescriptionId: this.state.stationaryDescriptionId,
-        //     toyDescriptionId: this.state.toyDescriptionId,
-        //     contentHTML: this.state.contentHTML,
-        //     contentMarkdown: this.state.contentMarkdown,
-        // })
+        await this.props.updateProduct({
+            id: this.state.id,
+            name: this.state.name,
+            keyName: this.state.keyName,
+            price: this.state.price,
+            discount: this.state.discount,
+            weight: this.state.weight,
+            height: this.state.height,
+            width: this.state.width,
+            length: this.state.length,
+            categoryKeyName: this.state.categoryKeyName,
+            formId: this.state.selectedForm ? this.state.selectedForm.keyMap : '',
+            publishYear: this.state.publishYear,
+            image: this.state.image,
+            productType: this.state.selectedProductType,
+            descriptionData: this.state.descriptionData,
+            bookDescriptionId: this.state.bookDescriptionId,
+            stationaryDescriptionId: this.state.stationaryDescriptionId,
+            toyDescriptionId: this.state.toyDescriptionId,
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
+        })
 
-        // if (this.props.actionResponse.errCode === 0) {
-        //     this.props.closeModal()
-        // }
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal()
+        }
     }
 
     eventhandler = (data) => {
@@ -439,39 +418,11 @@ class EditProductModal extends Component {
             listChildCategory, selectedChildCategory,
             listForm, selectedForm,
             isOpenedPreviewImage, selectedProductType, contentMarkdown,
-            contentHTML, previewSubImgURL } = this.state;
+            contentHTML, } = this.state;
         let { isOpenedEditModal, closeModal } = this.props
-        let settings = {
-            className: "sub-image-list",
-            dots: false,
-            infinite: false,
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            // responsive: [{
-            //     breakpoint: 768,
-            //     settings: {
-            //         slidesToShow: 3,
-            //         slidesToScroll: 2,
-            //     }
-            // }, {
-            //     breakpoint: 992,
-            //     settings: {
-            //         slidesToShow: 4,
-            //         slidesToScroll: 2,
-            //     }
-            // },
-            // {
-            //     breakpoint: 1200,
-            //     settings: {
-            //         slidesToShow: 5,
-            //         slidesToScroll: 2,
-            //     }
-            // }]
-        };
 
         return (
             <>
-
                 <Modal isOpen={isOpenedEditModal}
                     toggle={closeModal}
                     className={isOpenedPreviewImage == true ? 'hidden' : 'show'}
@@ -596,42 +547,23 @@ class EditProductModal extends Component {
                             </div>
 
                             <div className='row'>
-                                <div className='col-4 form-group'>
-                                    <label>Hình ảnh sản phẩm (ảnh chính)</label>
+                                <div className='col-6 form-group'>
+                                    <label>Hình ảnh sản phẩm</label>
                                     <input type='file' id='previewImg'
                                         className='form-control-file'
-                                        onChange={(event) => this.handleOnChangeMainImage(event)}
+                                        onChange={(event) => this.handleOnChangeImage(event)}
                                     />
+                                    {/* <label htmlFor='previewImg' className='label-upload'>Tải ảnh <i className='fas fa-upload'></i></label> */}
+                                </div>
+                                <div className='col-6 form-group'>
+
                                     <div className='preview-img'
                                         style={{
                                             backgroundImage: "url(" + previewImgURL + ")"
-                                        }}>
-                                    </div>
-                                </div>
-
-                                <div className='col-8 form-group'>
-                                    <label>Hình ảnh sản phẩm (ảnh phụ)</label>
-                                    <input type='file' id='previewSubImg'
-                                        multiple
-                                        className='form-control-file'
-                                        onChange={(event) => this.handleOnChangeSubImage(event)}
-                                    />
-                                    <Slider {...settings} >
-                                        {previewSubImgURL && previewSubImgURL.length > 0 &&
-                                            previewSubImgURL.map((item, index) => {
-                                                return (
-                                                    <img src={item}
-                                                        className='preview-sub-img' alt='images' />)
-                                            })}
-                                    </Slider >
-                                    {/* <div className='preview-img'
-                                        style={{
-                                            backgroundImage: "url(" + previewSubImgURL[0] + ")"
                                         }}
                                         onClick={() => this.handleOpenPreviewImage()}>
-                                    </div> */}
+                                    </div>
                                 </div>
-
                                 <div className='col-12 form-group'>
                                     <label>Mô tả sản phẩm</label>
                                     <MdEditor style={{
@@ -696,6 +628,7 @@ class EditProductModal extends Component {
                     </div>
 
                 </Modal >
+
 
             </>
         );

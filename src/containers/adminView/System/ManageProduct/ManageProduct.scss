@@ -1,0 +1,15 @@
+.sub-image-list{
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    // background: center center no-repeat;
+    // background-size: contain;
+    cursor: pointer;
+
+    img{
+        border: 1px solid red;
+        height: 200px;
+    }
+}
