@@ -375,32 +375,32 @@ class EditProductModal extends Component {
     }
 
     handleUpdateProduct = async () => {
-        // await this.props.updateProduct({
-        //     id: this.state.id,
-        //     name: this.state.name,
-        //     keyName: this.state.keyName,
-        //     price: this.state.price,
-        //     discount: this.state.discount,
-        //     weight: this.state.weight,
-        //     height: this.state.height,
-        //     width: this.state.width,
-        //     length: this.state.length,
-        //     categoryKeyName: this.state.categoryKeyName,
-        //     formId: this.state.selectedForm ? this.state.selectedForm.keyMap : '',
-        //     publishYear: this.state.publishYear,
-        //     image: this.state.image,
-        //     productType: this.state.selectedProductType,
-        //     descriptionData: this.state.descriptionData,
-        //     bookDescriptionId: this.state.bookDescriptionId,
-        //     stationaryDescriptionId: this.state.stationaryDescriptionId,
-        //     toyDescriptionId: this.state.toyDescriptionId,
-        //     contentHTML: this.state.contentHTML,
-        //     contentMarkdown: this.state.contentMarkdown,
-        // })
+        await this.props.updateProduct({
+            id: this.state.id,
+            name: this.state.name,
+            keyName: this.state.keyName,
+            price: this.state.price,
+            discount: this.state.discount,
+            weight: this.state.weight,
+            height: this.state.height,
+            width: this.state.width,
+            length: this.state.length,
+            categoryKeyName: this.state.categoryKeyName,
+            formId: this.state.selectedForm ? this.state.selectedForm.keyMap : '',
+            publishYear: this.state.publishYear,
+            image: this.state.mainImage,
+            productType: this.state.selectedProductType,
+            descriptionData: this.state.descriptionData,
+            bookDescriptionId: this.state.bookDescriptionId,
+            stationaryDescriptionId: this.state.stationaryDescriptionId,
+            toyDescriptionId: this.state.toyDescriptionId,
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
+        })
 
-        // if (this.props.actionResponse.errCode === 0) {
-        //     this.props.closeModal()
-        // }
+        if (this.props.actionResponse.errCode === 0) {
+            this.props.closeModal()
+        }
     }
 
     eventhandler = (data) => {
@@ -444,9 +444,8 @@ class EditProductModal extends Component {
         let settings = {
             className: "sub-image-list",
             dots: false,
-            infinite: false,
             slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToScroll: 1,
             // responsive: [{
             //     breakpoint: 768,
             //     settings: {
@@ -620,8 +619,11 @@ class EditProductModal extends Component {
                                         {previewSubImgURL && previewSubImgURL.length > 0 &&
                                             previewSubImgURL.map((item, index) => {
                                                 return (
-                                                    <img src={item}
-                                                        className='preview-sub-img' alt='images' />)
+                                                    <div className='preview-sub-img-item'>
+                                                        <img src={item}
+                                                            className='preview-sub-img img-fluid' alt='images' />
+                                                    </div>
+                                                )
                                             })}
                                     </Slider >
                                     {/* <div className='preview-img'
