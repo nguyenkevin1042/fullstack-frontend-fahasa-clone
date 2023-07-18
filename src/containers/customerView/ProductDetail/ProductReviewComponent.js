@@ -38,6 +38,8 @@ class ProductReviewComponent extends Component {
             isModalOpened: false,
             loadSignInForm: false,
             loadSignUpForm: false,
+
+            isLoading: false
         };
     }
 
@@ -52,10 +54,6 @@ class ProductReviewComponent extends Component {
 
         if (prevProps.productId !== this.props.productId) {
             await this.props.getReviewByProductId(this.props.productId)
-
-            this.setState({
-                listReviews: this.props.allReviewsArr,
-            })
         }
 
         if (prevProps.allReviewsArr !== this.props.allReviewsArr) {

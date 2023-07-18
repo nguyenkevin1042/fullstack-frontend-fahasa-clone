@@ -449,7 +449,7 @@ class ProductDetail extends Component {
 
                 {/* <ProductReviewComponent productId={product.id} /> */}
                 {product && product.id &&
-                    <ProductRatingComponent productId={product.id} />
+                    <ProductReviewComponent productId={product.id} />
                 }
                 <PolicyComponent />
                 <SignUpNewletter />

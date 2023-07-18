@@ -213,6 +213,7 @@ class ProductList extends Component {
             if (type === "category") {
                 inputData.map((item, index) => {
                     let obj = {};
+                    obj.id = item.id
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
@@ -224,6 +225,7 @@ class ProductList extends Component {
             if (type === "subCategory") {
                 inputData.map((item, index) => {
                     let obj = {};
+                    obj.id = item.id
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
@@ -235,6 +237,7 @@ class ProductList extends Component {
             if (type === "childCategory") {
                 inputData.map((item, index) => {
                     let obj = {};
+                    obj.id = item.id
                     let labelVI = item.valueVI;
                     let labelEN = item.valueEN;
 
@@ -377,13 +380,13 @@ class ProductList extends Component {
             <>
                 <ul className='list-category'>
                     {list && list.length > 0 &&
-                        list.map((item, index) => (
+                        list.map((item, index) =>
                             <li key={item.id}
                                 onClick={() => this.handleOnClickCategory(item)}
                                 className={item.keyName === keyName ? 'active' : 'hover'}>
                                 {item.label}
                             </li>
-                        ))
+                        )
                     }
                 </ul>
             </>
@@ -402,13 +405,13 @@ class ProductList extends Component {
                 </div>
                 <ul className='list-sub-category'>
                     {list && list.length > 0 &&
-                        list.map((item, index) => (
+                        list.map((item, index) =>
                             <li key={item.id}
                                 onClick={() => this.handleOnClickSubCategory(item)}
                                 className={item.keyName === keyName ? 'active' : 'hover'}>
                                 {item.label}
                             </li>
-                        ))
+                        )
                     }
                 </ul>
             </>
@@ -432,13 +435,13 @@ class ProductList extends Component {
                 </div >
                 <ul className='list-child-category'>
                     {list && list.length > 0 &&
-                        list.map((item, index) => (
+                        list.map((item, index) =>
                             <li key={item.id}
                                 onClick={() => this.handleOnClickChildCategory(item)}
                                 className={item.keyName === keyName ? 'active' : 'hover'}>
                                 {item.label}
                             </li>
-                        ))
+                        )
 
                     }
                 </ul>

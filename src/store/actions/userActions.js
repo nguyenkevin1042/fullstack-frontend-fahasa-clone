@@ -444,6 +444,7 @@ export const createNewReviewFail = (response) => ({
 export const getReviewByProductId = (inputProductId) => {
     return async (dispatch, getState) => {
         let res;
+
         try {
             res = await getReviewByProductIdAPI(inputProductId);
 

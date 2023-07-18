@@ -11,6 +11,7 @@ import starIconGray from '../../../../assets/images/ico_star_gray.svg'
 import starIconYellow from '../../../../assets/images/ico_star_yellow.svg'
 
 import * as actions from "../../../../store/actions";
+import LoadingOverlay from 'react-loading-overlay';
 
 class WritingReviewModal extends Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class WritingReviewModal extends Component {
             reviewText: '',
             isAnonymous: false,
             listRating: [],
-            selectedRating: ''
+            selectedRating: '',
+            isLoading: false
         };
     }
 
@@ -51,6 +53,13 @@ class WritingReviewModal extends Component {
                 selectedRating: dataSelect[0]
             })
         }
+
+        if (prevProps.actionResponse !== this.props.actionResponse) {
+            if (this.props.actionResponse.errCode === 0) {
+                this.handleSetInputDefault()
+                this.props.closeModal()
+            }
+        }
     }
 
     buildDataInputSelect = (inputData, type) => {
@@ -75,7 +84,7 @@ class WritingReviewModal extends Component {
 
     handSelectRating = (item) => {
         let tempList = this.state.listRating
-        let selectedList, nonSelectedList, resultList
+        let resultList
         let index = tempList.indexOf(item)
         resultList = CommonUtils.getRatingList(tempList, index)
 
@@ -115,7 +124,7 @@ class WritingReviewModal extends Component {
     handleSendReview = async () => {
         let { productId, userInfo } = this.props
         let userId = userInfo.id
-        let reviewedDate = Date.now();
+        let reviewedDate = Date.now()
 
         await this.props.createNewReview({
             productId: productId,
@@ -126,11 +135,6 @@ class WritingReviewModal extends Component {
             selectedRating: this.state.selectedRating,
             reviewedDate: reviewedDate
         })
-
-        if (this.props.actionResponse.errCode === 0) {
-            this.handleSetInputDefault()
-            this.props.closeModal()
-        }
     }
 
     renderRatingView = (listRating) => {
@@ -153,7 +157,7 @@ class WritingReviewModal extends Component {
         let { customerName, reviewText, listRating } = this.state
 
         return (
-            <React.Fragment>
+            <>
                 <Modal isOpen={isOpenedModal}
                     toggle={closeModal}
                     size='lg'
@@ -213,7 +217,7 @@ class WritingReviewModal extends Component {
                         </div>
                     </div>
                 </Modal>
-            </React.Fragment >
+            </>
         );
     }
 }
