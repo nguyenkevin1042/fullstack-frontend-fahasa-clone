@@ -26,9 +26,6 @@ class RecommendedProductItem extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.productId !== this.props.productId) {
-            this.setState({
-                productData: {}
-            })
             let id = this.props.productId;
             await this.props.fetchProductById(id);
             this.setState({

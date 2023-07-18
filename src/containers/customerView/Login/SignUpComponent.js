@@ -134,7 +134,7 @@ class SignUpComponent extends Component {
             <>
                 {isOpenSignUpForm === true &&
                     <form action='#'>
-                        <div className="col-12 form-group custom-input">
+                        {/* <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.email-phone" /></label>
                             <input className='form-control'
                                 value={email}
@@ -145,8 +145,8 @@ class SignUpComponent extends Component {
                                 onClick={() => this.handleGetValidationKey()}>
                                 <FormattedMessage id="customer.login.get-code" />
                             </span>
-                        </div>
-                        {/* <div className="col-12 form-group custom-input">
+                        </div> */}
+                        <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.email-phone" /></label>
                             <input className='form-control'
                                 value={email}
@@ -155,7 +155,7 @@ class SignUpComponent extends Component {
                             <span onClick={() => this.handleShowHidePassword()}>
 
                             </span>
-                        </div> */}
+                        </div>
                         <div className="col-12 form-group custom-input">
                             <label><FormattedMessage id="customer.login.password" /></label>
                             <input className='form-control'
@@ -168,7 +168,7 @@ class SignUpComponent extends Component {
                                 <i className={isShowed ? "far fa-eye show-hide-icon" : "far fa-eye-slash show-hide-icon"}></i>
                             </span>
                         </div>
-                        <div className="col-12 form-group">
+                        {/* <div className="col-12 form-group">
                             <label><FormattedMessage id="customer.login.validatiton-key" /></label>
                             <input className='form-control'
                                 type='number'
@@ -176,7 +176,7 @@ class SignUpComponent extends Component {
                                 required
                                 onChange={(event) => this.handleOnChangeInput(event, 'validationKey')}
                             />
-                        </div>
+                        </div> */}
                         <div className='col-12 error-message mt-4'>
                             {message}
                         </div>
