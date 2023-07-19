@@ -23,4 +23,4 @@ This project was based on an online bookstore Fahasa (fahasa.com)
 
 -The app will run in the development mode.  To view it in the browser, access these links
     - Customer:  [http://localhost:3000](http://localhost:3000) or  [http://localhost:3000/home](http://localhost:3000/home)
-    -  Admin:  [http://localhost:3000/login](http://localhost:3000/login) (username: admin@gmail.com - password: admin)
+    - Admin:  [http://localhost:3000/login](http://localhost:3000/login) (username: admin@gmail.com - password: admin)
